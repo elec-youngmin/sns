@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
-import Link from "next/Link";
+import Link from "next/link";
 
 import RevisePostForm from "../post/RevisePostForm";
 import CommentModal from "../comment/CommentModal";
