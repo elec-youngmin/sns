@@ -1,0 +1,68 @@
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import Loading from "../loading/Loading";
+
+import { UPDATE_POST_REQUEST } from "../../reducers/post";
+
+import { Modal, Button, Form } from "react-bootstrap";
+
+//props에 posts, postId 포함
+const RevisePostForm = (props) => {
+  const { postId, posts } = props;
+  const [post, setPost] = useState(posts);
+  const dispatch = useDispatch();
+  const { updateCommentLoading, updateCommentDone } = useSelector(
+    (state) => state.post
+  );
+
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+      backdrop="static"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          포스트 내용 수정
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group>
+            <Form.Control
+              as="textarea"
+              style={{ resize: "none" }}
+              rows={5}
+              multiple
+              onChange={(e) => {
+                setPost(e.target.value);
+              }}
+            >
+              {posts}
+            </Form.Control>
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>닫기</Button>
+        <Button
+          onClick={() => {
+            dispatch({
+              type: UPDATE_POST_REQUEST,
+              data: { post, postId },
+            });
+          }}
+        >
+          반영
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
+export default RevisePostForm;

@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
+
+.logo {
+  font-family: "Fredoka One", cursive;
+  color: blue;
+  font-size: 50px;
+  display: block;
+}
+
+.introOne {
+  font-family: "Nanum Gothic", sans-serif;
+  margin: 0px;
+}
+.introTwo {
+  font-family: "Nanum Gothic", sans-serif;
+}
