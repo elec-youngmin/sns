@@ -29,8 +29,8 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "*"],
-    credentials: true, //백엔드에서 브라우저에서 보내는 쿠키를 처리함
+    origin: ["http://localhost:3000", "http://13.125.208.231"],
+    credentials: true,
   })
 );
 app.use(express.json());
