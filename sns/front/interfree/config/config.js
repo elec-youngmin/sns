@@ -1,2 +1,2 @@
-exports.frontUrl = "http://localhost:3000";
+exports.frontUrl = "http://13.125.208.231";
 exports.backUrl = "http://13.125.139.144";
