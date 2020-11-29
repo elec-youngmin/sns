@@ -11,7 +11,7 @@ import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
-import PostBoardLoading from "../components/load/PostBoardLoading";
+import PostBoardLoading from "../components/loading/PostBoardLoading";
 
 const QnABoard = () => {
   return (
