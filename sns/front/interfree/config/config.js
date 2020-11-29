@@ -1,2 +1,2 @@
-exports.frontUrl = "http://13.125.208.231";
-exports.backUrl = "http://13.125.139.144";
+exports.frontUrl = "http://3.34.241.174";
+exports.backUrl = "http://3.35.142.52";
