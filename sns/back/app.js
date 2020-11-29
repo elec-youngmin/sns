@@ -29,7 +29,11 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://3.34.241.174"],
+    origin: [
+      "http://localhost:3000",
+      "http://3.34.241.174",
+      "http://interfree.co.kr",
+    ],
     credentials: true,
   })
 );
