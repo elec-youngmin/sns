@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
-import Link from "next/Link";
 
 import Menu from "../../components/firstSeePage/Menu";
 
