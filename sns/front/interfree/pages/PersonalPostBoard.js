@@ -13,9 +13,8 @@ import FollowPage from "../components/follow/FollowPage";
 import NonePostAlert from "../components/post/NonePostAlert";
 import PostBoardLoading from "../components/loading/PostBoardLoading";
 import PreviewProfileModal from "../components/post/PreviewProfileModal";
-import BookmarkMainpage from "../components/Bookmark/BookmarkMainpage";
+import BookmarkMainpage from "../components/bookmark/BookmarkMainpage";
 import OneuserChartPage from "../components/chart/OneuserChartPage";
-import DropdownPlus from "../components/footerDropdown/DropdownPlus";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -322,7 +321,6 @@ const PersonalPostBoard = () => {
           </TabContainer>
         </Tabs>
         <PostBoardLoading />
-        <DropdownPlus />
       </div>
     </div>
   );
