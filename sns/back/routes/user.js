@@ -16,7 +16,6 @@ const {
 } = require("../models");
 
 const router = express.Router();
-const app = express();
 
 router.post("/signUp", async (req, res, next) => {
   const { email, password, nickname } = req.body;
@@ -104,7 +103,7 @@ router.get(
 router.post("/loadUserInfomation", async (req, res, next) => {
   try {
     // console.log(req.user.dataValues.id);
-    console.log(req);
+    console.log(res);
     const userInfomation = await User.findOne({
       where: { id: req.user.dataValues.id },
       attributes: {

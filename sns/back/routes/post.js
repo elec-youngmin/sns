@@ -138,7 +138,7 @@ router.post(
 
 router.post("/load", async (req, res, next) => {
   try {
-    console.log(req);
+    console.log("콘솔로 찍ㅇㅇ", req.body);
     let where;
 
     if (Object.keys(req.body).length === 0)
@@ -1076,8 +1076,6 @@ router.use(function (err, req, res, next) {
   res.status(500).send(err);
 });
 
-module.exports = router;
-
 router.get("/loadChartdata", async (req, res, next) => {
   try {
     let chartData = {
@@ -1186,3 +1184,5 @@ router.get("/loadPostPage/:postId", async (req, res, next) => {
     next(err);
   }
 });
+
+module.exports = router;
