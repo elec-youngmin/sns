@@ -18,45 +18,6 @@ const {
 const router = express.Router();
 const app = express();
 
-router.post("/loadUserInfomation", async (req, res, next) => {
-  try {
-    // console.log(req.user.dataValues.id);
-    const userInfomation = await User.findOne({
-      where: { id: req.user.dataValues.id },
-      attributes: {
-        exclude: ["password", "createdAt", "updatedAt"],
-      },
-      include: [
-        {
-          model: ProfileImgSrc,
-          attributes: ["src"],
-        },
-      ],
-    });
-
-    const [postsCount, metadata] = await sequelize.query(
-      `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
-    );
-
-    const [followCount, metadata1] = await sequelize.query(
-      `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
-    );
-
-    const [followingCount, metadata2] = await sequelize.query(
-      `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
-    );
-
-    userInfomation.dataValues.postsCount = postsCount[0].postsCount;
-    userInfomation.dataValues.followCount = followCount[0].followCount;
-    userInfomation.dataValues.followingCount = followingCount[0].followingCount;
-
-    return res.json(userInfomation);
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
-
 router.post("/signUp", async (req, res, next) => {
   const { email, password, nickname } = req.body;
   try {
@@ -139,6 +100,46 @@ router.get(
     res.redirect("/");
   }
 );
+
+router.post("/loadUserInfomation", async (req, res, next) => {
+  try {
+    // console.log(req.user.dataValues.id);
+    console.log(req);
+    const userInfomation = await User.findOne({
+      where: { id: req.user.dataValues.id },
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+      },
+      include: [
+        {
+          model: ProfileImgSrc,
+          attributes: ["src"],
+        },
+      ],
+    });
+
+    const [postsCount, metadata] = await sequelize.query(
+      `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
+    );
+
+    const [followCount, metadata1] = await sequelize.query(
+      `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
+    );
+
+    const [followingCount, metadata2] = await sequelize.query(
+      `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
+    );
+
+    userInfomation.dataValues.postsCount = postsCount[0].postsCount;
+    userInfomation.dataValues.followCount = followCount[0].followCount;
+    userInfomation.dataValues.followingCount = followingCount[0].followingCount;
+
+    return res.json(userInfomation);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
 
 router.post("/destroyUser", async (req, res, next) => {
   try {
