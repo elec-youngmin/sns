@@ -12,20 +12,19 @@ const passportConfig = require("./passport");
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post");
 
+dotenv.config();
+const app = express();
 db.sequelize
   .sync({ alter: false }) //테이블을 수정하고 싶으면 true로 변경
   .then(() => {
     console.log("데이터베이스 연결 성공!");
   })
   .catch(console.error);
-
-dotenv.config();
-const app = express();
 passportConfig();
 
-app.use(morgan("dev"));
-
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use(morgan("combined"));
+app.use(hpp());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(
   cors({
@@ -37,6 +36,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.use("/", express.static(path.join(__dirname, "public")));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser("secret"));
@@ -45,6 +47,10 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: process.env.SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
   })
 );
 
