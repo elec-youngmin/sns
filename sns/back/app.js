@@ -52,6 +52,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false,
+      domain: ".interfree.co.kr",
     },
   })
 );
