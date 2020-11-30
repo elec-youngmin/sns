@@ -138,7 +138,7 @@ router.post(
 
 router.post("/load", async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log(req);
     let where;
 
     if (Object.keys(req.body).length === 0)
