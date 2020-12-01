@@ -1,5 +1,7 @@
 const express = require("express");
 const multer = require("multer");
+const passport = require("passport");
+
 const path = require("path");
 const {
   Post,
@@ -136,9 +138,9 @@ router.post(
   }
 );
 
-router.post("/load", async (req, res, next) => {
+router.post("/load", passport.session(), async (req, res, next) => {
   try {
-    console.log("콘솔로 찍ㅇㅇ", req.body);
+    console.log("콘솔로 찍ㅇㅇ", req.user, req.session);
     let where;
 
     if (Object.keys(req.body).length === 0)
