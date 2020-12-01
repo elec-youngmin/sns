@@ -12,7 +12,6 @@ const hpp = require("hpp");
 const helmet = require("helmet");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
-const RedisStore = connectRedis(session);
 const FileStore = require("session-file-store")(session);
 
 const userRouter = require("./routes/user");
