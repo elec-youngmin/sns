@@ -10,6 +10,10 @@ const db = require("./models");
 const passportConfig = require("./passport");
 const hpp = require("hpp");
 const helmet = require("helmet");
+const redis = require("redis");
+const connectRedis = require("connect-redis");
+const RedisStore = connectRedis(session);
+const FileStore = require("session-file-store")(session);
 
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post");
@@ -49,11 +53,12 @@ app.use(
     saveUninitialized: false,
     resave: false,
     secret: "secret",
+    store: new FileStore(),
     cookie: {
       httpOnly: true,
       secure: false,
-      domain: ".interfree.co.kr",
     },
+    // store: new RedisStore({ url: "http://3.35.142.52", logErrors: true }),
   })
 );
 
