@@ -1,5 +1,4 @@
 import React from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 import PostBoard from "../post/PostBoard";
 

@@ -9,8 +9,8 @@ import SignUp from "../signUp/SignUp";
 
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGIN_REQUEST } from "../../reducers/user";
-
-import { Form, Button, OverlayTrigger, Tooltip, Nav } from "react-bootstrap";
+import Loading from "../loading/Loading";
+import { OverlayTrigger, Tooltip, Nav } from "react-bootstrap";
 import { BsQuestion } from "react-icons/bs";
 
 import { frontUrl } from "../../config/config";
@@ -132,13 +132,7 @@ const Login = () => {
             style={{ width: "100%", marginBottom: "10px" }}
           >
             로그인
-            {logInLoading && (
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            )}
+            {logInLoading && <Loading />}
           </button>
           <button
             className="btn btn-warning btn-block"
@@ -146,13 +140,7 @@ const Login = () => {
             style={{ width: "100%", marginBottom: "10px" }}
           >
             카카오 로그인
-            {logInLoading && (
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            )}
+            {logInLoading && <Loading />}
           </button>
           {/* <NotReviseAlert /> */}
           {/* 모바일에서 디자인적인 문제발생으로 주석처리 */}

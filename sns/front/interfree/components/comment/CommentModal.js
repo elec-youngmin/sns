@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-import CommentForm from "./CommentForm";
 import CommentBoard from "./CommentBoard";
 import Loading from "../loading/Loading";
 
@@ -12,9 +11,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 //props.postId,props.onHide
 const CommentModal = (props) => {
-  const { comments, loadCommentLoading, loadCommentDone } = useSelector(
-    (state) => state.post
-  );
+  const { comments, loadCommentLoading } = useSelector((state) => state.post);
   const postOneId = props.postId;
   const { id } = useSelector((state) => state.user.user);
   const [comment, SetComment] = useState();

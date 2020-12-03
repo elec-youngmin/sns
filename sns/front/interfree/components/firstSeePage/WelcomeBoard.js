@@ -3,17 +3,8 @@ import PropTypes from "prop-types";
 
 import Login from "./Login";
 
-import { useSelector } from "react-redux";
-
 import styled from "styled-components";
-import {
-  OverlayTrigger,
-  Tooltip,
-  Button,
-  Jumbotron,
-  Col,
-  Row,
-} from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Jumbotron, Col, Row } from "react-bootstrap";
 import { BsQuestion } from "react-icons/bs";
 
 // import { Styledh1, Styledh4, Styleddiv } from "./style/welcomeBoardStyle";

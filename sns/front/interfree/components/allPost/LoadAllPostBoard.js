@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import FollowPostBoard from "../follow/FollowPostBoard";
 import PostBoard from "../post/PostBoard";
 import { useDispatch, useSelector } from "react-redux";
 

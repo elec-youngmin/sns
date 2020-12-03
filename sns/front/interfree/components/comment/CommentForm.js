@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { ADD_COMMENT_REQUEST } from "../../reducers/post";
-import { useDispatch, useSelector } from "react-redux";
 
 import { Form, Button } from "react-bootstrap";
 

@@ -37,7 +37,7 @@ import {
   BsFillBookmarksFill,
 } from "react-icons/bs";
 
-import { Card, Dropdown, DropdownButton, Spinner } from "react-bootstrap";
+import { Card, Dropdown, DropdownButton } from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";

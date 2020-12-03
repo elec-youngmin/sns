@@ -14,23 +14,19 @@ import {
   AiFillBackward,
 } from "react-icons/ai";
 
-import { Card, Dropdown, DropdownButton, Spinner } from "react-bootstrap";
+import { Card, Dropdown, DropdownButton } from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 
 const TrashPostForm = ({
   postContents,
   postId,
-  onlyReadMy,
   PostImgSrcs,
   PostVideoSrcs,
   date,
 }) => {
   const dispatch = useDispatch();
-  const { id, nickname } = useSelector((state) => state.user.user);
-  const { deletePostLoading, loadTrashDone } = useSelector(
-    (state) => state.post
-  );
+  const { nickname } = useSelector((state) => state.user.user);
 
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
 
