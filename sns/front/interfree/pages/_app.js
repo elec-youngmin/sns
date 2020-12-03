@@ -5,8 +5,6 @@ import wrapper from "../store/configureStore";
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import Menu from "../components/firstSeePage/Menu";
-
 function MyApp({ Component, pageProps }) {
   return (
     <>

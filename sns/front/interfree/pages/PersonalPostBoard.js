@@ -56,7 +56,6 @@ const PersonalPostBoard = () => {
   const {
     posts,
     followPosts,
-    bookmarkPosts,
     trashPosts,
     loadOneuserChartdataDone,
   } = useSelector((state) => state.post);
@@ -177,6 +176,7 @@ const PersonalPostBoard = () => {
                 id="file-input"
                 type="file"
                 name="image"
+                accept="image/jpg,impge/png,image/jpeg,image/gif"
                 multiple
                 style={{ display: "none" }}
                 onChange={onhandleChange}

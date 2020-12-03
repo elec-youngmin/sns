@@ -33,7 +33,18 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <meta
+            name="keyword"
+            content="sns,
+portfolio"
+          />
+          <meta name="name" content="interfree" />
+          <meta name="Description" content="interfree is sns" />
+          <meta name="author" content="mintZeroCode" />
+          <meta charset="UTF-8" />
+          <title>interfree</title>
+        </Head>
         <body>
           <Main />
           <NextScript />
