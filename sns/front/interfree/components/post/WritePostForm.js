@@ -13,7 +13,6 @@ import {
   IMAGE_SAVE_REQUEST,
   UPLOAD_VIDEO_REQUEST,
   SAVE_POST_REQUEST,
-  POST_AUTOSAVE_REQUEST,
 } from "../../reducers/post";
 
 import {
@@ -57,7 +56,7 @@ const MultiPostAlert = () => {
       <OverlayTrigger
         overlay={
           <Tooltip id="tooltip-disabled">
-            멀티미디어는 500MB까지 올리실 수 있어요. <br />
+            멀티미디어는 200MB까지 올리실 수 있어요. <br />
           </Tooltip>
         }
       >
@@ -78,15 +77,7 @@ const WriteForm = () => {
   const [onlyReadMy, setOnlyReadMy] = useState(false);
   const [onlyReadMyIcon, setOnlyReadMyIcon] = useState(<BsPeople />);
 
-  const { postSaveLoading, imageSavedone, imageSaveError } = useSelector(
-    (state) => state.post
-  );
-
-  const inputFocus = useRef(null);
-
-  useEffect(() => {
-    inputFocus.current.focus();
-  }, []);
+  const { imageSaveError } = useSelector((state) => state.post);
 
   useMemo(() => {
     if (imageSaveError) {
@@ -104,7 +95,6 @@ const WriteForm = () => {
   let vFormData = new FormData(); //동영상
 
   const onChangeImages = useCallback((e) => {
-    // console.log("images", e.target.files);
     iFormData.append("image", e.target.files[0]);
     SetImg(e.target.files[0]);
     e.preventDefault();
@@ -124,7 +114,6 @@ const WriteForm = () => {
   });
 
   const onChangeVideo = useCallback((e) => {
-    // console.log("images", e.target.files);
     vFormData.append("video", e.target.files[0]);
     SetVideo(e.target.files[0]);
     e.preventDefault();
@@ -156,7 +145,6 @@ const WriteForm = () => {
         <Form.Group>
           <Form.Control
             as="textarea"
-            ref={inputFocus}
             style={{ resize: "none" }}
             rows={5}
             multiple
@@ -184,11 +172,11 @@ const WriteForm = () => {
           ></video>
         )}
 
-        {isPostEmpty && !image && !vid && (
+        {isPostEmpty && (
           <>
             <div class="alert alert-primary" role="alert">
-              멑티미디어 및 글이 작성되지 않아서 저장을 할 수 없었어요. 포스트가
-              작성되었는지 확인해주세요.
+              글이 작성되지 않아서 저장을 할 수 없었어요. 글이 작성되었는지
+              확인해주세요.
             </div>
           </>
         )}
@@ -207,7 +195,6 @@ const WriteForm = () => {
             accept="image/jpg,impge/png,image/jpeg,image/gif"
             style={{ display: "none", marginRignt: "20px" }}
           ></input>
-
           {/* 비디오 아이콘 */}
 
           <label for="videoUpload">
@@ -219,7 +206,7 @@ const WriteForm = () => {
             role="button"
             onChange={onChangeVideo}
             accept="video/*"
-            style={{ display: "none", marginRignt: "20px" }}
+            style={{ display: "none", margin: "20px" }}
           ></input>
           <MultiPostAlert />
           {/* 여기부터 저장버튼과 드롭다운 버튼 */}
@@ -249,17 +236,11 @@ const WriteForm = () => {
                   // { post, id, onlyReadMy },
                 });
                 e.preventDefault();
+                SetIsPostEmpty(false);
               }
             }}
           >
             저장
-            {postSaveLoading && (
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            )}
           </Button>
           <DropdownButton
             variant="light"

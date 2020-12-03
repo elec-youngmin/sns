@@ -5,6 +5,8 @@ import Router from "next/router";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
+import SignUp from "../signUp/SignUp";
+
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGIN_REQUEST } from "../../reducers/user";
 
@@ -32,12 +34,14 @@ const NotReviseAlert = () => {
   );
 };
 
-const Login = ({ props }) => {
+const Login = () => {
   const { register, errors, handleSubmit } = useForm();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [modalShow, setModalShow] = useState(false);
+
   const [show, setShow] = useState(true);
-  const { logInDone, logInLoading, logInError } = useSelector(
+  const { logInDone, logInLoading, logInError, signUpDone } = useSelector(
     (state) => state.user
   );
 
@@ -61,9 +65,17 @@ const Login = ({ props }) => {
     }
   }, [logInError]);
 
+  useMemo(() => {
+    if (signUpDone) {
+      setModalShow(false);
+    }
+  }, [signUpDone]);
+
   return (
     <div>
       <div className="container">
+        <SignUp show={modalShow} onHide={() => setModalShow(false)} />
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -89,7 +101,6 @@ const Login = ({ props }) => {
               errors={errors}
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -111,11 +122,10 @@ const Login = ({ props }) => {
               as="div"
               errors={errors}
             />
-            <Nav.Item>
+            <Nav.Item style={{ marginTop: "15px" }}>
               <Link href="/FindPassword">패스워드를 잊으셨나요?</Link>
             </Nav.Item>
           </div>
-
           <button
             className="btn btn-primary btn-block"
             type="submit"
@@ -130,24 +140,36 @@ const Login = ({ props }) => {
               ></span>
             )}
           </button>
+          <button
+            className="btn btn-warning btn-block"
+            type="submit"
+            style={{ width: "100%", marginBottom: "10px" }}
+          >
+            카카오 로그인
+            {logInLoading && (
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            )}
+          </button>
+          {/* <NotReviseAlert /> */}
+          {/* 모바일에서 디자인적인 문제발생으로 주석처리 */}
+          <button
+            className="btn btn-primary btn-block"
+            type="submit"
+            style={{ width: "100%", marginBottom: "10px" }}
+            onClick={() => {
+              setModalShow(true);
+            }}
+          >
+            회원가입
+          </button>
+          {/* <NotReviseAlert /> */}
+          {/* 모바일에서 디자인적인 문제발생으로 주석처리 */}
         </form>
       </div>
-
-      <button
-        className="btn btn-warning btn-block"
-        type="submit"
-        style={{ width: "100%", marginBottom: "10px" }}
-      >
-        <NotReviseAlert />
-        카카오 로그인
-        {logInLoading && (
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-        )}
-      </button>
     </div>
   );
 };

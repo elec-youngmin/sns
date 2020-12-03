@@ -29,16 +29,7 @@ import {
   LOAD_ONEUSER_CHARTDATA_REQUEST,
 } from "../reducers/post";
 
-import {
-  Row,
-  Col,
-  Table,
-  Tabs,
-  TabContainer,
-  Button,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { Row, Col, Table, Tabs, TabContainer, Button } from "react-bootstrap";
 import { AiFillSetting, AiFillEdit } from "react-icons/ai";
 
 import {
@@ -126,15 +117,6 @@ const PersonalPostBoard = () => {
     });
   };
 
-  const LoadNextbookmarkPosts = () => {
-    const lastId = bookmarkPosts[bookmarkPosts.length - 1]?.id;
-    dispatch({
-      type: LOAD_BOOKMARK_REQUEST,
-      data: { lastId, userId: user.id },
-    });
-  };
-  //10개씩 포스트로드, 스크롤이 브라우저 하단까지 되면 다시 데이터를 로드함.
-
   return (
     <div>
       <Menu />
@@ -165,9 +147,8 @@ const PersonalPostBoard = () => {
                 {profileImg ? (
                   <img
                     class="rounded-circle w-50 p-3 mx-auto d-block"
-                    alt="profile_image1"
+                    alt={`${profileImg}`}
                     role="button"
-                    // src={img.previewURL}
                     src={`${backUrl}/${profileImg}`}
                     style={{
                       minWidth: "180px",
@@ -180,7 +161,7 @@ const PersonalPostBoard = () => {
                   <img
                     class="rounded-circle w-50 p-3 mx-auto d-block"
                     src={`${backUrl}/userImage.jpg`}
-                    alt="profile_image"
+                    alt="userImage.jpg"
                     role="button"
                     style={{
                       minWidth: "180px",

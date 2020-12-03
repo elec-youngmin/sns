@@ -74,6 +74,7 @@ const SignUp = (props) => {
                   <label htmlFor="password">Password</label>
                   <input
                     name="password"
+                    type="password"
                     placeholder="패스워드 입력"
                     className={`form-control ${
                       errors.password ? "is-invalid" : ""
@@ -99,6 +100,7 @@ const SignUp = (props) => {
                 <div className="form-group">
                   <input
                     name="rePassword"
+                    type="password"
                     placeholder="패스워드 확인"
                     className={`form-control ${
                       errors.rePassword ? "is-invalid" : ""

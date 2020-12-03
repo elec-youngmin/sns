@@ -56,16 +56,18 @@ const PostPage = () => {
           nickname={postPage?.User.nickname}
           like={postPage?.like} //포스트 좋아요 수
           Likes={
-            postPage?.Likes.length > 0 ? postPage?.Likes.LikeUserId : false
+            postPage?.Likes.length > 0 ? postPage?.Likes[0].LikeUserId : false
           } //포스트 좋아요 했는지 확인
           reportCount={postPage?.Reports}
           PostImgSrcs={postPage?.PostImgSrcs}
           PostVideoSrcs={postPage?.PostVideoSrcs}
           bookmarkId={
-            postPage?.Bookmarks.length > 0 ? postPage?.Bookmarks.UserId : false
+            postPage?.Bookmarks.length > 0
+              ? postPage?.Bookmarks[0].UserId
+              : false
           }
           date={postPage?.updatedAt}
-          dataType={postPage}
+          dataType={"postPage"}
         />
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>

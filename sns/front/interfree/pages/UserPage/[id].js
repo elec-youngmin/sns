@@ -48,23 +48,24 @@ const UserPage = () => {
         }}
       >
         <Container>
-          <Col lg={4} md={5} sm={12}>
-            <UserProfileCard
-              profileImg={
-                posts[0]?.User.ProfileImgSrcs.length === 0
-                  ? "userImage.jpg"
-                  : posts[0]?.User.ProfileImgSrcs[0].src
-              }
-              nickname={posts[0]?.User.nickname}
-              introduce={posts[0]?.User.introduce}
-              postsCount={posts[0]?.User.postsCount}
-              followCount={posts[0]?.User.followCount}
-              followingCount={posts[0]?.User.followingCount}
-              shareLink={posts[0]?.User.ShareLink}
-              where={posts[0]?.User.where}
-            />
-          </Col>
           <Row>
+            <Col lg={4} md={5} sm={12}>
+              <UserProfileCard
+                profileImg={
+                  posts[0]?.User.ProfileImgSrcs.length === 0
+                    ? "userImage.jpg"
+                    : posts[0]?.User.ProfileImgSrcs[0].src
+                }
+                nickname={posts[0]?.User.nickname}
+                introduce={posts[0]?.User.introduce}
+                postsCount={posts[0]?.User.postsCount}
+                followCount={posts[0]?.User.followCount}
+                followingCount={posts[0]?.User.followingCount}
+                shareLink={posts[0]?.User.ShareLink}
+                where={posts[0]?.User.where}
+              />
+            </Col>
+
             <Col lg={8} md={7} sm={12}>
               <InfiniteScroll
                 dataLength={posts.length}

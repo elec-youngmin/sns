@@ -76,7 +76,7 @@ function loginAPI(data) {
 function* login(action) {
   try {
     const result = yield call(loginAPI, action.data);
-    console.log(result);
+    // console.log(result);
     yield put({
       type: USER_LOGIN_SUCCESS,
       data: result.data,

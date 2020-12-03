@@ -319,7 +319,9 @@ const reducer = (state = initialState, action) =>
       case DELETE_TRASHPOST_SUCCESS:
         draft.deleteTrashPostLoading = false;
         draft.deleteTrashPostDone = true;
-        draft.trashPosts = [];
+        draft.trashPosts = draft.trashPosts.filter(
+          (i) => i.postId != action.data
+        );
         break;
       case DELETE_TRASHPOST_REQUEST:
         draft.deleteTrashPostLoading = true;
@@ -346,7 +348,9 @@ const reducer = (state = initialState, action) =>
       case RESTORE_TRASHPOST_SUCCESS:
         draft.restoreTrashPostDone = true;
         draft.restoreTrashPostLoading = false;
-        draft.trashPosts = [];
+        draft.trashPosts = draft.trashPosts.filter(
+          (i) => i.postId != action.data
+        );
         break;
       case RESTORE_TRASHPOST_REQUEST:
         draft.restoreTrashPostDone = false;
@@ -400,6 +404,9 @@ const reducer = (state = initialState, action) =>
             return p;
           });
         }
+        if (action.data[0].dataType === "postPage") {
+          draft.postPage = action.data[0];
+        }
         break;
       case ADD_BOOKMARK_REQUEST:
         draft.addBookmarkDone = false;
@@ -452,6 +459,10 @@ const reducer = (state = initialState, action) =>
             }
             return p;
           });
+        }
+
+        if (action.data[0].dataType === "postPage") {
+          draft.postPage = action.data[0];
         }
         break;
       case CANCEL_BOOKMARK_REQUEST:
@@ -607,7 +618,9 @@ const reducer = (state = initialState, action) =>
             return p;
           });
         }
-
+        if (action.data.dataType === "postPage") {
+          draft.postPage = action.data;
+        }
         break;
       case LIKE_POST_REQUEST:
         draft.likePostLoading = true;
@@ -654,13 +667,15 @@ const reducer = (state = initialState, action) =>
           });
         }
         if (action.data.dataType === "hashtagPosts") {
-          draft.hashtagPosts = actin.data;
-          // draft.hashtagPosts = draft.hashtagPosts.map((p) => {
-          //   if (p.id == action.data.id) {
-          //     return action.data;
-          //   }
-          //   return p;
-          // });
+          draft.hashtagPosts = draft.hashtagPosts.map((p) => {
+            if (p.id == action.data.id) {
+              return action.data;
+            }
+            return p;
+          });
+        }
+        if (action.data.dataType === "postPage") {
+          draft.postPage = action.data;
         }
         break;
       case CANCEL_LIKE_POST_REQUEST:

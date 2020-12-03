@@ -27,6 +27,7 @@ const Styledh1 = styled.h1`
   color: blue;
   font-size: 40px;
   text-align: center;
+  cursor: "pointer";
   @media (max-width: 768px) {
     font-size: 35px;
   }
@@ -87,13 +88,17 @@ const Menu = () => {
         }}
       >
         <Navbar.Brand>
-          <Styledh1
-            onClick={() => {
-              Router.push(`${frontUrl}/PersonalPostBoard`);
-            }}
-          >
-            interfree
-          </Styledh1>
+          <Nav>
+            <Nav.Link>
+              <Styledh1
+                onClick={() => {
+                  Router.push(`${frontUrl}/PersonalPostBoard`);
+                }}
+              >
+                interfree
+              </Styledh1>
+            </Nav.Link>
+          </Nav>
         </Navbar.Brand>
         {logInDone ||
           (loadUserInfomationDone && !logOutDone && (

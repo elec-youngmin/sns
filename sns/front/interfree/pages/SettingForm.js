@@ -16,14 +16,26 @@ const SettingForm = () => {
     <div>
       <Tab.Container defaultActiveKey="first">
         <Row>
-          <Col lg={3}>
+          <Col lg={3} style={{ textAlign: "center" }}>
             <Nav
+              className="container justify-content-center"
               style={{
                 textAlign: "center",
               }}
             >
-              <Nav.Item>
-                <Nav.Link eventKey="first">프로필 및 편집</Nav.Link>
+              <Nav.Item
+                tyle={{
+                  textAlign: "center",
+                }}
+              >
+                <Nav.Link
+                  eventKey="first"
+                  tyle={{
+                    textAlign: "center",
+                  }}
+                >
+                  프로필 및 편집
+                </Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="second">비밀번호 변경</Nav.Link>

@@ -29,14 +29,17 @@ const FindPassword = () => {
 
   return (
     <div>
-      <Container>
+      <div
+        className="col-md-8 container justify-content-center"
+        style={{ paddingTop: "75px" }}
+      >
         <Row>
           <Col md={10}>
             {/* <Menu /> */}
             <Form>
               <Form.Group>
                 <Form.Label className="text-center" style={{ width: "100%" }}>
-                  이메일 주소
+                  이메일 주소를 입력하세요.
                 </Form.Label>
                 <Form.Control
                   type="email"
@@ -53,6 +56,7 @@ const FindPassword = () => {
               <Button
                 variant="primary"
                 type="submit"
+                className="btn float-right"
                 onClick={(e) => {
                   if (!email) {
                     alert("이메일주소를 입력하세요.");
@@ -80,7 +84,7 @@ const FindPassword = () => {
             </Form>
           </Col>
         </Row>
-      </Container>
+      </div>
     </div>
   );
 };

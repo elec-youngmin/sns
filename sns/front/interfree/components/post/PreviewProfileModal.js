@@ -40,7 +40,7 @@ const PreviewProfileModal = (props) => {
         </Modal.Body>
         <Modal.Footer class="col-lg-12">
           <Button
-            class="btn float-right"
+            className="btn float-right"
             onClick={props.onHide}
             style={{
               margin: "15px",

@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 import Link from "next/link";
@@ -16,7 +10,6 @@ import "react-medium-image-zoom/dist/styles.css";
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
 import PostReport from "./PostReport";
-import Loading from "../loading/Loading";
 import FollowBotton from "../follow/FollowBotton";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -40,7 +33,6 @@ import {
 import {
   BsPencil,
   BsTrash,
-  BsFillCalendarFill,
   BsBrightnessHigh,
   BsFillBookmarksFill,
 } from "react-icons/bs";
@@ -54,7 +46,6 @@ const PostBoard = ({
   post,
   postId,
   userId,
-  profileImg,
   nickname,
   like,
   Likes,
@@ -71,12 +62,9 @@ const PostBoard = ({
   const { id } = useSelector((state) => state.user.user);
   const { user } = useSelector((state) => state.user);
   const {
-    deletePostLoading,
     updatePostDone,
-    addBookmarkDone,
     likePostLoading,
     cancelLikePostLoading,
-    addBookmarkLoading,
     countReportDone,
   } = useSelector((state) => state.post);
 
@@ -91,7 +79,6 @@ const PostBoard = ({
   const [replaceText, setReplaceText] = useState("글이 차단됨");
 
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
-
   useMemo(() => {
     if (updatePostDone) {
       setModalShow(false);
@@ -215,7 +202,6 @@ const PostBoard = ({
                     });
                   }}
                 >
-                  {deletePostLoading && <Spinner animation="border" />}
                   <BsTrash /> 쓰레기 통으로
                 </Dropdown.Item>
               </DropdownButton>
@@ -225,11 +211,7 @@ const PostBoard = ({
             {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
             {PostImgSrcs?.length > 0 && reportCount < 9 && (
-              <Zoom
-                style={{
-                  border: "none",
-                }}
-              >
+              <Zoom>
                 <img
                   src={`${backUrl}/${PostImgSrcs[0].src}`}
                   alt={PostImgSrcs[0].src}
@@ -239,6 +221,7 @@ const PostBoard = ({
                     marginBottom: "20px",
                   }}
                 ></img>
+                {/* <figcaption>{PostImgSrcs[0].src}</figcaption> */}
               </Zoom>
             )}
 

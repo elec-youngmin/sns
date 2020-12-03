@@ -42,10 +42,6 @@ const Styledinput = styled.input`
 `;
 
 const NotReviseAlert = () => {
-  const [] = useState();
-  const [] = useState();
-  const [] = useState();
-
   return (
     <>
       <OverlayTrigger
@@ -76,7 +72,11 @@ const Profile = () => {
   const [whereValue, setWhereValue] = useState();
 
   const dispatch = useDispatch();
+  const dateToFormat = createdAt;
 
+  const dateSet = <Moment format="YYYY/MM/DD">{dateToFormat}</Moment>;
+
+  console.log(dateSet);
   return (
     <div>
       <Table>
@@ -101,14 +101,7 @@ const Profile = () => {
                 이메일 <NotReviseAlert />
               </Styledp>
             </td>
-            <td>
-              <Styledinput
-                type="text"
-                value={email}
-                readOnly
-                disabled
-              ></Styledinput>
-            </td>
+            <td>{email}</td>
           </tr>
           <tr>
             <td>
@@ -117,12 +110,7 @@ const Profile = () => {
               </Styledp>
             </td>
             <td>
-              <Styledinput
-                type="text"
-                value={createdAt}
-                disabled
-                readOnly
-              ></Styledinput>
+              <Moment format="YYYY/MM/DD">{dateToFormat}</Moment>
             </td>
           </tr>
 

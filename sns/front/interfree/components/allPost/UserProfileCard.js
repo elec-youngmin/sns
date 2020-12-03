@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 
-import backUrl from "../../config/config";
+import { backUrl } from "../../config/config";
 
 const UserProfileCard = ({
   profileImg,
@@ -18,25 +18,33 @@ const UserProfileCard = ({
   where,
 }) => {
   const { user } = useSelector((state) => state.user);
-  const { posts } = useSelector((state) => state.post);
   return (
     <div>
       <Card style={{ marginBottom: "20px" }}>
         {user.ProfileImgSrcs.length > 0 ? (
-          <Card.Img
+          <img
             class="rounded-circle w-50 p-3 mx-auto d-block"
-            alt="profile_image1"
-            role="button"
-            // src={img.previewURL}
-            src={`${backUrl}/${profileImg}`}
-          ></Card.Img>
+            alt={`${profileImg}`}
+            src={`http://localhost:80/${profileImg}`}
+            style={{
+              minWidth: "180px",
+              minHeight: "180px",
+              maxWidth: "180px",
+              maxHeight: "180px",
+            }}
+          ></img>
         ) : (
-          <Card.Img
+          <img
             class="rounded-circle w-50 p-3 mx-auto d-block"
-            src={`${backUrl}/userImage.jpg`}
-            alt="profile_image"
-            role="button"
-          ></Card.Img>
+            alt={`${profileImg}`}
+            src={`http://localhost:80/userImage.jpg`}
+            style={{
+              minWidth: "180px",
+              minHeight: "180px",
+              maxWidth: "180px",
+              maxHeight: "180px",
+            }}
+          ></img>
         )}
 
         <Card.Body>
