@@ -11,24 +11,22 @@ import {
 
 import { Button } from "react-bootstrap";
 
-const FollowBotton = ({ userId }) => {
+const FollowBotton = ({ userId, follows }) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.user);
-  const { allPosts } = useSelector((state) => state.post);
-
   const [isCurrentFollowing, setIsCurrentFollowing] = useState(false);
+  console.log(userId);
+  // console.log(follows);
+
   //팔로잉 목록 중에서 포스트를 작성한 유저가 있는지 확인
   //  존재하면 언팔로우 버튼, 존재하지 않으면 팔로우 버튼
   // userId: 이 포스트를 작성한 유저
-  // useEffect(() => {
-  //   if (allPosts.User.Follows.length !== 0) {
-  //     allPosts.User.Follows.find((element) => {
-  //       if (element.followingId === userId) {
-  //         console.log(element.followingId);
-  //         setIsCurrentFollowing(true);
-  //       }
-  //     });
-  //   }
+  // useMemo(() => {
+  //   follows.map((element) => {
+  //     if (element.id == id) {
+  //       setIsCurrentFollowing(true);
+  //     }
+  //   });
   // }, [allPosts]);
 
   // useMemo(() => {

@@ -1,4 +1,13 @@
 import produce from "immer";
+import { toast } from "react-toastify";
+
+const ToastSuccess = (text) => {
+  toast.success(text);
+};
+
+const ToastError = (text) => {
+  toast.error(text);
+};
 
 export const initialState = {
   logInLoading: false,
@@ -143,6 +152,7 @@ const reducer = (state = initialState, action) =>
         draft.logInLoading = false;
         draft.user = action.data;
         draft.logInDone = true;
+        ToastSuccess("로그인이 완료되었어요.");
         break;
       case USER_LOGIN_FAILURE:
         draft.logInLoading = false;
@@ -214,10 +224,12 @@ const reducer = (state = initialState, action) =>
         draft.profileImageUploadLoading = false;
         draft.profileImageUploadDone = true;
         draft.user = action.data;
+        ToastSuccess("프로필 이미지가 업로드되었어요.");
         break;
       case PROFILE_IMAGE_UPLOAD_FAILURE:
         draft.profileImageUploadLoading = false;
         draft.profileImageUploadError = action.error;
+        ToastError("프로필 이미지 업로드에 실패했습니다. 다시 시도하세요.");
         break;
       case PROFILE_IMAGE_UPLOAD_REQUEST:
         draft.profileImageUploadLoading = true;
@@ -228,10 +240,12 @@ const reducer = (state = initialState, action) =>
         draft.changeProfileLoading = false;
         draft.user = action.data;
         draft.changeProfileDone = true;
+        ToastSuccess("작성하신 프로필이 반영되었어요.");
         break;
       case CHANGE_PROFILE_FAILURE:
         draft.changeProfileLoading = false;
         draft.signUpError = action.error;
+        ToastError("작성하신 프로필의 반영이 실패했습니다. 다시 시도하세요.");
         break;
       case CHANGE_PROFILE_REQUEST:
         draft.changeProfileLoading = true;
@@ -282,6 +296,7 @@ const reducer = (state = initialState, action) =>
         draft.followUserDone = true;
         draft.followUserLoading = false;
         draft.following = action.data;
+        ToastSuccess("팔로우가 추가되었어요.");
         break;
       case FOLLOW_USER_REQUEST:
         draft.followUserDone = false;
@@ -291,11 +306,13 @@ const reducer = (state = initialState, action) =>
       case FOLLOW_USER_FAILURE:
         draft.followUserLoading = false;
         draft.followUserError = null;
+        ToastError("팔로우 추가에 실패했습니다. 다시 시도하세요.");
         break;
       case UNFOLLOW_USER_SUCCESS:
         draft.unFollowUserDone = true;
         draft.unFollowUserLoading = false;
         draft.following = action.data;
+        ToastSuccess("팔로우 취소가 완료되었어요.");
         break;
       case UNFOLLOW_USER_REQUEST:
         draft.unFollowUserDone = false;
@@ -305,6 +322,7 @@ const reducer = (state = initialState, action) =>
       case UNFOLLOW_USER_FAILURE:
         draft.unFollowUserLoading = false;
         draft.unFollowUserError = action.error;
+        ToastError("팔로우 취소에 실패했습니다. 다시 시도하세요.");
         break;
       case LOAD_FOLLOWING_USER_SUCCESS:
         draft.loadFollowingUserDone = true;
@@ -324,6 +342,7 @@ const reducer = (state = initialState, action) =>
         draft.disabledOneuserAllpostDone = true;
         draft.disabledOneuserAllpostLoding = false;
         draft.user.disabled = draft.user.disabled = true;
+        ToastSuccess("모든글이 비활성화되었어요.");
         break;
       case DISABLED_ONEUSER_ALLPOST_REQUEST:
         draft.disabledOneuserAllpostDone = false;
@@ -333,11 +352,13 @@ const reducer = (state = initialState, action) =>
       case DISABLED_ONEUSER_ALLPOST_FAILURE:
         draft.disabledOneuserAllpostLoding = false;
         draft.disabledOneuserAllpostError = null;
+        ToastError("모든글 비활성화에 실패했습니다. 다시 시도하세요.");
         break;
       case ACTIVATE_ONEUSER_ALLPOST_SUCCESS:
         draft.activateOneuserAllpostDone = true;
         draft.activateOneuserAllpostLoding = false;
         draft.user.disabled = draft.user.disabled = false;
+        ToastSuccess("모든글이 다시 활성화되었어요.");
         break;
       case ACTIVATE_ONEUSER_ALLPOST_REQUEST:
         draft.activateOneuserAllpostDone = false;
@@ -347,6 +368,7 @@ const reducer = (state = initialState, action) =>
       case ACTIVATE_ONEUSER_ALLPOST_FAILURE:
         draft.activateOneuserAllpostLoding = false;
         draft.activateOneuserAllpostError = null;
+        ToastError("모든글 활성화에 실패했습니다. 다시 시도하세요.");
         break;
       default:
         draft;

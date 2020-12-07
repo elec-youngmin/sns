@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useSelector } from "react-redux";
 
@@ -54,9 +56,11 @@ const PostBoardLoading = () => {
       setRouteLoading(false);
     });
   }, [router]);
-
+  const notify = () => toast("Wow so easy !");
   return (
     <div>
+      <ToastContainer autoClose={2000} />
+
       {(routeLoading ||
         loadAllPostLoading ||
         loadPostLoading ||
@@ -92,7 +96,7 @@ const PostBoardLoading = () => {
             animation="border"
             style={{
               position: "fixed",
-              bottom: "70px",
+              top: "100px",
               right: "70px",
               zIndex: "100",
             }}

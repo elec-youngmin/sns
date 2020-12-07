@@ -59,7 +59,7 @@ const OneuserChartPage = () => {
     <div>
       <div
         className="col-md-8 container justify-content-center"
-        style={{ paddingTop: "80px", textAlign: "center" }}
+        style={{ paddingTop: "40px", textAlign: "center" }}
       >
         {/* interfree 전체 일일 포스트 갯수 차트 */}
 
@@ -70,7 +70,10 @@ const OneuserChartPage = () => {
         >
           <Line data={postsdata} />
           {charts.postsData.length < 2 && (
-            <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
+            <>
+              <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
+              <p>포스트를 올려 차트를 형성해 보세요. </p>
+            </>
           )}
         </div>
 
@@ -83,7 +86,10 @@ const OneuserChartPage = () => {
         >
           <Line data={likesdata} />
           {charts.likesData.length < 2 && (
-            <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
+            <>
+              <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
+              <p>포스트를 올려 좋아요를 받아보세요. </p>
+            </>
           )}
         </div>
       </div>

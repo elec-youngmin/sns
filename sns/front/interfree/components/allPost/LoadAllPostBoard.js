@@ -45,6 +45,7 @@ const LoadALLPostBoard = () => {
               }
               post={element.contents}
               postId={element.id}
+              follows={element.User.Follows}
               onlyReadMy={element.onlyReadMy}
               reportCount={
                 element.Reports.length > 0 ? element.Reports[0].count : 0

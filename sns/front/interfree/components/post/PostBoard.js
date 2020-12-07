@@ -46,6 +46,7 @@ const PostBoard = ({
   post,
   postId,
   userId,
+  follows,
   nickname,
   like,
   Likes,
@@ -98,6 +99,7 @@ const PostBoard = ({
       setUserProfileImg(user.ProfileImgSrcs[0].src);
     }
   }, [user]);
+  console.log(follows);
 
   return (
     <div>
@@ -152,7 +154,7 @@ const PostBoard = ({
           {/* id: 현재 로그인한 유저, userId: 이 포스트를 작성한 유저,
            id와 userId가 다르면 버튼이 나타나게 함. 본인이 작성한 포스트가 아니면
            팔로우 버튼이 나나타게됨. */}
-          {id !== userId && <FollowBotton userId={userId} />}
+          {id !== userId && <FollowBotton userId={userId} follows={follows} />}
           <span
             style={{
               float: "right",

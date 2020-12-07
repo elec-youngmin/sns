@@ -1,8 +1,17 @@
 import produce from "immer";
+import { toast } from "react-toastify";
+
+const ToastSuccess = (text) => {
+  toast.success(text);
+};
+
+const ToastError = (text) => {
+  toast.error(text);
+};
 
 export const initialState = {
   savePostLoading: false,
-  savePostdone: false,
+  savePostDone: false,
   savePostError: null,
   loadAllPostLoading: false,
   loadAllPostDone: false,
@@ -53,7 +62,7 @@ export const initialState = {
   loadBookmarkDone: false,
   loadBookmarkError: null,
   imageSaveLoading: false,
-  imageSavedone: false,
+  imageSaveDone: false,
   imageSaveError: false,
   uploadVideoLoading: false,
   uploadVideoDone: false,
@@ -221,23 +230,26 @@ const reducer = (state = initialState, action) =>
     switch (action.type) {
       case SAVE_POST_SUCCESS:
         draft.savePostLoading = false;
-        draft.savePostdone = true;
+        draft.savePostDone = true;
         draft.posts = action.data;
+        ToastSuccess("포스트 저장이 완료되었어요.");
         break;
       case SAVE_POST_REQUEST:
         draft.savePostLoading = true;
-        draft.savePostdone = false;
+        draft.savePostDone = false;
         draft.savePostError = false;
         break;
       case SAVE_POST_FAILURE:
         draft.postSaveLoading = false;
         draft.postSaveError = action.error;
+        ToastError("포스트 저장에 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_ALLPOST_SUCCESS:
         draft.loadAllPostLoading = false;
         draft.loadAllPostDone = true;
         draft.allPosts = draft.allPosts.concat(action.data);
-        draft.posts = [];
+        // draft.posts = [];
+        ToastSuccess("포스트가 더 로드되었습니다.");
         break;
       case LOAD_ALLPOST_REQUEST:
         draft.loadAllPostLoading = true;
@@ -252,7 +264,8 @@ const reducer = (state = initialState, action) =>
         draft.loadPostLoading = false;
         draft.loadPostDone = true;
         draft.posts = draft.posts.concat(action.data);
-        draft.allPosts = [];
+        // draft.allPosts = [];
+        ToastSuccess("포스트가 더 로드되었습니다.");
         break;
       case LOAD_POST_REQUEST:
         draft.loadPostLoading = true;
@@ -267,6 +280,7 @@ const reducer = (state = initialState, action) =>
         draft.updatePostLoading = false;
         draft.updatePostDone = true;
         draft.posts = action.data;
+        ToastSuccess("포스트 업데이트가 완료되었어요.");
         break;
       case UPDATE_POST_REQUEST:
         draft.updatePostLoading = true;
@@ -275,11 +289,13 @@ const reducer = (state = initialState, action) =>
       case UPDATE_POST_FAILURE:
         draft.updatePostLoading = false;
         draft.updatePosterror = action.error;
+        ToastError("포스트 업데이트가 실패했습니다. 다시시도하세요.");
         break;
       case DELETE_POST_SUCCESS:
         draft.deletePostLoading = false;
         draft.deletePostDone = true;
         draft.posts = draft.posts.filter((num) => num.id != action.data);
+        ToastSuccess("포스트가 쓰레기통으로 이동되었어요.");
         break;
       case DELETE_POST_REQUEST:
         draft.deletePostLoading = true;
@@ -289,6 +305,7 @@ const reducer = (state = initialState, action) =>
         draft.deletePostLoading = false;
         draft.deletePostDone = false;
         draft.deletePostError = action.error;
+        ToastError("포스트 삭제가 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_TRASH_SUCCESS:
         draft.loadTrashLoading = false;
@@ -307,6 +324,7 @@ const reducer = (state = initialState, action) =>
         draft.deleteAlltrashLoading = false;
         draft.deleteAlltrashDone = true;
         draft.trashPosts = [];
+        ToastSuccess("모든 포스트가 삭제되었어요.");
         break;
       case DELETE_ALLTRASH_REQUEST:
         draft.deleteAlltrashLoading = true;
@@ -315,6 +333,7 @@ const reducer = (state = initialState, action) =>
       case DELETE_ALLTRASH_FAILURE:
         draft.deleteAlltrashLoading = false;
         draft.deleteAlltrashError = action.error;
+        ToastError("모든 포스트 삭제에 실패했습니다. 다시시도하세요.");
         break;
       case DELETE_TRASHPOST_SUCCESS:
         draft.deleteTrashPostLoading = false;
@@ -322,6 +341,7 @@ const reducer = (state = initialState, action) =>
         draft.trashPosts = draft.trashPosts.filter(
           (i) => i.postId != action.data
         );
+        ToastSuccess("해당 포스트가 삭제되었어요.");
         break;
       case DELETE_TRASHPOST_REQUEST:
         draft.deleteTrashPostLoading = true;
@@ -335,6 +355,7 @@ const reducer = (state = initialState, action) =>
         draft.restoreAlltrashDone = true;
         draft.restoreAlltrashLoading = false;
         draft.trashPosts = [];
+        ToastSuccess("모든 포스트가 복원되었어요.");
         break;
       case RESTORE_ALLTRASH_REQUEST:
         draft.restoreAlltrashDone = false;
@@ -344,6 +365,7 @@ const reducer = (state = initialState, action) =>
       case RESTORE_ALLTRASH_FAILURE:
         draft.restoreAlltrashLoading = false;
         draft.restoreAlltrashError = action.data;
+        ToastError("모든 포스트 복원에 실패했습니다. 다시시도하세요.");
         break;
       case RESTORE_TRASHPOST_SUCCESS:
         draft.restoreTrashPostDone = true;
@@ -351,6 +373,7 @@ const reducer = (state = initialState, action) =>
         draft.trashPosts = draft.trashPosts.filter(
           (i) => i.postId != action.data
         );
+        ToastSuccess("해당 포스트가 복원되었어요.");
         break;
       case RESTORE_TRASHPOST_REQUEST:
         draft.restoreTrashPostDone = false;
@@ -360,6 +383,7 @@ const reducer = (state = initialState, action) =>
       case RESTORE_TRASHPOST_FAILURE:
         draft.restoreTrashPostLoading = false;
         draft.restoreTrashPostError = action.data;
+        ToastError("해당 포스트 복원에 실패했습니다. 다시시도하세요.");
         break;
       case ADD_BOOKMARK_SUCCESS:
         draft.addBookmarkDone = true;
@@ -407,6 +431,7 @@ const reducer = (state = initialState, action) =>
         if (action.data[0].dataType === "postPage") {
           draft.postPage = action.data[0];
         }
+        ToastSuccess("북마크가 추가되었어요.");
         break;
       case ADD_BOOKMARK_REQUEST:
         draft.addBookmarkDone = false;
@@ -416,6 +441,7 @@ const reducer = (state = initialState, action) =>
       case ADD_BOOKMARK_FAILURE:
         draft.addBookmarkLoading = true;
         draft.addBookmarkError = action.data;
+        ToastError("북마크 추가가 실패했습니다. 다시시도하세요.");
         break;
       case CANCEL_BOOKMARK_SUCCESS:
         draft.cancelBookmarkDone = true;
@@ -464,6 +490,8 @@ const reducer = (state = initialState, action) =>
         if (action.data[0].dataType === "postPage") {
           draft.postPage = action.data[0];
         }
+        ToastSuccess("북마크가 취소되었어요.");
+
         break;
       case CANCEL_BOOKMARK_REQUEST:
         draft.cancelBookmarkDone = false;
@@ -473,6 +501,7 @@ const reducer = (state = initialState, action) =>
       case CANCEL_BOOKMARK_FAILURE:
         draft.cancelBookmarkLoading = true;
         draft.cancelBookmarkError = action.data;
+        ToastError("북마크 취소에 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_BOOKMARK_SUCCESS:
         draft.loadBookmarkDone = true;
@@ -492,6 +521,7 @@ const reducer = (state = initialState, action) =>
         draft.addCommentLoading = false;
         draft.addCommentDone = true;
         draft.comments = action.data;
+        ToastSuccess("작성한 댓글이 추가되었어요.");
         break;
       case ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;
@@ -501,6 +531,7 @@ const reducer = (state = initialState, action) =>
       case ADD_COMMENT_FAILURE:
         draft.addCommentLoading = false;
         draft.addCommentError = action.error;
+        ToastError("작성한 댓글이 추가에 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_COMMENT_SUCCESS:
         draft.loadCommentDone = true;
@@ -521,6 +552,7 @@ const reducer = (state = initialState, action) =>
         draft.deleteCommentDone = false;
         draft.deleteCommentLoading = false;
         draft.comments = draft.comments.filter((i) => i.id != action.data);
+        ToastSuccess("선택한 댓글이 삭제되었어요.");
         break;
       case DELETE_COMMENT_REQUEST:
         draft.deleteCommentDone = false;
@@ -531,11 +563,13 @@ const reducer = (state = initialState, action) =>
         draft.updateCommentDone = false;
         draft.updateCommentLoading = false;
         draft.updateCommentError = action.error;
+        ToastError("작성한 댓글이 삭제에 실패했습니다. 다시시도하세요.");
         break;
       case UPDATE_COMMENT_SUCCESS:
         draft.updateCommentDone = true;
         draft.updateCommentLoading = false;
         draft.comments = action.data;
+        ToastSuccess("해당 댓글이 수정되었어요.");
         break;
       case UPDATE_COMMENT_REQUEST:
         draft.updateCommentDone = false;
@@ -546,15 +580,17 @@ const reducer = (state = initialState, action) =>
         draft.updateCommentDone = false;
         draft.updateCommentLoading = false;
         draft.updateCommentError = action.error;
+        ToastError("작성한 댓글의 수정이 실패했습니다. 다시시도하세요.");
         break;
       case IMAGE_SAVE_SUCCESS:
         draft.imageSaveLoading = false;
-        draft.imageSavedone = true;
+        draft.imageSaveDone = true;
         draft.imagePreview = action.data;
+        ToastSuccess("이미지가 업로드 되었어요.");
         break;
       case IMAGE_SAVE_REQUEST:
         draft.imageSaveLoading = true;
-        draft.imageSavedone = false;
+        draft.imageSaveDone = false;
         draft.imageSaveError = false;
         break;
       case IMAGE_SAVE_FAILURE:
@@ -564,7 +600,7 @@ const reducer = (state = initialState, action) =>
       case UPLOAD_VIDEO_SUCCESS:
         draft.uploadVideoLoading = false;
         draft.uploadVideoDone = true;
-        // draft.imagePreview = action.data;
+        ToastSuccess("비디오가 업로드 되었어요.");
         break;
       case UPLOAD_VIDEO_REQUEST:
         draft.uploadVideoLoading = true;
@@ -621,6 +657,7 @@ const reducer = (state = initialState, action) =>
         if (action.data.dataType === "postPage") {
           draft.postPage = action.data;
         }
+        ToastSuccess("해당 포스트의 좋아요가 추가되었어요.");
         break;
       case LIKE_POST_REQUEST:
         draft.likePostLoading = true;
@@ -630,6 +667,7 @@ const reducer = (state = initialState, action) =>
       case LIKE_POST_FAILURE:
         draft.likePostLoading = false;
         draft.likePostError = action.error;
+        ToastError("해당 포스트의 좋아요 추가가 실패했습니다. 다시시도하세요.");
         break;
       case CANCEL_LIKE_POST_SUCCESS:
         draft.cancelLikePostLoading = false;
@@ -677,6 +715,8 @@ const reducer = (state = initialState, action) =>
         if (action.data.dataType === "postPage") {
           draft.postPage = action.data;
         }
+        ToastSuccess("해당 포스트의 좋아요가 취소되었어요.");
+
         break;
       case CANCEL_LIKE_POST_REQUEST:
         draft.cancelLikePostLoading = true;
@@ -686,15 +726,16 @@ const reducer = (state = initialState, action) =>
       case CANCEL_LIKE_POST_FAILURE:
         draft.cancelLikePostLoading = false;
         draft.cancelLikePostError = action.error;
+        ToastError("해당 포스트의 좋아요 취소가 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_FOLLOWS_POST_SUCCESS:
         draft.loadFollowsPostLoading = false;
-        draft.loadFollowsPostdone = true;
+        draft.loadFollowsPostDone = true;
         draft.followPosts = action.data;
         break;
       case LOAD_FOLLOWS_POST_REQUEST:
         draft.loadFollowsLoading = true;
-        draft.loadFollowsdone = false;
+        draft.loadFollowsDone = false;
         draft.loadFollowsError = false;
         break;
       case LOAD_FOLLOWS_POST_FAILURE:
@@ -705,6 +746,7 @@ const reducer = (state = initialState, action) =>
         draft.countReportDone = true;
         draft.countReportLoding = false;
         draft.reports = action.data;
+        ToastSuccess("신고가 접수되었어요.");
         break;
       case COUNT_REPORT_REQUEST:
         draft.countReportDone = false;
@@ -714,6 +756,7 @@ const reducer = (state = initialState, action) =>
       case COUNT_REPORT_FAILURE:
         draft.countReportLoding = false;
         draft.countReportError = null;
+        ToastError("해당 포스트의 신고접수가 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_USERPAGE_SUCCESS:
         draft.loadUserPageDone = true;

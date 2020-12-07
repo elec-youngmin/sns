@@ -1,6 +1,12 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {
+  FloatingMenu,
+  MainButton,
+  ChildButton,
+} from "react-floating-button-menu";
+import * as Scroll from "react-scroll";
 
 import Menu from "../components/firstSeePage/Menu";
 import WritePostForm from "../components/post/WritePostForm";
@@ -15,6 +21,7 @@ import PostBoardLoading from "../components/loading/PostBoardLoading";
 import PreviewProfileModal from "../components/post/PreviewProfileModal";
 import BookmarkMainpage from "../components/bookmark/BookmarkMainpage";
 import OneuserChartPage from "../components/chart/OneuserChartPage";
+import WritePostModal from "../components/post/WritePostModal";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -31,12 +38,19 @@ import {
 } from "../reducers/post";
 
 import { Row, Col, Table, Tabs, TabContainer, Button } from "react-bootstrap";
-import { AiFillSetting, AiFillEdit } from "react-icons/ai";
+import {
+  AiFillSetting,
+  AiFillEdit,
+  AiOutlineUp,
+  AiOutlineDown,
+} from "react-icons/ai";
 
 import {
   BsTrashFill,
   BsBookmarksFill,
   BsFillBarChartFill,
+  BsPlus,
+  BsTextareaT,
 } from "react-icons/bs";
 import { GoOrganization } from "react-icons/go";
 
@@ -48,6 +62,7 @@ import { backUrl } from "../config/config";
 
 // 컴포넌트 시작
 const PersonalPostBoard = () => {
+  const scroll = Scroll.animateScroll;
   const { user } = useSelector((state) => state.user);
   const { loadPostDone } = useSelector((state) => state.post);
 
@@ -60,10 +75,9 @@ const PersonalPostBoard = () => {
     loadOneuserChartdataDone,
   } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-
   const [modalShow, setModalShow] = useState(false);
-
-  // const [image, SetImage] = useState("");
+  const [childButton, setChildButton] = useState(false);
+  const [writePostShow, setWritePostShow] = useState(false);
 
   const handleSelect = (key) => {
     if (key === "posts") {
@@ -120,10 +134,14 @@ const PersonalPostBoard = () => {
   return (
     <div>
       <Menu />
-
       <PreviewProfileModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+      />
+
+      <WritePostModal
+        show={writePostShow}
+        onHide={() => setWritePostShow(false)}
       />
       <div
         className="col-md-8 container justify-content-center"
@@ -192,7 +210,7 @@ const PersonalPostBoard = () => {
                     <h4>
                       {/* {user.nickname} */}
                       <Button
-                        variant="secondary"
+                        variant="primary"
                         onClick={() => {
                           setModalShow(true);
                         }}
@@ -223,8 +241,15 @@ const PersonalPostBoard = () => {
         </Row>
       </div>
       <div className="col-md-7 container justify-content-center">
-        <Tabs defaultActiveKey="posts" onSelect={handleSelect}>
-          <TabContainer eventKey="posts" title={<AiFillEdit />}>
+        <Tabs
+          defaultActiveKey="posts"
+          onSelect={handleSelect}
+          className="container justify-content-center"
+        >
+          <TabContainer
+            eventKey="posts"
+            title={<AiFillEdit size={30} color={"#778899"} />}
+          >
             {posts.length <= 0 && loadPostDone && <NonePostAlert />}
             <WritePostForm />
 
@@ -273,15 +298,24 @@ const PersonalPostBoard = () => {
             </InfiniteScroll>
           </TabContainer>
 
-          <TabContainer eventKey="Follow" title={<GoOrganization />}>
+          <TabContainer
+            eventKey="Follow"
+            title={<GoOrganization size={30} color={"#778899"} />}
+          >
             {followPosts.length === 0 && <FollowAlert />}
             <FollowPage />
           </TabContainer>
 
-          <TabContainer eventKey="bookmark" title={<BsBookmarksFill />}>
+          <TabContainer
+            eventKey="bookmark"
+            title={<BsBookmarksFill size={30} color={"#778899"} />}
+          >
             <BookmarkMainpage />
           </TabContainer>
-          <TabContainer eventKey="trash" title={<BsTrashFill />}>
+          <TabContainer
+            eventKey="trash"
+            title={<BsTrashFill size={30} color={"#778899"} />}
+          >
             <TrashPostAlert />
             {trashPosts.map((element, index) => (
               <TrashPostForm
@@ -295,15 +329,80 @@ const PersonalPostBoard = () => {
               />
             ))}
           </TabContainer>
-          <TabContainer eventKey="chart" title={<BsFillBarChartFill />}>
+          <TabContainer
+            eventKey="chart"
+            title={<BsFillBarChartFill size={30} color={"#778899"} />}
+          >
             {loadOneuserChartdataDone && <OneuserChartPage />}
           </TabContainer>
-          <TabContainer eventKey="설정" title={<AiFillSetting />}>
+          <TabContainer
+            eventKey="설정"
+            title={<AiFillSetting size={30} color={"#778899"} />}
+          >
             <SettingForm />
           </TabContainer>
         </Tabs>
         <PostBoardLoading />
       </div>
+      <FloatingMenu
+        slideSpeed={300}
+        direction="up"
+        spacing={8}
+        isOpen={childButton}
+        style={{
+          position: "fixed",
+          bottom: "30px",
+          left: "30px",
+          zIndex: "100",
+        }}
+      >
+        <MainButton
+          iconResting={<BsPlus style={{ fontSize: 30 }} nativeColor="black" />}
+          iconActive={<BsPlus style={{ fontSize: 40 }} nativeColor="black" />}
+          backgroundColor="black"
+          size={56}
+          onClick={() => {
+            setChildButton(!childButton);
+          }}
+        />
+        <ChildButton
+          icon={<AiFillEdit style={{ fontSize: 20 }} nativeColor="black" />}
+          backgroundColor="white"
+          size={40}
+          onClick={() => setWritePostShow(true)}
+        />
+
+        <ChildButton backgroundColor="white" size={40} />
+        <ChildButton backgroundColor="white" size={40} />
+      </FloatingMenu>
+      <Button
+        variant="info"
+        onClick={() => {
+          scroll.scrollToTop();
+        }}
+        style={{
+          position: "fixed",
+          bottom: "0px",
+          right: "10px",
+          zIndex: "100",
+        }}
+      >
+        <AiOutlineUp />
+      </Button>
+      <Button
+        variant="info"
+        onClick={() => {
+          scroll.scrollToBottom();
+        }}
+        style={{
+          position: "fixed",
+          bottom: "0px",
+          right: "60px",
+          zIndex: "100",
+        }}
+      >
+        <AiOutlineDown />
+      </Button>
     </div>
   );
 };

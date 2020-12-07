@@ -125,10 +125,9 @@ const ChartPage = () => {
 
         <div
           style={{
-            width: "600px",
+            maxWidth: "600px",
             height: "300px",
-            marginBottom: "50px",
-            display: "inline-block",
+            marginBottom: "0px",
           }}
         >
           <Line data={postsdata} />
@@ -141,10 +140,9 @@ const ChartPage = () => {
 
         <div
           style={{
-            width: "600px",
+            maxWidth: "600px",
             height: "300px",
-            display: "inline-block",
-            marginBottom: "50px",
+            marginBottom: "0px",
           }}
         >
           <Line data={commentsdata} />
@@ -157,10 +155,9 @@ const ChartPage = () => {
 
         <div
           style={{
-            width: "600px",
+            maxWidth: "600px",
             height: "300px",
-            display: "inline-block",
-            marginBottom: "50px",
+            marginBottom: "0px",
           }}
         >
           <Line data={likesdata} />
@@ -173,10 +170,9 @@ const ChartPage = () => {
 
         <div
           style={{
-            width: "600px",
+            maxWidth: "600px",
             height: "300px",
-            display: "inline-block",
-            marginBottom: "50px",
+            marginBottom: "0px",
           }}
         >
           <Line data={reportsdata} />
@@ -191,22 +187,22 @@ const ChartPage = () => {
   );
 };
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   async (context) => {
-//     const cookie = context.req ? context.req.headers.cookie : "";
-//     axios.defaults.headers.Cookie = "";
-//     if (context.req && cookie) {
-//       axios.defaults.headers.Cookie = cookie;
-//     }
-//     context.store.dispatch({
-//       type: LOAD_USER_INFOMATION_REQUEST,
-//     });
-//     context.store.dispatch({
-//       type: LOAD_CHARTDATA_REQUEST,
-//     });
-//     context.store.dispatch(END);
-//     await context.store.sagaTask.toPromise();
-//   }
-// );
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : "";
+    axios.defaults.headers.Cookie = "";
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({
+      type: LOAD_USER_INFOMATION_REQUEST,
+    });
+    context.store.dispatch({
+      type: LOAD_CHARTDATA_REQUEST,
+    });
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+  }
+);
 
 export default ChartPage;

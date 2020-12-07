@@ -12,7 +12,10 @@ import {
   AiOutlineLogout,
   AiOutlineLineChart,
 } from "react-icons/ai";
+
 import { BsFillInfoCircleFill } from "react-icons/bs";
+import { FaUserCircle } from "react-icons/fa";
+
 import { BiUserCircle } from "react-icons/bi";
 
 // import Styledh1 from "./style/menuStyle";
@@ -24,7 +27,7 @@ const Styledh1 = styled.h1`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
   font-family: "Fredoka One", cursive;
-  color: blue;
+  color: #8a2be2;
   font-size: 40px;
   text-align: center;
   cursor: "pointer";
@@ -79,7 +82,7 @@ const Menu = () => {
         style={{
           textAlign: "center",
           fontSize: "30px",
-          color: "blue",
+          color: "#6495ED",
           position: "fixed",
           top: "0",
           left: "0",
@@ -88,17 +91,13 @@ const Menu = () => {
         }}
       >
         <Navbar.Brand>
-          <Nav>
-            <Nav.Link>
-              <Styledh1
-                onClick={() => {
-                  Router.push(`${frontUrl}/PersonalPostBoard`);
-                }}
-              >
-                interfree
-              </Styledh1>
-            </Nav.Link>
-          </Nav>
+          <Styledh1
+            onClick={() => {
+              Router.push(`${frontUrl}/PersonalPostBoard`);
+            }}
+          >
+            interfree
+          </Styledh1>
         </Navbar.Brand>
         {logInDone ||
           (loadUserInfomationDone && !logOutDone && (
@@ -115,7 +114,7 @@ const Menu = () => {
                 <Nav.Link
                   style={{
                     marginRight: "30px",
-                    color: "blue",
+                    color: "#4682B4",
                     textAlign: "center",
                   }}
                 >
@@ -126,7 +125,7 @@ const Menu = () => {
                     }}
                   />
 
-                  <BiUserCircle
+                  <FaUserCircle
                     style={{ marginRight: "30px" }}
                     onClick={() => {
                       Router.push(`${frontUrl}/PersonalPostBoard`);
