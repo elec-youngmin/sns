@@ -29,17 +29,6 @@ const DisabledUser = () => {
     }
   };
 
-  useMemo(() => {
-    if (disabledOneuserAllpostDone) {
-      alert("모든 글이 비공개로 변경되었습니다.");
-    }
-  }, [disabledOneuserAllpostDone]);
-
-  useMemo(() => {
-    if (activateOneuserAllpostDone) {
-      alert("모든 글이 공개로 변경되었습니다.");
-    }
-  }, [activateOneuserAllpostDone]);
   return (
     <div>
       <p style={{ marginTop: "20px" }}>

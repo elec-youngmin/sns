@@ -9,13 +9,13 @@ import { LOAD_BOOKMARK_REQUEST } from "../../reducers/post";
 import { Button } from "react-bootstrap";
 
 const BookmarkMainpage = () => {
-  const { bookmarkPosts } = useSelector((state) => state.post);
+  const { bookmarkPosts, posts } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   const LoadNextbookmarkPosts = () => {
-    const lastId = bookmarkPosts[bookmarkPosts.length - 1]?.id;
+    const lastId = posts[posts.length - 1]?.id;
     dispatch({
       type: LOAD_BOOKMARK_REQUEST,
       data: { lastId, userId: user.id },
@@ -24,8 +24,8 @@ const BookmarkMainpage = () => {
 
   return (
     <div style={{ paddingTop: "20px" }}>
-      {bookmarkPosts.length > 0 &&
-        bookmarkPosts.map((element, index) => (
+      {posts.length > 0 &&
+        posts.map((element, index) => (
           <PostBoard
             key={index}
             post={element.contents}
@@ -52,7 +52,7 @@ const BookmarkMainpage = () => {
             dataType={"bookmark"}
           />
         ))}
-      {bookmarkPosts.length > 0 && (
+      {posts.length > 0 && (
         <Button
           variant="primary"
           style={{ width: "100%", marginBottom: "30px" }}

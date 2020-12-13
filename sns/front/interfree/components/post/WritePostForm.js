@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+  useRef,
+} from "react";
 import PropTypes from "prop-types";
 import FormData from "form-data";
 import { useDispatch, useSelector } from "react-redux";
@@ -62,7 +68,7 @@ const MultiPostAlert = () => {
   );
 };
 
-const WriteForm = () => {
+const WriteForm = (props) => {
   const [isPostEmpty, SetIsPostEmpty] = useState(false);
   const [image, SetImage] = useState(""); //프리뷰
   const [img, SetImg] = useState("");
@@ -128,10 +134,17 @@ const WriteForm = () => {
 
   const onPostChange = (e) => {
     setPost(e.target.value);
+    // e.target.value += transcript;
+    console.log(e.target.value);
   };
 
+  const textarea = useRef();
+
+  // console.log(textarea.current);
+
+  // textarea.current = "adfasdf";
   return (
-    <div>
+    <>
       {/* 느낌표 알림창 */}
       <WritePostAlert style={{ float: "right" }} />
 
@@ -144,6 +157,8 @@ const WriteForm = () => {
             multiple
             placeholder="포스트를 작성해보세요."
             onChange={onPostChange}
+            ref={textarea}
+            // defaultValue={transcript}
           />
         </Form.Group>
         {image && !imageSaveError && (
@@ -236,6 +251,7 @@ const WriteForm = () => {
           >
             저장
           </Button>
+
           <DropdownButton
             variant="light"
             className="float-right"
@@ -263,7 +279,7 @@ const WriteForm = () => {
           </DropdownButton>
         </form>
       </Form>
-    </div>
+    </>
   );
 };
 

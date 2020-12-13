@@ -2,7 +2,9 @@ import produce from "immer";
 import { toast } from "react-toastify";
 
 const ToastSuccess = (text) => {
-  toast.success(text);
+  toast.dark(text, {
+    position: "top-center",
+  });
 };
 
 const ToastError = (text) => {
@@ -296,7 +298,6 @@ const reducer = (state = initialState, action) =>
         draft.followUserDone = true;
         draft.followUserLoading = false;
         draft.following = action.data;
-        ToastSuccess("팔로우가 추가되었어요.");
         break;
       case FOLLOW_USER_REQUEST:
         draft.followUserDone = false;
@@ -312,7 +313,6 @@ const reducer = (state = initialState, action) =>
         draft.unFollowUserDone = true;
         draft.unFollowUserLoading = false;
         draft.following = action.data;
-        ToastSuccess("팔로우 취소가 완료되었어요.");
         break;
       case UNFOLLOW_USER_REQUEST:
         draft.unFollowUserDone = false;

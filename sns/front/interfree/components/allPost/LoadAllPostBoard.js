@@ -9,11 +9,15 @@ import { LOAD_ALLPOST_REQUEST } from "../../reducers/post";
 
 const LoadALLPostBoard = () => {
   const dispatch = useDispatch();
-  const { allPosts } = useSelector((state) => state.post);
+  const { allPosts, posts } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
 
   const LoadNextAllPosts = () => {
-    const lastId = allPosts[allPosts.length - 1]?.id;
+    const lastId = posts[posts.length - 1]?.id;
+    console.log(posts[posts.length - 1]?.id);
+    if (posts.length === 0) {
+      return;
+    }
     dispatch({
       type: LOAD_ALLPOST_REQUEST,
       data: { lastId, userId: user.id },
@@ -23,16 +27,16 @@ const LoadALLPostBoard = () => {
   return (
     <div>
       <InfiniteScroll
-        dataLength={allPosts.length}
+        dataLength={posts.length}
         next={LoadNextAllPosts}
         hasMore={true}
         loader={
           <h6 style={{ textAlign: "center" }}>
-            {allPosts.length}개의 포스트가 로드되었습니다.
+            {posts.length}개의 포스트가 로드되었습니다.
           </h6>
         }
       >
-        {allPosts.map((element, index) => {
+        {posts.map((element, index) => {
           return (
             <PostBoard
               key={index}
@@ -60,7 +64,7 @@ const LoadALLPostBoard = () => {
               PostImgSrcs={element.PostImgSrcs}
               PostVideoSrcs={element.PostVideoSrcs}
               date={element.createdAt}
-              dataType={"allPosts"}
+              dataType={"posts"}
             />
           );
         })}

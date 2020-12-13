@@ -85,6 +85,12 @@ import {
   LOAD_POSTPAGE_REQUEST,
   LOAD_POSTPAGE_SUCCESS,
   LOAD_POSTPAGE_FAILURE,
+  SEARCH_INPUT_TEXT_REQUEST,
+  SEARCH_INPUT_TEXT_SUCCESS,
+  SEARCH_INPUT_TEXT_FAILURE,
+  SEARCH_RESULT_REQUEST,
+  SEARCH_RESULT_SUCCESS,
+  SEARCH_RESULT_FAILURE,
 } from "../reducers/post";
 
 function savePostAPI(data) {
@@ -192,13 +198,13 @@ function* deletePost(action) {
   }
 }
 
-function loadTrashAPI(data) {
-  return axios.post("post/loadTrash", data);
+function loadTrashAPI() {
+  return axios.get("post/loadTrash");
 }
 
-function* loadTrash(action) {
+function* loadTrash() {
   try {
-    const result = yield call(loadTrashAPI, action.data);
+    const result = yield call(loadTrashAPI);
     console.log(result);
     yield put({
       type: LOAD_TRASH_SUCCESS,
@@ -339,13 +345,13 @@ function* cancelBookmark(action) {
   }
 }
 
-function loadBookmarkAPI(data) {
-  return axios.post("post/loadBookmark", data);
+function loadBookmarkAPI() {
+  return axios.get("post/loadBookmark");
 }
 
 function* loadBookmark(action) {
   try {
-    const result = yield call(loadBookmarkAPI, action.data);
+    const result = yield call(loadBookmarkAPI);
     console.log(result);
     yield put({
       type: LOAD_BOOKMARK_SUCCESS,
@@ -675,6 +681,48 @@ function* loadPostPage(action) {
   }
 }
 
+function searchInputTextAPI(data) {
+  return axios.post("post/searchInputText", data);
+}
+
+function* searchInputText(action) {
+  try {
+    const result = yield call(searchInputTextAPI, action.data);
+    console.log(result);
+    yield put({
+      type: SEARCH_INPUT_TEXT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SEARCH_INPUT_TEXT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function searchResultAPI(data) {
+  return axios.post("post/searchResult", data);
+}
+
+function* searchResult(action) {
+  try {
+    const result = yield call(searchResultAPI, action.data);
+    console.log(result);
+    yield put({
+      type: SEARCH_RESULT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SEARCH_RESULT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchSavePost() {
   yield takeLatest(SAVE_POST_REQUEST, savePost);
 }
@@ -786,6 +834,14 @@ function* watchLoadPostPage() {
   yield takeLatest(LOAD_POSTPAGE_REQUEST, loadPostPage);
 }
 
+function* watchSearchInputText() {
+  yield takeLatest(SEARCH_INPUT_TEXT_REQUEST, searchInputText);
+}
+
+function* watchSearchResult() {
+  yield takeLatest(SEARCH_RESULT_REQUEST, searchResult);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchSavePost),
@@ -816,5 +872,7 @@ export default function* userSaga() {
     fork(watchLoadChartdata),
     fork(watchOneuserLoadChartdata),
     fork(watchLoadPostPage),
+    fork(watchSearchInputText),
+    fork(watchSearchResult),
   ]);
 }

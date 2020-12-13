@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import Menu from "./Menu";
+import TestMenu from "./TestMenu";
+
 import WelcomeBoard from "./WelcomeBoard";
 
 import { useSelector } from "react-redux";
@@ -14,6 +16,7 @@ const LayOut = () => {
   return (
     <div>
       <Menu />
+      <TestMenu />
       <WelcomeBoard />
       {postLoadLoading && (
         <>

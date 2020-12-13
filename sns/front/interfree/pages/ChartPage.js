@@ -1,18 +1,25 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
 
 import Menu from "../components/firstSeePage/Menu";
+import PostBoardLoading from "../components/loading/PostBoardLoading";
 
 import { useSelector } from "react-redux";
 
 import { LOAD_CHARTDATA_REQUEST } from "../reducers/post";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
+import { Tab, Row, Col, Nav } from "react-bootstrap";
+
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
-
-import PostBoardLoading from "../components/loading/PostBoardLoading";
 
 const ChartPage = () => {
   const { allCharts } = useSelector((state) => state.post);
@@ -122,64 +129,121 @@ const ChartPage = () => {
         style={{ paddingTop: "80px", textAlign: "center" }}
       >
         {/* interfree 전체 일일 포스트 갯수 차트 */}
+        <Tab.Container defaultActiveKey="first">
+          <Row>
+            <Col lg={3} style={{ textAlign: "center" }}>
+              <Nav
+                className="container justify-content-center"
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <Nav.Item
+                  tyle={{
+                    textAlign: "center",
+                  }}
+                >
+                  <Nav.Link
+                    eventKey="first"
+                    tyle={{
+                      textAlign: "center",
+                    }}
+                  >
+                    전체 일일 포스트 수
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="second">전체 일일 댓글 수</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="third">전체 일일 좋아요 수</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="fourth">전체 일일 신고</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
 
-        <div
-          style={{
-            maxWidth: "600px",
-            height: "300px",
-            marginBottom: "0px",
-          }}
-        >
-          <Line data={postsdata} />
-          {allCharts.postsData.length < 2 && (
-            <p>아직 포스트 데이터가 부족해 차트가 형성되지 못했습니다. </p>
-          )}
-        </div>
+            <Col sm={9}>
+              <Tab.Content>
+                <Tab.Pane eventKey="first">
+                  <div
+                  // style={{
+                  //   maxWidth: "600px",
+                  //   height: "300px",
+                  //   marginBottom: "0px",
+                  // }}
+                  >
+                    <Line data={postsdata} />
+                    {allCharts.postsData.length < 2 && (
+                      <p>
+                        아직 포스트 데이터가 부족해 차트가 형성되지 못했습니다.{" "}
+                      </p>
+                    )}
+                  </div>
 
-        {/* interfree 전체 일일 댓글 갯수 차트 */}
+                  {/* interfree 전체 일일 댓글 갯수 차트 */}
+                </Tab.Pane>
+                <Tab.Pane eventKey="second">
+                  <div
+                    style={{
+                      maxWidth: "600px",
+                      height: "300px",
+                      marginBottom: "0px",
+                    }}
+                  >
+                    <Line data={commentsdata} />
+                    {allCharts.commentsData.length < 2 && (
+                      <p>
+                        아직 댓글 데이터가 부족해 차트가 형성되지 못했습니다.{" "}
+                      </p>
+                    )}
+                  </div>
 
-        <div
-          style={{
-            maxWidth: "600px",
-            height: "300px",
-            marginBottom: "0px",
-          }}
-        >
-          <Line data={commentsdata} />
-          {allCharts.commentsData.length < 2 && (
-            <p>아직 댓글 데이터가 부족해 차트가 형성되지 못했습니다. </p>
-          )}
-        </div>
+                  {/* interfree 전체 일일 좋아요 갯수 차트 */}
+                </Tab.Pane>
+                <Tab.Pane eventKey="third">
+                  <div
+                    style={{
+                      maxWidth: "600px",
+                      height: "300px",
+                      marginBottom: "0px",
+                    }}
+                  >
+                    <Line data={likesdata} />
+                    {allCharts.likesData.length < 2 && (
+                      <p>
+                        아직 좋아요 데이터가 부족해 차트가 형성되지 못했습니다.{" "}
+                      </p>
+                    )}
+                  </div>
 
-        {/* interfree 전체 일일 좋아요 갯수 차트 */}
-
-        <div
-          style={{
-            maxWidth: "600px",
-            height: "300px",
-            marginBottom: "0px",
-          }}
-        >
-          <Line data={likesdata} />
-          {allCharts.likesData.length < 2 && (
-            <p>아직 좋아요 데이터가 부족해 차트가 형성되지 못했습니다. </p>
-          )}
-        </div>
-
-        {/* interfree 전체 일일 신고 갯수 차트 */}
-
-        <div
-          style={{
-            maxWidth: "600px",
-            height: "300px",
-            marginBottom: "0px",
-          }}
-        >
-          <Line data={reportsdata} />
-          {allCharts.reportsData.length < 2 && (
-            <p>아직 신고수 데이터가 부족해 차트가 형성되지 못했습니다. </p>
-          )}
-        </div>
+                  {/* interfree 전체 일일 신고 갯수 차트 */}
+                </Tab.Pane>
+                <Tab.Pane eventKey="fourth">
+                  <div
+                    style={{
+                      maxWidth: "600px",
+                      height: "300px",
+                      marginBottom: "0px",
+                    }}
+                  >
+                    <Line data={reportsdata} />
+                    {allCharts.reportsData.length < 2 && (
+                      <p>
+                        아직 신고수 데이터가 부족해 차트가 형성되지 못했습니다.{" "}
+                      </p>
+                    )}
+                  </div>
+                </Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
+        {isBrowser && <h1> 스마트폰 화면을 가로로 바꿔보세요.</h1>}
+        <MobileView>
+          <h1> 폰 화면을 가로로 바꿔보세요.</h1>
+        </MobileView>
       </div>
 
       <PostBoardLoading />

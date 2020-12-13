@@ -2,7 +2,9 @@ import produce from "immer";
 import { toast } from "react-toastify";
 
 const ToastSuccess = (text) => {
-  toast.success(text);
+  toast.dark(text, {
+    position: "top-center",
+  });
 };
 
 const ToastError = (text) => {
@@ -94,7 +96,12 @@ export const initialState = {
   loadPostPageLoding: false,
   loadPostPageDone: false,
   loadPostPageError: null,
-
+  searchInputTextLoading: false,
+  searchInputTextDone: false,
+  searchInputTextError: null,
+  searchResultLoading: false,
+  searchResultDone: false,
+  searchResultError: null,
   reports: [],
   allPosts: [],
   posts: [], //로그인한 유저의 포스트들
@@ -107,6 +114,7 @@ export const initialState = {
   charts: [],
   hashtagPosts: [],
   postPage: null,
+  search: [],
 };
 
 export const SAVE_POST_REQUEST = "SAVE_POST_REQUEST";
@@ -132,6 +140,10 @@ export const UPDATE_POST_FAILURE = "UPDATE_POST_FAILUR";
 export const DELETE_POST_REQUEST = "DELETE_POST_REQUEST"; //쓰레기 통으로 이동
 export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
 export const DELETE_POST_FAILURE = "DELETE_POST_FAILUR";
+
+export const VACATE_POST_REQUEST = "VACATE_POST_REQUEST";
+export const VACATE_POST_SUCCESS = "VACATE_POST_SUCCESS";
+export const VACATE_POST_FAILURE = "VACATE_POST_FAILURE";
 
 export const LOAD_TRASH_REQUEST = "LOAD_TRASH_REQUEST";
 export const LOAD_TRASH_SUCCESS = "LOAD_TRASH_SUCCESS";
@@ -225,6 +237,22 @@ export const LOAD_POSTPAGE_REQUEST = "LOAD_POSTPAGE_REQUEST";
 export const LOAD_POSTPAGE_SUCCESS = "LOAD_POSTPAGE_SUCCESS";
 export const LOAD_POSTPAGE_FAILURE = "LOAD_POSTPAGE_FAILURE";
 
+export const LOAD_IMAGEPOST_REQUEST = "LOAD_IMAGEPOST_REQUEST";
+export const LOAD_IMAGEPOST_SUCCESS = "LOAD_IMAGEPOST_SUCCESS";
+export const LOAD_IMAGEPOST_FAILURE = "LOAD_IMAGEPOST_FAILURE";
+
+export const LOAD_VIDEOPOST_REQUEST = "LOAD_VIDEOPOST_REQUEST";
+export const LOAD_VIDEOPOST_SUCCESS = "LOAD_VIDEOPOST_SUCCESS";
+export const LOAD_VIDEOPOST_FAILURE = "LOAD_VIDEOPOST_FAILURE";
+
+export const SEARCH_INPUT_TEXT_REQUEST = "SEARCH_INPUT_TEXT_REQUEST";
+export const SEARCH_INPUT_TEXT_SUCCESS = "SEARCH_INPUT_TEXT_SUCCESS";
+export const SEARCH_INPUT_TEXT_FAILURE = "SEARCH_INPUT_TEXT_FAILURE";
+
+export const SEARCH_RESULT_REQUEST = "SEARCH_RESULT_REQUEST";
+export const SEARCH_RESULT_SUCCESS = "SEARCH_RESULT_SUCCESS";
+export const SEARCH_RESULT_FAILURE = "SEARCH_RESULT_FAILURE";
+
 const reducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
@@ -247,14 +275,14 @@ const reducer = (state = initialState, action) =>
       case LOAD_ALLPOST_SUCCESS:
         draft.loadAllPostLoading = false;
         draft.loadAllPostDone = true;
-        draft.allPosts = draft.allPosts.concat(action.data);
-        // draft.posts = [];
-        ToastSuccess("포스트가 더 로드되었습니다.");
+        draft.posts = draft.posts.concat(action.data);
+        ToastSuccess("포스트 추가 요청 성공!");
         break;
       case LOAD_ALLPOST_REQUEST:
         draft.loadAllPostLoading = true;
         draft.loadAllPostDone = true;
         draft.loadAllPostError = null;
+        // draft.posts = [];
         break;
       case LOAD_ALLPOST_FAILURE:
         draft.loadAllPostLoading = false;
@@ -265,7 +293,7 @@ const reducer = (state = initialState, action) =>
         draft.loadPostDone = true;
         draft.posts = draft.posts.concat(action.data);
         // draft.allPosts = [];
-        ToastSuccess("포스트가 더 로드되었습니다.");
+        ToastSuccess(`포스트가 더 로드되었습니다.`);
         break;
       case LOAD_POST_REQUEST:
         draft.loadPostLoading = true;
@@ -306,6 +334,9 @@ const reducer = (state = initialState, action) =>
         draft.deletePostDone = false;
         draft.deletePostError = action.error;
         ToastError("포스트 삭제가 실패했습니다. 다시시도하세요.");
+        break;
+      case VACATE_POST_REQUEST:
+        draft.posts = [];
         break;
       case LOAD_TRASH_SUCCESS:
         draft.loadTrashLoading = false;
@@ -431,7 +462,6 @@ const reducer = (state = initialState, action) =>
         if (action.data[0].dataType === "postPage") {
           draft.postPage = action.data[0];
         }
-        ToastSuccess("북마크가 추가되었어요.");
         break;
       case ADD_BOOKMARK_REQUEST:
         draft.addBookmarkDone = false;
@@ -497,6 +527,7 @@ const reducer = (state = initialState, action) =>
         draft.cancelBookmarkDone = false;
         draft.cancelBookmarkLoading = true;
         draft.cancelBookmarkError = null;
+        draft.posts = [];
         break;
       case CANCEL_BOOKMARK_FAILURE:
         draft.cancelBookmarkLoading = true;
@@ -506,7 +537,7 @@ const reducer = (state = initialState, action) =>
       case LOAD_BOOKMARK_SUCCESS:
         draft.loadBookmarkDone = true;
         draft.loadBookmarkLoading = false;
-        draft.bookmarkPosts = draft.bookmarkPosts.concat(action.data);
+        draft.posts = draft.posts.concat(action.data);
         break;
       case LOAD_BOOKMARK_REQUEST:
         draft.loadBookmarkDone = false;
@@ -657,7 +688,6 @@ const reducer = (state = initialState, action) =>
         if (action.data.dataType === "postPage") {
           draft.postPage = action.data;
         }
-        ToastSuccess("해당 포스트의 좋아요가 추가되었어요.");
         break;
       case LIKE_POST_REQUEST:
         draft.likePostLoading = true;
@@ -755,7 +785,7 @@ const reducer = (state = initialState, action) =>
         break;
       case COUNT_REPORT_FAILURE:
         draft.countReportLoding = false;
-        draft.countReportError = null;
+        draft.countReportError = action.error;
         ToastError("해당 포스트의 신고접수가 실패했습니다. 다시시도하세요.");
         break;
       case LOAD_USERPAGE_SUCCESS:
@@ -770,12 +800,12 @@ const reducer = (state = initialState, action) =>
         break;
       case LOAD_USERPAGE_FAILURE:
         draft.loadUserPageLoding = false;
-        draft.loadUserPageError = null;
+        draft.loadUserPageError = action.error;
         break;
       case LOAD_HASHTAGPAGE_SUCCESS:
         draft.loadHashtagPageDone = true;
         draft.loadHashtagPageLoding = false;
-        draft.hashtagPosts = action.data;
+        draft.posts = action.data;
         break;
       case LOAD_HASHTAGPAGE_REQUEST:
         draft.loadHashtagPageDone = false;
@@ -784,7 +814,7 @@ const reducer = (state = initialState, action) =>
         break;
       case LOAD_HASHTAGPAGE_FAILURE:
         draft.loadHashtagPageLoding = false;
-        draft.loadHashtagPageError = null;
+        draft.loadHashtagPageError = action.error;
         break;
       case LOAD_CHARTDATA_SUCCESS:
         draft.loadChartDataDone = true;
@@ -799,7 +829,7 @@ const reducer = (state = initialState, action) =>
         break;
       case LOAD_CHARTDATA_FAILURE:
         draft.loadChartDataLoding = false;
-        draft.loadChartDataError = null;
+        draft.loadChartDataError = action.error;
         break;
       case LOAD_ONEUSER_CHARTDATA_SUCCESS:
         draft.loadOneuserChartdataDone = true;
@@ -815,7 +845,7 @@ const reducer = (state = initialState, action) =>
         break;
       case LOAD_ONEUSER_CHARTDATA_FAILURE:
         draft.loadOneuserChartdataLoding = false;
-        draft.loadOneuserChartdataError = null;
+        draft.loadOneuserChartdataError = action.error;
         break;
       case LOAD_POSTPAGE_SUCCESS:
         draft.loadPostPageDone = true;
@@ -829,7 +859,34 @@ const reducer = (state = initialState, action) =>
         break;
       case LOAD_POSTPAGE_FAILURE:
         draft.loadPostPageLoding = false;
-        draft.loadPostPageError = null;
+        draft.loadPostPageError = action.error;
+        break;
+      case SEARCH_INPUT_TEXT_SUCCESS:
+        draft.searchInputTextDone = true;
+        draft.searchInputTextLoding = false;
+        draft.search = action.data;
+        break;
+      case SEARCH_INPUT_TEXT_REQUEST:
+        draft.searchInputTextDone = false;
+        draft.searchInputTextLoding = true;
+        draft.searchInputTextError = null;
+        break;
+      case SEARCH_INPUT_TEXT_FAILURE:
+        draft.searchInputTextLoding = false;
+        draft.searchInputTextError = action.error;
+      case SEARCH_RESULT_SUCCESS:
+        draft.searchResultDone = true;
+        draft.searchResultLoding = false;
+        draft.search = action.data;
+        break;
+      case SEARCH_RESULT_REQUEST:
+        draft.searchResultDone = false;
+        draft.searchResultLoding = true;
+        draft.searchResultError = null;
+        break;
+      case SEARCH_RESULT_FAILURE:
+        draft.searchResultLoding = false;
+        draft.searchResultError = action.error;
         break;
       default:
         break;

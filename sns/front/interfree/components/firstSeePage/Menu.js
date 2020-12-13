@@ -2,11 +2,13 @@ import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 
+import Search from "./Search";
+
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 import { LOAD_CHARTDATA_REQUEST } from "../../reducers/post";
 
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Form, FormControl, Button, Col } from "react-bootstrap";
 import {
   AiFillDribbbleCircle,
   AiOutlineLogout,
@@ -15,8 +17,6 @@ import {
 
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
-
-import { BiUserCircle } from "react-icons/bi";
 
 // import Styledh1 from "./style/menuStyle";
 import styled from "styled-components";
@@ -66,6 +66,7 @@ const Menu = () => {
   const { logInDone, logOutDone, loadUserInfomationDone } = useSelector(
     (state) => state.user
   );
+  const { search } = useSelector((state) => state.post);
 
   useMemo(() => {
     if (logOutDone) {
@@ -74,9 +75,9 @@ const Menu = () => {
   }, [logOutDone]);
 
   return (
-    <div>
+    <>
       <Navbar
-        className="col-md-10 row justify-content-center mx-auto order-0"
+        className=" row justify-content-center mx-auto order-0"
         bg="light"
         expand="sm"
         style={{
@@ -99,6 +100,7 @@ const Menu = () => {
             interfree
           </Styledh1>
         </Navbar.Brand>
+
         {logInDone ||
           (loadUserInfomationDone && !logOutDone && (
             <Navbar.Toggle
@@ -107,15 +109,22 @@ const Menu = () => {
               style={{ float: "right" }}
             />
           ))}
+
         {logInDone ||
           (loadUserInfomationDone && !logOutDone && (
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav>
+            <Navbar.Collapse
+              id="basic-navbar-nav"
+              style={{ textAlign: "center" }}
+            >
+              <Nav
+                style={{ textAlign: "center", padding: "0px", margin: "0px" }}
+              >
                 <Nav.Link
                   style={{
                     marginRight: "30px",
                     color: "#4682B4",
                     textAlign: "center",
+                    width: "100%",
                   }}
                 >
                   <AiFillDribbbleCircle
@@ -153,12 +162,13 @@ const Menu = () => {
                       });
                     }}
                   />
+                  <Search />
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           ))}
       </Navbar>
-    </div>
+    </>
   );
 };
 

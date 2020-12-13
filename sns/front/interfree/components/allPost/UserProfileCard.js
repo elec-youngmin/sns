@@ -61,7 +61,7 @@ const UserProfileCard = ({
         <Card.Body>
           {!shareLink && !where && <p>추가 정보가 없습니다.</p>}
           {shareLink && (
-            <a href={ShareLink} target="_blank">
+            <a href={shareLink} target="_blank">
               {shareLink}
             </a>
           )}

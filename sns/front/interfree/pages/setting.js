@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 
-const SettingForm = () => {
+const setting = () => {
   const { disabled } = useSelector((state) => state.user.user);
   return (
     <div>
@@ -50,10 +50,7 @@ const SettingForm = () => {
               </Nav.Item>
             </Nav>
           </Col>
-          {/* <div
-            class="span6"
-            style={{ paddingRight: "20px", borderRight: "1px solid #ccc" }}
-          ></div> */}
+
           <Col sm={9}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
@@ -76,4 +73,4 @@ const SettingForm = () => {
   );
 };
 
-export default SettingForm;
+export default setting;

@@ -16,7 +16,7 @@ import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const Hashtagpage = () => {
-  const { hashtagPosts } = useSelector((state) => state.post);
+  const { hashtagPosts, posts } = useSelector((state) => state.post);
   const router = useRouter();
 
   return (
@@ -29,7 +29,7 @@ const Hashtagpage = () => {
           paddingTop: "80px",
         }}
       >
-        {hashtagPosts[0]?.Posts.map((element, index) => (
+        {posts[0]?.Posts.map((element, index) => (
           <PostBoard
             key={index}
             post={element?.contents}
@@ -55,7 +55,7 @@ const Hashtagpage = () => {
                 : false
             }
             date={element?.updatedAt}
-            dataType={"hashtagPosts"}
+            dataType={"posts"}
           />
         ))}
         <Button onClick={() => router.back()}>뒤로가기</Button>

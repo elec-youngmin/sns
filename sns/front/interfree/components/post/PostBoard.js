@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import Avatar from "react-avatar";
+import "react-contexify/dist/ReactContexify.css";
 
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
@@ -51,6 +52,7 @@ const PostBoard = ({
   like,
   Likes,
   reportCount,
+  profileImg,
   PostImgSrcs,
   PostVideoSrcs,
   bookmarkId,
@@ -68,6 +70,7 @@ const PostBoard = ({
     cancelLikePostLoading,
     countReportDone,
   } = useSelector((state) => state.post);
+  const MENU_ID = "blahblah";
 
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
@@ -76,7 +79,7 @@ const PostBoard = ({
   const [loadings, setLoadings] = useState(false);
   const [userProfileImg, setUserProfileImg] = useState("userImage.jpg");
 
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [replaceText, setReplaceText] = useState("글이 차단됨");
 
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
@@ -109,19 +112,16 @@ const PostBoard = ({
         posts={post}
         postId={postId}
       />
-
       <CommentModal
         postId={postId}
         show={CommentmodalShow}
         onHide={() => setCommentModalShow(false)}
       />
-
       <PostReport
         show={reportModalShow}
         postId={postId}
         onHide={() => setReportModalShow(false)}
       />
-
       <Card style={{ marginBottom: "15px" }}>
         <Card.Header
           style={{
@@ -129,19 +129,34 @@ const PostBoard = ({
             padding: "5px",
           }}
         >
-          <img
-            src={`${backUrl}/${userProfileImg}`}
-            style={{
-              maxWidth: "50px",
-              minHeight: "auto",
-              marginRight: "2px",
-              marginRight: "15px",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              router.push(`${frontUrl}/UserPage/${userId}/`);
-            }}
-          />
+          {profileImg ? (
+            <img
+              src={`${backUrl}/${profileImg}`}
+              style={{
+                maxWidth: "50px",
+                minHeight: "auto",
+                marginRight: "2px",
+                marginRight: "15px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push(`${frontUrl}/UserPage/${userId}/`);
+              }}
+            />
+          ) : (
+            <Avatar
+              color={Avatar.getRandomColor("sitebase", [
+                "red",
+                "green",
+                "blue",
+              ])}
+              name={nickname}
+              size={50}
+              onClick={() => {
+                router.push(`${frontUrl}/UserPage/${userId}/`);
+              }}
+            />
+          )}
 
           <span
             style={{

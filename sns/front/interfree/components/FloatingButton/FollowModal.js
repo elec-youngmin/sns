@@ -1,12 +1,12 @@
 import React from "react";
 
-import WritePostForm from "./WritePostForm";
-
 import { Modal, Button } from "react-bootstrap";
 
-const WritePostModal = (props) => {
+import FollowPage from "../follow/FollowPage";
+
+const FollowModal = (props) => {
   return (
-    <div>
+    <>
       <Modal
         {...props}
         size="lg"
@@ -15,11 +15,11 @@ const WritePostModal = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            포스트 작성
+            팔로우한 유저 프로필 및 유저 페이지
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <WritePostForm />
+          <FollowPage />
         </Modal.Body>
         <Modal.Footer class="col-lg-12">
           <Button
@@ -33,8 +33,8 @@ const WritePostModal = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 };
 
-export default WritePostModal;
+export default FollowModal;
