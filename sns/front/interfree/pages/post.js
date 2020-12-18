@@ -1,18 +1,21 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import * as Scroll from "react-scroll";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
-import Menu from "../components/firstSeePage/Menu";
+import HorizontalNav from "../components/layout/HorizontalNav";
 import PostBoard from "../components/post/PostBoard";
 import NonePostAlert from "../components/post/NonePostAlert";
 import PostBoardLoading from "../components/loading/PostBoardLoading";
 import PreviewProfileModal from "../components/post/PreviewProfileModal";
 import VerticalNav from "../components/layout/VerticalNav";
-import myProfile from "../components/layout/myProfile";
+import MyProfile from "../components/layout/MyProfile";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import ScrollButton from "../components/layout/ScrollButton";
+import BottomTabs from "../components/layout/BottomTabs";
+import timelineForm from "./timelineForm";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,7 +33,6 @@ import { backUrl } from "../config/config";
 
 // 컴포넌트 시작
 const post = () => {
-  const scroll = Scroll.animateScroll;
   const { user } = useSelector((state) => state.user);
   const { loadPostDone } = useSelector((state) => state.post);
 
@@ -51,29 +53,21 @@ const post = () => {
 
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
+      <BottomTabs />
       <PreviewProfileModal
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
 
-      <div
-        className="col-md-8 container justify-content-center"
-        style={{ backgroundColor: "#EFF2F5", paddingTop: "75px" }}
-      >
-        <Row>
-          <myProfile />
-        </Row>
-      </div>
       <div className="container justify-content-center">
         <Row>
           <Col md={3}>
             <VerticalNav />
           </Col>
-          <Col md={7}>
+          <Col md={8} style={{ padding: "95px" }}>
+            <MyProfile />
             {posts.length <= 0 && loadPostDone && <NonePostAlert />}
-            {/* <WritePostForm /> */}
-
             <InfiniteScroll
               dataLength={posts.length}
               next={LoadNextPosts}

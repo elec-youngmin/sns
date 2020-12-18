@@ -55,7 +55,7 @@ const Login = () => {
 
   useMemo(() => {
     if (logInDone) {
-      Router.push(`${frontUrl}/PersonalPostBoard`);
+      Router.push(`${frontUrl}/home`);
     }
   }, [logInDone]);
 

@@ -46,7 +46,7 @@ router.post("/login", (req, res, next) => {
       return res.status(500).json(info.message);
     }
     if (info) {
-      return res.status(401).send(info.reason); //클라이언트 에러
+      return res.status(401).send(info.reason);
     }
     return req.login(user, async (loginError) => {
       if (loginError) {
@@ -56,7 +56,7 @@ router.post("/login", (req, res, next) => {
       const userInformation = await User.findOne({
         where: { id: user.id },
         attributes: {
-          exclude: ["password", "createdAt", "updatedAt"],
+          exclude: ["password", "updatedAt"],
         },
         include: [
           {
@@ -103,11 +103,11 @@ router.get(
 router.post("/loadUserInfomation", async (req, res, next) => {
   try {
     // console.log(req.user.dataValues.id);
-    console.log(res);
+    console.log(req.user);
     const userInfomation = await User.findOne({
       where: { id: req.user.dataValues.id },
       attributes: {
-        exclude: ["password", "createdAt", "updatedAt"],
+        exclude: ["password", "updatedAt"],
       },
       include: [
         {

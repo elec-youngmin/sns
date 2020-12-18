@@ -10,8 +10,6 @@ const db = require("./models");
 const passportConfig = require("./passport");
 const hpp = require("hpp");
 const helmet = require("helmet");
-const redis = require("redis");
-const connectRedis = require("connect-redis");
 const FileStore = require("session-file-store")(session);
 
 const userRouter = require("./routes/user");
@@ -33,11 +31,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://3.34.241.174",
-      "http://interfree.co.kr",
-    ],
+    origin: ["http://interfree.co.kr", "http://localhost:3000"],
     credentials: true,
   })
 );

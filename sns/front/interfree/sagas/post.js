@@ -4,6 +4,9 @@ import {
   SAVE_POST_REQUEST,
   SAVE_POST_SUCCESS,
   SAVE_POST_FAILURE,
+  SAVE_AUDIO_POST_REQUEST,
+  SAVE_AUDIO_POST_SUCCESS,
+  SAVE_AUDIO_POST_FAILURE,
   LOAD_ALLPOST_REQUEST,
   LOAD_ALLPOST_SUCCESS,
   LOAD_ALLPOST_FAILURE,
@@ -91,6 +94,18 @@ import {
   SEARCH_RESULT_REQUEST,
   SEARCH_RESULT_SUCCESS,
   SEARCH_RESULT_FAILURE,
+  ADD_TIMELINE_SUBJECT_REQUEST,
+  ADD_TIMELINE_SUBJECT_SUCCESS,
+  ADD_TIMELINE_SUBJECT_FAILURE,
+  ADD_TIMELINE_CONTENTS_REQUEST,
+  ADD_TIMELINE_CONTENTS_SUCCESS,
+  ADD_TIMELINE_CONTENTS_FAILURE,
+  LOAD_TIMELINE_SUBJECT_REQUEST,
+  LOAD_TIMELINE_SUBJECT_SUCCESS,
+  LOAD_TIMELINE_SUBJECT_FAILURE,
+  LOAD_TIMELINE_CONTENTS_REQUEST,
+  LOAD_TIMELINE_CONTENTS_SUCCESS,
+  LOAD_TIMELINE_CONTENTS_FAILURE,
 } from "../reducers/post";
 
 function savePostAPI(data) {
@@ -109,6 +124,27 @@ function* savePost(action) {
     console.error(err);
     yield put({
       type: SAVE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function saveAudioPostAPI(data) {
+  return axios.post("post/saveAudioPost", data);
+}
+
+function* saveAudioPost(action) {
+  try {
+    const result = yield call(saveAudioPostAPI, action.data);
+    console.log(result);
+    yield put({
+      type: SAVE_AUDIO_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SAVE_AUDIO_POST_FAILURE,
       error: err.response.data,
     });
   }
@@ -703,7 +739,7 @@ function* searchInputText(action) {
 }
 
 function searchResultAPI(data) {
-  return axios.post("post/searchResult", data);
+  return axios.get(`post/searchResult/${data}`);
 }
 
 function* searchResult(action) {
@@ -723,8 +759,96 @@ function* searchResult(action) {
   }
 }
 
+function addTimelineSubjectAPI(data) {
+  return axios.post("post/addTimelineSubject", data);
+}
+
+function* addTimelineSubject(action) {
+  try {
+    const result = yield call(addTimelineSubjectAPI, action.data);
+    console.log(result);
+    yield put({
+      type: ADD_TIMELINE_SUBJECT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: ADD_TIMELINE_SUBJECT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function addTimelineContentsAPI(data) {
+  return axios.post("post/addTimelineContents", data);
+}
+
+function* addTimelineContents(action) {
+  try {
+    const result = yield call(addTimelineContentsAPI, action.data);
+    console.log(result);
+    yield put({
+      type: ADD_TIMELINE_CONTENTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: ADD_TIMELINE_CONTENTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function loadTimelineSubjectAPI(data) {
+  return axios.get("post/loadTimelineSubject", data);
+}
+
+function* loadTimelineSubject(action) {
+  try {
+    const result = yield call(loadTimelineSubjectAPI, action.data);
+    console.log(result);
+    yield put({
+      type: LOAD_TIMELINE_SUBJECT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_TIMELINE_SUBJECT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function loadTimelineContentsAPI(data) {
+  return axios.get(`post/loadTimelineContents/${data}`);
+}
+
+function* loadTimelineContents(action) {
+  try {
+    const result = yield call(loadTimelineContentsAPI, action.data);
+    console.log(result);
+    yield put({
+      type: LOAD_TIMELINE_CONTENTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_TIMELINE_CONTENTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchSavePost() {
   yield takeLatest(SAVE_POST_REQUEST, savePost);
+}
+
+function* watchSaveAudioPost() {
+  yield takeLatest(SAVE_AUDIO_POST_REQUEST, saveAudioPost);
 }
 
 function* watchLoadPost() {
@@ -842,9 +966,26 @@ function* watchSearchResult() {
   yield takeLatest(SEARCH_RESULT_REQUEST, searchResult);
 }
 
+function* watchAddTimelineSubject() {
+  yield takeLatest(ADD_TIMELINE_SUBJECT_REQUEST, addTimelineSubject);
+}
+
+function* watchAddTimelineContents() {
+  yield takeLatest(ADD_TIMELINE_CONTENTS_REQUEST, addTimelineContents);
+}
+
+function* watchLoadTimelineSubject() {
+  yield takeLatest(LOAD_TIMELINE_SUBJECT_REQUEST, loadTimelineSubject);
+}
+
+function* watchLoadTimelineContents() {
+  yield takeLatest(LOAD_TIMELINE_CONTENTS_REQUEST, loadTimelineContents);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchSavePost),
+    fork(watchSaveAudioPost),
     fork(watchLoadPost),
     fork(watchLoadAllpost),
     fork(watchUpdatePost),
@@ -874,5 +1015,9 @@ export default function* userSaga() {
     fork(watchLoadPostPage),
     fork(watchSearchInputText),
     fork(watchSearchResult),
+    fork(watchAddTimelineSubject),
+    fork(watchAddTimelineContents),
+    fork(watchLoadTimelineSubject),
+    fork(watchLoadTimelineContents),
   ]);
 }

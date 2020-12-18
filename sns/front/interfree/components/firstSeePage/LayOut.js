@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import Menu from "./Menu";
-import TestMenu from "./TestMenu";
+import HorizontalNav from "../layout/HorizontalNav";
+
+// import TestMenu from "./TestMenu";
+import BottomTabs from "../layout/BottomTabs";
 
 import WelcomeBoard from "./WelcomeBoard";
-
 import { useSelector } from "react-redux";
 
 import { Spinner } from "react-bootstrap";
@@ -15,8 +16,8 @@ const LayOut = () => {
 
   return (
     <div>
-      <Menu />
-      <TestMenu />
+      <BottomTabs />
+      <HorizontalNav />
       <WelcomeBoard />
       {postLoadLoading && (
         <>

@@ -140,6 +140,10 @@ const WriteForm = (props) => {
 
   const textarea = useRef();
 
+  useEffect(() => {
+    textarea.current.focus();
+    console.log(textarea.current);
+  }, []);
   // console.log(textarea.current);
 
   // textarea.current = "adfasdf";
@@ -152,20 +156,23 @@ const WriteForm = (props) => {
         <Form.Group>
           <Form.Control
             as="textarea"
-            style={{ resize: "none" }}
+            style={{
+              resize: "none",
+              boxShadow: "1px 1px 3px 3px #F8F8FF",
+              borderRadius: "12px",
+            }}
             rows={5}
             multiple
             placeholder="포스트를 작성해보세요."
             onChange={onPostChange}
             ref={textarea}
-            // defaultValue={transcript}
           />
         </Form.Group>
         {image && !imageSaveError && (
           <img
             className="profile_preview"
             src={image.previewURL}
-            style={{ maxWidth: "30vw", maxHeight: "30vh" }}
+            style={{ maxWidth: "30vw", maxHeight: "30vh", corsor: "pointer" }}
           ></img>
         )}
         {vid && (
@@ -177,6 +184,7 @@ const WriteForm = (props) => {
             style={{
               maxWidth: "55vw",
               maxHeight: "50vw",
+              corsor: "pointer",
             }}
           ></video>
         )}

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
 
-import Menu from "../../components/firstSeePage/Menu";
+import HorizontalNav from "../../components/layout/HorizontalNav";
 
 import PostBoard from "../../components/post/PostBoard";
 import PostBoardLoading from "../../components/loading/PostBoardLoading";
@@ -37,7 +37,7 @@ const PostPage = () => {
 
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
       <div
         className="col-md-7 container justify-content-center"
         style={{

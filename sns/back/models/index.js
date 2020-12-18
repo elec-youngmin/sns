@@ -10,6 +10,8 @@ const postImgSrc = require("./postImgSrc");
 const profileImgSrc = require("./profileImgSrc");
 const postVideoSrc = require("./postVideoSrc");
 const hashtag = require("./hashtag");
+const timelineSub = require("./timelineSub");
+const timelineContent = require("./timelineContent");
 
 const env = process.env.NODE_ENV || "development";
 const config = require("../config/config")[env];
@@ -38,6 +40,8 @@ db.PostImgSrc = postImgSrc;
 db.ProfileImgSrc = profileImgSrc;
 db.PostVideoSrc = postVideoSrc;
 db.Hashtag = hashtag;
+db.TimelineSub = timelineSub;
+db.TimelineContent = timelineContent;
 
 Object.keys(db).forEach((modelName) => {
   db[modelName].init(sequelize);

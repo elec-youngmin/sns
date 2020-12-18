@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Button, Jumbotron, Col, Row } from "react-bootstrap";
 
 import PostBoardLoading from "../components/loading/PostBoardLoading";
+import BottomTabs from "../components/layout/BottomTabs";
 
 const Styledh1 = styled.h1`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
@@ -59,6 +60,7 @@ const Custom404 = () => {
 
   return (
     <div style={{ paddingTop: "75px" }}>
+      <BottomTabs />
       <Jumbotron
         className="container justify-content-center"
         style={{ borderRadius: "0px 0px 15px 15px", textAlign: "center" }}

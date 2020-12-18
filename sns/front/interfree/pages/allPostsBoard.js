@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
-import Menu from "../components/firstSeePage/Menu";
+import HorizontalNav from "../components/layout/HorizontalNav";
 import LoadAllPostBoard from "../components/allPost/LoadAllPostBoard";
 import UserProfileCard from "../components/allPost/UserProfileCard";
 import PostBoardLoading from "../components/loading/PostBoardLoading";
+import BottomTabs from "../components/layout/BottomTabs";
 
 import { useSelector } from "react-redux";
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
@@ -21,7 +22,8 @@ const allPostsBoard = () => {
 
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
+      <BottomTabs />
       <div
         className="col-md-10 container justify-content-around"
         style={{

@@ -55,10 +55,7 @@ const TrashPostAlert = () => {
   return (
     <div class="text-center" style={{ marginTop: "25px" }}>
       <TrashconfirmModal show={modalShow} onHide={() => setModalShow(false)} />
-      <Styledp>
-        쓰레기 포스트 수:
-        {trashPosts.length}개
-      </Styledp>
+      <Styledp>쓰레기 포스트 수 {trashPosts.length}개</Styledp>
       <div style={{ marginBottom: "20px" }}>
         <Button
           variant="primary"

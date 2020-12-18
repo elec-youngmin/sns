@@ -5,20 +5,12 @@ import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import Menu from "../components/firstSeePage/Menu";
+import HorizontalNav from "../components/layout/HorizontalNav";
 import TrashPostAlert from "../components/trash/TrashPostAlert";
 import TrashPostForm from "../components/trash/TrashPostForm";
 import VerticalNav from "../components/layout/VerticalNav";
 
-import {
-  Row,
-  Col,
-  Table,
-  Tabs,
-  TabContainer,
-  Button,
-  Nav,
-} from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
@@ -28,12 +20,12 @@ const trash = () => {
   const { trashPosts } = useSelector((state) => state.post);
   return (
     <div style={{ paddingTop: "75px" }}>
-      <Menu />
+      <HorizontalNav />
       <Row>
         <Col md={3}>
           <VerticalNav />
         </Col>
-        <Col>
+        <Col md={8}>
           <TrashPostAlert />
           {trashPosts.map((element, index) => (
             <TrashPostForm

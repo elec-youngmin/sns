@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import Menu from "../../components/firstSeePage/Menu";
+import HorizontalNav from "../../components/layout/HorizontalNav";
 import PostBoard from "../../components/post/PostBoard";
 import PostBoardLoading from "../../components/loading/PostBoardLoading";
 import UserProfileCard from "../../components/allPost/UserProfileCard";
@@ -39,7 +39,7 @@ const UserPage = () => {
   // };
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
       <div
         className="col-md-10 container justify-content-center"
         style={{

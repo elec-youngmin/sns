@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import HorizontalNav from "../components/layout/HorizontalNav";
+
 import Profile from "../components/setting/Profile";
 import ChangePasswordForm from "../components/setting/ChangePasswordForm";
 import DestroyUser from "../components/setting/DestroyUser";
 import DisabledUser from "../components/setting/DisabledUser";
+import BottomTabs from "../components/layout/BottomTabs";
+import VerticalNav from "../components/layout/VerticalNav";
 
 import { useSelector } from "react-redux";
 
@@ -14,8 +18,11 @@ const setting = () => {
   const { disabled } = useSelector((state) => state.user.user);
   return (
     <div>
+      <HorizontalNav />
+      <VerticalNav />
+      <BottomTabs />
       <Tab.Container defaultActiveKey="first">
-        <Row>
+        <Row style={{ paddingTop: "95px" }}>
           <Col lg={3} style={{ textAlign: "center" }}>
             <Nav
               className="container justify-content-center"

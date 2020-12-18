@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import Menu from "../../components/firstSeePage/Menu";
+import HorizontalNav from "../../components/layout/HorizontalNav";
 import PostBoard from "../../components/post/PostBoard";
 import PostBoardLoading from "../../components/loading/PostBoardLoading";
 
@@ -21,7 +21,7 @@ const Hashtagpage = () => {
 
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
       {/* <UserProfileCard /> */}
       <div
         className="col-md-7 container justify-content-center"

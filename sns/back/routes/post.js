@@ -17,6 +17,8 @@ const {
   PostVideoSrc,
   Hashtag,
   ProfileImgSrc,
+  TimelineSub,
+  TimelineContent,
 } = require("../models");
 const Op = Sequelize.Op;
 const router = express.Router();
@@ -33,7 +35,7 @@ const upload = multer({
       cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
     },
   }),
-  limits: { fileSize: 500 * 1024 * 1024 }, //500메가까지 업로드 할 수 있음.
+  limits: { fileSize: 200 * 1024 * 1024 }, //500메가까지 업로드 할 수 있음.
 });
 
 router.post(
@@ -138,9 +140,65 @@ router.post(
   }
 );
 
+router.post("/saveAudioPost", async (req, res, next) => {
+  try {
+    await Post.create({
+      contents: req.body.audioPost,
+      UserId: req.user.dataValues.id,
+      onlyReadMy: true,
+    });
+
+    const posts = await Post.findAll({
+      where: { UserId: req.user.dataValues.id },
+      // limit: 10,
+      order: [["id", "DESC"]],
+      attributes: { exclude: ["updatedAt", "deletedAt"] },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nickname"],
+          include: [
+            {
+              model: ProfileImgSrc,
+              attributes: ["src"],
+            },
+          ],
+        },
+        {
+          model: Like,
+          attributes: ["id", "LikeUserId", "PostId"],
+          where: { LikeUserId: req.user.dataValues.id },
+          required: false,
+        },
+        {
+          model: PostImgSrc,
+          attributes: ["src"],
+        },
+        {
+          model: PostVideoSrc,
+          attributes: ["src"],
+        },
+        {
+          model: Report,
+        },
+        {
+          model: Bookmark,
+          attributes: ["UserId", "PostId"],
+          where: { UserId: req.user.dataValues.id },
+          required: false,
+        },
+      ],
+    });
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.post("/load", passport.session(), async (req, res, next) => {
   try {
-    console.log("콘솔로 찍ㅇㅇ", req.user, req.session);
+    // console.log("콘솔로 찍ㅇㅇ", req._passport);
     let where;
 
     if (Object.keys(req.body).length === 0)
@@ -206,7 +264,7 @@ router.post("/load", passport.session(), async (req, res, next) => {
 router.post("/allPostLoad", async (req, res, next) => {
   try {
     let where;
-
+    console.log(req.body);
     if (Object.keys(req.body).length === 0)
       where = {
         onlyReadMy: 0,
@@ -235,12 +293,11 @@ router.post("/allPostLoad", async (req, res, next) => {
             },
             {
               model: Follow,
+              where: { followerId: 11 },
               required: false,
-              where: { followerId: req.user.dataValues.id },
             },
           ],
         },
-
         {
           model: Like,
           required: false,
@@ -266,6 +323,7 @@ router.post("/allPostLoad", async (req, res, next) => {
         },
       ],
     });
+    console.log(allPost);
     res.status(200).json(allPost);
   } catch (err) {
     console.error(err);
@@ -346,10 +404,10 @@ router.post("/deletePost", async (req, res, next) => {
   }
 });
 
-router.post("/loadTrash", async (req, res, next) => {
+router.get("/loadTrash", async (req, res, next) => {
   try {
     const [trashPosts, metadata] = await sequelize.query(
-      `SELECT postvideosrc.src AS videoSrc, postimgsrc.src AS imgSrc, posts.contents, posts.onlyReadMy, posts.id AS postId, posts.createdAt FROM postvideosrc RIGHT OUTER JOIN postimgsrc on postvideosrc.PostId=postimgsrc.PostId right OUTER JOIN posts on postimgsrc.PostId=posts.Id WHERE (posts.UserId = ${req.body.userId} AND posts.deletedAt IS NOT NULL)`
+      `SELECT postvideosrc.src AS videoSrc, postimgsrc.src AS imgSrc, posts.contents, posts.onlyReadMy, posts.id AS postId, posts.createdAt FROM postvideosrc RIGHT OUTER JOIN postimgsrc on postvideosrc.PostId=postimgsrc.PostId right OUTER JOIN posts on postimgsrc.PostId=posts.Id WHERE (posts.UserId = ${req.user.dataValues.id} AND posts.deletedAt IS NOT NULL)`
     );
 
     res.status(200).json(trashPosts);
@@ -379,14 +437,14 @@ router.post("/deleteAllTrash", async (req, res, next) => {
 
 router.post("/deleteTrashPost", async (req, res, next) => {
   try {
-    console.log(req.body);
     await Post.destroy({
       where: {
         id: req.body.postId,
       },
       force: true,
     });
-    res.status(200).json("성공적으로 삭제됨");
+    //삭제가 성공하면 다시 postId를 보내 삭제를 성공했다고 알림
+    res.status(200).json(req.body.postId);
   } catch (err) {
     console.log(err);
     next(err);
@@ -412,9 +470,7 @@ router.post("/restoreTrashPost", async (req, res, next) => {
       `UPDATE posts AS Post SET deletedAt=null WHERE id=${req.body.postId} AND deletedAt IS NOT NULL`
     );
 
-    res
-      .status(200)
-      .json(`${req.body.postId}번 쓰레기 포스트가 성공적으로 포스트로 이동함`);
+    res.status(200).json(req.body.postId);
   } catch (err) {
     console.error(err);
     next(err);
@@ -509,6 +565,7 @@ router.patch("/updateComment", async (req, res, next) => {
 //req.body.id=>UserId req.body.dataType
 router.post("/addBookmark", async (req, res, next) => {
   try {
+    console.log("출력도미", req.body);
     await Bookmark.create({
       UserId: req.body.id,
       PostId: req.body.postId,
@@ -533,7 +590,7 @@ router.post("/addBookmark", async (req, res, next) => {
         {
           model: Like,
           attributes: ["id", "LikeUserId", "PostId"],
-          // where: { UserId: req.body.id },
+          where: { LikeUserId: req.body.id },
           require: false,
         },
         {
@@ -555,24 +612,30 @@ router.post("/addBookmark", async (req, res, next) => {
         },
       ],
     });
-    if (req.body.dataType === "allPosts") {
-      OnePost[0].dataValues.dataType = "allPosts";
-    }
-    if (req.body.dataType === "posts") {
-      OnePost[0].dataValues.dataType = "posts";
-    }
 
-    if (req.body.dataType === "bookmark") {
-      OnePost[0].dataValues.dataType = "bookmark";
-    }
+    console.log(OnePost);
+    // if (req.body.dataType === "allPosts") {
+    //   OnePost[0].dataValues.dataType = "allPosts";
+    // }
+    // if (req.body.dataType === "posts") {
+    //   OnePost[0].dataValues.dataType = "posts";
+    // }
 
-    if (req.body.dataType === "follow") {
-      OnePost[0].dataValues.dataType = "follow";
-    }
+    // if (req.body.dataType === "bookmark") {
+    //   OnePost[0].dataValues.dataType = "bookmark";
+    // }
 
-    if (req.body.dataType === "hashtagPosts") {
-      OnePost[0].dataValues.dataType = "hashtagPosts";
-    }
+    // if (req.body.dataType === "follow") {
+    //   OnePost[0].dataValues.dataType = "follow";
+    // }
+
+    // if (req.body.dataType === "hashtagPosts") {
+    //   OnePost[0].dataValues.dataType = "hashtagPosts";
+    // }
+
+    // if (req.body.dataType === "postPage") {
+    //   OnePost[0].dataValues.dataType = "postPage";
+    // }
 
     res.status(200).json(OnePost);
   } catch (err) {
@@ -608,6 +671,8 @@ router.post("/cancelBookmark", async (req, res, next) => {
         {
           model: Like,
           attributes: ["id", "LikeUserId", "PostId"],
+          where: { LikeUserId: req.body.id },
+          require: false,
         },
         {
           model: PostImgSrc,
@@ -646,7 +711,10 @@ router.post("/cancelBookmark", async (req, res, next) => {
       OnePost[0].dataValues.dataType = "hashtagPosts";
     }
 
-    console.log(OnePost);
+    if (req.body.dataType === "postPage") {
+      OnePost[0].dataValues.dataType = "postPage";
+    }
+
     res.status(200).json(OnePost);
   } catch (err) {
     console.error(err);
@@ -654,17 +722,17 @@ router.post("/cancelBookmark", async (req, res, next) => {
   }
 });
 
-router.post("/loadBookmark", async (req, res, next) => {
+router.get("/loadBookmark", async (req, res, next) => {
   try {
     let where;
     if (req.body.lastId === undefined)
       where = {
-        UserId: req.body.userId,
+        UserId: req.user.dataValues.id,
       };
 
     if (req.body.lastId) {
       where = {
-        UserId: req.body.userId,
+        UserId: req.user.dataValues.id,
         id: { [Op.lt]: req.body.lastId },
       };
     }
@@ -700,7 +768,7 @@ router.post("/loadBookmark", async (req, res, next) => {
         },
         {
           model: Bookmark,
-          where: { UserId: req.body.userId },
+          where: { UserId: req.user.dataValues.id },
         },
       ],
     });
@@ -725,6 +793,7 @@ router.post("/uploadVideo", upload.single("video"), (req, res, next) => {
 
 router.post("/likePost", async (req, res, next) => {
   try {
+    console.log("좋아요 했음", req.body);
     await Like.create({
       LikeUserId: req.body.userId,
       PostId: req.body.postId,
@@ -763,33 +832,37 @@ router.post("/likePost", async (req, res, next) => {
         {
           model: Bookmark,
           attributes: ["UserId", "PostId"],
-          // where: { UserId: req.body.userId },
-          // require: false,
+          where: { UserId: req.body.userId },
+          require: false,
         },
       ],
     });
-    console.log(result.dataValues);
-    if (req.body.dataType === "allPosts") {
-      result.dataValues.dataType = "allPosts";
-    }
 
-    if (req.body.dataType === "posts") {
-      result.dataValues.dataType = "posts";
-    }
+    // if (req.body.dataType === "allPosts") {
+    //   result.dataValues.dataType = "allPosts";
+    // }
 
-    if (req.body.dataType === "bookmark") {
-      result.dataValues.dataType = "bookmark";
-    }
+    // if (req.body.dataType === "posts") {
+    //   result.dataValues.dataType = "posts";
+    // }
 
-    if (req.body.dataType === "follow") {
-      result.dataValues.dataType = "follow";
-    }
+    // if (req.body.dataType === "bookmark") {
+    //   result.dataValues.dataType = "bookmark";
+    // }
 
-    if (req.body.dataType === "hashtagPosts") {
-      result.dataValues.dataType = "hashtagPosts";
-    }
+    // if (req.body.dataType === "follow") {
+    //   result.dataValues.dataType = "follow";
+    // }
 
-    console.log(result.dataValues);
+    // if (req.body.dataType === "hashtagPosts") {
+    //   result.dataValues.dataType = "hashtagPosts";
+    // }
+
+    // if (req.body.dataType === "postPage") {
+    //   result.dataValues.dataType = "postPage";
+    // }
+
+    console.log(result);
 
     res.status(200).json(result);
   } catch (err) {
@@ -800,7 +873,6 @@ router.post("/likePost", async (req, res, next) => {
 
 router.post("/cancelLikePost", async (req, res, next) => {
   try {
-    console.log(req.body);
     await Like.destroy({
       where: {
         LikeUserId: req.body.userId,
@@ -845,6 +917,8 @@ router.post("/cancelLikePost", async (req, res, next) => {
       ],
     });
 
+    console.log(result);
+
     if (req.body.dataType === "allPosts") {
       result.dataValues.dataType = "allPosts";
     }
@@ -864,7 +938,10 @@ router.post("/cancelLikePost", async (req, res, next) => {
     if (req.body.dataType === "hashtagPosts") {
       result.dataValues.dataType = "hashtagPosts";
     }
-    console.log(result.dataValues);
+
+    if (req.body.dataType === "postPage") {
+      result.dataValues.dataType = "postPage";
+    }
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
@@ -920,7 +997,6 @@ router.post("/loadFollowsPost", async (req, res, next) => {
 
 router.get("/loadUserPage/:id", async (req, res, next) => {
   try {
-    console.log(req.params.id); //userId
     const posts = await Post.findAll({
       where: { UserId: req.params.id },
       order: [["id", "DESC"]],
@@ -1122,12 +1198,12 @@ router.post("/oneuserLoadChartdata", async (req, res, next) => {
     };
     //일일 포스트 수
     const [posts, metadata] = await sequelize.query(
-      `SELECT distinct count(id) as count, date(createdAt) as date from posts where UserId=${req.body.userId} group by date(createdAt)`
+      `SELECT distinct count(id) as count, date(createdAt) as date from posts where UserId=${req.user.dataValues.id} group by date(createdAt)`
     );
 
     //일일 좋아요 받은 수
     const [likes, metadata1] = await sequelize.query(
-      `SELECT distinct sum(posts.like) as count, date(createdAt) as date from posts where UserId=${req.body.userId} group by date(createdAt)`
+      `SELECT distinct sum(posts.like) as count, date(createdAt) as date from posts where UserId=${req.user.dataValues.id} group by date(createdAt)`
     );
 
     chartData.postsData = posts;
@@ -1181,6 +1257,156 @@ router.get("/loadPostPage/:postId", async (req, res, next) => {
     });
 
     res.status(200).json(post[0]);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.post("/searchInputText", async (req, res, next) => {
+  try {
+    console.log(req.body.text);
+    const [searchText, metadata] = await sequelize.query(
+      `SELECT DISTINCT(posts.contents) AS label FROM posts WHERE contents LIKE '${req.body.text}%'`
+    );
+
+    res.status(200).json(searchText);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/searchResult/:searchText", async (req, res, next) => {
+  try {
+    const posts = await Post.findAll({
+      where: {
+        contents: {
+          [Op.like]: req.params.searchText + "%",
+        },
+      },
+      // limit: 10,
+      order: [["id", "DESC"]],
+      attributes: { exclude: ["updatedAt", "deletedAt"] },
+      include: [
+        {
+          model: User,
+          attributes: ["id", "nickname"],
+          include: [
+            {
+              model: ProfileImgSrc,
+              attributes: ["src"],
+            },
+          ],
+        },
+        {
+          model: Like,
+          required: false,
+          attributes: ["id", "LikeUserId", "PostId"],
+          where: { LikeUserId: req.user.dataValues.id },
+        },
+        {
+          model: PostImgSrc,
+          attributes: ["src"],
+        },
+        {
+          model: PostVideoSrc,
+          attributes: ["src"],
+        },
+        {
+          model: Report,
+        },
+        {
+          model: Bookmark,
+          required: false,
+          attributes: ["UserId", "PostId"],
+          where: { UserId: req.user.dataValues.id },
+        },
+      ],
+    });
+
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.post("/addTimelineSubject", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    await TimelineSub.create({
+      subject: req.body.timelineSubject,
+      userId: req.user.dataValues.id,
+    });
+    const timelineSubject = await TimelineSub.findOne({
+      subject: req.body.timelineSubject,
+      userId: req.user.dataValues.id,
+    });
+    res.status(200).json(timelineSubject);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.post("/addTimelineContents", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    await TimelineContent.create({
+      content: req.body.content,
+      date: req.body.moment,
+      icon: req.body.icon,
+      TimelineSubId: req.body.id,
+    });
+    const Timeline = await TimelineContent.findAll({
+      order: [["id", "DESC"]],
+      attributes: { exclude: ["updatedAt", "deletedAt"] },
+      include: [
+        {
+          model: TimelineSub,
+          attributes: ["subject", "userId"],
+          where: {
+            userId: req.user.dataValues.id,
+          },
+        },
+      ],
+    });
+    res.status(200).json(Timeline);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/loadTimelineSubject", async (req, res, next) => {
+  try {
+    const TimelineSubject = await TimelineSub.findAll({
+      userId: req.user.dataValues.id,
+    });
+
+    res.status(200).json(TimelineSubject);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/loadTimelineContents/:id", async (req, res, next) => {
+  try {
+    console.log(typeof req.params.id);
+    const timelineContents = await TimelineContent.findAll({
+      where: { TimelineSubId: parseInt(req.params.id) },
+      attributes: { exclude: ["id", "createdAt", "deletedAt"] },
+      include: [
+        {
+          model: TimelineSub,
+          attributes: ["subject"],
+        },
+      ],
+    });
+
+    res.status(200).json(timelineContents);
   } catch (err) {
     console.error(err);
     next(err);

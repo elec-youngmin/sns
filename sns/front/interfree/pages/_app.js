@@ -4,7 +4,6 @@ import withReduxSaga from "next-redux-saga";
 import wrapper from "../store/configureStore";
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
-
 function MyApp({ Component, pageProps }) {
   return (
     <>

@@ -7,8 +7,9 @@ import {
   isMobile,
 } from "react-device-detect";
 
-import Menu from "../components/firstSeePage/Menu";
+import HorizontalNav from "../components/layout/HorizontalNav";
 import PostBoardLoading from "../components/loading/PostBoardLoading";
+import BottomTabs from "../components/layout/BottomTabs";
 
 import { useSelector } from "react-redux";
 
@@ -123,7 +124,8 @@ const ChartPage = () => {
 
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
+      <BottomTabs />
       <div
         className="col-md-8 container justify-content-center"
         style={{ paddingTop: "80px", textAlign: "center" }}

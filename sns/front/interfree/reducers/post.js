@@ -15,6 +15,9 @@ export const initialState = {
   savePostLoading: false,
   savePostDone: false,
   savePostError: null,
+  saveAudioPostLoading: false,
+  saveAudioPostDone: false,
+  saveAudioPostError: null,
   loadAllPostLoading: false,
   loadAllPostDone: false,
   loadAllPostError: null,
@@ -102,24 +105,43 @@ export const initialState = {
   searchResultLoading: false,
   searchResultDone: false,
   searchResultError: null,
+  addTimelineSubjectLoading: false,
+  addTimelineSubjectDone: false,
+  addTimelineSubjectError: null,
+  addTimelineContentsLoading: false,
+  addTimelineContentsDone: false,
+  addTimelineContentsError: null,
+  loadTimelineSubjectLoading: false,
+  loadTimelineSubjectDone: false,
+  loadTimelineSubjectError: null,
+  loadTimelineContentsLoading: false,
+  loadTimelineContentsDone: false,
+  loadTimelineContentsError: null,
   reports: [],
   allPosts: [],
   posts: [], //로그인한 유저의 포스트들
   trashPosts: [],
-  bookmarkPosts: [],
-  followPosts: [],
+  // bookmarkPosts: [],
+  // followPosts: [],
   comments: [],
   imagePreview: [],
   allCharts: [],
   charts: [],
-  hashtagPosts: [],
-  postPage: null,
+  timelineId: [],
+  timelineSubjects: [],
+  timelineContents: [],
+  // hashtagPosts: [],
+  // postPage: null,
   search: [],
 };
 
 export const SAVE_POST_REQUEST = "SAVE_POST_REQUEST";
 export const SAVE_POST_SUCCESS = "SAVE_POST_SUCCESS";
 export const SAVE_POST_FAILURE = "SAVE_POST_FAILURE";
+
+export const SAVE_AUDIO_POST_REQUEST = "SAVE_ADUTIO_POST_REQUEST";
+export const SAVE_AUDIO_POST_SUCCESS = "SAVE_ADUTIO_POST_SUCCESS";
+export const SAVE_AUDIO_POST_FAILURE = "SAVE_ADUTIO_POST_FAILURE";
 
 export const POST_AUTOSAVE_REQUEST = "POST_AUTOSAVE_REQUEST";
 export const POST_AUTOSAVE_SUCCESS = "POST_AUTOSAVE_SUCCESS";
@@ -253,6 +275,22 @@ export const SEARCH_RESULT_REQUEST = "SEARCH_RESULT_REQUEST";
 export const SEARCH_RESULT_SUCCESS = "SEARCH_RESULT_SUCCESS";
 export const SEARCH_RESULT_FAILURE = "SEARCH_RESULT_FAILURE";
 
+export const ADD_TIMELINE_SUBJECT_REQUEST = "ADD_TIMELINE_SUBJECT_REQUEST";
+export const ADD_TIMELINE_SUBJECT_SUCCESS = "ADD_TIMELINE_SUBJECT_SUCCESS";
+export const ADD_TIMELINE_SUBJECT_FAILURE = "ADD_TIMELINE_SUBJECT_FAILURE";
+
+export const ADD_TIMELINE_CONTENTS_REQUEST = "ADD_TIMELINE_CONTENTS_REQUEST";
+export const ADD_TIMELINE_CONTENTS_SUCCESS = "ADD_TIMELINE_CONTENTS_SUCCESS";
+export const ADD_TIMELINE_CONTENTS_FAILURE = "ADD_TIMELINE_CONTENTS_FAILURE";
+
+export const LOAD_TIMELINE_SUBJECT_REQUEST = "LOAD_TIMELINE_SUBJECT_REQUEST";
+export const LOAD_TIMELINE_SUBJECT_SUCCESS = "LOAD_TIMELINE_SUBJECT_SUCCESS";
+export const LOAD_TIMELINE_SUBJECT_FAILURE = "LOAD_TIMELINE_SUBJECT_FAILURE";
+
+export const LOAD_TIMELINE_CONTENTS_REQUEST = "LOAD_TIMELINE_CONTENTS_REQUEST";
+export const LOAD_TIMELINE_CONTENTS_SUCCESS = "LOAD_TIMELINE_CONTENTS_SUCCESS";
+export const LOAD_TIMELINE_CONTENTS_FAILURE = "LOAD_TIMELINE_CONTENTS_FAILURE";
+
 const reducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
@@ -268,6 +306,22 @@ const reducer = (state = initialState, action) =>
         draft.savePostError = false;
         break;
       case SAVE_POST_FAILURE:
+        draft.postSaveLoading = false;
+        draft.postSaveError = action.error;
+        ToastError("포스트 저장에 실패했습니다. 다시시도하세요.");
+        break;
+      case SAVE_AUDIO_POST_SUCCESS:
+        draft.saveAudioPostLoading = false;
+        draft.saveAudioPostDone = true;
+        draft.posts = action.data;
+        ToastSuccess("포스트 저장이 완료되었어요.");
+        break;
+      case SAVE_AUDIO_POST_REQUEST:
+        draft.saveAudioPostLoading = true;
+        draft.saveAudioPostDone = false;
+        draft.saveAudioPostError = false;
+        break;
+      case SAVE_AUDIO_POST_FAILURE:
         draft.postSaveLoading = false;
         draft.postSaveError = action.error;
         ToastError("포스트 저장에 실패했습니다. 다시시도하세요.");
@@ -877,7 +931,9 @@ const reducer = (state = initialState, action) =>
       case SEARCH_RESULT_SUCCESS:
         draft.searchResultDone = true;
         draft.searchResultLoding = false;
-        draft.search = action.data;
+        draft.posts = action.data;
+        draft.search = [];
+        ToastSuccess(`검색결과 ${posts.length}건의 포스트가 로드되었어요.`);
         break;
       case SEARCH_RESULT_REQUEST:
         draft.searchResultDone = false;
@@ -887,6 +943,65 @@ const reducer = (state = initialState, action) =>
       case SEARCH_RESULT_FAILURE:
         draft.searchResultLoding = false;
         draft.searchResultError = action.error;
+        ToastError("검색에 실패했습니다. 다시 시도하세요.");
+        break;
+      case ADD_TIMELINE_SUBJECT_SUCCESS:
+        draft.addTimelineSubjectDone = true;
+        draft.addTimelineSubjectLoding = false;
+        draft.timelineId = action.data;
+        ToastSuccess(`타임아웃 주제 추가에 성공했어요.`);
+        break;
+      case ADD_TIMELINE_SUBJECT_REQUEST:
+        draft.addTimelineSubjectDone = false;
+        draft.addTimelineSubjectLoding = true;
+        draft.addTimelineSubjectError = null;
+        break;
+      case ADD_TIMELINE_SUBJECT_FAILURE:
+        draft.addTimelineSubjectLoding = false;
+        draft.addTimelineSubjectError = action.error;
+        ToastError("타임아웃 주제 추가에 실패했습니다. 다시 시도하세요.");
+        break;
+      case ADD_TIMELINE_CONTENTS_SUCCESS:
+        draft.addTimelineContentsDone = true;
+        draft.addTimelineContentsLoding = false;
+        ToastSuccess(`타임아웃 추가에 성공했어요.`);
+        break;
+      case ADD_TIMELINE_CONTENTS_REQUEST:
+        draft.addTimelineContentsDone = false;
+        draft.addTimelineContentsLoding = true;
+        draft.addTimelineContentsError = null;
+        break;
+      case ADD_TIMELINE_CONTENTS_FAILURE:
+        draft.addTimelineContentsLoding = false;
+        draft.addTimelineContentsError = action.error;
+        ToastError("타임아웃 추가에 실패했습니다. 다시 시도하세요.");
+      case LOAD_TIMELINE_SUBJECT_SUCCESS:
+        draft.loadTimelineSubjectDone = true;
+        draft.loadTimelineSubjectLoding = false;
+        draft.timelineSubjects = action.data;
+        break;
+      case LOAD_TIMELINE_SUBJECT_REQUEST:
+        draft.loadTimelineSubjectDone = false;
+        draft.loadTimelineSubjectLoding = true;
+        draft.loadTimelineSubjectError = null;
+        break;
+      case LOAD_TIMELINE_SUBJECT_FAILURE:
+        draft.loadTimelineSubjectLoding = false;
+        draft.loadTimelineSubjectError = action.error;
+        break;
+      case LOAD_TIMELINE_CONTENTS_SUCCESS:
+        draft.loadTimelineContentsDone = true;
+        draft.loadTimelineContentsLoding = false;
+        draft.timelineContents = action.data;
+        break;
+      case LOAD_TIMELINE_CONTENTS_REQUEST:
+        draft.loadTimelineContentsDone = false;
+        draft.loadTimelineContentsLoding = true;
+        draft.loadTimelineContentsError = null;
+        break;
+      case LOAD_TIMELINE_CONTENTS_FAILURE:
+        draft.loadTimelineContentsLoding = false;
+        draft.loadTimelineContentsError = action.error;
         break;
       default:
         break;

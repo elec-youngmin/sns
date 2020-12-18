@@ -2,7 +2,7 @@ import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 
-import Menu from "../components/firstSeePage/Menu";
+import HorizontalNav from "../components/layout/HorizontalNav";
 
 import FollowAlert from "../components/follow/FollowAlert";
 import FollowPage from "../components/follow/FollowPage";
@@ -10,6 +10,7 @@ import PostBoardLoading from "../components/loading/PostBoardLoading";
 import VerticalNav from "../components/layout/VerticalNav";
 import ScrollButton from "../components/layout/ScrollButton";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
+import BottomTabs from "../components/layout/BottomTabs";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
@@ -34,7 +35,8 @@ const friend = () => {
 
   return (
     <div>
-      <Menu />
+      <HorizontalNav />
+      <BottomTabs />
 
       <div
         className="col-md-8 container justify-content-center"

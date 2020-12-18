@@ -6,6 +6,13 @@ import { useRouter } from "next/router";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import Avatar from "react-avatar";
+import {
+  Menu,
+  Item,
+  Separator,
+  Submenu,
+  useContextMenu,
+} from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 
 import RevisePostForm from "./RevisePostForm";
@@ -70,7 +77,6 @@ const PostBoard = ({
     cancelLikePostLoading,
     countReportDone,
   } = useSelector((state) => state.post);
-  const MENU_ID = "blahblah";
 
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
@@ -103,9 +109,48 @@ const PostBoard = ({
     }
   }, [user]);
   console.log(follows);
+  const MENU_ID = postId;
+
+  const { show } = useContextMenu({
+    id: MENU_ID,
+  });
 
   return (
-    <div>
+    <div onContextMenu={show} onDoubleClick={show}>
+      <Menu id={MENU_ID}>
+        <Item
+          onClick={() => {
+            router.push(`${frontUrl}/PostPage/${userId}/`);
+          }}
+        >
+          포스트페이지로 이동
+        </Item>
+        <Item
+          onClick={() => {
+            router.push(`${frontUrl}/UserPage/${userId}/`);
+          }}
+        >
+          유저페이지로 이동
+        </Item>
+
+        {id === userId && (
+          <>
+            <Separator />
+            <Item onClick={() => setModalShow(true)}>수정</Item>
+            <Item
+              onClick={() => {
+                dispatch({
+                  type: DELETE_POST_REQUEST,
+                  data: { postId },
+                });
+              }}
+            >
+              휴지통으로 이동
+            </Item>
+            <Separator />
+          </>
+        )}
+      </Menu>
       <RevisePostForm
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -122,11 +167,17 @@ const PostBoard = ({
         postId={postId}
         onHide={() => setReportModalShow(false)}
       />
-      <Card style={{ marginBottom: "15px" }}>
+      <Card
+        style={{
+          marginBottom: "15px",
+          boxShadow: "1px 1px 3px 3px #F8F8FF",
+        }}
+      >
         <Card.Header
           style={{
             backgroundColor: "white",
             padding: "5px",
+            boxShadow: "1px 1px 3px 3px #F8F8FF",
           }}
         >
           {profileImg ? (
@@ -343,6 +394,7 @@ const PostBoard = ({
             backgroundColor: "white",
             textAlign: "center",
             padding: "5px",
+            boxShadow: "1px 1px 3px 3px #F8F8FF",
           }}
         >
           <BsBrightnessHigh

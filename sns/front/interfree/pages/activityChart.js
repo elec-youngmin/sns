@@ -1,6 +1,9 @@
 import React from "react";
 
 import OneuserChartPage from "../components/chart/OneuserChartPage";
+import BottomTabs from "../components/layout/BottomTabs";
+import VerticalNav from "../components/layout/VerticalNav";
+import HorizontalNav from "../components/layout/HorizontalNav";
 
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { LOAD_ONEUSER_CHARTDATA_REQUEST } from "../reducers/post";
@@ -12,7 +15,14 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 const activityChart = () => {
   const { loadOneuserChartdataDone } = useSelector((state) => state.post);
-  return <>{loadOneuserChartdataDone && <OneuserChartPage />}</>;
+  return (
+    <>
+      <BottomTabs />
+      <VerticalNav />
+      <HorizontalNav />
+      {loadOneuserChartdataDone && <OneuserChartPage />}
+    </>
+  );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
