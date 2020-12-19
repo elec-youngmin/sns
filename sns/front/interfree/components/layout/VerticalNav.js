@@ -16,7 +16,7 @@ import { frontUrl } from "../../config/config";
 
 const VerticalNav = () => {
   const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
+    query: "(max-device-width: 854px)",
   });
   return (
     <>
@@ -56,7 +56,7 @@ const VerticalNav = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                Router.push(`${frontUrl}/timeline`);
+                Router.push(`${frontUrl}/friend`);
               }}
             >
               <GoOrganization /> 친구

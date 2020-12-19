@@ -94,6 +94,12 @@ import {
   SEARCH_RESULT_REQUEST,
   SEARCH_RESULT_SUCCESS,
   SEARCH_RESULT_FAILURE,
+  SEARCH_FRIEND_REQUEST,
+  SEARCH_FRIEND_SUCCESS,
+  SEARCH_FRIEND_FAILURE,
+  SEARCH_FRIEND_RESULT_REQUEST,
+  SEARCH_FRIEND_RESULT_SUCCESS,
+  SEARCH_FRIEND_RESULT_FAILURE,
   ADD_TIMELINE_SUBJECT_REQUEST,
   ADD_TIMELINE_SUBJECT_SUCCESS,
   ADD_TIMELINE_SUBJECT_FAILURE,
@@ -759,6 +765,48 @@ function* searchResult(action) {
   }
 }
 
+function searchFriendAPI(data) {
+  return axios.post("post/searchFriend", data);
+}
+
+function* searchFriend(action) {
+  try {
+    const result = yield call(searchFriendAPI, action.data);
+    console.log(result);
+    yield put({
+      type: SEARCH_FRIEND_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SEARCH_FRIEND_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function searchFriendResultAPI(data) {
+  return axios.get(`post/searchFriendResult/${data}`);
+}
+
+function* searchFriendResult(action) {
+  try {
+    const result = yield call(searchFriendResultAPI, action.data);
+    console.log(result);
+    yield put({
+      type: SEARCH_FRIEND_RESULT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SEARCH_FRIEND_RESULT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function addTimelineSubjectAPI(data) {
   return axios.post("post/addTimelineSubject", data);
 }
@@ -966,6 +1014,14 @@ function* watchSearchResult() {
   yield takeLatest(SEARCH_RESULT_REQUEST, searchResult);
 }
 
+function* watchSearchFriend() {
+  yield takeLatest(SEARCH_FRIEND_REQUEST, searchFriend);
+}
+
+function* watchSearchFriendResult() {
+  yield takeLatest(SEARCH_FRIEND_RESULT_REQUEST, searchFriendResult);
+}
+
 function* watchAddTimelineSubject() {
   yield takeLatest(ADD_TIMELINE_SUBJECT_REQUEST, addTimelineSubject);
 }
@@ -1015,6 +1071,8 @@ export default function* userSaga() {
     fork(watchLoadPostPage),
     fork(watchSearchInputText),
     fork(watchSearchResult),
+    fork(watchSearchFriend),
+    fork(watchSearchFriendResult),
     fork(watchAddTimelineSubject),
     fork(watchAddTimelineContents),
     fork(watchLoadTimelineSubject),

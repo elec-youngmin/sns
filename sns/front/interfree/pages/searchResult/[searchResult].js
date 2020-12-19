@@ -24,7 +24,7 @@ import axios from "axios";
 
 // 컴포넌트 시작
 
-const friend = () => {
+const searchResult = () => {
   const { posts } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
 
@@ -46,7 +46,7 @@ const friend = () => {
           <Col md={3}>
             <VerticalNav />
           </Col>
-          <Col md={8} style={{ padding: "100px" }}>
+          <Col md={8} style={{ padding: "100px", marginBottom: "20px" }}>
             총 {posts.length}건의 검색결과가 로드되었습니다.
             {posts.length > 0 &&
               posts.map((element, index) => (
@@ -110,4 +110,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 
-export default friend;
+export default searchResult;

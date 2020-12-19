@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
 import AddIconModal from "./AddIconModal";
 
@@ -9,16 +9,15 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 const AddTimelineContentsModal = (props) => {
   const { id } = useSelector((state) => state.post.timelineId);
+  const { addTimelineSubjectError } = useSelector((state) => state.post);
+
   const dispatch = useDispatch();
 
-  const [timelineSubject, setTimelineSubject] = useState("");
   const [content, setContent] = useState();
   const [moment, setMoment] = useState();
-  const [icon, setIcon] = useState();
+  const [title, setTitle] = useState();
 
   const [addIconModalShow, setAddIconModalShow] = useState(false);
-
-  const [text, setText] = useState("");
 
   return (
     <div>
@@ -34,12 +33,27 @@ const AddTimelineContentsModal = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            한 타임라인 추가하기
+            한 타임라인 박스 추가하기
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form style={{ marginBottom: "50px" }}>
             <Form.Group>
+              <Form.Control
+                as="input"
+                style={{
+                  resize: "none",
+                  boxShadow: "1px 1px 3px 3px #F8F8FF",
+                  borderRadius: "12px",
+                  marginBottom: "10px",
+                }}
+                rows={1}
+                multiple
+                placeholder="타임아웃의 제목을 입력하세요."
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
               <Form.Control
                 as="input"
                 style={{
@@ -70,20 +84,6 @@ const AddTimelineContentsModal = (props) => {
                   setMoment(e.target.value);
                 }}
               />
-              {/* <IconPicker
-                buttonStyles={{
-                  border: "none",
-                  boxShadow: "1px 1px 3px 3px #F8F8FF",
-                  borderRadius: "12px",
-                  width: "80%",
-                }}
-                id="na"
-                value={icon}
-                hideSearch="true"
-                onChange={(v) => {
-                  setIcon(v);
-                }}
-              /> */}
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -107,10 +107,10 @@ const AddTimelineContentsModal = (props) => {
               dispatch({
                 type: ADD_TIMELINE_CONTENTS_REQUEST,
                 data: {
+                  title,
                   content,
                   moment,
-                  icon,
-                  id,
+                  id, //타임라인 id
                 },
               });
             }}

@@ -6,8 +6,9 @@ import { useMediaQuery } from "react-responsive";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  SEARCH_INPUT_TEXT_REQUEST,
-  SEARCH_RESULT_REQUEST,
+  SEARCH_FRIEND_REQUEST,
+  SEARCH_FRIEND_RESULT_REQUEST,
+  LOAD_USERPAGE_REQUEST,
 } from "../../reducers/post";
 import { Modal, Button, Row, Col } from "react-bootstrap";
 
@@ -17,9 +18,8 @@ import { frontUrl } from "../../config/config";
 const SearchModal = (props) => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
-  const { search, searchResultDone, searchResultError } = useSelector(
-    (state) => state.post
-  );
+  const { search } = useSelector((state) => state.post);
+  console.log(search);
   const router = useRouter();
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 768px)",
@@ -54,7 +54,7 @@ const SearchModal = (props) => {
               <Typeahead
                 filterBy={() => true}
                 options={search}
-                placeholder="검색할 포스트 내용을 검색..."
+                placeholder="친구의 이메일을 검색..."
                 style={{
                   display: "inline-block",
                   marginRight: "10px",
@@ -62,17 +62,16 @@ const SearchModal = (props) => {
                 }}
                 onChange={(selected) => {
                   console.log(selected);
-                  setSearchText(selected[0]?.label);
+                  setSearchText(selected[0]?.id);
                 }}
                 onInputChange={(e) => {
-                  setSearchText(e);
                   if (e.length > 1) {
                     dispatch({
-                      type: SEARCH_INPUT_TEXT_REQUEST,
+                      type: SEARCH_FRIEND_REQUEST,
                       data: { text: e },
                     });
                   }
-                }} //사용자가 검색창에 입력하면 발생하는 액션
+                }}
               />
             </Col>
             <Col md={2}>
@@ -86,10 +85,10 @@ const SearchModal = (props) => {
                 }}
                 onClick={() => {
                   dispatch({
-                    type: SEARCH_RESULT_REQUEST,
+                    type: LOAD_USERPAGE_REQUEST,
                     data: searchText,
                   });
-                  router.push(`${frontUrl}/searchResult/${searchText}/`);
+                  router.push(`${frontUrl}/UserPage/${searchText}/`);
                   props.onHide();
                 }}
               >

@@ -4,6 +4,7 @@ import {
   MainButton,
   ChildButton,
 } from "react-floating-button-menu";
+import { useMediaQuery } from "react-responsive";
 
 import WritePostModal from "./WritePostModal";
 import SettingModal from "./SettingModal";
@@ -25,7 +26,9 @@ const FloatingButton = () => {
   const [AudioWirtePostShow, setAudioWirtePostShow] = useState(false);
   const [settingShow, setSettingShow] = useState(false);
   const [followShow, setFollowShow] = useState(false);
-
+  const isTabletOrMobileDevice = useMediaQuery({
+    query: "(max-device-width: 985px)",
+  });
   return (
     <>
       <WritePostModal
@@ -49,7 +52,7 @@ const FloatingButton = () => {
         isOpen={childButton}
         style={{
           position: "fixed",
-          bottom: "30px",
+          bottom: isTabletOrMobileDevice ? "60px" : "30px",
           left: "30px",
           zIndex: "100",
         }}

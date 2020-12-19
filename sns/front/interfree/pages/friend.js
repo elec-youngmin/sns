@@ -11,10 +11,13 @@ import VerticalNav from "../components/layout/VerticalNav";
 import ScrollButton from "../components/layout/ScrollButton";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import BottomTabs from "../components/layout/BottomTabs";
+import SearchFriendModal from "../components/follow/SearchFriendModal";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { LOAD_FOLLOWS_POST_REQUEST } from "../reducers/post";
+
+import { BsPlusCircle } from "react-icons/bs";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -32,15 +35,20 @@ const friend = () => {
   const { followPosts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
+  const [SearchFriendModalShow, setSearchFriendModalShow] = useState(false);
 
   return (
     <div>
       <HorizontalNav />
       <BottomTabs />
+      <SearchFriendModal
+        show={SearchFriendModalShow}
+        onHide={() => setSearchFriendModalShow(false)}
+      />
 
       <div
         className="col-md-8 container justify-content-center"
-        style={{ backgroundColor: "#EFF2F5", paddingTop: "75px" }}
+        style={{ backgroundColor: "#EFF2F5", paddingTop: "100px" }}
       >
         <Row>
           <Col md={5}></Col>
@@ -52,6 +60,35 @@ const friend = () => {
             <VerticalNav />
           </Col>
           <Col md={7}>{followPosts.length === 0 && <FollowAlert />}</Col>
+          <Row
+            style={{
+              border: "1px solid #F0FFFF",
+              borderRadius: "5px",
+              boxShadow: "1px 1px 3px 3px #ccc",
+              backgroundColor: "white",
+              margin: "20px",
+              textAlign: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              setSearchFriendModalShow(true);
+            }}
+          >
+            <Col
+              md={3}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <BsPlusCircle size={30} />
+            </Col>
+            <Col md={9}>
+              <p style={{ fontWeight: "700" }}>친구 검색</p>
+              친구를 검색해 팔로우 하세요.
+            </Col>
+          </Row>
           <PostBoardLoading />
           <FollowPage />
         </Row>

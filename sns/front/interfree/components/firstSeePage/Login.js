@@ -104,6 +104,7 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
+              type="password"
               name="password"
               placeholder="패스워드 입력"
               className={`form-control ${errors.password ? "is-invalid" : ""}`}

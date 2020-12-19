@@ -7,9 +7,7 @@ import SearchModal from "./SearchModal";
 
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
-import { LOAD_CHARTDATA_REQUEST } from "../../reducers/post";
 
-import { Row, Col } from "react-bootstrap";
 import {
   AiFillDribbbleCircle,
   AiOutlineLogout,
@@ -17,12 +15,8 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 
-import { BsFillInfoCircleFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 
-import { BiUserCircle } from "react-icons/bi";
-
-// import Styledh1 from "./style/menuStyle";
 import styled from "styled-components";
 
 import { frontUrl } from "../../config/config";

@@ -24,7 +24,7 @@ const ColStyle = {
 };
 const BottomTabs = () => {
   const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
+    query: "(max-device-width: 854px)",
   });
   return (
     <div>

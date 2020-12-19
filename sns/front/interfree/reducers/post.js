@@ -105,6 +105,12 @@ export const initialState = {
   searchResultLoading: false,
   searchResultDone: false,
   searchResultError: null,
+  searchFriendLoading: false,
+  searchFriendDone: false,
+  searchFriendError: null,
+  searchFriendResultLoading: false,
+  searchFriendResultDone: false,
+  searchFriendResultError: null,
   addTimelineSubjectLoading: false,
   addTimelineSubjectDone: false,
   addTimelineSubjectError: null,
@@ -121,8 +127,7 @@ export const initialState = {
   allPosts: [],
   posts: [], //로그인한 유저의 포스트들
   trashPosts: [],
-  // bookmarkPosts: [],
-  // followPosts: [],
+  followPosts: [],
   comments: [],
   imagePreview: [],
   allCharts: [],
@@ -274,6 +279,14 @@ export const SEARCH_INPUT_TEXT_FAILURE = "SEARCH_INPUT_TEXT_FAILURE";
 export const SEARCH_RESULT_REQUEST = "SEARCH_RESULT_REQUEST";
 export const SEARCH_RESULT_SUCCESS = "SEARCH_RESULT_SUCCESS";
 export const SEARCH_RESULT_FAILURE = "SEARCH_RESULT_FAILURE";
+
+export const SEARCH_FRIEND_REQUEST = "SEARCH_FRIEND_REQUEST";
+export const SEARCH_FRIEND_SUCCESS = "SEARCH_FRIEND_SUCCESS";
+export const SEARCH_FRIEND_FAILURE = "SEARCH_FRIEND_FAILURE";
+
+export const SEARCH_FRIEND_RESULT_REQUEST = "SEARCH_FRIEND_RESULT_REQUEST";
+export const SEARCH_FRIEND_RESULT_SUCCESS = "SEARCH_FRIEND_RESULT_SUCCESS";
+export const SEARCH_FRIEND_RESULT_FAILURE = "SEARCH_FRIEND_RESULT_FAILURE";
 
 export const ADD_TIMELINE_SUBJECT_REQUEST = "ADD_TIMELINE_SUBJECT_REQUEST";
 export const ADD_TIMELINE_SUBJECT_SUCCESS = "ADD_TIMELINE_SUBJECT_SUCCESS";
@@ -933,7 +946,6 @@ const reducer = (state = initialState, action) =>
         draft.searchResultLoding = false;
         draft.posts = action.data;
         draft.search = [];
-        ToastSuccess(`검색결과 ${posts.length}건의 포스트가 로드되었어요.`);
         break;
       case SEARCH_RESULT_REQUEST:
         draft.searchResultDone = false;
@@ -943,6 +955,36 @@ const reducer = (state = initialState, action) =>
       case SEARCH_RESULT_FAILURE:
         draft.searchResultLoding = false;
         draft.searchResultError = action.error;
+        ToastError("검색에 실패했습니다. 다시 시도하세요.");
+        break;
+      case SEARCH_FRIEND_SUCCESS:
+        draft.searchFriendDone = true;
+        draft.searchFriendLoding = false;
+        draft.search = action.data;
+        break;
+      case SEARCH_FRIEND_REQUEST:
+        draft.searchFriendDone = false;
+        draft.searchFriendLoding = true;
+        draft.searchFriendError = null;
+        break;
+      case SEARCH_FRIEND_FAILURE:
+        draft.searchFriendLoding = false;
+        draft.searchFriendError = action.error;
+        break;
+      case SEARCH_FRIEND_RESULT_SUCCESS:
+        draft.searchFriendResultDone = true;
+        draft.searchFriendResultLoding = false;
+        draft.posts = action.data;
+        draft.searchFriend = [];
+        break;
+      case SEARCH_FRIEND_RESULT_REQUEST:
+        draft.searchFriendResultDone = false;
+        draft.searchFriendResultLoding = true;
+        draft.searchFriendResultError = null;
+        break;
+      case SEARCH_FRIEND_RESULT_FAILURE:
+        draft.searchFriendResultLoding = false;
+        draft.searchFriendResultError = action.error;
         ToastError("검색에 실패했습니다. 다시 시도하세요.");
         break;
       case ADD_TIMELINE_SUBJECT_SUCCESS:

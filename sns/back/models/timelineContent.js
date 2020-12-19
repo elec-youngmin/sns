@@ -7,6 +7,11 @@ module.exports = class TimelineContent extends (
   static init(sequelize) {
     return super.init(
       {
+        tiltle: {
+          type: DataTypes.STRING(200),
+          allowNull: false,
+          defaultValue: 0,
+        },
         content: {
           type: DataTypes.STRING(1000),
           allowNull: false,
@@ -14,11 +19,6 @@ module.exports = class TimelineContent extends (
         },
         date: {
           type: DataTypes.STRING(100),
-          allowNull: false,
-          defaultValue: 0,
-        },
-        icon: {
-          type: DataTypes.STRING(200),
           allowNull: false,
           defaultValue: 0,
         },

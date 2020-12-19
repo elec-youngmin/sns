@@ -1277,7 +1277,21 @@ router.post("/searchInputText", async (req, res, next) => {
   }
 });
 
-router.get("/searchResult/:searchText", async (req, res, next) => {
+router.post("/searchFriend", async (req, res, next) => {
+  try {
+    console.log(req.body.text);
+    const [searchFriend, metadata] = await sequelize.query(
+      `SELECT users.email AS label, users.id FROM users WHERE users.email LIKE '${req.body.text}%'`
+    );
+
+    res.status(200).json(searchFriend);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/searchFriendResult/:searchText", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
       where: {
@@ -1335,14 +1349,24 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
 router.post("/addTimelineSubject", async (req, res, next) => {
   try {
     console.log(req.body);
+    const isexist = await TimelineSub.findOne({
+      subject: req.body.timelineSubject,
+      userId: req.user.dataValues.id,
+    });
+    if (isexist) {
+      return res.status(500).json("이미 존재하는 타임라인 주제입니다.");
+    }
     await TimelineSub.create({
       subject: req.body.timelineSubject,
       userId: req.user.dataValues.id,
     });
     const timelineSubject = await TimelineSub.findOne({
-      subject: req.body.timelineSubject,
-      userId: req.user.dataValues.id,
+      where: {
+        subject: req.body.timelineSubject,
+        userId: req.user.dataValues.id,
+      },
     });
+    console.log(timelineSubject);
     res.status(200).json(timelineSubject);
   } catch (err) {
     console.error(err);
@@ -1354,6 +1378,7 @@ router.post("/addTimelineContents", async (req, res, next) => {
   try {
     console.log(req.body);
     await TimelineContent.create({
+      title: req.body.title,
       content: req.body.content,
       date: req.body.moment,
       icon: req.body.icon,

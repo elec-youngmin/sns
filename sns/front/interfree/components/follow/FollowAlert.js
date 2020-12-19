@@ -6,7 +6,7 @@ import { Alert } from "react-bootstrap";
 const FollowAlert = () => {
   return (
     <div>
-      <Alert variant="dark">
+      <Alert variant="dark" style={{ textAlign: "center" }}>
         <Alert.Heading>
           이 탭에서 팔로우한 유저의 프로필이 나타나요.
         </Alert.Heading>

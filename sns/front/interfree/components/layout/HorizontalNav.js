@@ -6,7 +6,7 @@ import MobileHorizontalNav from "./MobileHorizontalNav";
 
 const HorizontalNav = () => {
   const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
+    query: "(max-device-width: 985px)",
   });
   return (
     <div>
