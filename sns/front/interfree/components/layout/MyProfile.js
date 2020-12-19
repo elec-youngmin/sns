@@ -87,7 +87,6 @@ const MyProfile = () => {
           </form>
         </Col>
         <Col md={7}>
-          <br />
           <Table>
             <tbody>
               <tr class="text-center">

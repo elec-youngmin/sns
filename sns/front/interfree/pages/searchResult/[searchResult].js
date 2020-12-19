@@ -47,7 +47,7 @@ const searchResult = () => {
             <VerticalNav />
           </Col>
           <Col md={8} style={{ padding: "100px", marginBottom: "20px" }}>
-            총 {posts.length}건의 검색결과가 로드되었습니다.
+            검색결과 총{posts.length}건의 포스트가 로드되었습니다.
             {posts.length > 0 &&
               posts.map((element, index) => (
                 <PostBoard

@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
+
 const activityChart = () => {
   const { loadOneuserChartdataDone } = useSelector((state) => state.post);
   return (

@@ -1291,7 +1291,7 @@ router.post("/searchFriend", async (req, res, next) => {
   }
 });
 
-router.get("/searchFriendResult/:searchText", async (req, res, next) => {
+router.get("/searchResult/:searchText", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
       where: {
@@ -1349,11 +1349,14 @@ router.get("/searchFriendResult/:searchText", async (req, res, next) => {
 router.post("/addTimelineSubject", async (req, res, next) => {
   try {
     console.log(req.body);
-    const isexist = await TimelineSub.findOne({
-      subject: req.body.timelineSubject,
-      userId: req.user.dataValues.id,
+    const isExist = await TimelineSub.findOne({
+      where: {
+        subject: req.body.timelineSubject,
+        userId: req.user.dataValues.id,
+      },
     });
-    if (isexist) {
+    if (isExist) {
+      console.log("존재하는지 확인", isExist);
       return res.status(500).json("이미 존재하는 타임라인 주제입니다.");
     }
     await TimelineSub.create({

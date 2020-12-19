@@ -52,6 +52,7 @@ const SearchModal = (props) => {
           >
             <Col md={10}>
               <Typeahead
+                id="basic-typeahead-multiple"
                 filterBy={() => true}
                 options={search}
                 placeholder="친구의 이메일을 검색..."
@@ -65,12 +66,11 @@ const SearchModal = (props) => {
                   setSearchText(selected[0]?.id);
                 }}
                 onInputChange={(e) => {
-                  if (e.length > 1) {
-                    dispatch({
-                      type: SEARCH_FRIEND_REQUEST,
-                      data: { text: e },
-                    });
-                  }
+                  setSearchText(e);
+                  dispatch({
+                    type: SEARCH_FRIEND_REQUEST,
+                    data: { text: e },
+                  });
                 }}
               />
             </Col>

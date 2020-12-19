@@ -52,6 +52,7 @@ const SearchModal = (props) => {
           >
             <Col md={10}>
               <Typeahead
+                id="basic-typeahead-multiple"
                 filterBy={() => true}
                 options={search}
                 placeholder="검색할 포스트 내용을 검색..."
@@ -66,12 +67,10 @@ const SearchModal = (props) => {
                 }}
                 onInputChange={(e) => {
                   setSearchText(e);
-                  if (e.length > 1) {
-                    dispatch({
-                      type: SEARCH_INPUT_TEXT_REQUEST,
-                      data: { text: e },
-                    });
-                  }
+                  dispatch({
+                    type: SEARCH_INPUT_TEXT_REQUEST,
+                    data: { text: e },
+                  });
                 }} //사용자가 검색창에 입력하면 발생하는 액션
               />
             </Col>

@@ -41,13 +41,14 @@ const timeline = () => {
           paddingTop: "80px",
         }}
       >
-        <VerticalTimeline>
-          {timelineContents.map((element) => {
+        <VerticalTimeline animate={false}>
+          {timelineContents.map((element, index) => {
             return (
               <TimelineElement
+                key={element.index}
+                content={element.title}
                 content={element.content}
                 date={element.date}
-                icon={element.icon}
                 TimelineSubId={element.TimelineSubId}
                 TimelineSub={element.subject}
               />

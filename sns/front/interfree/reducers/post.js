@@ -123,6 +123,12 @@ export const initialState = {
   loadTimelineContentsLoading: false,
   loadTimelineContentsDone: false,
   loadTimelineContentsError: null,
+  deleteTimelineContentsLoading: false,
+  deleteTimelineContentsDone: false,
+  deleteTimelineContentsError: null,
+  updateTimelineContentsLoading: false,
+  updateTimelineContentsDone: false,
+  updateTimelineContentsError: null,
   reports: [],
   allPosts: [],
   posts: [], //로그인한 유저의 포스트들
@@ -303,6 +309,20 @@ export const LOAD_TIMELINE_SUBJECT_FAILURE = "LOAD_TIMELINE_SUBJECT_FAILURE";
 export const LOAD_TIMELINE_CONTENTS_REQUEST = "LOAD_TIMELINE_CONTENTS_REQUEST";
 export const LOAD_TIMELINE_CONTENTS_SUCCESS = "LOAD_TIMELINE_CONTENTS_SUCCESS";
 export const LOAD_TIMELINE_CONTENTS_FAILURE = "LOAD_TIMELINE_CONTENTS_FAILURE";
+
+export const DELETE_TIMELINE_CONTENTS_REQUEST =
+  "DELETE_TIMELINE_CONTENTS_REQUEST";
+export const DELETE_TIMELINE_CONTENTS_SUCCESS =
+  "DELETE_TIMELINE_CONTENTS_SUCCESS";
+export const DELETE_TIMELINE_CONTENTS_FAILURE =
+  "DELETE_TIMELINE_CONTENTS_FAILURE";
+
+export const UPDATE_TIMELINE_CONTENTS_REQUEST =
+  "UPDATE_TIMELINE_CONTENTS_REQUEST";
+export const UPDATE_TIMELINE_CONTENTS_SUCCESS =
+  "UPDATE_TIMELINE_CONTENTS_SUCCESS";
+export const UPDATE_TIMELINE_CONTENTS_FAILURE =
+  "UPDATE_TIMELINE_CONTENTS_FAILURE";
 
 const reducer = (state = initialState, action) =>
   produce(state, (draft) => {
@@ -1044,6 +1064,34 @@ const reducer = (state = initialState, action) =>
       case LOAD_TIMELINE_CONTENTS_FAILURE:
         draft.loadTimelineContentsLoding = false;
         draft.loadTimelineContentsError = action.error;
+        break;
+      case DELETE_TIMELINE_CONTENTS_SUCCESS:
+        draft.deleteTimelineSubjectDone = true;
+        draft.deleteTimelineSubjectLoding = false;
+        draft.timelineSubjects = action.data;
+        break;
+      case DELETE_TIMELINE_CONTENTS_REQUEST:
+        draft.deleteTimelineSubjectDone = false;
+        draft.deleteTimelineSubjectLoding = true;
+        draft.deleteTimelineSubjectError = null;
+        break;
+      case DELETE_TIMELINE_CONTENTS_FAILURE:
+        draft.deleteTimelineSubjectLoding = false;
+        draft.deleteTimelineSubjectError = action.error;
+        break;
+      case UPDATE_TIMELINE_CONTENTS_SUCCESS:
+        draft.updateTimelineContentsDone = true;
+        draft.updateTimelineContentsLoding = false;
+        draft.timelineContents = action.data;
+        break;
+      case UPDATE_TIMELINE_CONTENTS_REQUEST:
+        draft.updateTimelineContentsDone = false;
+        draft.updateTimelineContentsLoding = true;
+        draft.updateTimelineContentsError = null;
+        break;
+      case UPDATE_TIMELINE_CONTENTS_FAILURE:
+        draft.updateTimelineContentsLoding = false;
+        draft.updateTimelineContentsError = action.error;
         break;
       default:
         break;

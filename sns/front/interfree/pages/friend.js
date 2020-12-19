@@ -38,7 +38,7 @@ const friend = () => {
   const [SearchFriendModalShow, setSearchFriendModalShow] = useState(false);
 
   return (
-    <div>
+    <div style={{ paddingTop: "100px" }}>
       <HorizontalNav />
       <BottomTabs />
       <SearchFriendModal
@@ -46,49 +46,46 @@ const friend = () => {
         onHide={() => setSearchFriendModalShow(false)}
       />
 
-      <div
-        className="col-md-8 container justify-content-center"
-        style={{ backgroundColor: "#EFF2F5", paddingTop: "100px" }}
-      >
-        <Row>
-          <Col md={5}></Col>
-        </Row>
-      </div>
       <div className="container justify-content-center">
         <Row>
           <Col md={3}>
             <VerticalNav />
           </Col>
-          <Col md={7}>{followPosts.length === 0 && <FollowAlert />}</Col>
-          <Row
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "5px",
-              boxShadow: "1px 1px 3px 3px #ccc",
-              backgroundColor: "white",
-              margin: "20px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setSearchFriendModalShow(true);
-            }}
-          >
-            <Col
-              md={3}
+          <Col md={9}>
+            {followPosts.length === 0 && <FollowAlert />}
+            <Row
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                border: "1px solid #F0FFFF",
+                borderRadius: "5px",
+                boxShadow: "1px 1px 3px 3px #ccc",
+                backgroundColor: "white",
+                margin: "20px",
+                textAlign: "center",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                setSearchFriendModalShow(true);
               }}
             >
-              <BsPlusCircle size={30} />
-            </Col>
-            <Col md={9}>
-              <p style={{ fontWeight: "700" }}>친구 검색</p>
-              친구를 검색해 팔로우 하세요.
-            </Col>
-          </Row>
+              <Col
+                md={3}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <BsPlusCircle size={30} />
+              </Col>
+              <Col md={9}>
+                <p style={{ fontWeight: "bold", marginBottom: "5px" }}>
+                  친구 검색
+                </p>
+                친구를 검색해 팔로우 하세요.
+              </Col>
+            </Row>
+          </Col>
+
           <PostBoardLoading />
           <FollowPage />
         </Row>

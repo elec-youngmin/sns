@@ -56,11 +56,6 @@ const home = () => {
     false
   );
 
-  // useMemo(() => {
-  //   if (timelineModalShowCounter === true) {
-  //     setTimelineModalShow(false);
-  //   }
-  // }, [timelineModalShow]);
   return (
     <div>
       <AddTimelineModal
@@ -79,18 +74,25 @@ const home = () => {
         onHide={() => setModalShow(false)}
         // toggle={}
       />
-      <div className="container justify-content-center">
+      <div
+        className="container justify-content-center"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0px auto",
+        }}
+      >
         <Row style={{ paddingTop: "95px" }}>
-          <Col md={3}>
-            <VerticalNav />
-          </Col>
-          <Col md={8}>
+          <VerticalNav />
+          <Col md={2}></Col>
+          <Col md={8} style={{ backgroundColor: "black" }}>
             <MyProfile />
             <div
               style={{
                 border: "1px solid #F0FFFF",
-                borderRadius: "5px",
-                boxShadow: "1px 1px 3px 3px #ccc",
+                borderRadius: "10px",
+                boxShadow: "1px 1px 2px 2px #ccc",
                 backgroundColor: "white",
                 margin: "20px",
                 textAlign: "center",
@@ -120,7 +122,7 @@ const home = () => {
               style={{
                 border: "1px solid #F0FFFF",
                 borderRadius: "5px",
-                boxShadow: "1px 1px 3px 3px #ccc",
+                boxShadow: "1px 1px 2px 2px #ccc",
                 backgroundColor: "white",
                 margin: "20px",
                 textAlign: "center",
@@ -180,7 +182,7 @@ const home = () => {
               />
             ))}
           </Col>
-
+          <Col md={2}></Col>
           <PostBoardLoading />
         </Row>
       </div>

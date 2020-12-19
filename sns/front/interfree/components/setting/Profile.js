@@ -13,7 +13,7 @@ import styled from "styled-components";
 
 const Styledp = styled.p`
   font-size: 25px;
-
+  margin-bottom: 0px;
   @media (max-width: 992px) {
     font-size: 20px;
   }
@@ -56,9 +56,15 @@ const NotReviseAlert = () => {
 };
 
 const Profile = () => {
-  const { id, email, nickname, createdAt } = useSelector(
-    (state) => state.user.user
-  );
+  const {
+    id,
+    email,
+    nickname,
+    introduce,
+    ShareLink,
+    where,
+    createdAt,
+  } = useSelector((state) => state.user.user);
   const {
     changeProfileDone,
     changeProfileError,
@@ -67,9 +73,9 @@ const Profile = () => {
   const { posts } = useSelector((state) => state.post);
 
   const [nicknameValue, setNicknameValue] = useState(nickname);
-  const [introduceValue, setIntroduceValue] = useState();
-  const [shereLinkValue, setShereLinkValue] = useState("http://www.");
-  const [whereValue, setWhereValue] = useState();
+  const [introduceValue, setIntroduceValue] = useState(introduce);
+  const [shereLinkValue, setShereLinkValue] = useState(ShareLink);
+  const [whereValue, setWhereValue] = useState(where);
 
   const dispatch = useDispatch();
   const dateToFormat = createdAt;
@@ -82,7 +88,7 @@ const Profile = () => {
       <Table>
         <tbody>
           <tr>
-            <td>
+            <td style={{ padding: "0px" }}>
               <Styledp>닉네임</Styledp>
             </td>
             <td>
@@ -96,7 +102,7 @@ const Profile = () => {
             </td>
           </tr>
           <tr>
-            <td>
+            <td style={{ padding: "0px" }}>
               <Styledp>
                 이메일 <NotReviseAlert />
               </Styledp>
@@ -104,7 +110,7 @@ const Profile = () => {
             <td>{email}</td>
           </tr>
           <tr>
-            <td>
+            <td style={{ padding: "0px" }}>
               <Styledp>
                 가입일 <NotReviseAlert />
               </Styledp>
@@ -115,12 +121,13 @@ const Profile = () => {
           </tr>
 
           <tr>
-            <td>
+            <td style={{ padding: "0px" }}>
               <Styledp>소개</Styledp>
             </td>
             <td>
               <Styledinput
                 type="text"
+                vaule={introduce}
                 onChange={(e) => {
                   setIntroduceValue(e.target.value);
                 }}
@@ -128,32 +135,27 @@ const Profile = () => {
             </td>
           </tr>
           <tr>
-            <td>
+            <td style={{ padding: "0px" }}>
               <Styledp>링크</Styledp>
             </td>
             <td>
               <Styledinput
                 type="text"
+                value={ShareLink}
                 onChange={(e) => {
                   setShereLinkValue(e.target.value);
-                }}
-                onClick={(e) => {
-                  if (e.target.value != "http://www.") {
-                    e.target.value = shereLinkValue;
-                  } else {
-                    e.target.value = "http://www.";
-                  }
                 }}
               ></Styledinput>
             </td>
           </tr>
           <tr>
-            <td>
+            <td style={{ padding: "0px" }}>
               <Styledp>사는 곳</Styledp>
             </td>
             <td>
               <Styledinput
                 type="text"
+                value={where}
                 onChange={(e) => {
                   setWhereValue(e.target.value);
                 }}

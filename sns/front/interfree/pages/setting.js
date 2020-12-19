@@ -11,19 +11,24 @@ import BottomTabs from "../components/layout/BottomTabs";
 import VerticalNav from "../components/layout/VerticalNav";
 
 import { useSelector } from "react-redux";
+import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
 import { Tab, Row, Col, Nav } from "react-bootstrap";
+
+import { END } from "redux-saga";
+import wrapper from "../store/configureStore";
+import axios from "axios";
 
 const setting = () => {
   const { disabled } = useSelector((state) => state.user.user);
   return (
-    <div>
+    <div className="container justify-content-center">
       <HorizontalNav />
       <VerticalNav />
       <BottomTabs />
       <Tab.Container defaultActiveKey="first">
-        <Row style={{ paddingTop: "95px" }}>
-          <Col lg={3} style={{ textAlign: "center" }}>
+        <Row style={{ paddingTop: "100px" }}>
+          <Col md={3} style={{ textAlign: "center" }}>
             <Nav
               className="container justify-content-center"
               style={{
@@ -58,7 +63,7 @@ const setting = () => {
             </Nav>
           </Col>
 
-          <Col sm={9}>
+          <Col md={9}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
                 <Profile />
@@ -80,4 +85,20 @@ const setting = () => {
   );
 };
 
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : "";
+    axios.defaults.headers.Cookie = "";
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+    }
+
+    context.store.dispatch({
+      type: LOAD_USER_INFOMATION_REQUEST,
+    });
+
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+  }
+);
 export default setting;

@@ -108,7 +108,7 @@ const PostBoard = ({
       setUserProfileImg(user.ProfileImgSrcs[0].src);
     }
   }, [user]);
-  console.log(follows);
+  // console.log(follows);
   const MENU_ID = postId;
 
   const { show } = useContextMenu({

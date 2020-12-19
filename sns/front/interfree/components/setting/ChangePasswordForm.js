@@ -29,7 +29,7 @@ const ChangePasswordForm = () => {
   return (
     <div>
       <p style={{ marginTop: "20px" }}>
-        회원가입 때 등록한 메일주소로 인증메일을 보냅니다.{" "}
+        회원가입 시 등록한 메일주소로 인증메일을 보냅니다.{" "}
       </p>
       <Button onClick={onSubmit}> 인증메일 요청</Button>
       {findPasswordLoading && <Loading />}

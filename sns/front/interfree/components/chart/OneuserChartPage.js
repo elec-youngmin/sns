@@ -1,11 +1,14 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import { useMediaQuery } from "react-responsive";
 
 import { useSelector } from "react-redux";
 
 const OneuserChartPage = () => {
   const { charts } = useSelector((state) => state.post);
-
+  const isTabletOrMobileDevice = useMediaQuery({
+    query: "(max-device-width: 537px)",
+  });
   // 여기부터 포스트 차트 데이터 가공
 
   let postsdate = [];
@@ -59,7 +62,7 @@ const OneuserChartPage = () => {
     <div>
       <div
         className="col-md-8 container justify-content-center"
-        style={{ paddingTop: "40px", textAlign: "center" }}
+        style={{ paddingTop: "95px", textAlign: "center" }}
       >
         {/* interfree 전체 일일 포스트 갯수 차트 */}
 
@@ -93,6 +96,11 @@ const OneuserChartPage = () => {
           )}
         </div>
       </div>
+      {isTabletOrMobileDevice && (
+        <p style={{ textAlign: "center", textWeidht: "bold" }}>
+          디바이스를 가로로 회전해 보세요.
+        </p>
+      )}
     </div>
   );
 };

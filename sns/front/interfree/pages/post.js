@@ -66,7 +66,6 @@ const post = () => {
             <VerticalNav />
           </Col>
           <Col md={8} style={{ padding: "95px" }}>
-            <MyProfile />
             {posts.length <= 0 && loadPostDone && <NonePostAlert />}
             <InfiniteScroll
               dataLength={posts.length}

@@ -112,6 +112,12 @@ import {
   LOAD_TIMELINE_CONTENTS_REQUEST,
   LOAD_TIMELINE_CONTENTS_SUCCESS,
   LOAD_TIMELINE_CONTENTS_FAILURE,
+  DELETE_TIMELINE_CONTENTS_REQUEST,
+  DELETE_TIMELINE_CONTENTS_SUCCESS,
+  DELETE_TIMELINE_CONTENTS_FAILURE,
+  UPDATE_TIMELINE_CONTENTS_REQUEST,
+  UPDATE_TIMELINE_CONTENTS_SUCCESS,
+  UPDATE_TIMELINE_CONTENTS_FAILURE,
 } from "../reducers/post";
 
 function savePostAPI(data) {
@@ -891,6 +897,48 @@ function* loadTimelineContents(action) {
   }
 }
 
+function deleteTimelineContentsAPI(data) {
+  return axios.get(`post/deleteTimelineContents/${data}`);
+}
+
+function* deleteTimelineContents(action) {
+  try {
+    const result = yield call(deleteTimelineContentsAPI, action.data);
+    console.log(result);
+    yield put({
+      type: DELETE_TIMELINE_CONTENTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: DELETE_TIMELINE_CONTENTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function updateTimelineContentsAPI(data) {
+  return axios.get(`post/updateTimelineContents/${data}`);
+}
+
+function* updateTimelineContents(action) {
+  try {
+    const result = yield call(updateTimelineContentsAPI, action.data);
+    console.log(result);
+    yield put({
+      type: UPDATE_TIMELINE_CONTENTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UPDATE_TIMELINE_CONTENTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchSavePost() {
   yield takeLatest(SAVE_POST_REQUEST, savePost);
 }
@@ -1038,6 +1086,14 @@ function* watchLoadTimelineContents() {
   yield takeLatest(LOAD_TIMELINE_CONTENTS_REQUEST, loadTimelineContents);
 }
 
+function* watchDeleteTimelineContents() {
+  yield takeLatest(DELETE_TIMELINE_CONTENTS_REQUEST, deleteTimelineContents);
+}
+
+function* watchUpdateTimelineContents() {
+  yield takeLatest(UPDATE_TIMELINE_CONTENTS_REQUEST, updateTimelineContents);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchSavePost),
@@ -1077,5 +1133,7 @@ export default function* userSaga() {
     fork(watchAddTimelineContents),
     fork(watchLoadTimelineSubject),
     fork(watchLoadTimelineContents),
+    fork(watchDeleteTimelineContents),
+    fork(watchUpdateTimelineContents),
   ]);
 }

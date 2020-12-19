@@ -60,11 +60,10 @@ const AddTimelineModal = (props) => {
         <Modal.Footer>
           <Button
             onClick={() => {
-              setAddTimelineContentsShow(true);
-              console.log(addTimelineContentsShow);
+              props.onHide();
             }}
           >
-            모달
+            닫기
           </Button>
           <Button
             onClick={() => {
@@ -81,13 +80,6 @@ const AddTimelineModal = (props) => {
             }}
           >
             생성
-          </Button>
-          <Button
-            onClick={() => {
-              props.onHide();
-            }}
-          >
-            닫기
           </Button>
         </Modal.Footer>
       </Modal>
