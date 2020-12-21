@@ -36,13 +36,32 @@ const DestroyUser = () => {
 
   return (
     <div style={{ marginTop: "20px" }}>
-      <h6>회원탈퇴를 하시면 지금까지 작성한 포스트가 모두 삭제됩니다.</h6>
+      <p
+        style={{
+          marginTop: "20px",
+          fontWeight: "bold",
+          fontSize: "25px",
+          marginBottom: "5px",
+        }}
+      >
+        회원탈퇴를 하시면 지금까지 작성한 포스트가 모두 삭제됩니다.
+      </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
           <label htmlFor="password">
-            비밀번호가 일치하면 회원탈퇴가 완료됩니다.
+            <p
+              style={{
+                marginTop: "20px",
+                fontWeight: "bold",
+                fontSize: "25px",
+                marginBottom: "5px",
+              }}
+            >
+              비밀번호가 일치하면 회원탈퇴가 완료됩니다.
+            </p>
           </label>
           <input
+            type="password"
             name="password"
             placeholder="패스워드 입력"
             className={`form-control ${errors.password ? "is-invalid" : ""}`}

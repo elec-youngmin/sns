@@ -1,7 +1,5 @@
 import React, { useState, useMemo } from "react";
 
-import AddIconModal from "./AddIconModal";
-
 import { ADD_TIMELINE_CONTENTS_REQUEST } from "../../reducers/post";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,22 +7,45 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 const AddTimelineContentsModal = (props) => {
   const { id } = useSelector((state) => state.post.timelineId);
-  const { addTimelineSubjectError } = useSelector((state) => state.post);
-
+  const { addTimelineSubjectError, addTimelineContentsDone } = useSelector(
+    (state) => state.post
+  );
+  console.log(props, "아이디 확인");
   const dispatch = useDispatch();
 
-  const [content, setContent] = useState();
-  const [moment, setMoment] = useState();
-  const [title, setTitle] = useState();
+  const [modaltitle, setModalTitle] = useState("타임라인 박스 추가하기");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [moment, setMoment] = useState("");
+  const [timelineId, setTimelineId] = useState("");
 
-  const [addIconModalShow, setAddIconModalShow] = useState(false);
+  useMemo(() => {
+    if (addTimelineContentsDone) {
+      setContent("");
+      setMoment("");
+      setTitle("");
+      setModalTitle("계속 타임라인 박스 추가하기");
+    }
+  }, [addTimelineContentsDone]);
+  //한 타임라인 박스가 업로드되면 실행
+
+  useMemo(() => {
+    if (addTimelineSubjectError) {
+      alert(addTimelineSubjectError);
+    }
+  }, [addTimelineSubjectError]);
+  //타임라인 주제가 중복되면 발생
+
+  useMemo(() => {
+    if (id) {
+      setTimelineId(id);
+    } else {
+      setTimelineId(props.id);
+    }
+  }, [id, props]);
 
   return (
     <div>
-      <AddIconModal
-        show={addIconModalShow}
-        onHide={() => setAddIconModalShow(false)}
-      />
       <Modal
         {...props}
         size="lg"
@@ -33,7 +54,7 @@ const AddTimelineContentsModal = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            한 타임라인 박스 추가하기
+            {modaltitle}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -50,6 +71,7 @@ const AddTimelineContentsModal = (props) => {
                 rows={1}
                 multiple
                 placeholder="타임아웃의 제목을 입력하세요."
+                value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
                 }}
@@ -64,6 +86,7 @@ const AddTimelineContentsModal = (props) => {
                 }}
                 rows={1}
                 multiple
+                value={content}
                 placeholder="타임아웃의 내용을 입력하세요."
                 onChange={(e) => {
                   setContent(e.target.value);
@@ -79,6 +102,7 @@ const AddTimelineContentsModal = (props) => {
                 }}
                 rows={1}
                 multiple
+                value={moment}
                 placeholder="시기를 입력하세요. 예) 2018-2020,2018년 5월 28일"
                 onChange={(e) => {
                   setMoment(e.target.value);
@@ -87,22 +111,18 @@ const AddTimelineContentsModal = (props) => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer class="col-lg-12">
+        <Modal.Footer>
           <Button
             className="btn float-right"
             onClick={props.onHide}
-            style={{
-              margin: "15px",
-            }}
+            style={{ marginRight: "15px" }}
           >
             닫기
           </Button>
           <Button
             className="btn float-right"
             onClick={props.onHide}
-            style={{
-              margin: "15px",
-            }}
+            style={{}}
             onClick={() => {
               dispatch({
                 type: ADD_TIMELINE_CONTENTS_REQUEST,
@@ -110,7 +130,7 @@ const AddTimelineContentsModal = (props) => {
                   title,
                   content,
                   moment,
-                  id, //타임라인 id
+                  timelineId, //타임라인 id
                 },
               });
             }}

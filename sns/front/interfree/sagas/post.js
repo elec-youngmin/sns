@@ -393,13 +393,13 @@ function* cancelBookmark(action) {
   }
 }
 
-function loadBookmarkAPI() {
-  return axios.get("post/loadBookmark");
+function loadBookmarkAPI(data) {
+  return axios.post("post/loadBookmark", data);
 }
 
 function* loadBookmark(action) {
   try {
-    const result = yield call(loadBookmarkAPI);
+    const result = yield call(loadBookmarkAPI, action.data);
     console.log(result);
     yield put({
       type: LOAD_BOOKMARK_SUCCESS,

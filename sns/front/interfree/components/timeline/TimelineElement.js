@@ -4,14 +4,6 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import {
-  Menu,
-  Item,
-  Separator,
-  Submenu,
-  useContextMenu,
-} from "react-contexify";
-// import "react-contexify/dist/ReactContexify.css";
 
 import {
   BsFillCalendarFill,
@@ -77,18 +69,8 @@ const TimelineElement = ({
 }) => {
   const ramdomNum = Math.floor(Math.random() * 15);
 
-  const MENU_ID = key;
-
-  const { show } = useContextMenu({
-    id: MENU_ID,
-  });
   return (
     <>
-      <Menu id={MENU_ID}>
-        <Item onClick={() => {}}>포스트페이지로 이동</Item>
-        <Item onClick={() => {}}>유저페이지로 이동</Item>
-      </Menu>
-
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
         contentStyle={{ background: colors[ramdomNum], color: "#fff" }}
@@ -96,7 +78,6 @@ const TimelineElement = ({
         date={date}
         iconStyle={{ background: colors[ramdomNum], color: "#fff" }}
         icon={icons[ramdomNum]}
-        onTimelineElementClick={show}
       >
         <h3 className="vertical-timeline-element-title">{title}</h3>
         <h4 className="vertical-timeline-element-subtitle">{content}</h4>

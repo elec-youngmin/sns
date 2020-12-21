@@ -31,7 +31,14 @@ const DisabledUser = () => {
 
   return (
     <div>
-      <p style={{ marginTop: "20px" }}>
+      <p
+        style={{
+          marginTop: "20px",
+          fontWeight: "bold",
+          fontSize: "25px",
+          marginBottom: "5px",
+        }}
+      >
         {disabled
           ? "모든 글이 공개로 바뀝니다."
           : "모든 글이 비공개로 바뀝니다."}

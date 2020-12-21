@@ -11,11 +11,9 @@ import NonePostAlert from "../components/post/NonePostAlert";
 import PostBoardLoading from "../components/loading/PostBoardLoading";
 import PreviewProfileModal from "../components/post/PreviewProfileModal";
 import VerticalNav from "../components/layout/VerticalNav";
-import MyProfile from "../components/layout/MyProfile";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import ScrollButton from "../components/layout/ScrollButton";
 import BottomTabs from "../components/layout/BottomTabs";
-import timelineForm from "./timelineForm";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -52,68 +50,70 @@ const post = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#F5F5F5", marginBottom: "50px" }}>
       <HorizontalNav />
+      <VerticalNav />
+
       <BottomTabs />
       <PreviewProfileModal
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
 
-      <div className="container justify-content-center">
-        <Row>
-          <Col md={3}>
-            <VerticalNav />
-          </Col>
-          <Col md={8} style={{ padding: "95px" }}>
-            {posts.length <= 0 && loadPostDone && <NonePostAlert />}
-            <InfiniteScroll
-              dataLength={posts.length}
-              next={LoadNextPosts}
-              hasMore={true}
-              loader={
-                <h6 style={{ textAlign: "center" }}>
-                  {posts.length}개의 포스트가 로드되었습니다.
-                </h6>
-              }
-            >
-              {/* 유저의 모든 포스트 */}
-              {posts.map((element, index) => (
-                <PostBoard
-                  key={index}
-                  post={element.contents}
-                  postId={element.id}
-                  userId={element.UserId}
-                  profileImg={
-                    element.User.ProfileImgSrcs.length > 0
-                      ? element.User.ProfileImgSrcs[0].src
-                      : false
-                  }
-                  nickname={element.User.nickname}
-                  like={element.like} //포스트 좋아요 수
-                  Likes={
-                    element.Likes.length > 0
-                      ? element.Likes[0].LikeUserId
-                      : false
-                  } //포스트 좋아요 했는지 확인
-                  reportCount={element.Reports}
-                  PostImgSrcs={element.PostImgSrcs}
-                  PostVideoSrcs={element.PostVideoSrcs}
-                  onlyReadMy={element.onlyReadMy}
-                  bookmarkId={
-                    element.Bookmarks.length > 0
-                      ? element.Bookmarks[0].UserId
-                      : false
-                  }
-                  date={element.createdAt}
-                  dataType={"posts"}
-                />
-              ))}
-            </InfiniteScroll>
-          </Col>
-          <PostBoardLoading />
-        </Row>
-      </div>
+      <Row
+        style={{
+          paddingTop: "95px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          // margin: "0px auto",
+        }}
+      >
+        <Col md={7} sm={12} style={{ padding: "95px" }}>
+          {posts.length <= 0 && loadPostDone && <NonePostAlert />}
+          <InfiniteScroll
+            dataLength={posts.length}
+            next={LoadNextPosts}
+            hasMore={true}
+            loader={
+              <h6 style={{ textAlign: "center", marginTop: "15px" }}>
+                {posts.length}개의 포스트가 로드되었습니다.
+              </h6>
+            }
+          >
+            {/* 유저의 모든 포스트 */}
+            {posts.map((element, index) => (
+              <PostBoard
+                key={index}
+                post={element.contents}
+                postId={element.id}
+                userId={element.UserId}
+                profileImg={
+                  element.User.ProfileImgSrcs.length > 0
+                    ? element.User.ProfileImgSrcs[0].src
+                    : false
+                }
+                nickname={element.User.nickname}
+                like={element.like} //포스트 좋아요 수
+                Likes={
+                  element.Likes.length > 0 ? element.Likes[0].LikeUserId : false
+                } //포스트 좋아요 했는지 확인
+                reportCount={element.Reports}
+                PostImgSrcs={element.PostImgSrcs}
+                PostVideoSrcs={element.PostVideoSrcs}
+                onlyReadMy={element.onlyReadMy}
+                bookmarkId={
+                  element.Bookmarks.length > 0
+                    ? element.Bookmarks[0].UserId
+                    : false
+                }
+                date={element.createdAt}
+              />
+            ))}
+          </InfiniteScroll>
+        </Col>
+        <PostBoardLoading />
+      </Row>
 
       <FloatingButton />
       <ScrollButton />

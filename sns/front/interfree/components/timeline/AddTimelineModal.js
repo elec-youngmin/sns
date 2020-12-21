@@ -2,7 +2,6 @@ import React, { useRef, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import AddTimelineContentsModal from "./AddTimelineContentsModal";
-import AddIconModal from "./AddIconModal";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_TIMELINE_SUBJECT_REQUEST } from "../../reducers/post";
 

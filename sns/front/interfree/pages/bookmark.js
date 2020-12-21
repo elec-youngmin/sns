@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import HorizontalNav from "../components/layout/HorizontalNav";
 
@@ -33,14 +34,18 @@ const bookmark = () => {
   const [modalShow, setModalShow] = useState(false);
 
   const LoadNextbookmarkPosts = () => {
-    const lastId = posts[posts.length - 1]?.id;
+    const lastId = posts[posts.length - 1]?.Bookmarks[0]?.id;
+    console.log(posts[posts.length - 1]?.Bookmarks[0]?.id, "길이길이");
+    if (posts.length === 0) {
+      return;
+    }
     dispatch({
       type: LOAD_BOOKMARK_REQUEST,
-      data: { lastId, userId: user.id },
+      data: { lastId },
     });
   };
   return (
-    <div>
+    <div style={{ backgroundColor: "#F5F5F5" }}>
       <HorizontalNav />
       <BottomTabs />
       <div className="container justify-content-center">
@@ -49,37 +54,48 @@ const bookmark = () => {
             <VerticalNav />
           </Col>
           <Col md={8} style={{ padding: "100px" }}>
-            {posts.length > 0 &&
-              posts.map((element, index) => (
-                <PostBoard
-                  key={index}
-                  post={element.contents}
-                  postId={element.id}
-                  userId={element.UserId}
-                  profileImg={
-                    element.User.ProfileImgSrcs.length > 0
-                      ? element.User.ProfileImgSrcs[0].src
-                      : "userImage.jpg"
-                  }
-                  nickname={element.User.nickname}
-                  like={element.like} //포스트 좋아요 수
-                  Likes={
-                    element.Likes.length > 0
-                      ? element.Likes[0].LikeUserId
-                      : false
-                  } //포스트 좋아요 했는지 확인
-                  reportCount={element.Reports}
-                  PostImgSrcs={element.PostImgSrcs}
-                  PostVideoSrcs={element.PostVideoSrcs}
-                  onlyReadMy={element.onlyReadMy}
-                  bookmarkId={
-                    element.Bookmarks.length > 0
-                      ? element.Bookmarks[0].UserId
-                      : false
-                  }
-                  date={element.updatedAt}
-                />
-              ))}
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={LoadNextbookmarkPosts}
+              hasMore={true}
+              loader={
+                <h6 style={{ textAlign: "center" }}>
+                  {posts.length}개의 포스트가 로드되었습니다.
+                </h6>
+              }
+            >
+              {posts.length > 0 &&
+                posts.map((element, index) => (
+                  <PostBoard
+                    key={index}
+                    post={element.contents}
+                    postId={element.id}
+                    userId={element.UserId}
+                    profileImg={
+                      element.User.ProfileImgSrcs.length > 0
+                        ? element.User.ProfileImgSrcs[0].src
+                        : "userImage.jpg"
+                    }
+                    nickname={element.User.nickname}
+                    like={element.like} //포스트 좋아요 수
+                    Likes={
+                      element.Likes.length > 0
+                        ? element.Likes[0].LikeUserId
+                        : false
+                    } //포스트 좋아요 했는지 확인
+                    reportCount={element.Reports}
+                    PostImgSrcs={element.PostImgSrcs}
+                    PostVideoSrcs={element.PostVideoSrcs}
+                    onlyReadMy={element.onlyReadMy}
+                    bookmarkId={
+                      element.Bookmarks.length > 0
+                        ? element.Bookmarks[0].UserId
+                        : false
+                    }
+                    date={element.updatedAt}
+                  />
+                ))}
+            </InfiniteScroll>
           </Col>
         </Row>
       </div>
@@ -101,6 +117,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     context.store.dispatch({
       type: LOAD_BOOKMARK_REQUEST,
+      // data: { lastId: 0 },
     });
     context.store.dispatch({
       type: LOAD_USER_INFOMATION_REQUEST,

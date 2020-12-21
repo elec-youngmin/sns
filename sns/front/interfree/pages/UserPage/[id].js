@@ -105,7 +105,6 @@ const UserPage = () => {
                         : false
                     }
                     date={element.updatedAt}
-                    dataType={"posts"}
                   />
                 ))}
               </InfiniteScroll>

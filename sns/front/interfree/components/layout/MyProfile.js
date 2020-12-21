@@ -9,6 +9,8 @@ import { Row, Col, Table, Button } from "react-bootstrap";
 import { backUrl } from "../../config/config";
 
 const MyProfile = () => {
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.user);
   const profileImg = user?.ProfileImgSrcs[0]?.src;
 

@@ -103,7 +103,6 @@ router.get(
 router.post("/loadUserInfomation", async (req, res, next) => {
   try {
     // console.log(req.user.dataValues.id);
-    console.log(req.user);
     const userInfomation = await User.findOne({
       where: { id: req.user.dataValues.id },
       attributes: {

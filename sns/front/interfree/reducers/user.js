@@ -226,12 +226,12 @@ const reducer = (state = initialState, action) =>
         draft.profileImageUploadLoading = false;
         draft.profileImageUploadDone = true;
         draft.user = action.data;
-        ToastSuccess("프로필 이미지가 업로드되었어요.");
+        ToastSuccess("프로필 이미지가 변경되었어요.");
         break;
       case PROFILE_IMAGE_UPLOAD_FAILURE:
         draft.profileImageUploadLoading = false;
         draft.profileImageUploadError = action.error;
-        ToastError("프로필 이미지 업로드에 실패했습니다. 다시 시도하세요.");
+        ToastError("프로필 이미지 변경에 실패했습니다. 다시 시도하세요.");
         break;
       case PROFILE_IMAGE_UPLOAD_REQUEST:
         draft.profileImageUploadLoading = true;
@@ -258,6 +258,7 @@ const reducer = (state = initialState, action) =>
         draft.findPasswordDone = true;
         draft.findPasswordLoading = false;
         draft.email = action.data;
+        ToastSuccess("메일 요청이 완료되었습니다. 메일함을 확인해보세요.");
         break;
       case FIND_PASSWORD_REQUEST:
         draft.findPasswordDone = false;
@@ -267,6 +268,7 @@ const reducer = (state = initialState, action) =>
       case FIND_PASSWORD_FAILURE:
         draft.findPasswordLoading = false;
         draft.findPasswordError = action.error;
+        ToastError("메일 요청에 실패했습니다. 다시 시도 하세요.");
         break;
       case FIND_PASSWORD_MYCONFIRM_SUCCESS:
         draft.findPasswordMyConfirmDone = true;

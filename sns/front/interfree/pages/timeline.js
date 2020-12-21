@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 
 import HorizontalNav from "../components/layout/HorizontalNav";
 import BottomTabs from "../components/layout/BottomTabs";
@@ -13,72 +14,109 @@ import { LOAD_TIMELINE_SUBJECT_REQUEST } from "../reducers/post";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 
 import { FcTimeline } from "react-icons/fc";
-
-import { BsPlusCircle } from "react-icons/bs";
+import { GiTimeBomb } from "react-icons/gi";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
-const timelineSubjectDiv = ({ subject }) => {
-  return <div></div>;
-};
+import { frontUrl } from "../config/config";
 
 const timeline = () => {
   const { timelineSubjects } = useSelector((state) => state.post);
   return (
-    <div>
+    <div style={{ backgroundColor: "#F5F5F5" }}>
       <HorizontalNav />
       <BottomTabs />
       <PostBoardLoading />
-
-      <Row>
-        <Col md={2}></Col>
-        <VerticalNav />
-
-        <Col md={10} style={{ padding: "95px" }}>
-          <Row
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "5px",
-              boxShadow: "1px 1px 3px 3px #ccc",
-              backgroundColor: "white",
-              margin: "20px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-          >
-            <Col
-              md={3}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <BsPlusCircle size={30} />
-            </Col>
-            <Col md={9}>
-              <p style={{ fontWeight: "700" }}>타임아웃 만들기</p>
-              주제를 정하고 타임라인을 만들어 보세요.
-            </Col>
-          </Row>
+      <VerticalNav />
+      <Row
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Col md={7} style={{ padding: "95px" }}>
           <div
             style={{
-              // boxShadow: "1px 1px 3px 3px #F8F8FF",
-              borderRadius: "12px",
-              border: "1px solid #131354",
+              border: "1px solid #F0FFFF",
+              borderRadius: "20px",
+              boxShadow: "1px 1px 2px 2px #ccc",
               backgroundColor: "white",
-              margin: "20px",
-              // textAlign: "center",
-              cursor: "pointer",
+              margin: "20px 0px",
+              textAlign: "center",
             }}
           >
-            <FcTimeline />
-            작성한 타임라인 리스트
+            <p
+              style={{
+                fontWeight: "bold",
+                marginBottom: "5px",
+                fontSize: "25px",
+                width: "100%",
+              }}
+            >
+              <GiTimeBomb />
+              타임아웃 만들기
+            </p>
+
+            <p
+              style={{
+                marginBottom: "0px",
+                fontWeight: "600",
+              }}
+            >
+              주제를 정하고 타임라인을 만들어 보세요.
+            </p>
+            <br />
+            <Button
+              onClick={() => {
+                Router.push(`${frontUrl}/exampleTimeline/`);
+              }}
+              style={{
+                marginBottom: "20px",
+                fontWeight: "600",
+                fontSize: "15px",
+              }}
+            >
+              타임라인 예
+            </Button>
+            <br />
+            <Button
+              onClick={() => {
+                setTimelineModalShow(true);
+              }}
+              style={{
+                marginBottom: "20px",
+                fontWeight: "600",
+                fontSize: "15px",
+              }}
+            >
+              타임라인 추가
+            </Button>
+          </div>
+          <div
+            style={{
+              border: "1px solid #F0FFFF",
+              borderRadius: "20px",
+              boxShadow: "1px 1px 2px 2px #ccc",
+              backgroundColor: "white",
+              margin: "20px 0px",
+              marginBottom: "20px",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "25px",
+                fontWeight: "600",
+              }}
+            >
+              <FcTimeline size={20} />
+              작성한 타임라인 리스트
+            </p>
           </div>
           {timelineSubjects.map((element) => {
-            console.log(element.subject);
             return (
               <TimelineSubjectDiv
                 id={element.id}

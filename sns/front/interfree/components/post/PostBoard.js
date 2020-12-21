@@ -6,13 +6,7 @@ import { useRouter } from "next/router";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import Avatar from "react-avatar";
-import {
-  Menu,
-  Item,
-  Separator,
-  Submenu,
-  useContextMenu,
-} from "react-contexify";
+import { Menu, Item, Separator, useContextMenu } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 
 import RevisePostForm from "./RevisePostForm";
@@ -45,7 +39,7 @@ import {
   BsFillBookmarksFill,
 } from "react-icons/bs";
 
-import { Card, Dropdown, DropdownButton } from "react-bootstrap";
+import { Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";
@@ -170,14 +164,15 @@ const PostBoard = ({
       <Card
         style={{
           marginBottom: "15px",
-          boxShadow: "1px 1px 3px 3px #F8F8FF",
+          width: "100%",
         }}
       >
         <Card.Header
           style={{
             backgroundColor: "white",
+            borderRadius: "12px",
             padding: "5px",
-            boxShadow: "1px 1px 3px 3px #F8F8FF",
+            // boxShadow: "1px 1px 3px 3px #F8F8FF",
           }}
         >
           {profileImg ? (
@@ -221,8 +216,13 @@ const PostBoard = ({
            id와 userId가 다르면 버튼이 나타나게 함. 본인이 작성한 포스트가 아니면
            팔로우 버튼이 나나타게됨. */}
           {id !== userId && <FollowBotton userId={userId} follows={follows} />}
+
           <span
             style={{
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               float: "right",
               cursor: "pointer",
             }}
@@ -370,20 +370,16 @@ const PostBoard = ({
           {/* 해시태그를 추출하는 로직 */}
           {post?.split(/(#[^\s#]+)/g).map((e, index) => {
             if (e.match(/(#[^\s#]+)/)) {
+              console.log(e.slice(1), "dsfaaaaaaaasdvvvvvvvvva");
               return (
                 <div>
-                  <Link href={`/Hashtag/${e.slice(1)}`} key={index}>
-                    <a
-                      onClick={() => {
-                        dispatch({
-                          type: LOAD_HASHTAGPAGE_REQUEST,
-                          data: { tag: e.slice(1), userId: user.id },
-                        });
-                      }}
-                    >
-                      {e}
-                    </a>
-                  </Link>
+                  <a
+                    onClick={() => {
+                      router.push(`${frontUrl}/HashtagPage/${e.slice(1)}/`);
+                    }}
+                  >
+                    {e}
+                  </a>
                 </div>
               );
             }
@@ -394,7 +390,6 @@ const PostBoard = ({
             backgroundColor: "white",
             textAlign: "center",
             padding: "5px",
-            boxShadow: "1px 1px 3px 3px #F8F8FF",
           }}
         >
           <BsBrightnessHigh
@@ -437,7 +432,7 @@ const PostBoard = ({
                   }
                   dispatch({
                     type: LIKE_POST_REQUEST,
-                    data: { userId: id, postId, dataType },
+                    data: { userId: id, postId },
                   });
                 }}
 

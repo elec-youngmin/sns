@@ -6,7 +6,14 @@ import Loading from "../loading/Loading";
 
 import { useSelector, useDispatch } from "react-redux";
 import { CHANGE_PROFILE_REQUEST } from "../../reducers/user";
-import { Table, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Col,
+  Button,
+  OverlayTrigger,
+  Tooltip,
+  Form,
+  Row,
+} from "react-bootstrap";
 
 import { BsExclamationTriangle } from "react-icons/bs";
 import styled from "styled-components";
@@ -80,115 +87,140 @@ const Profile = () => {
   const dispatch = useDispatch();
   const dateToFormat = createdAt;
 
-  const dateSet = <Moment format="YYYY/MM/DD">{dateToFormat}</Moment>;
-
-  console.log(dateSet);
   return (
     <div>
-      <Table>
-        <tbody>
-          <tr>
-            <td style={{ padding: "0px" }}>
-              <Styledp>닉네임</Styledp>
-            </td>
-            <td>
-              <Styledinput
-                type="text"
-                value={nicknameValue}
-                onChange={(e) => {
-                  setNicknameValue(e.target.value);
-                }}
-              ></Styledinput>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ padding: "0px" }}>
-              <Styledp>
-                이메일 <NotReviseAlert />
-              </Styledp>
-            </td>
-            <td>{email}</td>
-          </tr>
-          <tr>
-            <td style={{ padding: "0px" }}>
-              <Styledp>
-                가입일 <NotReviseAlert />
-              </Styledp>
-            </td>
-            <td>
-              <Moment format="YYYY/MM/DD">{dateToFormat}</Moment>
-            </td>
-          </tr>
+      <Form style={{ marginBottom: "50px" }}>
+        <Form.Group as={Row}>
+          <Form.Label column sm="2">
+            닉네임
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="input"
+              style={{
+                resize: "none",
+                boxShadow: "1px 1px 3px 3px #F8F8FF",
+                borderRadius: "12px",
+                marginBottom: "10px",
+              }}
+              rows={1}
+              multiple
+              value={nicknameValue}
+              placeholder="닉네임을 입력하세요."
+              onChange={(e) => {
+                setNicknameValue("e.target.value");
+              }}
+            />
+          </Col>
+          <Form.Label column sm="2">
+            이메일
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="input"
+              readOnly
+              style={{
+                resize: "none",
+                boxShadow: "1px 1px 3px 3px #F8F8FF",
+                borderRadius: "12px",
+                marginBottom: "10px",
+              }}
+              rows={1}
+              multiple
+              value={email}
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
+            />
+          </Col>
 
-          <tr>
-            <td style={{ padding: "0px" }}>
-              <Styledp>소개</Styledp>
-            </td>
-            <td>
-              <Styledinput
-                type="text"
-                vaule={introduce}
-                onChange={(e) => {
-                  setIntroduceValue(e.target.value);
-                }}
-              ></Styledinput>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ padding: "0px" }}>
-              <Styledp>링크</Styledp>
-            </td>
-            <td>
-              <Styledinput
-                type="text"
-                value={ShareLink}
-                onChange={(e) => {
-                  setShereLinkValue(e.target.value);
-                }}
-              ></Styledinput>
-            </td>
-          </tr>
-          <tr>
-            <td style={{ padding: "0px" }}>
-              <Styledp>사는 곳</Styledp>
-            </td>
-            <td>
-              <Styledinput
-                type="text"
-                value={where}
-                onChange={(e) => {
-                  setWhereValue(e.target.value);
-                }}
-              ></Styledinput>
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={2}>
-              <Button
-                variant="primary"
-                className=" float-right"
-                onClick={() => {
-                  dispatch({
-                    type: CHANGE_PROFILE_REQUEST,
-                    data: {
-                      id,
-                      nicknameValue,
-                      introduceValue,
-                      shereLinkValue,
-                      whereValue,
-                    },
-                  });
-                }}
-              >
-                반영
-              </Button>
-              {changeProfileLoading && <Loading />}
-              {changeProfileDone && <p>반영이 완료되었습니다.</p>}
-              {changeProfileError && <p>에러가 발생했습니다.</p>}
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+          <Form.Label column sm="2">
+            소개
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="input"
+              style={{
+                resize: "none",
+                boxShadow: "1px 1px 3px 3px #F8F8FF",
+                borderRadius: "12px",
+                marginBottom: "10px",
+              }}
+              rows={1}
+              multiple
+              value={introduce}
+              placeholder="소개를 입력하세요."
+              onChange={(e) => {
+                setIntroduceValue(e.target.value);
+              }}
+            />
+          </Col>
+          <Form.Label column sm="2">
+            공개 링크
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="input"
+              style={{
+                resize: "none",
+                boxShadow: "1px 1px 3px 3px #F8F8FF",
+                borderRadius: "12px",
+                marginBottom: "10px",
+              }}
+              rows={1}
+              multiple
+              value={ShareLink}
+              placeholder="공개링크를 입력하세요."
+              onChange={(e) => {
+                setShereLinkValue(e.target.value);
+              }}
+            />
+          </Col>
+          <Form.Label column sm="2">
+            사는 곳
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="input"
+              style={{
+                resize: "none",
+                boxShadow: "1px 1px 3px 3px #F8F8FF",
+                borderRadius: "12px",
+                marginBottom: "10px",
+              }}
+              rows={1}
+              multiple
+              value={where}
+              placeholder="사는 곳을 입력하세요. 예) 서울 중구"
+              onChange={(e) => {
+                setWhereValue(e.target.value);
+              }}
+            />
+          </Col>
+        </Form.Group>
+      </Form>
+
+      <Button
+        variant="primary"
+        className=" float-right"
+        onClick={() => {
+          dispatch({
+            type: CHANGE_PROFILE_REQUEST,
+            data: {
+              id,
+              nicknameValue,
+              introduceValue,
+              shereLinkValue,
+              whereValue,
+            },
+          });
+        }}
+      >
+        반영
+      </Button>
+      {changeProfileLoading && <Loading />}
+      {changeProfileDone && <p>반영이 완료되었습니다.</p>}
+      {changeProfileError && <p>에러가 발생했습니다.</p>}
     </div>
   );
 };

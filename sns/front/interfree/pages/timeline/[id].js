@@ -46,7 +46,7 @@ const timeline = () => {
             return (
               <TimelineElement
                 key={element.index}
-                content={element.title}
+                title={element.title}
                 content={element.content}
                 date={element.date}
                 TimelineSubId={element.TimelineSubId}

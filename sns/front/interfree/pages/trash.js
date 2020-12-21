@@ -19,13 +19,18 @@ import axios from "axios";
 const trash = () => {
   const { trashPosts } = useSelector((state) => state.post);
   return (
-    <div style={{ paddingTop: "75px" }}>
+    <div style={{ paddingTop: "75px", backgroundColor: "#F5F5F5" }}>
       <HorizontalNav />
-      <Row>
-        <Col md={3}>
-          <VerticalNav />
-        </Col>
-        <Col md={8}>
+      <VerticalNav />
+      <Row
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0px auto",
+        }}
+      >
+        <Col md={7}>
           <TrashPostAlert />
           {trashPosts.map((element, index) => (
             <TrashPostForm

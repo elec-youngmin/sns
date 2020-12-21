@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Router from "next/router";
 import Menu, { SubMenu, MenuItem, Divider } from "rc-menu";
 import "rc-menu/assets/index.css";
-import Autosuggest from "react-autosuggest";
 
 import SearchModal from "./SearchModal";
 

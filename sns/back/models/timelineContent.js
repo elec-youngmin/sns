@@ -7,7 +7,7 @@ module.exports = class TimelineContent extends (
   static init(sequelize) {
     return super.init(
       {
-        tiltle: {
+        title: {
           type: DataTypes.STRING(200),
           allowNull: false,
           defaultValue: 0,

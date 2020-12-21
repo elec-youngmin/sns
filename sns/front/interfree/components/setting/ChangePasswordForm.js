@@ -28,13 +28,37 @@ const ChangePasswordForm = () => {
   };
   return (
     <div>
-      <p style={{ marginTop: "20px" }}>
+      <p
+        style={{
+          marginTop: "20px",
+          fontWeight: "bold",
+          fontSize: "25px",
+          marginBottom: "5px",
+        }}
+      >
         회원가입 시 등록한 메일주소로 인증메일을 보냅니다.{" "}
       </p>
-      <Button onClick={onSubmit}> 인증메일 요청</Button>
+      <Button
+        onClick={onSubmit}
+        style={{
+          fontWeight: "600",
+          fontSize: "25px",
+        }}
+      >
+        인증메일 요청
+      </Button>
       {findPasswordLoading && <Loading />}
       {findPasswordDone && (
-        <p>메일 요청이 완료되었습니다. 메일함을 확인해보세요.</p>
+        <p
+          style={{
+            marginTop: "20px",
+            fontWeight: "bold",
+            fontSize: "25px",
+            marginBottom: "5px",
+          }}
+        >
+          메일 요청이 완료되었습니다. 메일함을 확인해보세요.
+        </p>
       )}
     </div>
   );

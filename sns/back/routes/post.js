@@ -198,7 +198,6 @@ router.post("/saveAudioPost", async (req, res, next) => {
 
 router.post("/load", passport.session(), async (req, res, next) => {
   try {
-    // console.log("콘솔로 찍ㅇㅇ", req._passport);
     let where;
 
     if (Object.keys(req.body).length === 0)
@@ -562,10 +561,8 @@ router.patch("/updateComment", async (req, res, next) => {
   }
 });
 
-//req.body.id=>UserId req.body.dataType
 router.post("/addBookmark", async (req, res, next) => {
   try {
-    console.log("출력도미", req.body);
     await Bookmark.create({
       UserId: req.body.id,
       PostId: req.body.postId,
@@ -590,7 +587,7 @@ router.post("/addBookmark", async (req, res, next) => {
         {
           model: Like,
           attributes: ["id", "LikeUserId", "PostId"],
-          where: { LikeUserId: req.body.id },
+          // where: { UserId: req.body.id },
           require: false,
         },
         {
@@ -612,30 +609,6 @@ router.post("/addBookmark", async (req, res, next) => {
         },
       ],
     });
-
-    console.log(OnePost);
-    // if (req.body.dataType === "allPosts") {
-    //   OnePost[0].dataValues.dataType = "allPosts";
-    // }
-    // if (req.body.dataType === "posts") {
-    //   OnePost[0].dataValues.dataType = "posts";
-    // }
-
-    // if (req.body.dataType === "bookmark") {
-    //   OnePost[0].dataValues.dataType = "bookmark";
-    // }
-
-    // if (req.body.dataType === "follow") {
-    //   OnePost[0].dataValues.dataType = "follow";
-    // }
-
-    // if (req.body.dataType === "hashtagPosts") {
-    //   OnePost[0].dataValues.dataType = "hashtagPosts";
-    // }
-
-    // if (req.body.dataType === "postPage") {
-    //   OnePost[0].dataValues.dataType = "postPage";
-    // }
 
     res.status(200).json(OnePost);
   } catch (err) {
@@ -691,30 +664,6 @@ router.post("/cancelBookmark", async (req, res, next) => {
       ],
     });
 
-    if (req.body.dataType === "allPosts") {
-      OnePost[0].dataValues.dataType = "allPosts";
-    }
-
-    if (req.body.dataType === "posts") {
-      OnePost[0].dataValues.dataType = "posts";
-    }
-
-    if (req.body.dataType === "bookmark") {
-      OnePost[0].dataValues.dataType = "bookmark";
-    }
-
-    if (req.body.dataType === "follow") {
-      OnePost[0].dataValues.dataType = "follow";
-    }
-
-    if (req.body.dataType === "hashtagPosts") {
-      OnePost[0].dataValues.dataType = "hashtagPosts";
-    }
-
-    if (req.body.dataType === "postPage") {
-      OnePost[0].dataValues.dataType = "postPage";
-    }
-
     res.status(200).json(OnePost);
   } catch (err) {
     console.error(err);
@@ -722,22 +671,22 @@ router.post("/cancelBookmark", async (req, res, next) => {
   }
 });
 
-router.get("/loadBookmark", async (req, res, next) => {
+router.post("/loadBookmark", async (req, res, next) => {
   try {
+    console.log(req.body, "safasadfaffsafas");
     let where;
-    if (req.body.lastId === undefined)
+
+    if (Object.keys(req.body).length === 0)
       where = {
         UserId: req.user.dataValues.id,
       };
 
-    if (req.body.lastId) {
+    if (Object.keys(req.body).length != 0)
       where = {
         UserId: req.user.dataValues.id,
         id: { [Op.lt]: req.body.lastId },
       };
-    }
     const result = await Post.findAll({
-      where,
       limit: 10,
       order: [["id", "DESC"]],
       include: [
@@ -768,10 +717,11 @@ router.get("/loadBookmark", async (req, res, next) => {
         },
         {
           model: Bookmark,
-          where: { UserId: req.user.dataValues.id },
+          where,
         },
       ],
     });
+
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
@@ -832,35 +782,11 @@ router.post("/likePost", async (req, res, next) => {
         {
           model: Bookmark,
           attributes: ["UserId", "PostId"],
-          where: { UserId: req.body.userId },
+          // where: { UserId: req.body.userId },
           require: false,
         },
       ],
     });
-
-    // if (req.body.dataType === "allPosts") {
-    //   result.dataValues.dataType = "allPosts";
-    // }
-
-    // if (req.body.dataType === "posts") {
-    //   result.dataValues.dataType = "posts";
-    // }
-
-    // if (req.body.dataType === "bookmark") {
-    //   result.dataValues.dataType = "bookmark";
-    // }
-
-    // if (req.body.dataType === "follow") {
-    //   result.dataValues.dataType = "follow";
-    // }
-
-    // if (req.body.dataType === "hashtagPosts") {
-    //   result.dataValues.dataType = "hashtagPosts";
-    // }
-
-    // if (req.body.dataType === "postPage") {
-    //   result.dataValues.dataType = "postPage";
-    // }
 
     console.log(result);
 
@@ -919,29 +845,6 @@ router.post("/cancelLikePost", async (req, res, next) => {
 
     console.log(result);
 
-    if (req.body.dataType === "allPosts") {
-      result.dataValues.dataType = "allPosts";
-    }
-
-    if (req.body.dataType === "posts") {
-      result.dataValues.dataType = "posts";
-    }
-
-    if (req.body.dataType === "bookmark") {
-      result.dataValues.dataType = "bookmark";
-    }
-
-    if (req.body.dataType === "follow") {
-      result.dataValues.dataType = "follow";
-    }
-
-    if (req.body.dataType === "hashtagPosts") {
-      result.dataValues.dataType = "hashtagPosts";
-    }
-
-    if (req.body.dataType === "postPage") {
-      result.dataValues.dataType = "postPage";
-    }
     res.status(200).json(result);
   } catch (err) {
     console.error(err);
@@ -954,7 +857,7 @@ router.post("/cancelLikePost", async (req, res, next) => {
 router.post("/loadFollowsPost", async (req, res, next) => {
   try {
     const [FollowUsers, metadata] = await sequelize.query(
-      `SELECT * FROM users INNER JOIN follows on follows.followingId=users.id where follows.followerId=${req.body.userId}`
+      `SELECT * FROM users INNER JOIN follows on follows.followingId=users.id where follows.followerId=${req.user.dataValues.id}`
     );
     // SELECT * FROM profileimgsrcs RIGHT JOIN users on profileimgsrcs.UserId=users.id INNER JOIN follows on follows.followingId=users.id where follows.followerId=2
 
@@ -1063,6 +966,11 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
 
 router.get("/loadHashtagPage/:tag", async (req, res, next) => {
   try {
+    console.log("sdafffffffffffffffffffffffffffffffffffffffffffff");
+    console.log(
+      req.params,
+      "태그로 출력도미ㅇㄴㅁㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹdsffffㄹㄹㄹㄹㄹㄹㄹㄹㄹ"
+    );
     const hashtagPost = await Hashtag.findAll({
       where: { tag: req.params.tag },
       order: [["id", "DESC"]],
@@ -1108,6 +1016,8 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
         },
       ],
     });
+
+    console.log(hashtagPost, "해시태그 포스트 출력됨");
 
     res.status(200).json(hashtagPost);
   } catch (err) {
@@ -1219,7 +1129,7 @@ router.post("/oneuserLoadChartdata", async (req, res, next) => {
 router.get("/loadPostPage/:postId", async (req, res, next) => {
   try {
     const post = await Post.findAll({
-      where: { id: req.params.postId },
+      where: { id: parseInt(req.params.postId) },
       order: [["id", "DESC"]],
       attributes: { exclude: ["updatedAt", "deletedAt"] },
       include: [
@@ -1356,8 +1266,11 @@ router.post("/addTimelineSubject", async (req, res, next) => {
       },
     });
     if (isExist) {
-      console.log("존재하는지 확인", isExist);
-      return res.status(500).json("이미 존재하는 타임라인 주제입니다.");
+      return res
+        .status(500)
+        .json(
+          "이미 존재하는 타임라인 주제입니다. 존재하는 타임라인 주제에서 타임라인 박스를 추가합니다."
+        );
     }
     await TimelineSub.create({
       subject: req.body.timelineSubject,
@@ -1369,7 +1282,6 @@ router.post("/addTimelineSubject", async (req, res, next) => {
         userId: req.user.dataValues.id,
       },
     });
-    console.log(timelineSubject);
     res.status(200).json(timelineSubject);
   } catch (err) {
     console.error(err);
@@ -1385,7 +1297,7 @@ router.post("/addTimelineContents", async (req, res, next) => {
       content: req.body.content,
       date: req.body.moment,
       icon: req.body.icon,
-      TimelineSubId: req.body.id,
+      TimelineSubId: req.body.timelineId,
     });
     const Timeline = await TimelineContent.findAll({
       order: [["id", "DESC"]],
@@ -1422,10 +1334,9 @@ router.get("/loadTimelineSubject", async (req, res, next) => {
 
 router.get("/loadTimelineContents/:id", async (req, res, next) => {
   try {
-    console.log(typeof req.params.id);
     const timelineContents = await TimelineContent.findAll({
       where: { TimelineSubId: parseInt(req.params.id) },
-      attributes: { exclude: ["id", "createdAt", "deletedAt"] },
+      attributes: { exclude: ["createdAt", "deletedAt"] },
       include: [
         {
           model: TimelineSub,
@@ -1435,6 +1346,30 @@ router.get("/loadTimelineContents/:id", async (req, res, next) => {
     });
 
     res.status(200).json(timelineContents);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/updateTimelineContents/:id", async (req, res, next) => {
+  try {
+    const timelineContents = await TimelineContent.destroy({
+      where: { id: parseInt(req.params.id) },
+    });
+    res.status(200).json(req.params.id);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/deleteTimelineContents/:id", async (req, res, next) => {
+  try {
+    const timelineContents = await TimelineContent.destroy({
+      where: { id: parseInt(req.params.id) },
+    });
+    res.status(200).json(req.params.id);
   } catch (err) {
     console.error(err);
     next(err);
