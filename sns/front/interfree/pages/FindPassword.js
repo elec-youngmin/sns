@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import Loading from "../components/loading/Loading";
-import Menu from "../components/firstSeePage/Menu";
+// import Menu from "../components/firstSeePage/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
 import { FIND_PASSWORD_REQUEST } from "../reducers/user";

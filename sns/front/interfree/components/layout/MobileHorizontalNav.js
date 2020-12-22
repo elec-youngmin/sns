@@ -8,6 +8,16 @@ import SearchModal from "./SearchModal";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 
+import { AiFillSetting, AiFillEdit } from "react-icons/ai";
+import { GoOrganization } from "react-icons/go";
+import { GiTimeBomb } from "react-icons/gi";
+
+import {
+  BsTrashFill,
+  BsBookmarksFill,
+  BsFillBarChartFill,
+} from "react-icons/bs";
+
 import {
   AiFillDribbbleCircle,
   AiOutlineLogout,
@@ -125,7 +135,7 @@ const Menu = () => {
     <div
       style={{
         textAlign: "center",
-        fontSize: "30px",
+        fontSize: "23px",
         color: "#6495ED",
         backgroundColor: "#f3f5f7",
         borderBottom: "1px solid #d9d9d9",
@@ -150,43 +160,121 @@ const Menu = () => {
             Router.push(`${frontUrl}/allPostsBoard`);
           }}
           style={{
-            fontSize: "35px",
             color: "black",
           }}
         >
           <AiFillDribbbleCircle />
           전체글
         </a>
+        <br />
         <a
           id="about"
           className="menu-item"
           onClick={() => {
-            Router.push(`${frontUrl}/home`);
+            Router.push(`${frontUrl}/me`);
           }}
           style={{
-            fontSize: "35px",
             color: "black",
           }}
         >
           <FaUserCircle /> 나
         </a>
+
         <a
-          id="contact"
+          id="about"
           className="menu-item"
           onClick={() => {
-            Router.push(`${frontUrl}/ChartPage`);
+            Router.push(`${frontUrl}/post`);
           }}
           style={{
-            fontSize: "35px",
             color: "black",
           }}
         >
-          <AiOutlineLineChart /> 차트
+          <AiFillEdit /> 내 포스트
         </a>
+
+        <a
+          id="about"
+          className="menu-item"
+          onClick={() => {
+            Router.push(`${frontUrl}/timeline`);
+          }}
+          style={{
+            color: "black",
+          }}
+        >
+          <GiTimeBomb /> 타임라인
+        </a>
+
+        <a
+          id="about"
+          className="menu-item"
+          onClick={() => {
+            Router.push(`${frontUrl}/friend`);
+          }}
+          style={{
+            color: "black",
+          }}
+        >
+          <GoOrganization /> 친구
+        </a>
+
+        <a
+          id="about"
+          className="menu-item"
+          onClick={() => {
+            Router.push(`${frontUrl}/bookmark`);
+          }}
+          style={{
+            color: "black",
+          }}
+        >
+          <BsBookmarksFill /> 북마크
+        </a>
+
+        <a
+          id="about"
+          className="menu-item"
+          onClick={() => {
+            Router.push(`${frontUrl}/trash`);
+          }}
+          style={{
+            color: "black",
+          }}
+        >
+          <BsTrashFill /> 휴지통
+        </a>
+
+        <a
+          id="about"
+          className="menu-item"
+          onClick={() => {
+            Router.push(`${frontUrl}/activityChart`);
+          }}
+          style={{
+            color: "black",
+          }}
+        >
+          <AiOutlineLineChart /> 활동차트
+        </a>
+
+        <a
+          id="about"
+          className="menu-item"
+          onClick={() => {
+            Router.push(`${frontUrl}/setting`);
+          }}
+          style={{
+            color: "black",
+          }}
+        >
+          <AiFillSetting /> 설정
+        </a>
+        <br />
+
         <a
           className="menu-item--small"
           style={{
-            fontSize: "35px",
             color: "black",
           }}
           onClick={() => {
@@ -203,7 +291,6 @@ const Menu = () => {
             });
           }}
           style={{
-            fontSize: "20px",
             color: "black",
           }}
         >
@@ -221,7 +308,7 @@ const Menu = () => {
       >
         <Styledspan
           onClick={() => {
-            Router.push(`${frontUrl}/home`);
+            Router.push(`${frontUrl}/my`);
           }}
         >
           interfree

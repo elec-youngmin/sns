@@ -7,10 +7,6 @@ import {
   isMobile,
 } from "react-device-detect";
 
-import HorizontalNav from "../components/layout/HorizontalNav";
-import PostBoardLoading from "../components/loading/PostBoardLoading";
-import BottomTabs from "../components/layout/BottomTabs";
-
 import { useSelector } from "react-redux";
 
 import { LOAD_CHARTDATA_REQUEST } from "../reducers/post";
@@ -124,8 +120,6 @@ const ChartPage = () => {
 
   return (
     <div>
-      <HorizontalNav />
-      <BottomTabs />
       <div
         className="col-md-8 container justify-content-center"
         style={{ paddingTop: "80px", textAlign: "center" }}
@@ -247,8 +241,6 @@ const ChartPage = () => {
           <h1> 폰 화면을 가로로 바꿔보세요.</h1>
         </MobileView>
       </div>
-
-      <PostBoardLoading />
     </div>
   );
 };

@@ -334,6 +334,8 @@ router.post("/findPassword", async (req, res, next) => {
     );
     global.toekn = toekn;
     global.user = req.body.email;
+    console.log(toekn);
+
     let mailOptions = {
       from: process.env.MAIL_USER, // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
       to: req.body.email, // 수신 메일 주소
@@ -344,64 +346,19 @@ router.post("/findPassword", async (req, res, next) => {
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
+        return res.status(500).json("에러발생");
       } else {
         console.log("Email sent: " + info.response);
+        res.status(200).json(req.body.email);
       }
     });
-    res.status(200).json(req.body.email);
   } catch (err) {
     console.error(err);
     next(err);
   }
 });
 
-//req.body.followId, req.body.followingId
-router.post("/followUser", async (req, res, next) => {
-  try {
-    // const result = await Follow.findOne({
-    //   where: {
-    //     followerId: req.body.followerId,
-    //     followingId: req.body.followingId,
-    //   },
-    // });
-    // if (result) {
-    //   res.status(500).json("이미 팔로잉 되어 있습니다.");
-    // }
-    await Follow.create({
-      followerId: req.body.followerId,
-      followingId: req.body.followingId,
-    });
-    const result = await Follow.findAll({
-      where: { followerId: req.body.followerId },
-    });
-    res.status(200).json(result);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
 
-//req.body.followId, req.body.followingId
-router.post("/unFollowUser", async (req, res, next) => {
-  try {
-    console.log(req.body);
-    await Follow.destroy({
-      where: {
-        followerId: req.body.followerId,
-        followingId: req.body.followingId,
-      },
-    });
-    const result = await Follow.findAll({
-      where: { followerId: req.body.followerId },
-      attributes: ["followingId"],
-    });
-
-    res.status(200).json(result);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
 
 router.post("/loadFollowingUser", async (req, res, next) => {
   try {
@@ -437,7 +394,9 @@ router.get("/email/:id", (req, res, next) => {
   try {
     console.log(global.user);
     const id = req.params.id;
+
     console.log(JSON.stringify(id));
+    console.log(toekn);
     if (id.trim() == toekn) {
       console.log("토큰이 일치함");
       res.status(200).json("토큰이 일치함 ok");

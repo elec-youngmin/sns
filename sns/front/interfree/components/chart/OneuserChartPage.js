@@ -60,47 +60,48 @@ const OneuserChartPage = () => {
 
   return (
     <div>
-      <div
-        className="col-md-8 container justify-content-center"
-        style={{ paddingTop: "95px", textAlign: "center" }}
-      >
-        {/* interfree 전체 일일 포스트 갯수 차트 */}
-
-        <div
-          style={{
-            marginBottom: "50px",
-          }}
-        >
-          <Line data={postsdata} />
-          {charts.postsData.length < 2 && (
-            <>
-              <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
-              <p>포스트를 올려 차트를 형성해 보세요. </p>
-            </>
-          )}
-        </div>
-
-        {/* 일일 좋아요 수 차트  */}
-
-        <div
-          style={{
-            marginBottom: "20px",
-          }}
-        >
-          <Line data={likesdata} />
-          {charts.likesData.length < 2 && (
-            <>
-              <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
-              <p>포스트를 올려 좋아요를 받아보세요. </p>
-            </>
-          )}
-        </div>
-      </div>
       {isTabletOrMobileDevice && (
-        <p style={{ textAlign: "center", textWeidht: "bold" }}>
+        <p
+          style={{
+            textAlign: "center",
+            textWeight: "bold",
+            marginBottom: "25px",
+          }}
+        >
           디바이스를 가로로 회전해 보세요.
         </p>
       )}
+      {/* interfree 전체 일일 포스트 갯수 차트 */}
+
+      <div
+        style={{
+          marginBottom: "50px",
+        }}
+      >
+        <Line data={postsdata} />
+        {charts.postsData.length < 2 && (
+          <>
+            <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
+            <p>포스트를 올려 차트를 형성해 보세요. </p>
+          </>
+        )}
+      </div>
+
+      {/* 일일 좋아요 수 차트  */}
+
+      <div
+        style={{
+          marginBottom: "50px",
+        }}
+      >
+        <Line data={likesdata} />
+        {charts.likesData.length < 2 && (
+          <>
+            <p>데이터가 부족해 차트가 형성되지 못했습니다. </p>
+            <p>포스트를 올려 좋아요를 받아보세요. </p>
+          </>
+        )}
+      </div>
     </div>
   );
 };

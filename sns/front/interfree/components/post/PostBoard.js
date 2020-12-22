@@ -39,7 +39,14 @@ import {
   BsFillBookmarksFill,
 } from "react-icons/bs";
 
-import { Card, Dropdown, DropdownButton, Row, Col } from "react-bootstrap";
+import {
+  Card,
+  Dropdown,
+  DropdownButton,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";
@@ -78,8 +85,6 @@ const PostBoard = ({
   const [likeCon, setLikeCon] = useState(false);
   const [loadings, setLoadings] = useState(false);
   const [userProfileImg, setUserProfileImg] = useState("userImage.jpg");
-
-  // const [show, setShow] = useState(false);
   const [replaceText, setReplaceText] = useState("글이 차단됨");
 
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
@@ -161,18 +166,25 @@ const PostBoard = ({
         postId={postId}
         onHide={() => setReportModalShow(false)}
       />
-      <Card
+      {/* 여기부터 포스트보드 시작점 */}
+      <Container
         style={{
           marginBottom: "15px",
           width: "100%",
+          borderRadius: "12px",
+          boxShadow: "1px 1px 2px 2px #F8F8FF",
+          backgroundColor: "white",
         }}
       >
-        <Card.Header
+        <div
           style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             backgroundColor: "white",
-            borderRadius: "12px",
+            borderBottom: "1px solid #D3D3D3",
             padding: "5px",
-            // boxShadow: "1px 1px 3px 3px #F8F8FF",
+            boxShadow: "1px 1px 2px 2px #F8F8FF",
           }}
         >
           {profileImg ? (
@@ -181,7 +193,6 @@ const PostBoard = ({
               style={{
                 maxWidth: "50px",
                 minHeight: "auto",
-                marginRight: "2px",
                 marginRight: "15px",
                 cursor: "pointer",
               }}
@@ -190,18 +201,24 @@ const PostBoard = ({
               }}
             />
           ) : (
-            <Avatar
-              color={Avatar.getRandomColor("sitebase", [
-                "red",
-                "green",
-                "blue",
-              ])}
-              name={nickname}
-              size={50}
+            <span
+              style={{
+                marginRight: "15px",
+                width: "50px",
+                height: "50px",
+                backgroundColor: "#DCDCDC",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={() => {
                 router.push(`${frontUrl}/UserPage/${userId}/`);
               }}
-            />
+            >
+              <p style={{ fontSize: "25px", fontWeight: "600" }}>
+                {nickname[0]}
+              </p>
+            </span>
           )}
 
           <span
@@ -215,7 +232,9 @@ const PostBoard = ({
           {/* id: 현재 로그인한 유저, userId: 이 포스트를 작성한 유저,
            id와 userId가 다르면 버튼이 나타나게 함. 본인이 작성한 포스트가 아니면
            팔로우 버튼이 나나타게됨. */}
-          {id !== userId && <FollowBotton userId={userId} follows={follows} />}
+          {id !== userId && (
+            <FollowBotton userId={userId} follows={follows} postId={postId} />
+          )}
 
           <span
             style={{
@@ -246,36 +265,38 @@ const PostBoard = ({
               onlyReadMy
             </p>
           )}
-        </Card.Header>
-        <Card.Body>
+        </div>
+        <Container>
           {/* 내가 쓴 게시글인지 현재 로그인한 유저 아이디로 확인
           포스트를 작성한 유저와 현재 로그인한 유저가 같은가? */}
-
-          {userId === id && (
-            <>
-              <DropdownButton
-                variant="light"
-                className="float-right"
-                title={<BsPencil />}
-                drop="left"
-              >
-                <Dropdown.Item onClick={() => setModalShow(true)}>
-                  <BsPencil /> 수정
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    dispatch({
-                      type: DELETE_POST_REQUEST,
-                      data: { postId },
-                    });
-                  }}
+          <div
+            style={{ borderBottom: "1px solid #D3D3D3", minHeight: "240px" }}
+          >
+            {userId === id && (
+              <>
+                <DropdownButton
+                  variant="light"
+                  className="float-right"
+                  title={<BsPencil />}
+                  drop="left"
                 >
-                  <BsTrash /> 쓰레기 통으로
-                </Dropdown.Item>
-              </DropdownButton>
-            </>
-          )}
-          <Card.Text>
+                  <Dropdown.Item onClick={() => setModalShow(true)}>
+                    <BsPencil /> 수정
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => {
+                      dispatch({
+                        type: DELETE_POST_REQUEST,
+                        data: { postId },
+                      });
+                    }}
+                  >
+                    <BsTrash /> 쓰레기 통으로
+                  </Dropdown.Item>
+                </DropdownButton>
+              </>
+            )}
+
             {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
             {PostImgSrcs?.length > 0 && reportCount < 9 && (
@@ -289,7 +310,6 @@ const PostBoard = ({
                     marginBottom: "20px",
                   }}
                 ></img>
-                {/* <figcaption>{PostImgSrcs[0].src}</figcaption> */}
               </Zoom>
             )}
 
@@ -311,66 +331,98 @@ const PostBoard = ({
               </>
             )}
 
-            {reportCount > 9 ? <h6>{replaceText}</h6> : <h6>{post}</h6>}
-
-            <AiFillMessage
-              onClick={() => {
-                setCommentModalShow(true);
-                dispatch({ type: LOAD_COMMENT_REQUEST, data: { postId } });
-              }}
-              style={{
-                fontSize: "20px",
-                marginRight: "20px",
-                color: "#21B8A5",
-                cursor: "pointer",
-              }}
-            />
-            {bookmarkId === id ? (
-              <BsFillBookmarksFill
+            {reportCount > 9 ? <h6>{replaceText}</h6> : <h4>{post}</h4>}
+          </div>
+          <Row>
+            <Col style={{ textAlign: "center", padding: "0px" }}>
+              <AiFillMessage
                 onClick={() => {
-                  dispatch({
-                    type: CANCEL_BOOKMARK_REQUEST,
-                    data: { id, postId, dataType },
-                    //id: userId
-                  });
+                  setCommentModalShow(true);
+                  dispatch({ type: LOAD_COMMENT_REQUEST, data: { postId } });
                 }}
                 style={{
                   fontSize: "20px",
-                  marginRight: "20px",
-                  color: "blue",
+                  color: "#21B8A5",
                   cursor: "pointer",
                 }}
               />
-            ) : (
-              <BsFillBookmarksFill
-                onClick={() => {
-                  dispatch({
-                    type: ADD_BOOKMARK_REQUEST,
-                    data: { id, postId, dataType },
-                  });
+              <p
+                style={{
+                  fontWeight: "15px",
+                  fontWeight: "600",
+                  margin: "0px",
                 }}
+              >
+                댓글
+              </p>
+            </Col>
+            <Col style={{ textAlign: "center", padding: "0px" }}>
+              {bookmarkId === id ? (
+                <>
+                  <BsFillBookmarksFill
+                    onClick={() => {
+                      dispatch({
+                        type: CANCEL_BOOKMARK_REQUEST,
+                        data: { id, postId, dataType },
+                        //id: userId
+                      });
+                    }}
+                    style={{
+                      fontSize: "20px",
+                      color: "blue",
+                      cursor: "pointer",
+                    }}
+                  />
+                </>
+              ) : (
+                <BsFillBookmarksFill
+                  onClick={() => {
+                    dispatch({
+                      type: ADD_BOOKMARK_REQUEST,
+                      data: { id, postId, dataType },
+                    });
+                  }}
+                  style={{
+                    fontSize: "20px",
+                    color: "21B8A5",
+                    cursor: "pointer",
+                  }}
+                />
+              )}
+              <p
+                style={{
+                  fontWeight: "15px",
+                  fontWeight: "600",
+                  margin: "0px",
+                }}
+              >
+                북마크
+              </p>
+            </Col>
+            <Col style={{ textAlign: "center", padding: "0px" }}>
+              <AiTwotoneAlert
+                onClick={() => setReportModalShow(true)}
                 style={{
                   fontSize: "20px",
-                  marginRight: "20px",
-                  color: "21B8A5",
+                  color: "#21B8A5",
                   cursor: "pointer",
                 }}
               />
-            )}
+              <p
+                style={{
+                  fontWeight: "15px",
+                  fontWeight: "600",
+                  margin: "0px",
+                }}
+              >
+                신고
+              </p>
+            </Col>
+          </Row>
 
-            <AiTwotoneAlert
-              onClick={() => setReportModalShow(true)}
-              style={{
-                fontSize: "20px",
-                color: "#21B8A5",
-                cursor: "pointer",
-              }}
-            />
-          </Card.Text>
           {/* 해시태그를 추출하는 로직 */}
           {post?.split(/(#[^\s#]+)/g).map((e, index) => {
             if (e.match(/(#[^\s#]+)/)) {
-              console.log(e.slice(1), "dsfaaaaaaaasdvvvvvvvvva");
               return (
                 <div>
                   <a
@@ -384,7 +436,7 @@ const PostBoard = ({
               );
             }
           })}
-        </Card.Body>
+        </Container>
         <Card.Footer
           style={{
             backgroundColor: "white",
@@ -443,7 +495,7 @@ const PostBoard = ({
             <span class="badge badge-light">{like}</span>
           </button>
         </Card.Footer>
-      </Card>
+      </Container>
     </div>
   );
 };

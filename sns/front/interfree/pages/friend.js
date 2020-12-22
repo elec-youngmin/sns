@@ -4,15 +4,9 @@ import Router from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
-import HorizontalNav from "../components/layout/HorizontalNav";
-
 import FollowAlert from "../components/follow/FollowAlert";
 import FollowPage from "../components/follow/FollowPage";
-import PostBoardLoading from "../components/loading/PostBoardLoading";
-import VerticalNav from "../components/layout/VerticalNav";
-import ScrollButton from "../components/layout/ScrollButton";
-import FloatingButton from "../components/FloatingButton/FloatingButton";
-import BottomTabs from "../components/layout/BottomTabs";
+
 import SearchFriendModal from "../components/follow/SearchFriendModal";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -46,9 +40,13 @@ const friend = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <div style={{ paddingTop: "100px", backgroundColor: "#F5F5F5" }}>
-      <HorizontalNav />
-      <BottomTabs />
+    <div
+      style={{
+        paddingTop: "100px",
+        paddingBottom: "45px",
+        backgroundColor: "#F5F5F5",
+      }}
+    >
       <SearchFriendModal
         show={SearchFriendModalShow}
         onHide={() => setSearchFriendModalShow(false)}
@@ -63,10 +61,24 @@ const friend = () => {
             margin: "0px auto",
           }}
         >
-          <VerticalNav />
-
           <Col md={7}>
             {followPosts.length === 0 && <FollowAlert />}
+            <div
+              style={{
+                margin: "20px 0px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                친구
+              </p>
+            </div>
 
             <div
               style={{
@@ -122,28 +134,25 @@ const friend = () => {
 
             <div
               style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
                 margin: "20px 0px",
                 textAlign: "center",
-                fontWeight: "600",
-                fontSize: "25px",
               }}
             >
-              친구 목록
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                친구 목록
+              </p>
             </div>
 
             <FollowPage />
           </Col>
-
-          <PostBoardLoading />
         </Row>
       </div>
-
-      <FloatingButton />
-      <ScrollButton />
     </div>
   );
 };

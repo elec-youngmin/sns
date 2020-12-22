@@ -1,11 +1,8 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
-import HorizontalNav from "../components/layout/HorizontalNav";
 import LoadAllPostBoard from "../components/allPost/LoadAllPostBoard";
 import UserProfileCard from "../components/allPost/UserProfileCard";
-import PostBoardLoading from "../components/loading/PostBoardLoading";
-import BottomTabs from "../components/layout/BottomTabs";
 
 import { useSelector } from "react-redux";
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
@@ -21,40 +18,42 @@ const allPostsBoard = () => {
   const { user } = useSelector((state) => state.user);
 
   return (
-    <div>
-      <HorizontalNav />
-      <BottomTabs />
-      <div
-        className="col-md-10 container justify-content-around"
-        style={{
-          marginTop: "20px",
-        }}
-      >
-        <Row style={{ paddingTop: "75px" }}>
-          <Col lg={4} md={5} sm={12}>
-            <UserProfileCard
-              style={{ marginBottom: "20px" }}
-              profileImg={
-                user.ProfileImgSrcs.length === 0
-                  ? "userImage.jpg"
-                  : user.ProfileImgSrcs[0].src
-              }
-              nickname={user.nickname}
-              introduce={user.introduce}
-              postsCount={user.postsCount}
-              followCount={user.followCount}
-              followingCount={user.followingCount}
-              shareLink={user.ShareLink}
-              where={user.where}
-            />
-          </Col>
-
-          <Col lg={8} md={7} sm={12}>
+    <div
+      style={{
+        backgroundColor: "#F5F5F5",
+      }}
+    >
+      <div className="container justify-content-around">
+        <Row
+          style={{
+            paddingTop: "100px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0px auto",
+          }}
+        >
+          <Col md={7}>
+            <div
+              style={{
+                margin: "20px 0px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                전체글
+              </p>
+            </div>
             <LoadAllPostBoard />
           </Col>
         </Row>
       </div>
-      <PostBoardLoading />
     </div>
   );
 };

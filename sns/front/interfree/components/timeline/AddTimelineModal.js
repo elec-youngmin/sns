@@ -30,7 +30,12 @@ const AddTimelineModal = (props) => {
         onHide={() => props.onHide()}
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title
+            style={{
+              fontSize: "20px",
+              fontWeight: "600",
+            }}
+          >
             타임라인 주제 정하기
           </Modal.Title>
         </Modal.Header>

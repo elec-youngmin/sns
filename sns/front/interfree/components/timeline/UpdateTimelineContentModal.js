@@ -11,6 +11,7 @@ const UpdateTimelineContentModal = (props) => {
   const [title, setTitle] = useState(props.title);
   const [content, setContent] = useState(props.content);
   const [date, setDate] = useState(props.date);
+
   const dispatch = useDispatch();
   return (
     <>
@@ -74,7 +75,7 @@ const UpdateTimelineContentModal = (props) => {
                 value={date}
                 placeholder="시기를 입력하세요. 예) 2018-2020,2018년 5월 28일"
                 onChange={(e) => {
-                  setMoment(e.target.value);
+                  setDate(e.target.value);
                 }}
               />
             </Form.Group>
@@ -95,7 +96,7 @@ const UpdateTimelineContentModal = (props) => {
             onClick={() => {
               dispatch({
                 type: UPDATE_TIMELINE_CONTENTS_REQUEST,
-                data: { id },
+                data: { id: props.id, title, content, date },
               });
               props.onHide();
             }}

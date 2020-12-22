@@ -82,6 +82,7 @@ const TimelineElement = ({
   const ramdomNum = Math.floor(Math.random() * 15);
   const dispatch = useDispatch();
   const [updateContentShow, setUpdateTimelineContentShow] = useState(false);
+
   return (
     <>
       <UpdateTimelineContentModal
@@ -117,7 +118,7 @@ const TimelineElement = ({
             onClick={() => {
               dispatch({
                 type: DELETE_TIMELINE_CONTENTS_REQUEST,
-                data: { id },
+                data: id,
               });
             }}
           >

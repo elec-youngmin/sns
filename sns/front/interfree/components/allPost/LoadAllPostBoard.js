@@ -9,12 +9,10 @@ import { LOAD_ALLPOST_REQUEST } from "../../reducers/post";
 
 const LoadALLPostBoard = () => {
   const dispatch = useDispatch();
-  const { allPosts, posts } = useSelector((state) => state.post);
+  const { posts } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
-
   const LoadNextAllPosts = () => {
     const lastId = posts[posts.length - 1]?.id;
-    console.log(posts[posts.length - 1]?.id);
     if (posts.length === 0) {
       return;
     }
@@ -45,11 +43,11 @@ const LoadALLPostBoard = () => {
               profileImg={
                 element.User.ProfileImgSrcs.length > 0
                   ? element.User.ProfileImgSrcs[0].src
-                  : "userImage.jpg"
+                  : false
               }
               post={element.contents}
               postId={element.id}
-              follows={element.User.Follows}
+              follows={element.Follows}
               onlyReadMy={element.onlyReadMy}
               reportCount={
                 element.Reports.length > 0 ? element.Reports[0].count : 0
@@ -64,7 +62,6 @@ const LoadALLPostBoard = () => {
               PostImgSrcs={element.PostImgSrcs}
               PostVideoSrcs={element.PostVideoSrcs}
               date={element.createdAt}
-              dataType={"posts"}
             />
           );
         })}

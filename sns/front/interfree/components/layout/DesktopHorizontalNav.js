@@ -96,7 +96,7 @@ const DesktopHorizontalNav = () => {
         <MenuItem>
           <Styledh1
             onClick={() => {
-              Router.push(`${frontUrl}/home`);
+              Router.push(`${frontUrl}/me`);
             }}
           >
             interfree
@@ -116,18 +116,20 @@ const DesktopHorizontalNav = () => {
 
               <MenuItem
                 onClick={() => {
-                  Router.push(`${frontUrl}/home`);
+                  Router.push(`${frontUrl}/me`);
                 }}
               >
                 <FaUserCircle /> 나
               </MenuItem>
-              <MenuItem
+
+              {/* <MenuItem
                 onClick={() => {
                   Router.push(`${frontUrl}/ChartPage`);
                 }}
               >
                 <AiOutlineLineChart /> 차트
-              </MenuItem>
+              </MenuItem> */}
+
               <MenuItem
                 onClick={() => {
                   setSearchModalShow(true);
@@ -135,6 +137,7 @@ const DesktopHorizontalNav = () => {
               >
                 <AiOutlineSearch /> 검색
               </MenuItem>
+
               <MenuItem
                 onClick={() => {
                   dispatch({

@@ -55,7 +55,7 @@ const Login = () => {
 
   useMemo(() => {
     if (logInDone) {
-      Router.push(`${frontUrl}/home`);
+      Router.push(`${frontUrl}/me`);
     }
   }, [logInDone]);
 
@@ -78,7 +78,7 @@ const Login = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">이메일</label>
             <input
               name="email"
               placeholder="이메일 입력"
@@ -102,7 +102,7 @@ const Login = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">패스워드</label>
             <input
               type="password"
               name="password"

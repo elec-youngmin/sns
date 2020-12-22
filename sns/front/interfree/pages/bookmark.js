@@ -5,11 +5,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import HorizontalNav from "../components/layout/HorizontalNav";
 
-import PostBoardLoading from "../components/loading/PostBoardLoading";
-import ScrollButton from "../components/layout/ScrollButton";
-import FloatingButton from "../components/FloatingButton/FloatingButton";
-import VerticalNav from "../components/layout/VerticalNav";
-import BottomTabs from "../components/layout/BottomTabs";
 import PostBoard from "../components/post/PostBoard";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -46,14 +41,33 @@ const bookmark = () => {
   };
   return (
     <div style={{ backgroundColor: "#F5F5F5" }}>
-      <HorizontalNav />
-      <BottomTabs />
       <div className="container justify-content-center">
-        <Row>
-          <Col md={3}>
-            <VerticalNav />
-          </Col>
-          <Col md={8} style={{ padding: "100px" }}>
+        <Row
+          style={{
+            paddingTop: "100px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0px auto",
+          }}
+        >
+          <Col md={7}>
+            <div
+              style={{
+                margin: "20px 0px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                북마크
+              </p>
+            </div>
             <InfiniteScroll
               dataLength={posts.length}
               next={LoadNextbookmarkPosts}
@@ -99,10 +113,6 @@ const bookmark = () => {
           </Col>
         </Row>
       </div>
-
-      <PostBoardLoading />
-      <FloatingButton />
-      <ScrollButton />
     </div>
   );
 };

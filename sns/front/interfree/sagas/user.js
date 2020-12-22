@@ -31,12 +31,6 @@ import {
   RESETTING_PASSWORD_REQUEST,
   RESETTING_PASSWORD_SUCCESS,
   RESETTING_PASSWORD_FAILURE,
-  FOLLOW_USER_REQUEST,
-  FOLLOW_USER_SUCCESS,
-  FOLLOW_USER_FAILURE,
-  UNFOLLOW_USER_REQUEST,
-  UNFOLLOW_USER_SUCCESS,
-  UNFOLLOW_USER_FAILURE,
   LOAD_FOLLOWING_USER_REQUEST,
   LOAD_FOLLOWING_USER_SUCCESS,
   LOAD_FOLLOWING_USER_FAILURE,
@@ -258,48 +252,6 @@ function* resettingPassword(action) {
   }
 }
 
-function followUserAPI(data) {
-  return axios.post("user/followUser", data);
-}
-
-function* followUser(action) {
-  try {
-    const result = yield call(followUserAPI, action.data);
-    console.log(result);
-    yield put({
-      type: FOLLOW_USER_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: FOLLOW_USER_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-function unFollowUserAPI(data) {
-  return axios.post("user/unFollowUser", data);
-}
-
-function* unFollowUser(action) {
-  try {
-    const result = yield call(unFollowUserAPI, action.data);
-    console.log(result);
-    yield put({
-      type: UNFOLLOW_USER_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: UNFOLLOW_USER_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
 function loadFollowingUserAPI(data) {
   return axios.post("user/loadFollowingUser", data);
 }
@@ -403,14 +355,6 @@ function* watchResettingPassword() {
   yield takeLatest(RESETTING_PASSWORD_REQUEST, resettingPassword);
 }
 
-function* watchFollowUser() {
-  yield takeLatest(FOLLOW_USER_REQUEST, followUser);
-}
-
-function* watchUnFollowUser() {
-  yield takeLatest(UNFOLLOW_USER_REQUEST, unFollowUser);
-}
-
 function* watchLoadFollowingUser() {
   yield takeLatest(LOAD_FOLLOWING_USER_REQUEST, loadFollowingUser);
 }
@@ -435,8 +379,7 @@ export default function* userSaga() {
     fork(watchFindPassword),
     fork(watchFindPasswordMyConfirm),
     fork(watchResettingPassword),
-    fork(watchFollowUser),
-    fork(watchUnFollowUser),
+
     fork(watchLoadFollowingUser),
     fork(watchDisabledOneUserAllpost),
     fork(watchActivateOneUserAllpost),

@@ -45,12 +45,7 @@ export const initialState = {
   resettingPasswordLoading: false,
   resettingPasswordDone: false,
   resettingPasswordError: null,
-  followUserLoading: false,
-  followUserDone: false,
-  followUserError: null,
-  unFollowUserLoading: false,
-  unFollowUserDone: false,
-  unFollowUserError: null,
+
   loadFollowingUserLoading: false,
   loadFollowingUserDone: false,
   loadFollowingUserError: false,
@@ -120,14 +115,6 @@ export const FIND_PASSWORD_MYCONFIRM_FAILURE =
 export const RESETTING_PASSWORD_REQUEST = "RESETTING_PASSWORD_REQUEST";
 export const RESETTING_PASSWORD_SUCCESS = "RESETTING_PASSWORD_SUCCESS";
 export const RESETTING_PASSWORD_FAILURE = "RESETTING_PASSWORD_FAILURE";
-
-export const FOLLOW_USER_REQUEST = "FOLLOW_USER_REQUEST";
-export const FOLLOW_USER_SUCCESS = "FOLLOW_USER_SUCCESS";
-export const FOLLOW_USER_FAILURE = "FOLLOW_USER_FAILURE";
-
-export const UNFOLLOW_USER_REQUEST = "UNFOLLOW_USER_REQUEST";
-export const UNFOLLOW_USER_SUCCESS = "UNFOLLOW_USER_SUCCESS";
-export const UNFOLLOW_USER_FAILURE = "UNFOLLOW_USER_FAILURE";
 
 export const LOAD_FOLLOWING_USER_REQUEST = "LOAD_FOLLOWING_USER_REQUEST";
 export const LOAD_FOLLOWING_USER_SUCCESS = "LOAD_FOLLOWING_USER_SUCCESS";
@@ -296,36 +283,7 @@ const reducer = (state = initialState, action) =>
         draft.resettingPasswordLoading = false;
         draft.resettingPasswordError = action.error;
         break;
-      case FOLLOW_USER_SUCCESS:
-        draft.followUserDone = true;
-        draft.followUserLoading = false;
-        draft.following = action.data;
-        break;
-      case FOLLOW_USER_REQUEST:
-        draft.followUserDone = false;
-        draft.followUserLoading = true;
-        draft.followUserError = null;
-        break;
-      case FOLLOW_USER_FAILURE:
-        draft.followUserLoading = false;
-        draft.followUserError = null;
-        ToastError("팔로우 추가에 실패했습니다. 다시 시도하세요.");
-        break;
-      case UNFOLLOW_USER_SUCCESS:
-        draft.unFollowUserDone = true;
-        draft.unFollowUserLoading = false;
-        draft.following = action.data;
-        break;
-      case UNFOLLOW_USER_REQUEST:
-        draft.unFollowUserDone = false;
-        draft.unFollowUserLoading = true;
-        draft.unFollowUserError = null;
-        break;
-      case UNFOLLOW_USER_FAILURE:
-        draft.unFollowUserLoading = false;
-        draft.unFollowUserError = action.error;
-        ToastError("팔로우 취소에 실패했습니다. 다시 시도하세요.");
-        break;
+
       case LOAD_FOLLOWING_USER_SUCCESS:
         draft.loadFollowingUserDone = true;
         draft.loadFollowingUserLoading = false;

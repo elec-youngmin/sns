@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
 
-import HorizontalNav from "../../components/layout/HorizontalNav";
-
 import PostBoard from "../../components/post/PostBoard";
-import PostBoardLoading from "../../components/loading/PostBoardLoading";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -35,42 +32,43 @@ const PostPage = () => {
 
   return (
     <div>
-      <HorizontalNav />
       <div
         className="col-md-7 container justify-content-center"
         style={{
           paddingTop: "80px",
         }}
       >
-        {posts.map((element, index) => (
-          <PostBoard
-            post={element?.contents}
-            postId={element?.id}
-            userId={element?.UserId}
-            profileImg={
-              element?.User.ProfileImgSrcs.length > 0
-                ? element?.User.ProfileImgSrcs.src
-                : "userImage.jpg"
-            }
-            nickname={element?.User.nickname}
-            like={element?.like} //포스트 좋아요 수
-            Likes={
-              element?.Likes.length > 0 ? element?.Likes[0].LikeUserId : false
-            } //포스트 좋아요 했는지 확인
-            reportCount={element?.Reports}
-            PostImgSrcs={element?.PostImgSrcs}
-            PostVideoSrcs={element?.PostVideoSrcs}
-            bookmarkId={
-              element?.Bookmarks.length > 0
-                ? element?.Bookmarks[0].UserId
-                : false
-            }
-            date={element?.updatedAt}
-          />
-        ))}
+        {posts.map((element) => {
+          return (
+            <PostBoard
+              post={element?.contents}
+              postId={element?.id}
+              userId={element?.UserId}
+              profileImg={
+                element?.User.ProfileImgSrcs.length > 0
+                  ? element?.User.ProfileImgSrcs.src
+                  : "userImage.jpg"
+              }
+              nickname={element?.User.nickname}
+              like={element?.like} //포스트 좋아요 수
+              follows={element.Follows}
+              Likes={
+                element?.Likes.length > 0 ? element?.Likes[0].LikeUserId : false
+              } //포스트 좋아요 했는지 확인
+              reportCount={element?.Reports}
+              PostImgSrcs={element?.PostImgSrcs}
+              PostVideoSrcs={element?.PostVideoSrcs}
+              bookmarkId={
+                element?.Bookmarks.length > 0
+                  ? element?.Bookmarks[0].UserId
+                  : false
+              }
+              date={element?.updatedAt}
+            />
+          );
+        })}
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>
-      <PostBoardLoading />
     </div>
   );
 };

@@ -2,9 +2,7 @@ import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import HorizontalNav from "../../components/layout/HorizontalNav";
 import PostBoard from "../../components/post/PostBoard";
-import PostBoardLoading from "../../components/loading/PostBoardLoading";
 import UserProfileCard from "../../components/allPost/UserProfileCard";
 
 import {
@@ -39,7 +37,6 @@ const UserPage = () => {
   // };
   return (
     <div>
-      <HorizontalNav />
       <div
         className="col-md-10 container justify-content-center"
         style={{
@@ -49,22 +46,87 @@ const UserPage = () => {
       >
         <Container>
           <Row>
-            <Col lg={4} md={5} sm={12}>
-              <UserProfileCard
-                profileImg={
-                  posts[0]?.User.ProfileImgSrcs.length === 0
-                    ? "userImage.jpg"
-                    : posts[0]?.User.ProfileImgSrcs[0].src
-                }
-                nickname={posts[0]?.User.nickname}
-                introduce={posts[0]?.User.introduce}
-                postsCount={posts[0]?.User.postsCount}
-                followCount={posts[0]?.User.followCount}
-                followingCount={posts[0]?.User.followingCount}
-                shareLink={posts[0]?.User.ShareLink}
-                where={posts[0]?.User.where}
-              />
-            </Col>
+            <Container
+              style={{
+                border: "1px solid #F0FFFF",
+                borderRadius: "20px",
+                boxShadow: "1px 1px 2px 2px #ccc",
+                backgroundColor: "white",
+                margin: "20px 0px",
+                textAlign: "center",
+              }}
+            >
+              <Row
+                style={{
+                  marginTop: "10px",
+                }}
+              >
+                <img
+                  src={`${backUrl}/${e.src}`}
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    margin: "0px auto",
+                  }}
+                />
+              </Row>
+              <p style={{ fontSize: "20px" }}>{e.nickname}</p>
+              <p>{e.introduce}</p>
+              <Row
+                style={{
+                  marginBottom: "10px",
+                  fontSize: "20px",
+                }}
+              >
+                <Col
+                  style={{
+                    boxSizing: "content-box",
+                    border: "3px solid #F5FFFA",
+                    textAlign: "center",
+                    padding: "0px",
+                  }}
+                >
+                  포스트:{e.postsCount}
+                </Col>
+                <Col
+                  style={{
+                    boxSizing: "content-box",
+                    border: "3px solid #F5FFFA",
+                    textAlign: "center",
+                    padding: "0px",
+                  }}
+                >
+                  팔로워:{e.followCount}
+                </Col>
+                <Col
+                  style={{
+                    boxSizing: "content-box",
+                    border: "3px solid #F5FFFA",
+                    textAlign: "center",
+                    padding: "0px",
+                  }}
+                >
+                  팔로우:{e.followingCount}
+                </Col>
+              </Row>
+              <p style={{ fontSize: "20px" }}>링크:{e.ShareLink}</p>
+              <p style={{ fontSize: "20px" }}>사는 곳:{e.ShareLink}</p>
+            </Container>
+
+            {/* <UserProfileCard
+              profileImg={
+                posts[0]?.User.ProfileImgSrcs.length === 0
+                  ? "userImage.jpg"
+                  : posts[0]?.User.ProfileImgSrcs[0].src
+              }
+              nickname={posts[0]?.User.nickname}
+              introduce={posts[0]?.User.introduce}
+              postsCount={posts[0]?.User.postsCount}
+              followCount={posts[0]?.User.followCount}
+              followingCount={posts[0]?.User.followingCount}
+              shareLink={posts[0]?.User.ShareLink}
+              where={posts[0]?.User.where}
+            /> */}
 
             <Col lg={8} md={7} sm={12}>
               <InfiniteScroll
@@ -82,12 +144,13 @@ const UserPage = () => {
                     key={index}
                     post={element.contents}
                     postId={element.id}
-                    UserId={element.UserId}
+                    userId={element.UserId}
                     profileImg={
                       element.User.ProfileImgSrcs.length > 0
                         ? element.User.ProfileImgSrcs[0].src
                         : "userImage.jpg"
                     }
+                    follows={element.Follows}
                     nickname={element.User.nickname}
                     like={element.like}
                     Likes={
@@ -112,7 +175,6 @@ const UserPage = () => {
           </Row>
         </Container>
       </div>
-      <PostBoardLoading />
     </div>
   );
 };

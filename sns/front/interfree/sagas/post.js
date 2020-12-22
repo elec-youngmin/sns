@@ -118,6 +118,12 @@ import {
   UPDATE_TIMELINE_CONTENTS_REQUEST,
   UPDATE_TIMELINE_CONTENTS_SUCCESS,
   UPDATE_TIMELINE_CONTENTS_FAILURE,
+  FOLLOW_USER_REQUEST,
+  FOLLOW_USER_SUCCESS,
+  FOLLOW_USER_FAILURE,
+  UNFOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
+  UNFOLLOW_USER_FAILURE,
 } from "../reducers/post";
 
 function savePostAPI(data) {
@@ -919,7 +925,7 @@ function* deleteTimelineContents(action) {
 }
 
 function updateTimelineContentsAPI(data) {
-  return axios.get(`post/updateTimelineContents/${data}`);
+  return axios.post(`post/updateTimelineContents`, data);
 }
 
 function* updateTimelineContents(action) {
@@ -934,6 +940,48 @@ function* updateTimelineContents(action) {
     console.error(err);
     yield put({
       type: UPDATE_TIMELINE_CONTENTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function followUserAPI(data) {
+  return axios.post("post/followUser", data);
+}
+
+function* followUser(action) {
+  try {
+    const result = yield call(followUserAPI, action.data);
+    console.log(result);
+    yield put({
+      type: FOLLOW_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: FOLLOW_USER_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function unFollowUserAPI(data) {
+  return axios.post("post/unFollowUser", data);
+}
+
+function* unFollowUser(action) {
+  try {
+    const result = yield call(unFollowUserAPI, action.data);
+    console.log(result);
+    yield put({
+      type: UNFOLLOW_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: UNFOLLOW_USER_FAILURE,
       error: err.response.data,
     });
   }
@@ -1094,6 +1142,13 @@ function* watchUpdateTimelineContents() {
   yield takeLatest(UPDATE_TIMELINE_CONTENTS_REQUEST, updateTimelineContents);
 }
 
+function* watchFollowUser() {
+  yield takeLatest(FOLLOW_USER_REQUEST, followUser);
+}
+
+function* watchUnFollowUser() {
+  yield takeLatest(UNFOLLOW_USER_REQUEST, unFollowUser);
+}
 export default function* userSaga() {
   yield all([
     fork(watchSavePost),
@@ -1135,5 +1190,7 @@ export default function* userSaga() {
     fork(watchLoadTimelineContents),
     fork(watchDeleteTimelineContents),
     fork(watchUpdateTimelineContents),
+    fork(watchFollowUser),
+    fork(watchUnFollowUser),
   ]);
 }

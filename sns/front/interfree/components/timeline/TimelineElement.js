@@ -73,7 +73,10 @@ const TimelineElement = ({
     <>
       <VerticalTimelineElement
         className="vertical-timeline-element--work"
-        contentStyle={{ background: colors[ramdomNum], color: "#fff" }}
+        contentStyle={{
+          background: colors[ramdomNum],
+          color: "#fff",
+        }}
         contentArrowStyle={{ borderRight: "7px solid  rgb(33, 150, 243)" }}
         date={date}
         iconStyle={{ background: colors[ramdomNum], color: "#fff" }}

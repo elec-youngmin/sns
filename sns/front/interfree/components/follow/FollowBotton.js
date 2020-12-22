@@ -7,33 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   FOLLOW_USER_REQUEST,
   UNFOLLOW_USER_REQUEST,
-} from "../../reducers/user";
+} from "../../reducers/post";
 
 import { Button } from "react-bootstrap";
 
-const FollowBotton = ({ userId, follows }) => {
+const FollowBotton = ({ userId, follows, postId }) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.user);
-  const [isCurrentFollowing, setIsCurrentFollowing] = useState(false);
-  console.log(userId);
-  // console.log(follows);
+  const { followUserLoading, unFollowUserLoading } = useSelector(
+    (state) => state.post
+  );
 
-  //팔로잉 목록 중에서 포스트를 작성한 유저가 있는지 확인
-  //  존재하면 언팔로우 버튼, 존재하지 않으면 팔로우 버튼
-  // userId: 이 포스트를 작성한 유저
-  // useMemo(() => {
-  //   follows.map((element) => {
-  //     if (element.id == id) {
-  //       setIsCurrentFollowing(true);
-  //     }
-  //   });
-  // }, [allPosts]);
-
-  // useMemo(() => {
-  //   if (allPosts.User.Follows.length === 0) {
-  //     setIsCurrentFollowing(false);
-  //   }
-  // }, [allPosts]);
   return (
     <>
       <Button
@@ -42,19 +26,24 @@ const FollowBotton = ({ userId, follows }) => {
           margin: "10px",
         }}
         onClick={() => {
-          if (isCurrentFollowing === true) {
+          if (followUserLoading || unFollowUserLoading) {
+            return alert("로딩 중에 누를 수 없어요.");
+          }
+          if (follows.length > 0) {
             //현재 팔로잉 되어 있으면 언팔로우
             dispatch({
               type: UNFOLLOW_USER_REQUEST,
               data: {
                 followerId: id, //게시글을 보고 팔로워하는 사람의 id
                 followingId: userId, //언팔로워 당하는 user table id
+                postId,
               },
             });
           } else {
             dispatch({
               type: FOLLOW_USER_REQUEST,
               data: {
+                postId,
                 followerId: id, //게시글을 보고 팔로워하는 사람의 id
                 followingId: userId, //팔로워 당하는 user table id
               },
@@ -62,7 +51,7 @@ const FollowBotton = ({ userId, follows }) => {
           }
         }}
       >
-        {isCurrentFollowing ? "언팔로우" : "팔로우"}
+        {follows.length > 0 ? "언팔로우" : "팔로우"}
       </Button>
     </>
   );

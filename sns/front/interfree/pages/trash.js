@@ -5,10 +5,8 @@ import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import HorizontalNav from "../components/layout/HorizontalNav";
 import TrashPostAlert from "../components/trash/TrashPostAlert";
 import TrashPostForm from "../components/trash/TrashPostForm";
-import VerticalNav from "../components/layout/VerticalNav";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -19,32 +17,49 @@ import axios from "axios";
 const trash = () => {
   const { trashPosts } = useSelector((state) => state.post);
   return (
-    <div style={{ paddingTop: "75px", backgroundColor: "#F5F5F5" }}>
-      <HorizontalNav />
-      <VerticalNav />
-      <Row
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "0px auto",
-        }}
-      >
-        <Col md={7}>
-          <TrashPostAlert />
-          {trashPosts.map((element, index) => (
-            <TrashPostForm
-              key={index}
-              postContents={element.contents}
-              postId={element.postId}
-              onlyReadMy={element.onlyReadMy}
-              PostImgSrcs={element.imgSrc}
-              PostVideoSrcs={element.videoSrc}
-              date={element.createdAt}
-            />
-          ))}
-        </Col>
-      </Row>
+    <div style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
+      <div className="container justify-content-center">
+        <Row
+          style={{
+            paddingTop: "105px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0px auto",
+          }}
+        >
+          <Col md={7}>
+            <div
+              style={{
+                margin: "20px 0px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                휴지통
+              </p>
+            </div>
+            <TrashPostAlert />
+            {trashPosts.map((element, index) => (
+              <TrashPostForm
+                key={index}
+                postContents={element.contents}
+                postId={element.postId}
+                onlyReadMy={element.onlyReadMy}
+                PostImgSrcs={element.imgSrc}
+                PostVideoSrcs={element.videoSrc}
+                date={element.createdAt}
+              />
+            ))}
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };

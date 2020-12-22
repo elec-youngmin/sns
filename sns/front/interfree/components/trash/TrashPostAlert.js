@@ -55,7 +55,7 @@ const TrashPostAlert = () => {
   return (
     <div class="text-center" style={{ marginTop: "25px" }}>
       <TrashconfirmModal show={modalShow} onHide={() => setModalShow(false)} />
-      <Styledp>쓰레기 포스트 수 {trashPosts.length}개</Styledp>
+      <Styledp>휴지통 포스트 수 {trashPosts.length}개</Styledp>
       <div style={{ marginBottom: "20px" }}>
         <Button
           variant="primary"
@@ -66,6 +66,11 @@ const TrashPostAlert = () => {
               return;
             }
             setModalShow(true);
+          }}
+          style={{
+            fontSize: "15px",
+            fontWeight: "600",
+            marginRight: "15px",
           }}
         >
           전부 완전 삭제
@@ -81,8 +86,12 @@ const TrashPostAlert = () => {
               data: { id },
             });
           }}
+          style={{
+            fontSize: "15px",
+            fontWeight: "600",
+          }}
         >
-          전부 다시 포스트로
+          전부 다시 포스트로 이동
         </Button>
       </div>
     </div>

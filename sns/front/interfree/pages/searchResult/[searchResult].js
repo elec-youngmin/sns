@@ -2,14 +2,6 @@ import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 
-import HorizontalNav from "../../components/layout/HorizontalNav";
-
-import PostBoardLoading from "../../components/loading/PostBoardLoading";
-import ScrollButton from "../../components/layout/ScrollButton";
-import FloatingButton from "../../components/FloatingButton/FloatingButton";
-
-import VerticalNav from "../../components/layout/VerticalNav";
-import BottomTabs from "../../components/layout/BottomTabs";
 import PostBoard from "../../components/post/PostBoard";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -39,13 +31,8 @@ const searchResult = () => {
   };
   return (
     <div>
-      <HorizontalNav />
-      <BottomTabs />
       <div className="container justify-content-center">
         <Row>
-          <Col md={3}>
-            <VerticalNav />
-          </Col>
           <Col md={8} style={{ padding: "100px", marginBottom: "20px" }}>
             검색결과 총{posts.length}건의 포스트가 로드되었습니다.
             {posts.length > 0 &&
@@ -82,10 +69,6 @@ const searchResult = () => {
           </Col>
         </Row>
       </div>
-
-      <PostBoardLoading />
-      <FloatingButton />
-      <ScrollButton />
     </div>
   );
 };

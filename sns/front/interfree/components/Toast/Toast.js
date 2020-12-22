@@ -8,7 +8,11 @@ import { useSelector } from "react-redux";
 const Toast = () => {
   return (
     <>
-      <ToastContainer autoClose={3000} closeOnClick={false} />
+      <ToastContainer
+        autoClose={4000}
+        closeOnClick={false}
+        style={{ textAlign: "center" }}
+      />
     </>
   );
 };

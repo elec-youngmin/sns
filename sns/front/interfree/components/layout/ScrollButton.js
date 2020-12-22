@@ -2,6 +2,8 @@ import React from "react";
 import * as Scroll from "react-scroll";
 import { useMediaQuery } from "react-responsive";
 
+import { useSelector } from "react-redux";
+
 import { AiOutlineUp, AiOutlineDown } from "react-icons/ai";
 
 import { Button } from "react-bootstrap";

@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import HorizontalNav from "../../components/layout/HorizontalNav";
-import PostBoard from "../../components/post/PostBoard";
-import PostBoardLoading from "../../components/loading/PostBoardLoading";
-
 import { useSelector, useDispatch } from "react-redux";
 import { LOAD_HASHTAGPAGE_REQUEST } from "../../reducers/post";
 import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
@@ -29,15 +25,13 @@ const HashtagPage = () => {
   // }, [tag]);
   return (
     <div>
-      <HorizontalNav />
-      {/* <UserProfileCard /> */}
       <div
         className="col-md-7 container justify-content-center"
         style={{
           paddingTop: "80px",
         }}
       >
-        {/* {posts[0]?.Posts.map((element, index) => (
+        {posts[0]?.Posts.map((element, index) => (
           <PostBoard
             key={index}
             post={element?.contents}
@@ -49,6 +43,7 @@ const HashtagPage = () => {
                 : "userImage.jpg"
             }
             nickname={element?.User.nickname}
+            follows={element.Follows}
             like={element?.like} //포스트 좋아요 수
             Likes={
               element?.Likes.length > 0 ? element.Likes[0].LikeUserId : false
@@ -64,10 +59,9 @@ const HashtagPage = () => {
             }
             date={element?.updatedAt}
           />
-        ))} */}
+        ))}
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>
-      <PostBoardLoading />
     </div>
   );
 };

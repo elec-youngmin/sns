@@ -290,12 +290,12 @@ router.post("/allPostLoad", async (req, res, next) => {
               model: ProfileImgSrc,
               attributes: ["src"],
             },
-            {
-              model: Follow,
-              where: { followerId: 11 },
-              required: false,
-            },
           ],
+        },
+        {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
         },
         {
           model: Like,
@@ -322,7 +322,6 @@ router.post("/allPostLoad", async (req, res, next) => {
         },
       ],
     });
-    console.log(allPost);
     res.status(200).json(allPost);
   } catch (err) {
     console.error(err);
@@ -591,6 +590,11 @@ router.post("/addBookmark", async (req, res, next) => {
           require: false,
         },
         {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
+        },
+        {
           model: PostImgSrc,
           attributes: ["src"],
         },
@@ -642,6 +646,11 @@ router.post("/cancelBookmark", async (req, res, next) => {
           ],
         },
         {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
+        },
+        {
           model: Like,
           attributes: ["id", "LikeUserId", "PostId"],
           where: { LikeUserId: req.body.id },
@@ -664,6 +673,7 @@ router.post("/cancelBookmark", async (req, res, next) => {
       ],
     });
 
+    console.log(OnePost);
     res.status(200).json(OnePost);
   } catch (err) {
     console.error(err);
@@ -699,6 +709,11 @@ router.post("/loadBookmark", async (req, res, next) => {
               attributes: ["src"],
             },
           ],
+        },
+        {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
         },
         {
           model: Like,
@@ -764,6 +779,11 @@ router.post("/likePost", async (req, res, next) => {
           ],
         },
         {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
+        },
+        {
           model: Like,
           where: { LikeUserId: req.body.userId },
           require: false,
@@ -820,6 +840,11 @@ router.post("/cancelLikePost", async (req, res, next) => {
               attributes: ["src"],
             },
           ],
+        },
+        {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
         },
         {
           model: Like,
@@ -903,7 +928,6 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
     const posts = await Post.findAll({
       where: { UserId: req.params.id },
       order: [["id", "DESC"]],
-      limit: 3,
       attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
       include: [
         {
@@ -916,6 +940,11 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
               attributes: ["src"],
             },
           ],
+        },
+        {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
         },
         {
           model: Like,
@@ -966,11 +995,6 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
 
 router.get("/loadHashtagPage/:tag", async (req, res, next) => {
   try {
-    console.log("sdafffffffffffffffffffffffffffffffffffffffffffff");
-    console.log(
-      req.params,
-      "태그로 출력도미ㅇㄴㅁㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹdsffffㄹㄹㄹㄹㄹㄹㄹㄹㄹ"
-    );
     const hashtagPost = await Hashtag.findAll({
       where: { tag: req.params.tag },
       order: [["id", "DESC"]],
@@ -988,6 +1012,11 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
                   attributes: ["src"],
                 },
               ],
+            },
+            {
+              model: Follow,
+              where: { followerId: req.user.dataValues.id },
+              required: false,
             },
             {
               model: Like,
@@ -1126,6 +1155,40 @@ router.post("/oneuserLoadChartdata", async (req, res, next) => {
   }
 });
 
+//req.body.followId, req.body.followingId
+router.post("/followUser", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    await Follow.create({
+      followerId: req.body.followerId,
+      followingId: req.body.followingId,
+    });
+
+    res.status(200).json(req.body.postId);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+//req.body.followId, req.body.followingId
+router.post("/unFollowUser", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    await Follow.destroy({
+      where: {
+        followerId: req.body.followerId,
+        followingId: req.body.followingId,
+      },
+    });
+
+    res.status(200).json(req.body.postId);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.get("/loadPostPage/:postId", async (req, res, next) => {
   try {
     const post = await Post.findAll({
@@ -1143,6 +1206,11 @@ router.get("/loadPostPage/:postId", async (req, res, next) => {
               attributes: ["src"],
             },
           ],
+        },
+        {
+          model: Follow,
+          where: { followerId: req.user.dataValues.id },
+          required: false,
         },
         {
           model: Like,
@@ -1296,7 +1364,6 @@ router.post("/addTimelineContents", async (req, res, next) => {
       title: req.body.title,
       content: req.body.content,
       date: req.body.moment,
-      icon: req.body.icon,
       TimelineSubId: req.body.timelineId,
     });
     const Timeline = await TimelineContent.findAll({
@@ -1352,12 +1419,30 @@ router.get("/loadTimelineContents/:id", async (req, res, next) => {
   }
 });
 
-router.get("/updateTimelineContents/:id", async (req, res, next) => {
+router.post("/updateTimelineContents", async (req, res, next) => {
   try {
-    const timelineContents = await TimelineContent.destroy({
-      where: { id: parseInt(req.params.id) },
+    console.log(req.body, "dddddddddddd");
+    await TimelineContent.update(
+      {
+        title: req.body.title,
+        content: req.body.content,
+        date: req.body.date,
+      },
+      {
+        where: { id: req.body.id },
+      }
+    );
+    const timelineUpdateContent = await TimelineContent.findAll({
+      where: { id: req.body.id },
+      attributes: { exclude: ["createdAt", "deletedAt"] },
+      include: [
+        {
+          model: TimelineSub,
+          attributes: ["subject"],
+        },
+      ],
     });
-    res.status(200).json(req.params.id);
+    res.status(200).json(timelineUpdateContent);
   } catch (err) {
     console.error(err);
     next(err);
@@ -1366,7 +1451,7 @@ router.get("/updateTimelineContents/:id", async (req, res, next) => {
 
 router.get("/deleteTimelineContents/:id", async (req, res, next) => {
   try {
-    const timelineContents = await TimelineContent.destroy({
+    await TimelineContent.destroy({
       where: { id: parseInt(req.params.id) },
     });
     res.status(200).json(req.params.id);

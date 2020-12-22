@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-import HorizontalNav from "../components/layout/HorizontalNav";
-
-import Profile from "../components/setting/Profile";
-import ChangePasswordForm from "../components/setting/ChangePasswordForm";
-import DestroyUser from "../components/setting/DestroyUser";
-import DisabledUser from "../components/setting/DisabledUser";
-import BottomTabs from "../components/layout/BottomTabs";
-import VerticalNav from "../components/layout/VerticalNav";
 import EditProfilePictureModal from "../components/setting/EditProfilePictureModal";
 import EditProfileSettingModal from "../components/setting/EditProfileSettingModal";
 
@@ -35,6 +28,16 @@ import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
+const ToastSuccess = (text) => {
+  toast.dark(text, {
+    position: "top-center",
+  });
+};
+
+const ToastError = (text) => {
+  toast.error(text);
+};
+
 const setting = () => {
   const dispatch = useDispatch();
   const { register, errors, handleSubmit } = useForm({});
@@ -51,6 +54,7 @@ const setting = () => {
       data: { password, userId: user.id },
     });
   };
+
   return (
     <div style={{ backgroundColor: "#F5F5F5" }}>
       <EditProfilePictureModal
@@ -62,9 +66,6 @@ const setting = () => {
         onHide={() => setEditProfileSettingShow(false)}
       />
 
-      <HorizontalNav />
-      <VerticalNav />
-      <BottomTabs />
       <Row
         style={{
           paddingTop: "95px",
@@ -75,6 +76,22 @@ const setting = () => {
         }}
       >
         <Col md={7}>
+          <div
+            style={{
+              margin: "20px 0px",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontWeight: "500",
+                fontSize: "45px",
+                margin: "20px 0px",
+              }}
+            >
+              설정
+            </p>
+          </div>
           <div
             style={{
               border: "1px solid #F0FFFF",
@@ -258,44 +275,47 @@ const setting = () => {
             <p style={{ fontWeight: "600" }}>
               회원탈퇴를 하시면 지금까지 작성한 포스트가 모두 삭제됩니다.
             </p>
-            <input
-              name="password"
-              placeholder="패스워드 입력"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
-              ref={register({
-                required: "패스워드를 입력하세요.",
-                validate: (value) =>
-                  value.length > 9 || "패스워드 길이를 9자 이상 입력하세요.",
-              })}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              style={{
-                borderRadius: "15px",
-                width: "80%",
-                margin: "0px auto",
-                marginBottom: "20px",
-              }}
-            />
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                name="password"
+                placeholder="패스워드 입력"
+                className={`form-control ${
+                  errors.password ? "is-invalid" : ""
+                }`}
+                ref={register({
+                  required: "패스워드를 입력하세요.",
+                  validate: (value) =>
+                    value.length > 9 || "패스워드 길이를 9자 이상 입력하세요.",
+                })}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                style={{
+                  borderRadius: "15px",
+                  width: "80%",
+                  margin: "0px auto",
 
-            <ErrorMessage
-              className="invalid-feedback"
-              name="password"
-              as="div"
-              errors={errors}
-            />
-            <Button
-              onClick={() => {
-                // setEditProfileSettingShow(true);
-              }}
-              style={{
-                marginBottom: "20px",
-                fontWeight: "600",
-                fontSize: "15px",
-              }}
-            >
-              회원탈퇴
-            </Button>
+                  marginBottom: "20px",
+                }}
+              />
+
+              <ErrorMessage
+                className="invalid-feedback"
+                name="password"
+                as="div"
+                errors={errors}
+              />
+              <Button
+                type="submit"
+                style={{
+                  marginBottom: "20px",
+                  fontWeight: "600",
+                  fontSize: "15px",
+                }}
+              >
+                회원탈퇴
+              </Button>
+            </form>
           </div>
         </Col>
       </Row>

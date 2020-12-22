@@ -1,12 +1,12 @@
 import React from "react";
-
-import FollowUsercard from "./FollowUsercard";
+import Router from "next/router";
 
 import { Row, Col, Container } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
 
 import { backUrl } from "../../config/config";
+import { frontUrl } from "../../config/config";
 
 const FollowPage = () => {
   const { followPosts } = useSelector((state) => state.post);
@@ -14,8 +14,6 @@ const FollowPage = () => {
   return (
     <div>
       {followPosts.map((e) => {
-        console.log(e.src);
-
         return (
           <Container
             style={{
@@ -25,23 +23,51 @@ const FollowPage = () => {
               backgroundColor: "white",
               margin: "20px 0px",
               textAlign: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              Router.push(`${frontUrl}/UserPage/[${e.id}]`);
             }}
           >
             <Row
               style={{
-                marginTop: "10px",
+                margin: "10px 0px 0px 0px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              <img
+              {/* <img
                 src={`${backUrl}/${e.src}`}
                 style={{ width: "150px", height: "150px", margin: "0px auto" }}
-              />
+              /> */}
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "150px",
+                  height: "150px",
+                  backgroundColor: "#DCDCDC",
+                }}
+              >
+                <p
+                  style={{
+                    color: "white",
+                    fontSize: "60px",
+                  }}
+                >
+                  {e.nickname[0]}
+                </p>
+              </div>
             </Row>
-            <p>{e.nickname}</p>
+            <p style={{ fontSize: "20px" }}>{e.nickname}</p>
             <p>{e.introduce}</p>
             <Row
               style={{
                 marginBottom: "10px",
+                fontSize: "20px",
               }}
             >
               <Col
@@ -75,23 +101,11 @@ const FollowPage = () => {
                 팔로우:{e.followingCount}
               </Col>
             </Row>
-            <p>링크:{e.ShareLink}</p>
-            <p>사는 곳:{e.ShareLink}</p>
+            <p style={{ fontSize: "20px" }}>링크:{e.ShareLink}</p>
+            <p style={{ fontSize: "20px" }}>사는 곳:{e.ShareLink}</p>
           </Container>
         );
       })}
-
-      {/* <FollowUsercard
-            imgSrc={e.src}
-            nickname={e.nickname}
-            introduce={e.introduce}
-            postsCount={e.postsCount}
-            followCount={e.followCount}
-            followingCount={e.followingCount}
-            ShareLink={e.ShareLink}
-            where={e.where}
-            userId={e.followingId}
-          /> */}
     </div>
   );
 };

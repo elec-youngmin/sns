@@ -8,9 +8,6 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
-import HorizontalNav from "../../../components/layout/HorizontalNav";
-
-import PostBoardLoading from "../../../components/loading/PostBoardLoading";
 import EditTimelineElement from "../../../components/timeline/EditTimelineElement";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -31,7 +28,6 @@ const timeline = () => {
   console.log(timelineContents);
   return (
     <div>
-      <HorizontalNav />
       <div
         className="col-md-7 container justify-content-center"
         style={{
@@ -55,7 +51,6 @@ const timeline = () => {
         </VerticalTimeline>
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>
-      <PostBoardLoading />
     </div>
   );
 };

@@ -3,6 +3,8 @@ import Router from "next/router";
 import Menu, { SubMenu, MenuItem } from "rc-menu";
 import { useMediaQuery } from "react-responsive";
 
+import { useSelector } from "react-redux";
+
 import { AiFillSetting, AiFillEdit } from "react-icons/ai";
 import { GoOrganization } from "react-icons/go";
 import {
@@ -10,17 +12,20 @@ import {
   BsBookmarksFill,
   BsFillBarChartFill,
 } from "react-icons/bs";
+import { GiTimeBomb } from "react-icons/gi";
+
 import { Row, Col, Nav } from "react-bootstrap";
 
 import { frontUrl } from "../../config/config";
 
 const VerticalNav = () => {
+  const { loadUserInfomationDone } = useSelector((state) => state.user);
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 854px)",
   });
   return (
     <>
-      {!isTabletOrMobileDevice && (
+      {loadUserInfomationDone && !isTabletOrMobileDevice && (
         <>
           <Menu
             className="flex-column"
@@ -51,7 +56,7 @@ const VerticalNav = () => {
                 Router.push(`${frontUrl}/timeline`);
               }}
             >
-              <AiFillEdit />
+              <GiTimeBomb />
               타임라인
             </MenuItem>
             <MenuItem
@@ -76,7 +81,7 @@ const VerticalNav = () => {
                 Router.push(`${frontUrl}/trash`);
               }}
             >
-              <BsTrashFill /> 쓰레기통
+              <BsTrashFill /> 휴지통
             </MenuItem>
             <MenuItem
               onClick={() => {

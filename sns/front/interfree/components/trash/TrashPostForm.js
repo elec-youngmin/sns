@@ -31,7 +31,7 @@ const TrashPostForm = ({
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
 
   return (
-    <div style={{ width: "80%" }}>
+    <div>
       <Card style={{ marginBottom: "15px" }}>
         <Card.Header
           style={{
