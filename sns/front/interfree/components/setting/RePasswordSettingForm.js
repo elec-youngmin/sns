@@ -21,9 +21,19 @@ const RePasswordSettingForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
+        <div
+          className="form-group"
+          style={{
+            width: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0px auto",
+          }}
+        >
+          {/* <label htmlFor="password">Password</label> */}
           <input
+            type="password"
             name="password"
             placeholder="패스워드 입력"
             className={`form-control ${errors.password ? "is-invalid" : ""}`}
@@ -36,6 +46,7 @@ const RePasswordSettingForm = () => {
               setPassword(e.target.value);
             }}
           />
+          <br />
           <ErrorMessage
             className="invalid-feedback"
             name="password"
@@ -43,6 +54,7 @@ const RePasswordSettingForm = () => {
             errors={errors}
           />
           <input
+            type="password"
             name="rePassword"
             placeholder="패스워드 확인"
             className={`form-control ${errors.rePassword ? "is-invalid" : ""}`}

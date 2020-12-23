@@ -141,11 +141,11 @@ const reducer = (state = initialState, action) =>
         draft.logInLoading = false;
         draft.user = action.data;
         draft.logInDone = true;
-        ToastSuccess("로그인이 완료되었어요.");
         break;
       case USER_LOGIN_FAILURE:
         draft.logInLoading = false;
         draft.logInError = action.error;
+        ToastError("로그인 실패! 다시 시도하세요.");
         break;
       case USER_LOGIN_REQUEST:
         draft.logInLoading = true;
@@ -161,6 +161,7 @@ const reducer = (state = initialState, action) =>
       case USER_LOGOUT_FAILURE:
         draft.logOutLoading = false;
         draft.logOutError = action.error;
+        ToastError("로그아웃 실패! 다시 시도하세요.");
         break;
       case USER_LOGOUT_REQUEST:
         draft.logOutLoading = true;
@@ -199,10 +200,12 @@ const reducer = (state = initialState, action) =>
         draft.destroyUserLoading = false;
         draft.destroyUserDone = true;
         draft.destroyUserError = null;
+        ToastSuccess("회원탈퇴가 완료되었어요.");
         break;
       case DESTROY_USER_FAILURE:
         draft.destroyUserLoading = false;
         draft.destroyUserError = action.error;
+        ToastError("회원탈퇴 실패! 다시 시도하세요.");
         break;
       case DESTROY_USER_REQUEST:
         draft.destroyUserLoading = true;
@@ -273,6 +276,7 @@ const reducer = (state = initialState, action) =>
       case RESETTING_PASSWORD_SUCCESS:
         draft.resettingPasswordDone = true;
         draft.resettingPasswordLoading = false;
+        ToastSuccess("패스워드가 재설정 되었어요.");
         break;
       case RESETTING_PASSWORD_REQUEST:
         draft.resettingPasswordDone = false;
@@ -282,6 +286,7 @@ const reducer = (state = initialState, action) =>
       case RESETTING_PASSWORD_FAILURE:
         draft.resettingPasswordLoading = false;
         draft.resettingPasswordError = action.error;
+        ToastSuccess("패스워드 재설정에 실패했어요. 다시 시도 하세요.");
         break;
       case LOAD_FOLLOWING_USER_SUCCESS:
         draft.loadFollowingUserDone = true;

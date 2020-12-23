@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import Router from "next/router";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 
@@ -28,6 +29,8 @@ import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
+import { frontUrl } from "../config/config";
+
 const ToastSuccess = (text) => {
   toast.dark(text, {
     position: "top-center",
@@ -46,7 +49,7 @@ const setting = () => {
   const [password, setPassword] = useState("");
 
   const { disabled } = useSelector((state) => state.user.user);
-  const { user } = useSelector((state) => state.user);
+  const { user, destroyUserDone } = useSelector((state) => state.user);
 
   const onSubmit = () => {
     dispatch({
@@ -55,6 +58,11 @@ const setting = () => {
     });
   };
 
+  useMemo(() => {
+    if (destroyUserDone) {
+      Router.push(`${frontUrl}`);
+    }
+  }, [destroyUserDone]);
   return (
     <div style={{ backgroundColor: "#F5F5F5" }}>
       <EditProfilePictureModal
@@ -277,6 +285,7 @@ const setting = () => {
             </p>
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
+                type="password"
                 name="password"
                 placeholder="패스워드 입력"
                 className={`form-control ${

@@ -7,6 +7,10 @@ import React, {
 } from "react";
 import PropTypes from "prop-types";
 import FormData from "form-data";
+import Dropdown from "rc-dropdown";
+import Menu, { Item as MenuItem, Divider } from "rc-menu";
+import "rc-dropdown/assets/index.css";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -19,9 +23,10 @@ import {
   Form,
   Button,
   DropdownButton,
-  Dropdown,
   OverlayTrigger,
   Tooltip,
+  Row,
+  Col,
 } from "react-bootstrap";
 
 import {
@@ -144,9 +149,16 @@ const WriteForm = (props) => {
     textarea.current.focus();
     console.log(textarea.current);
   }, []);
-  // console.log(textarea.current);
 
-  // textarea.current = "adfasdf";
+  const menu = (
+    <Menu onSelect={() => {}}>
+      <MenuItem disabled>disabled</MenuItem>
+      <MenuItem key="1">one</MenuItem>
+      <Divider />
+      <MenuItem key="2">two</MenuItem>
+    </Menu>
+  );
+
   return (
     <>
       {/* 느낌표 알림창 */}
@@ -184,7 +196,7 @@ const WriteForm = (props) => {
             style={{
               maxWidth: "55vw",
               maxHeight: "50vw",
-              corsor: "pointer",
+              cursor: "pointer",
             }}
           ></video>
         )}
@@ -202,7 +214,13 @@ const WriteForm = (props) => {
         <form enctype="multipart/form-data">
           {/* 이미지 아이콘 */}
           <label for="imgUpload">
-            <BsCardImage size={40} className="mr-4" />
+            <BsCardImage
+              size={40}
+              className="mr-4"
+              style={{
+                cursor: "pointer",
+              }}
+            />
           </label>
           <input
             type="file"
@@ -210,12 +228,17 @@ const WriteForm = (props) => {
             role="button"
             onChange={onChangeImages}
             accept="image/jpg,impge/png,image/jpeg,image/gif"
-            style={{ display: "none", marginRignt: "20px" }}
+            style={{ display: "none", marginRignt: "20px", cursor: "pointer" }}
           ></input>
           {/* 비디오 아이콘 */}
 
           <label for="videoUpload">
-            <BsCameraVideo size={40} />
+            <BsCameraVideo
+              size={40}
+              style={{
+                cursor: "pointer",
+              }}
+            />
           </label>
           <input
             type="file"
@@ -223,7 +246,7 @@ const WriteForm = (props) => {
             role="button"
             onChange={onChangeVideo}
             accept="video/*"
-            style={{ display: "none", margin: "20px" }}
+            style={{ display: "none", margin: "20px", cursor: "pointer" }}
           ></input>
           <MultiPostAlert />
           {/* 여기부터 저장버튼과 드롭다운 버튼 */}
@@ -287,6 +310,16 @@ const WriteForm = (props) => {
           </DropdownButton>
         </form>
       </Form>
+      <Dropdown
+        trigger={["click"]}
+        overlay={menu}
+        animation="slide-up"
+        onVisibleChange={(visible) => {
+          console.log(visible);
+        }}
+      >
+        <button style={{ width: 100 }}>open</button>
+      </Dropdown>
     </>
   );
 };

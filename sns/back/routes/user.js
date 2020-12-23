@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const CronJob = require("cron").CronJob;
 const nodemailer = require("nodemailer");
 const {
   User,
@@ -328,13 +329,19 @@ router.post("/findPassword", async (req, res, next) => {
       },
       process.env.JWT_SECRET,
       {
-        expiresIn: "5m",
+        expiresIn: "1m",
         issuer: "interfree",
       }
     );
-    global.toekn = toekn;
-    global.user = req.body.email;
-    console.log(toekn);
+
+    await User.update(
+      { tempToken: toekn },
+      {
+        where: {
+          email: req.body.email,
+        },
+      }
+    );
 
     let mailOptions = {
       from: process.env.MAIL_USER, // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
@@ -357,8 +364,6 @@ router.post("/findPassword", async (req, res, next) => {
     next(err);
   }
 });
-
-
 
 router.post("/loadFollowingUser", async (req, res, next) => {
   try {
@@ -390,20 +395,31 @@ router.post("/resettingPassword", async (req, res, next) => {
 });
 
 //유저의 이메일에서 요청한 경로
-router.get("/email/:id", (req, res, next) => {
+router.get("/email/:id", async (req, res, next) => {
   try {
-    console.log(global.user);
-    const id = req.params.id;
+    const isExist = await User.findOne({
+      where: { tempToken: req.params.id.trim() },
+    });
 
-    console.log(JSON.stringify(id));
-    console.log(toekn);
-    if (id.trim() == toekn) {
-      console.log("토큰이 일치함");
-      res.status(200).json("토큰이 일치함 ok");
-    } else {
-      console.log("토큰이 일치하지 않음");
-      res.status(500).json("올바른 요청이 아님");
-    }
+    (await isExist)
+      ? res.status(200).json("토큰이 일치함 ok")
+      : res.status(500).json("올바른 요청이 아님");
+    // if (isExist) {
+    //   console.log("토큰이 일치함");
+
+    //   await res.status(200).json("토큰이 일치함 ok");
+    // } else {
+    //   console.log("토큰이 일치하지 않음");
+    //   res.status(500).json("올바른 요청이 아님");
+    // }
+    await User.update(
+      { tempToken: null },
+      {
+        where: {
+          tempToken: req.params.id.trim(),
+        },
+      }
+    );
   } catch (err) {
     console.error(err);
     next("에러발생");

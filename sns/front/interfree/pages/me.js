@@ -31,7 +31,6 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 
 import { frontUrl } from "../config/config";
-import { backUrl } from "../config/config";
 
 // 컴포넌트 시작
 const me = () => {

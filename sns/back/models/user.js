@@ -37,6 +37,10 @@ module.exports = class User extends (
           defaultValue: false,
           allowNull: false,
         },
+        tempToken: {
+          type: DataTypes.STRING(250),
+          allowNull: true,
+        },
       },
       {
         indexes: [{ unique: true, fields: ["email"] }],

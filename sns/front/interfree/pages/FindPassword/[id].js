@@ -32,7 +32,7 @@ const FindPasswordMyConfirm = () => {
   }, []);
 
   return (
-    <>
+    <div style={{ paddingTop: "100px" }}>
       {findPasswordMyConfirmLoading && (
           <p>올바른 인증인지 확인하고 있어요.</p>
         ) && <Loading />}
@@ -44,7 +44,7 @@ const FindPasswordMyConfirm = () => {
       {resettingPasswordDone && (
           <p>패스워드가 재 설정 되었어요. 변경된 패스워드로 로그인 하세요."</p>
         ) && <Link href="/"></Link>}
-    </>
+    </div>
   );
 };
 
