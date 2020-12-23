@@ -116,6 +116,7 @@ const PostBoard = ({
 
   return (
     <div onContextMenu={show} onDoubleClick={show}>
+      {/* 여기부터 클릭메뉴  */}
       <Menu id={MENU_ID}>
         <Item
           onClick={() => {
@@ -150,6 +151,7 @@ const PostBoard = ({
           </>
         )}
       </Menu>
+      {/* 여기까지 클릭메뉴  */}
       <RevisePostForm
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -167,58 +169,58 @@ const PostBoard = ({
         onHide={() => setReportModalShow(false)}
       />
       {/* 여기부터 포스트보드 시작점 */}
-      <Container
+
+      <div
         style={{
-          marginBottom: "15px",
-          width: "100%",
+          border: "5px solid white",
           borderRadius: "12px",
-          boxShadow: "1px 1px 2px 2px #F8F8FF",
+          marginBottom: "15px",
           backgroundColor: "white",
         }}
       >
+        {/* 포스트보드 헤더 시작 */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             backgroundColor: "white",
             borderBottom: "1px solid #D3D3D3",
             padding: "5px",
-            boxShadow: "1px 1px 2px 2px #F8F8FF",
+            width: "100%",
           }}
         >
           {profileImg ? (
             <img
               src={`${backUrl}/${profileImg}`}
               style={{
-                maxWidth: "50px",
-                minHeight: "auto",
-                marginRight: "15px",
+                width: "65px",
+                height: "65px",
+                marginRight: "10px",
                 cursor: "pointer",
+                borderRadius: "50%",
               }}
               onClick={() => {
                 router.push(`${frontUrl}/UserPage/${userId}/`);
               }}
             />
           ) : (
-            <span
+            <div
               style={{
-                marginRight: "15px",
-                width: "50px",
-                height: "50px",
+                width: "65px",
+                weight: "50px",
                 backgroundColor: "#DCDCDC",
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
+                marginRight: "19px",
+                borderRadius: "50%",
               }}
               onClick={() => {
                 router.push(`${frontUrl}/UserPage/${userId}/`);
               }}
             >
-              <p style={{ fontSize: "25px", fontWeight: "600" }}>
-                {nickname[0]}
+              <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
+                {nickname[0].toUpperCase()}
               </p>
-            </span>
+            </div>
           )}
 
           <span
@@ -229,28 +231,14 @@ const PostBoard = ({
           >
             {nickname}
           </span>
+
           {/* id: 현재 로그인한 유저, userId: 이 포스트를 작성한 유저,
            id와 userId가 다르면 버튼이 나타나게 함. 본인이 작성한 포스트가 아니면
            팔로우 버튼이 나나타게됨. */}
+
           {id !== userId && (
             <FollowBotton userId={userId} follows={follows} postId={postId} />
           )}
-
-          <span
-            style={{
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              float: "right",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              router.push(`${frontUrl}/PostPage/${postId}/`);
-            }}
-          >
-            <AiOutlineArrowRight />
-          </span>
 
           <br />
           {onlyReadMy && (
@@ -266,178 +254,202 @@ const PostBoard = ({
             </p>
           )}
         </div>
-        <Container>
+
+        {/* 여기부터 포스트보드 바디 시작 */}
+
+        <div
+          style={{
+            minHeight: "240px",
+            backgroundColor: "white",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            router.push(`${frontUrl}/PostPage/${postId}/`);
+          }}
+        >
           {/* 내가 쓴 게시글인지 현재 로그인한 유저 아이디로 확인
           포스트를 작성한 유저와 현재 로그인한 유저가 같은가? */}
-          <div
-            style={{ borderBottom: "1px solid #D3D3D3", minHeight: "240px" }}
-          >
-            {userId === id && (
-              <>
-                <DropdownButton
-                  variant="light"
-                  className="float-right"
-                  title={<BsPencil />}
-                  drop="left"
-                >
-                  <Dropdown.Item onClick={() => setModalShow(true)}>
-                    <BsPencil /> 수정
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => {
-                      dispatch({
-                        type: DELETE_POST_REQUEST,
-                        data: { postId },
-                      });
-                    }}
-                  >
-                    <BsTrash /> 쓰레기 통으로
-                  </Dropdown.Item>
-                </DropdownButton>
-              </>
-            )}
-
-            {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
-
-            {PostImgSrcs?.length > 0 && reportCount < 9 && (
-              <Zoom>
-                <img
-                  src={`${backUrl}/${PostImgSrcs[0].src}`}
-                  alt={PostImgSrcs[0].src}
-                  style={{
-                    maxWidth: "40vw",
-                    maxHeight: "auto",
-                    marginBottom: "20px",
-                  }}
-                ></img>
-              </Zoom>
-            )}
-
-            {/* 포스트에 비디오가 있고 신고 수가 10 미만이면 비디오가 나타나게함 */}
-
-            {PostVideoSrcs?.length > 0 && reportCount < 9 && (
-              <>
-                <video
-                  id="myVideo"
-                  controls
-                  alt={`${PostVideoSrcs[0].src}`}
-                  src={`${backUrl}/${PostVideoSrcs[0].src}`}
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "auto",
-                    marginBottom: "20px",
-                  }}
-                ></video>
-              </>
-            )}
-
-            {reportCount > 9 ? <h6>{replaceText}</h6> : <h4>{post}</h4>}
-          </div>
-          <Row>
-            <Col style={{ textAlign: "center", padding: "0px" }}>
-              <AiFillMessage
-                onClick={() => {
-                  setCommentModalShow(true);
-                  dispatch({ type: LOAD_COMMENT_REQUEST, data: { postId } });
-                }}
-                style={{
-                  fontSize: "20px",
-                  color: "#21B8A5",
-                  cursor: "pointer",
-                }}
-              />
-              <p
-                style={{
-                  fontWeight: "15px",
-                  fontWeight: "600",
-                  margin: "0px",
-                }}
+          {userId === id && (
+            <>
+              <DropdownButton
+                variant="light"
+                className="float-right"
+                title={<BsPencil />}
+                drop="left"
               >
-                댓글
-              </p>
-            </Col>
-            <Col style={{ textAlign: "center", padding: "0px" }}>
-              {bookmarkId === id ? (
-                <>
-                  <BsFillBookmarksFill
-                    onClick={() => {
-                      dispatch({
-                        type: CANCEL_BOOKMARK_REQUEST,
-                        data: { id, postId, dataType },
-                        //id: userId
-                      });
-                    }}
-                    style={{
-                      fontSize: "20px",
-                      color: "blue",
-                      cursor: "pointer",
-                    }}
-                  />
-                </>
-              ) : (
+                <Dropdown.Item onClick={() => setModalShow(true)}>
+                  <BsPencil /> 수정
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    dispatch({
+                      type: DELETE_POST_REQUEST,
+                      data: { postId },
+                    });
+                  }}
+                >
+                  <BsTrash /> 쓰레기 통으로
+                </Dropdown.Item>
+              </DropdownButton>
+            </>
+          )}
+
+          {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
+
+          {PostImgSrcs?.length > 0 && reportCount < 9 && (
+            <Zoom>
+              <img
+                src={`${backUrl}/${PostImgSrcs[0].src}`}
+                alt={PostImgSrcs[0].src}
+                style={{
+                  maxWidth: "40vw",
+                  maxHeight: "auto",
+                  marginBottom: "20px",
+                }}
+              ></img>
+            </Zoom>
+          )}
+
+          {/* 포스트에 비디오가 있고 신고 수가 10 미만이면 비디오가 나타나게함 */}
+
+          {PostVideoSrcs?.length > 0 && reportCount < 9 && (
+            <>
+              <video
+                id="myVideo"
+                controls
+                alt={`${PostVideoSrcs[0].src}`}
+                src={`${backUrl}/${PostVideoSrcs[0].src}`}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "auto",
+                  marginBottom: "20px",
+                }}
+              ></video>
+            </>
+          )}
+
+          {reportCount > 9 ? (
+            <h6>{replaceText}</h6>
+          ) : (
+            <h4
+              style={{
+                margin: "18px 5px 5px 10px",
+              }}
+            >
+              {post}
+            </h4>
+          )}
+        </div>
+        <Row
+          style={{
+            borderTop: "1px solid #D3D3D3",
+            borderBottom: "1px solid #D3D3D3",
+          }}
+        >
+          <Col style={{ textAlign: "center", padding: "0px" }}>
+            <AiFillMessage
+              onClick={() => {
+                setCommentModalShow(true);
+                dispatch({ type: LOAD_COMMENT_REQUEST, data: { postId } });
+              }}
+              style={{
+                fontSize: "20px",
+                color: "#21B8A5",
+                cursor: "pointer",
+              }}
+            />
+            <p
+              style={{
+                fontWeight: "15px",
+                fontWeight: "600",
+                margin: "0px",
+              }}
+            >
+              댓글
+            </p>
+          </Col>
+          <Col style={{ textAlign: "center", padding: "0px" }}>
+            {bookmarkId === id ? (
+              <>
                 <BsFillBookmarksFill
                   onClick={() => {
                     dispatch({
-                      type: ADD_BOOKMARK_REQUEST,
+                      type: CANCEL_BOOKMARK_REQUEST,
                       data: { id, postId, dataType },
+                      //id: userId
                     });
                   }}
                   style={{
                     fontSize: "20px",
-                    color: "21B8A5",
+                    color: "blue",
                     cursor: "pointer",
                   }}
                 />
-              )}
-              <p
-                style={{
-                  fontWeight: "15px",
-                  fontWeight: "600",
-                  margin: "0px",
+              </>
+            ) : (
+              <BsFillBookmarksFill
+                onClick={() => {
+                  dispatch({
+                    type: ADD_BOOKMARK_REQUEST,
+                    data: { id, postId, dataType },
+                  });
                 }}
-              >
-                북마크
-              </p>
-            </Col>
-            <Col style={{ textAlign: "center", padding: "0px" }}>
-              <AiTwotoneAlert
-                onClick={() => setReportModalShow(true)}
                 style={{
                   fontSize: "20px",
-                  color: "#21B8A5",
+                  color: "21B8A5",
                   cursor: "pointer",
                 }}
               />
-              <p
-                style={{
-                  fontWeight: "15px",
-                  fontWeight: "600",
-                  margin: "0px",
-                }}
-              >
-                신고
-              </p>
-            </Col>
-          </Row>
+            )}
+            <p
+              style={{
+                fontWeight: "15px",
+                fontWeight: "600",
+                margin: "0px",
+              }}
+            >
+              북마크
+            </p>
+          </Col>
+          <Col style={{ textAlign: "center", padding: "0px" }}>
+            <AiTwotoneAlert
+              onClick={() => setReportModalShow(true)}
+              style={{
+                fontSize: "20px",
+                color: "#21B8A5",
+                cursor: "pointer",
+              }}
+            />
+            <p
+              style={{
+                fontWeight: "15px",
+                fontWeight: "600",
+                margin: "0px",
+              }}
+            >
+              신고
+            </p>
+          </Col>
+        </Row>
 
-          {/* 해시태그를 추출하는 로직 */}
-          {post?.split(/(#[^\s#]+)/g).map((e, index) => {
-            if (e.match(/(#[^\s#]+)/)) {
-              return (
-                <div>
-                  <a
-                    onClick={() => {
-                      router.push(`${frontUrl}/HashtagPage/${e.slice(1)}/`);
-                    }}
-                  >
-                    {e}
-                  </a>
-                </div>
-              );
-            }
-          })}
-        </Container>
-        <Card.Footer
+        {/* 해시태그를 추출하는 로직 */}
+        {post?.split(/(#[^\s#]+)/g).map((e, index) => {
+          if (e.match(/(#[^\s#]+)/)) {
+            return (
+              <div>
+                <a
+                  onClick={() => {
+                    router.push(`${frontUrl}/HashtagPage/${e.slice(1)}/`);
+                  }}
+                >
+                  {e}
+                </a>
+              </div>
+            );
+          }
+        })}
+
+        <div
           style={{
             backgroundColor: "white",
             textAlign: "center",
@@ -494,8 +506,8 @@ const PostBoard = ({
 
             <span class="badge badge-light">{like}</span>
           </button>
-        </Card.Footer>
-      </Container>
+        </div>
+      </div>
     </div>
   );
 };

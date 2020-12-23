@@ -29,7 +29,7 @@ const timeline = () => {
   return (
     <div>
       <div
-        className="col-md-7 container justify-content-center"
+        className="container justify-content-center"
         style={{
           paddingTop: "80px",
         }}

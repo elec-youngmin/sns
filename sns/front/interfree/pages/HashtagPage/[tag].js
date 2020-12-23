@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
+import PostBoard from "../../components/post/PostBoard";
+
 import { useSelector, useDispatch } from "react-redux";
 import { LOAD_HASHTAGPAGE_REQUEST } from "../../reducers/post";
 import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
@@ -13,25 +15,26 @@ import axios from "axios";
 
 const HashtagPage = () => {
   const dispatch = useDispatch();
-  const { hashtagPosts, posts } = useSelector((state) => state.post);
+  const { posts } = useSelector((state) => state.post);
   const router = useRouter();
-  const { tag } = router.query;
-  console.log(tag);
+  // const { tag } = router.query;
+
+  // console.log(tag);
   // useEffect(() => {
   //   dispatch({
   //     type: LOAD_HASHTAGPAGE_REQUEST,
-  //     data: JSON.stringify(tag),
+  //     data: tag,
   //   });
   // }, [tag]);
   return (
     <div>
       <div
-        className="col-md-7 container justify-content-center"
+        className="container justify-content-center"
         style={{
           paddingTop: "80px",
         }}
       >
-        {posts[0]?.Posts.map((element, index) => (
+        {/* {posts[0]?.Posts.map((element, index) => (
           <PostBoard
             key={index}
             post={element?.contents}
@@ -59,7 +62,7 @@ const HashtagPage = () => {
             }
             date={element?.updatedAt}
           />
-        ))}
+        ))} */}
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>
     </div>

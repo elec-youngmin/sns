@@ -283,7 +283,6 @@ const reducer = (state = initialState, action) =>
         draft.resettingPasswordLoading = false;
         draft.resettingPasswordError = action.error;
         break;
-
       case LOAD_FOLLOWING_USER_SUCCESS:
         draft.loadFollowingUserDone = true;
         draft.loadFollowingUserLoading = false;

@@ -34,6 +34,11 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+            rel="stylesheet"
+          />
+
           <meta name="keyword" content="sns,portfolio" />
           <meta name="name" content="interfree" />
           <meta name="Description" content="interfree is sns" />

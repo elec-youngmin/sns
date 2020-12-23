@@ -12,6 +12,7 @@ import ScrollButton from "../components/layout/ScrollButton";
 // import FloatingButton from "../components/FloatingButton/FloatingButton";
 import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
+import GlobalStyle from "../components/styledComponent/GlobalStyle";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -20,7 +21,10 @@ function MyApp({ Component, pageProps }) {
       <VerticalNav />
       <HorizontalNav />
       <ScrollButton />
-      {/* <FloatingButton /> */} //효율성 저하로 드랍처리
+      <GlobalStyle />
+
+      {/* <FloatingButton /> */}
+      {/* 사용성 저하로 드랍처리 */}
       <ActionLoading />
       <Toast />
       <Component {...pageProps} />

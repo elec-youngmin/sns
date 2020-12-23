@@ -111,7 +111,7 @@ const DesktopHorizontalNav = () => {
                 }}
               >
                 <AiFillDribbbleCircle />
-                전체글
+                모든 포스트
               </MenuItem>
 
               <MenuItem

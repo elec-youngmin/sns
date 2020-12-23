@@ -164,7 +164,7 @@ const Menu = () => {
           }}
         >
           <AiFillDribbbleCircle />
-          전체글
+          모든 포스트
         </a>
         <br />
         <a

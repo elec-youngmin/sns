@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Router from "next/router";
 
 import TimelineSubjectDiv from "../components/timeline/TimelineSubjectDiv";
+import AddTimelineContentsModal from "../components/timeline/AddTimelineContentsModal";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
@@ -9,7 +10,6 @@ import { LOAD_TIMELINE_SUBJECT_REQUEST } from "../reducers/post";
 
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 
-import { FcTimeline } from "react-icons/fc";
 import { GiTimeBomb } from "react-icons/gi";
 
 import { END } from "redux-saga";
@@ -19,9 +19,16 @@ import axios from "axios";
 import { frontUrl } from "../config/config";
 
 const timeline = () => {
+  const [timelineModalShow, setTimelineModalShow] = useState(false);
   const { timelineSubjects } = useSelector((state) => state.post);
   return (
     <div style={{ backgroundColor: "#F5F5F5" }}>
+      <AddTimelineContentsModal
+        show={timelineModalShow}
+        onHide={() => {
+          setTimelineModalShow(false);
+        }}
+      />
       <div className="container justify-content-center">
         <Row
           style={{

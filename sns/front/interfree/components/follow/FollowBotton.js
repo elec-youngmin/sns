@@ -23,7 +23,7 @@ const FollowBotton = ({ userId, follows, postId }) => {
       <Button
         style={{
           padding: "3px",
-          margin: "10px",
+          marginLeft: "3px",
         }}
         onClick={() => {
           if (followUserLoading || unFollowUserLoading) {

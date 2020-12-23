@@ -47,7 +47,7 @@ const allPostsBoard = () => {
                   margin: "20px 0px",
                 }}
               >
-                전체글
+                모든 포스트
               </p>
             </div>
             <LoadAllPostBoard />

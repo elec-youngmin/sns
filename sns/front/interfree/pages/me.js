@@ -78,7 +78,7 @@ const me = () => {
             margin: "0px auto",
           }}
         >
-          <Col lg={7}>
+          <Col md={7}>
             <div
               style={{
                 margin: "20px 0px",

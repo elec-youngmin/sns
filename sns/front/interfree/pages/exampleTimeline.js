@@ -21,7 +21,7 @@ const ExampleTimeline = () => {
             margin: "0px auto",
           }}
         >
-          <Col md={6}>
+          <Col md={8}>
             <div
               style={{
                 width: "100%",

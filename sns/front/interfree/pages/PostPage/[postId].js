@@ -7,7 +7,7 @@ import PostBoard from "../../components/post/PostBoard";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 
 import { LOAD_POSTPAGE_REQUEST } from "../../reducers/post";
 import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
@@ -31,43 +31,69 @@ const PostPage = () => {
   }, [postId]);
 
   return (
-    <div>
-      <div
-        className="col-md-7 container justify-content-center"
-        style={{
-          paddingTop: "80px",
-        }}
-      >
-        {posts.map((element) => {
-          return (
-            <PostBoard
-              post={element?.contents}
-              postId={element?.id}
-              userId={element?.UserId}
-              profileImg={
-                element?.User.ProfileImgSrcs.length > 0
-                  ? element?.User.ProfileImgSrcs.src
-                  : "userImage.jpg"
-              }
-              nickname={element?.User.nickname}
-              like={element?.like} //포스트 좋아요 수
-              follows={element.Follows}
-              Likes={
-                element?.Likes.length > 0 ? element?.Likes[0].LikeUserId : false
-              } //포스트 좋아요 했는지 확인
-              reportCount={element?.Reports}
-              PostImgSrcs={element?.PostImgSrcs}
-              PostVideoSrcs={element?.PostVideoSrcs}
-              bookmarkId={
-                element?.Bookmarks.length > 0
-                  ? element?.Bookmarks[0].UserId
-                  : false
-              }
-              date={element?.updatedAt}
-            />
-          );
-        })}
-        <Button onClick={() => router.back()}>뒤로가기</Button>
+    <div style={{ backgroundColor: "#F5F5F5" }}>
+      <div className="container justify-content-center">
+        <Row
+          style={{
+            paddingTop: "100px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0px auto",
+          }}
+        >
+          <Col md={7}>
+            <div
+              style={{
+                margin: "10px 0px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                선택한 포스트 페이지
+              </p>
+            </div>
+
+            {posts.map((element) => {
+              return (
+                <PostBoard
+                  post={element?.contents}
+                  postId={element?.id}
+                  userId={element?.UserId}
+                  profileImg={
+                    element?.User.ProfileImgSrcs.length > 0
+                      ? element?.User.ProfileImgSrcs.src
+                      : "userImage.jpg"
+                  }
+                  nickname={element?.User.nickname}
+                  like={element?.like} //포스트 좋아요 수
+                  follows={element.Follows}
+                  Likes={
+                    element?.Likes.length > 0
+                      ? element?.Likes[0].LikeUserId
+                      : false
+                  } //포스트 좋아요 했는지 확인
+                  reportCount={element?.Reports}
+                  PostImgSrcs={element?.PostImgSrcs}
+                  PostVideoSrcs={element?.PostVideoSrcs}
+                  bookmarkId={
+                    element?.Bookmarks.length > 0
+                      ? element?.Bookmarks[0].UserId
+                      : false
+                  }
+                  date={element?.updatedAt}
+                />
+              );
+            })}
+            <Button onClick={() => router.back()}>뒤로가기</Button>
+          </Col>
+        </Row>
       </div>
     </div>
   );

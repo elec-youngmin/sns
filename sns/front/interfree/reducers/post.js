@@ -87,6 +87,9 @@ export const initialState = {
   loadUserPageLoding: false,
   loadUserPageDone: false,
   loadUserPageError: null,
+  loadUserPageInfoLoding: false,
+  loadUserPageInfoDone: false,
+  loadUserPageInfoError: null,
   loadHashtagPageLoding: false,
   loadHashtagPageDone: false,
   loadHashtagPageError: null,
@@ -136,8 +139,8 @@ export const initialState = {
   unFollowUserDone: false,
   unFollowUserError: null,
   reports: [],
-  allPosts: [],
   posts: [], //로그인한 유저의 포스트들
+  userPageInfo: [],
   trashPosts: [],
   followPosts: [],
   comments: [],
@@ -256,6 +259,10 @@ export const LOAD_USERPAGE_REQUEST = "LOAD_USERPAGE_REQUEST";
 export const LOAD_USERPAGE_SUCCESS = "LOAD_USERPAGE_SUCCESS";
 export const LOAD_USERPAGE_FAILURE = "LOAD_USERPAGE_FAILURE";
 
+export const LOAD_USERPAGE_INFO_REQUEST = "LOAD_USERPAGE_INFO_REQUEST";
+export const LOAD_USERPAGE_INFO_SUCCESS = "LOAD_USERPAGE_INFO_SUCCESS";
+export const LOAD_USERPAGE_INFO_FAILURE = "LOAD_USERPAGE_INFO_FAILURE";
+
 export const LOAD_HASHTAGPAGE_REQUEST = "LOAD_HASHTAGPAGE_REQUEST";
 export const LOAD_HASHTAGPAGE_SUCCESS = "LOAD_HASHTAGPAGE_SUCCESS";
 export const LOAD_HASHTAGPAGE_FAILURE = "LOAD_HASHTAGPAGE_FAILURE";
@@ -373,7 +380,6 @@ const reducer = (state = initialState, action) =>
         draft.loadAllPostLoading = false;
         draft.loadAllPostDone = true;
         draft.posts = draft.posts.concat(action.data);
-        ToastSuccess("포스트 추가 요청 성공!");
         break;
       case LOAD_ALLPOST_REQUEST:
         draft.loadAllPostLoading = true;
@@ -389,8 +395,6 @@ const reducer = (state = initialState, action) =>
         draft.loadPostLoading = false;
         draft.loadPostDone = true;
         draft.posts = draft.posts.concat(action.data);
-        // draft.allPosts = [];
-        ToastSuccess(`포스트가 더 로드되었습니다.`);
         break;
       case LOAD_POST_REQUEST:
         draft.loadPostLoading = true;
@@ -533,11 +537,13 @@ const reducer = (state = initialState, action) =>
       case CANCEL_BOOKMARK_SUCCESS:
         draft.cancelBookmarkDone = true;
         draft.cancelBookmarkLoading = false;
-        draft.posts = draft.posts.map((p) => {
-          if (p.id == action.data[0].id) {
-            return action.data[0];
+        console.log(action.data);
+        draft.posts = draft.posts.map((element) => {
+          if (element.id == action.data) {
+            element.Bookmarks = [];
+            return element;
           }
-          return p;
+          return element;
         });
         ToastSuccess("북마크가 취소되었어요.");
         break;
@@ -743,6 +749,20 @@ const reducer = (state = initialState, action) =>
       case LOAD_USERPAGE_FAILURE:
         draft.loadUserPageLoding = false;
         draft.loadUserPageError = action.error;
+        break;
+      case LOAD_USERPAGE_INFO_SUCCESS:
+        draft.loadUserPageInfoDone = true;
+        draft.loadUserPageInfoLoding = false;
+        draft.userPageInfo = action.data;
+        break;
+      case LOAD_USERPAGE_INFO_REQUEST:
+        draft.loadUserPageInfoDone = false;
+        draft.loadUserPageInfoLoding = true;
+        draft.loadUserPageInfoError = null;
+        break;
+      case LOAD_USERPAGE_INFO_FAILURE:
+        draft.loadUserPageInfoLoding = false;
+        draft.loadUserPageInfoError = action.error;
         break;
       case LOAD_HASHTAGPAGE_SUCCESS:
         draft.loadHashtagPageDone = true;

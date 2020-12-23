@@ -630,51 +630,7 @@ router.post("/cancelBookmark", async (req, res, next) => {
       },
     });
 
-    const OnePost = await Post.findAll({
-      where: { id: req.body.postId },
-      order: [["id", "DESC"]],
-      attributes: { exclude: ["updatedAt", "deletedAt"] },
-      include: [
-        {
-          model: User,
-          attributes: ["id", "nickname"],
-          include: [
-            {
-              model: ProfileImgSrc,
-              attributes: ["src"],
-            },
-          ],
-        },
-        {
-          model: Follow,
-          where: { followerId: req.user.dataValues.id },
-          required: false,
-        },
-        {
-          model: Like,
-          attributes: ["id", "LikeUserId", "PostId"],
-          where: { LikeUserId: req.body.id },
-          require: false,
-        },
-        {
-          model: PostImgSrc,
-          attributes: ["src"],
-        },
-        {
-          model: PostVideoSrc,
-          attributes: ["src"],
-        },
-        {
-          model: Report,
-        },
-        {
-          model: Bookmark,
-        },
-      ],
-    });
-
-    console.log(OnePost);
-    res.status(200).json(OnePost);
+    res.status(200).json(req.body.postId);
   } catch (err) {
     console.error(err);
     next(err);
@@ -968,8 +924,20 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
       ],
     });
 
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.get("/loadUserPageInfo/:id", async (req, res, next) => {
+  try {
     const [postsCount, metadata] = await sequelize.query(
       `SELECT count(id) as postsCount FROM posts where UserId=${req.params.id}`
+    );
+    const [userInfo, metadata0] = await sequelize.query(
+      `SELECT users.nickname, users.introduce,users.ShareLink,users.where, profileimgsrcs.src FROM profileimgsrcs RIGHT JOIN users ON profileimgsrcs.UserId=users.id WHERE users.id=${req.params.id}`
     );
 
     const [followCount, metadata1] = await sequelize.query(
@@ -980,13 +948,20 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
       `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.params.id}`
     );
 
-    posts[0].dataValues.User.dataValues.postsCount = postsCount[0].postsCount;
-    posts[0].dataValues.User.dataValues.followCount =
-      followCount[0].followCount;
-    posts[0].dataValues.User.dataValues.followingCount =
-      followingCount[0].followingCount;
+    const userpageInfo = {
+      postsCount: postsCount[0].postsCount,
+      followCount: followCount[0].followCount,
+      followingCount: followingCount[0].followingCount,
+      userInfo: userInfo[0],
+    };
 
-    res.status(200).json(posts);
+    // posts[0].dataValues.User.dataValues.postsCount = postsCount[0].postsCount;
+    // posts[0].dataValues.User.dataValues.followCount =
+    //   followCount[0].followCount;
+    // posts[0].dataValues.User.dataValues.followingCount =
+    //   followingCount[0].followingCount;
+
+    res.status(200).json(userpageInfo);
   } catch (err) {
     console.error(err);
     next(err);
@@ -995,6 +970,7 @@ router.get("/loadUserPage/:id", async (req, res, next) => {
 
 router.get("/loadHashtagPage/:tag", async (req, res, next) => {
   try {
+    console.log(req.params.tag, "태그태그태그ㅇㅇ태그태그");
     const hashtagPost = await Hashtag.findAll({
       where: { tag: req.params.tag },
       order: [["id", "DESC"]],
@@ -1013,11 +989,11 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
                 },
               ],
             },
-            {
-              model: Follow,
-              where: { followerId: req.user.dataValues.id },
-              required: false,
-            },
+            // {
+            //   model: Follow,
+            //   where: { followerId: req.user.dataValues.id },
+            //   required: false,
+            // },
             {
               model: Like,
               required: false,

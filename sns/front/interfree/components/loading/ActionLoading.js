@@ -31,6 +31,8 @@ const ActionLoading = () => {
     loadChartdataLoading,
     loadHashtagPageLoding,
     loadUserPageLoding,
+    followUserLoading,
+    unFollowUserLoading,
   } = useSelector((state) => state.post);
 
   const {
@@ -39,8 +41,6 @@ const ActionLoading = () => {
     profileImageUploadLoading,
     changeProfileLoading,
     findPasswordLoading,
-    followUserLoading,
-    unFollowUserLoading,
   } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const ActionLoading = () => {
             animation="border"
             style={{
               position: "fixed",
-              top: "100px",
+              top: "30px",
               right: "70px",
               zIndex: "100",
             }}

@@ -26,7 +26,7 @@ const FollowPage = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              Router.push(`${frontUrl}/UserPage/[${e.id}]`);
+              Router.push(`${frontUrl}/UserPage/${e.followingId}`);
             }}
           >
             <Row

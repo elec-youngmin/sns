@@ -30,11 +30,34 @@ const searchResult = () => {
     });
   };
   return (
-    <div>
+    <div style={{ backgroundColor: "#F5F5F5" }}>
       <div className="container justify-content-center">
-        <Row>
-          <Col md={8} style={{ padding: "100px", marginBottom: "20px" }}>
-            검색결과 총{posts.length}건의 포스트가 로드되었습니다.
+        <Row
+          style={{
+            paddingTop: "100px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0px auto",
+          }}
+        >
+          <Col md={7}>
+            <div
+              style={{
+                margin: "20px 0px",
+                textAlign: "center",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "500",
+                  fontSize: "45px",
+                  margin: "20px 0px",
+                }}
+              >
+                검색결과
+              </p>
+            </div>
             {posts.length > 0 &&
               posts.map((element, index) => (
                 <PostBoard

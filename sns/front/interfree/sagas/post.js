@@ -76,6 +76,9 @@ import {
   LOAD_USERPAGE_REQUEST,
   LOAD_USERPAGE_SUCCESS,
   LOAD_USERPAGE_FAILURE,
+  LOAD_USERPAGE_INFO_REQUEST,
+  LOAD_USERPAGE_INFO_SUCCESS,
+  LOAD_USERPAGE_INFO_FAILURE,
   LOAD_HASHTAGPAGE_REQUEST,
   LOAD_HASHTAGPAGE_SUCCESS,
   LOAD_HASHTAGPAGE_FAILURE,
@@ -651,6 +654,27 @@ function* loadUserPage(action) {
   }
 }
 
+function loadUserPageInfoAPI(data) {
+  return axios.get(`post/loadUserPageInfo/${data}`);
+}
+
+function* loadUserPageInfo(action) {
+  try {
+    const result = yield call(loadUserPageInfoAPI, action.data);
+    console.log(result);
+    yield put({
+      type: LOAD_USERPAGE_INFO_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_USERPAGE_INFO_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function loadHashtagPageAPI(data) {
   return axios.get(`post/loadHashtagPage/${data}`);
 }
@@ -1086,6 +1110,10 @@ function* watchLoadUserPage() {
   yield takeLatest(LOAD_USERPAGE_REQUEST, loadUserPage);
 }
 
+function* watchLoadUserPageInfo() {
+  yield takeLatest(LOAD_USERPAGE_INFO_REQUEST, loadUserPageInfo);
+}
+
 function* watchLoadHashtagPage() {
   yield takeLatest(LOAD_HASHTAGPAGE_REQUEST, loadHashtagPage);
 }
@@ -1176,6 +1204,7 @@ export default function* userSaga() {
     fork(watchLoadFollowsPost),
     fork(watchCountReport),
     fork(watchLoadUserPage),
+    fork(watchLoadUserPageInfo),
     fork(watchLoadHashtagPage),
     fork(watchLoadChartdata),
     fork(watchOneuserLoadChartdata),
