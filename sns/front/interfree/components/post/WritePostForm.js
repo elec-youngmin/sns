@@ -8,8 +8,8 @@ import React, {
 import PropTypes from "prop-types";
 import FormData from "form-data";
 import Dropdown from "rc-dropdown";
-import Menu, { Item as MenuItem, Divider } from "rc-menu";
 import "rc-dropdown/assets/index.css";
+import Menu, { Item as MenuItem, Divider } from "rc-menu";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,7 +22,6 @@ import {
 import {
   Form,
   Button,
-  DropdownButton,
   OverlayTrigger,
   Tooltip,
   Row,
@@ -44,24 +43,7 @@ const WritePostAlert = () => {
         overlay={
           <Tooltip id="tooltip-disabled">
             #로 시작하면 해시태그를 공유할 수 있어요. <br />
-          </Tooltip>
-        }
-      >
-        <span className="d-inline-block">
-          <BsQuestion />
-        </span>
-      </OverlayTrigger>
-    </>
-  );
-};
-
-const MultiPostAlert = () => {
-  return (
-    <>
-      <OverlayTrigger
-        overlay={
-          <Tooltip id="tooltip-disabled">
-            멀티미디어는 200MB까지 올리실 수 있어요. <br />
+            멀티미디어는 200MB까지 올리실 수 있어요.
           </Tooltip>
         }
       >
@@ -80,6 +62,7 @@ const WriteForm = (props) => {
   const [video, SetVideo] = useState("");
   const [vid, SetVid] = useState(false); //프리뷰
   const [onlyReadMy, setOnlyReadMy] = useState(false);
+  const [onlyReadMyText, setOnlyReadMyText] = useState("전체공개");
   const [onlyReadMyIcon, setOnlyReadMyIcon] = useState(<BsPeople />);
 
   const { imageSaveError } = useSelector((state) => state.post);
@@ -150,15 +133,6 @@ const WriteForm = (props) => {
     console.log(textarea.current);
   }, []);
 
-  const menu = (
-    <Menu onSelect={() => {}}>
-      <MenuItem disabled>disabled</MenuItem>
-      <MenuItem key="1">one</MenuItem>
-      <Divider />
-      <MenuItem key="2">two</MenuItem>
-    </Menu>
-  );
-
   return (
     <>
       {/* 느낌표 알림창 */}
@@ -213,15 +187,17 @@ const WriteForm = (props) => {
         {/* 여기부터 멀티미디어 아이콘 버튼 2개 (이미지, 비디오) */}
         <form enctype="multipart/form-data">
           {/* 이미지 아이콘 */}
+
           <label for="imgUpload">
             <BsCardImage
-              size={40}
-              className="mr-4"
+              size={30}
               style={{
                 cursor: "pointer",
+                marginRight: "10px",
               }}
             />
           </label>
+
           <input
             type="file"
             id="imgUpload"
@@ -234,12 +210,14 @@ const WriteForm = (props) => {
 
           <label for="videoUpload">
             <BsCameraVideo
-              size={40}
+              size={30}
               style={{
                 cursor: "pointer",
+                marginRight: "10px",
               }}
             />
           </label>
+
           <input
             type="file"
             id="videoUpload"
@@ -248,7 +226,6 @@ const WriteForm = (props) => {
             accept="video/*"
             style={{ display: "none", margin: "20px", cursor: "pointer" }}
           ></input>
-          <MultiPostAlert />
           {/* 여기부터 저장버튼과 드롭다운 버튼 */}
           <Button
             type="submit"
@@ -283,43 +260,49 @@ const WriteForm = (props) => {
             저장
           </Button>
 
-          <DropdownButton
-            variant="light"
-            className="float-right"
-            title={onlyReadMyIcon}
-            drop="left"
+          <Dropdown
+            trigger={["click"]}
+            // visible={false}
+            overlay={
+              <Menu
+                onSelect={(key) => {
+                  if (Number(key.key) == 1) {
+                    setOnlyReadMyIcon(<BsPeople />);
+                    setOnlyReadMyText("전체공개");
+                  }
+                  if (Number(key.key) == 2) {
+                    setOnlyReadMyIcon(<BsPerson />);
+                    setOnlyReadMyText("나만보기");
+                  }
+                }}
+              >
+                <MenuItem
+                  key="1"
+                  onClick={() => {
+                    setOnlyReadMyIcon(<BsPeople />);
+                  }}
+                >
+                  <BsPeople /> 전체공개
+                </MenuItem>
+                <Divider />
+                <MenuItem key="2">
+                  <BsPerson />
+                  나만 보기
+                </MenuItem>
+              </Menu>
+            }
+            animation="slide-up"
+            onVisibleChange={(visible) => {
+              console.log(visible);
+            }}
           >
-            <Dropdown.Item
-              onClick={() => {
-                setOnlyReadMy(false);
-                setOnlyReadMyIcon(<BsPeople />);
-              }}
-            >
-              <BsPeople />
-              전체 보기
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                setOnlyReadMy(true);
-                setOnlyReadMyIcon(<BsPerson />);
-              }}
-            >
-              <BsPerson />
-              나만 보기
-            </Dropdown.Item>
-          </DropdownButton>
+            <Button style={{ background: "white", color: "black" }}>
+              {onlyReadMyIcon}
+              {onlyReadMyText}
+            </Button>
+          </Dropdown>
         </form>
       </Form>
-      <Dropdown
-        trigger={["click"]}
-        overlay={menu}
-        animation="slide-up"
-        onVisibleChange={(visible) => {
-          console.log(visible);
-        }}
-      >
-        <button style={{ width: 100 }}>open</button>
-      </Dropdown>
     </>
   );
 };

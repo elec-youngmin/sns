@@ -6,8 +6,17 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
+import Title from "../components/layout/Title";
 import EditProfilePictureModal from "../components/setting/EditProfilePictureModal";
 import EditProfileSettingModal from "../components/setting/EditProfileSettingModal";
+
+import {
+  SessionDiv,
+  SessionP,
+  SessionTitle,
+  SessionButton,
+  SessionRow,
+} from "../styledComponents/layout/Session";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -30,16 +39,6 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 
 import { frontUrl } from "../config/config";
-
-const ToastSuccess = (text) => {
-  toast.dark(text, {
-    position: "top-center",
-  });
-};
-
-const ToastError = (text) => {
-  toast.error(text);
-};
 
 const setting = () => {
   const dispatch = useDispatch();
@@ -64,7 +63,7 @@ const setting = () => {
     }
   }, [destroyUserDone]);
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <EditProfilePictureModal
         show={editProfilePictureShow}
         onHide={() => setEditProfilePictureShow(false)}
@@ -74,125 +73,49 @@ const setting = () => {
         onHide={() => setEditProfileSettingShow(false)}
       />
 
-      <Row
-        style={{
-          paddingTop: "95px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "0px auto",
-        }}
-      >
+      <SessionRow>
         <Col md={7}>
-          <div
-            style={{
-              margin: "20px 0px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: "500",
-                fontSize: "45px",
-                margin: "20px 0px",
-              }}
-            >
-              설정
-            </p>
-          </div>
-          <div
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "20px",
-              boxShadow: "1px 1px 2px 2px #ccc",
-              backgroundColor: "white",
-              margin: "20px 0px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+          <Title title={"설정"} />
+
+          <SessionDiv>
+            <SessionTitle>
               <ImProfile />
               프로필 사진 편집
-            </p>
-            <p style={{ fontWeight: "600" }}>
-              공개되는 프로필 사진을 편집하세요.
-            </p>
-            <Button
+            </SessionTitle>
+            <SessionP>공개되는 프로필 사진을 편집하세요.</SessionP>
+            <SessionButton
               onClick={() => {
                 setEditProfilePictureShow(true);
               }}
-              style={{
-                marginBottom: "20px",
-                fontWeight: "600",
-                fontSize: "15px",
-              }}
             >
               프로필 사진 편집하기
-            </Button>
-          </div>
+            </SessionButton>
+          </SessionDiv>
 
-          <div
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "20px",
-              boxShadow: "1px 1px 2px 2px #ccc",
-              backgroundColor: "white",
-              margin: "20px 0px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+          <SessionDiv>
+            <SessionTitle>
               <ImProfile />
               프로필 편집
-            </p>
-            <p style={{ fontWeight: "600" }}>공개되는 프로필을 편집하세요.</p>
-            <Button
+            </SessionTitle>
+            <SessionP>공개되는 프로필을 편집하세요.</SessionP>
+            <SessionButton
               onClick={() => {
                 setEditProfileSettingShow(true);
               }}
-              style={{
-                marginBottom: "20px",
-                fontWeight: "600",
-                fontSize: "15px",
-              }}
             >
               프로필 편집하기
-            </Button>
-          </div>
+            </SessionButton>
+          </SessionDiv>
 
-          <div
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "20px",
-              boxShadow: "1px 1px 2px 2px #ccc",
-              backgroundColor: "white",
-              margin: "20px 0px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+          <SessionDiv>
+            <SessionTitle>
               <BiBlock />
               {disabled ? "모든 글 공개" : "모든 글 비공개"}
-            </p>
-            <p style={{ fontWeight: "600" }}>
+            </SessionTitle>
+            <SessionP>
               {disabled ? "전체 글에 공개되요." : "전체 글에 공개되지 않아요."}
-            </p>
-            <Button
+            </SessionP>
+            <SessionButton
               onClick={() => {
                 if (disabled) {
                   dispatch({
@@ -204,85 +127,40 @@ const setting = () => {
                   });
                 }
               }}
-              style={{
-                marginBottom: "20px",
-                fontWeight: "600",
-                fontSize: "15px",
-              }}
             >
               {disabled ? "활성화" : "비활성화"}
-            </Button>
-          </div>
+            </SessionButton>
+          </SessionDiv>
 
-          <div
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "20px",
-              boxShadow: "1px 1px 2px 2px #ccc",
-              backgroundColor: "white",
-              margin: "20px 0px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+          <SessionDiv>
+            <SessionTitle>
               <RiLockPasswordFill />
               패스워드 변경
-            </p>
-            <p style={{ fontWeight: "600" }}>
+            </SessionTitle>
+            <SessionP>
               회원가입 시 등록한 메일주소로 인증메일을 보냅니다.
-            </p>
-            <Button
+            </SessionP>
+            <SessionButton
               onClick={() => {
                 dispatch({
                   type: FIND_PASSWORD_REQUEST,
                   data: { email: user.email },
                 });
               }}
-              style={{
-                marginBottom: "20px",
-                fontWeight: "600",
-                fontSize: "15px",
-              }}
             >
               인증메일 요청
-            </Button>
-          </div>
+            </SessionButton>
+          </SessionDiv>
 
-          <div
-            style={{
-              border: "1px solid #F0FFFF",
-              borderRadius: "20px",
-              boxShadow: "1px 1px 2px 2px #ccc",
-              backgroundColor: "white",
-              margin: "20px 0px",
-              textAlign: "center",
-            }}
-          >
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
+          <SessionDiv>
+            <SessionTitle>
               <FaUserSlash />
               회원탈퇴
-            </p>
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "25px",
-              }}
-            >
-              비밀번호가 일치하면 회원탈퇴가 완료됩니다.
-            </p>
-            <p style={{ fontWeight: "600" }}>
+            </SessionTitle>
+            <SessionP>비밀번호가 일치하면 회원탈퇴가 완료됩니다.</SessionP>
+            <SessionP>
               회원탈퇴를 하시면 지금까지 작성한 포스트가 모두 삭제됩니다.
-            </p>
+            </SessionP>
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
                 type="password"
@@ -303,7 +181,6 @@ const setting = () => {
                   borderRadius: "15px",
                   width: "80%",
                   margin: "0px auto",
-
                   marginBottom: "20px",
                 }}
               />
@@ -314,20 +191,11 @@ const setting = () => {
                 as="div"
                 errors={errors}
               />
-              <Button
-                type="submit"
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
-              >
-                회원탈퇴
-              </Button>
+              <SessionButton type="submit">회원탈퇴</SessionButton>
             </form>
-          </div>
+          </SessionDiv>
         </Col>
-      </Row>
+      </SessionRow>
     </div>
   );
 };

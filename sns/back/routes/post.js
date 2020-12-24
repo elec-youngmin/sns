@@ -974,7 +974,7 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
     const hashtagPost = await Hashtag.findAll({
       where: { tag: req.params.tag },
       order: [["id", "DESC"]],
-      attributes: { exclude: ["updatedAt", "deletedAt"] },
+      // attributes: { exclude: ["updatedAt", "deletedAt"] },
       include: [
         {
           model: Post,
@@ -989,11 +989,11 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
                 },
               ],
             },
-            // {
-            //   model: Follow,
-            //   where: { followerId: req.user.dataValues.id },
-            //   required: false,
-            // },
+            {
+              model: Follow,
+              where: { followerId: req.user.dataValues.id },
+              required: false,
+            },
             {
               model: Like,
               required: false,
@@ -1022,9 +1022,9 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
       ],
     });
 
-    console.log(hashtagPost, "해시태그 포스트 출력됨");
+    console.log(hashtagPost[0], "해시태그 포스트 출력됨");
 
-    res.status(200).json(hashtagPost);
+    res.status(200).json(hashtagPost[0]);
   } catch (err) {
     console.error(err);
     next(err);

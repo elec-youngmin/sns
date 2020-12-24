@@ -6,8 +6,16 @@ import { useRouter } from "next/router";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import Avatar from "react-avatar";
-import { Menu, Item, Separator, useContextMenu } from "react-contexify";
+import {
+  Menu as MenuContexify,
+  Item,
+  Separator,
+  useContextMenu,
+} from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
+import Dropdown from "rc-dropdown";
+import "rc-dropdown/assets/index.css";
+import Menu, { Item as MenuItem, Divider } from "rc-menu";
 
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
@@ -29,7 +37,7 @@ import {
   AiFillMessage,
   AiFillLike,
   AiTwotoneAlert,
-  AiOutlineArrowRight,
+  AiOutlineEllipsis,
 } from "react-icons/ai";
 
 import {
@@ -39,14 +47,7 @@ import {
   BsFillBookmarksFill,
 } from "react-icons/bs";
 
-import {
-  Card,
-  Dropdown,
-  DropdownButton,
-  Row,
-  Col,
-  Container,
-} from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";
@@ -82,8 +83,6 @@ const PostBoard = ({
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
   const [CommentmodalShow, setCommentModalShow] = useState(false);
-  const [likeCon, setLikeCon] = useState(false);
-  const [loadings, setLoadings] = useState(false);
   const [userProfileImg, setUserProfileImg] = useState("userImage.jpg");
   const [replaceText, setReplaceText] = useState("글이 차단됨");
 
@@ -115,12 +114,12 @@ const PostBoard = ({
   });
 
   return (
-    <div onContextMenu={show} onDoubleClick={show}>
+    <div>
       {/* 여기부터 클릭메뉴  */}
-      <Menu id={MENU_ID}>
+      <MenuContexify id={MENU_ID}>
         <Item
           onClick={() => {
-            router.push(`${frontUrl}/PostPage/${userId}/`);
+            router.push(`${frontUrl}/PostPage/${postId}/`);
           }}
         >
           포스트페이지로 이동
@@ -150,7 +149,7 @@ const PostBoard = ({
             <Separator />
           </>
         )}
-      </Menu>
+      </MenuContexify>
       {/* 여기까지 클릭메뉴  */}
       <RevisePostForm
         show={modalShow}
@@ -193,7 +192,7 @@ const PostBoard = ({
               style={{
                 width: "65px",
                 height: "65px",
-                marginRight: "10px",
+                marginRight: "5px",
                 cursor: "pointer",
                 borderRadius: "50%",
               }}
@@ -205,13 +204,15 @@ const PostBoard = ({
             <div
               style={{
                 width: "65px",
+                height: "65px",
                 weight: "50px",
                 backgroundColor: "#DCDCDC",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginRight: "19px",
+                marginRight: "5px",
                 borderRadius: "50%",
+                cursor: "pointer",
               }}
               onClick={() => {
                 router.push(`${frontUrl}/UserPage/${userId}/`);
@@ -240,6 +241,20 @@ const PostBoard = ({
             <FollowBotton userId={userId} follows={follows} postId={postId} />
           )}
 
+          <span
+            style={{
+              float: "right",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+            }}
+            onClick={show}
+          >
+            <AiOutlineEllipsis size={20} />
+          </span>
+
           <br />
           {onlyReadMy && (
             <p
@@ -267,33 +282,6 @@ const PostBoard = ({
             router.push(`${frontUrl}/PostPage/${postId}/`);
           }}
         >
-          {/* 내가 쓴 게시글인지 현재 로그인한 유저 아이디로 확인
-          포스트를 작성한 유저와 현재 로그인한 유저가 같은가? */}
-          {userId === id && (
-            <>
-              <DropdownButton
-                variant="light"
-                className="float-right"
-                title={<BsPencil />}
-                drop="left"
-              >
-                <Dropdown.Item onClick={() => setModalShow(true)}>
-                  <BsPencil /> 수정
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => {
-                    dispatch({
-                      type: DELETE_POST_REQUEST,
-                      data: { postId },
-                    });
-                  }}
-                >
-                  <BsTrash /> 쓰레기 통으로
-                </Dropdown.Item>
-              </DropdownButton>
-            </>
-          )}
-
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
@@ -302,9 +290,9 @@ const PostBoard = ({
                 src={`${backUrl}/${PostImgSrcs[0].src}`}
                 alt={PostImgSrcs[0].src}
                 style={{
-                  maxWidth: "40vw",
+                  margin: "10px",
+                  maxWidth: "38vw",
                   maxHeight: "auto",
-                  marginBottom: "20px",
                 }}
               ></img>
             </Zoom>
@@ -320,9 +308,9 @@ const PostBoard = ({
                 alt={`${PostVideoSrcs[0].src}`}
                 src={`${backUrl}/${PostVideoSrcs[0].src}`}
                 style={{
-                  maxWidth: "100%",
+                  maxWidth: "38vw",
                   maxHeight: "auto",
-                  marginBottom: "20px",
+                  margin: "10px",
                 }}
               ></video>
             </>
@@ -439,7 +427,7 @@ const PostBoard = ({
               <div>
                 <a
                   onClick={() => {
-                    router.push(`${frontUrl}/HashtagPage/${e.slice(1)}/`);
+                    router.push(`${frontUrl}/hashtagPage/${e.slice(1)}/`);
                   }}
                 >
                   {e}

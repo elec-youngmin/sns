@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 
+import Title from "../components/layout/Title";
 import LoadAllPostBoard from "../components/allPost/LoadAllPostBoard";
 import UserProfileCard from "../components/allPost/UserProfileCard";
 
@@ -18,11 +19,7 @@ const allPostsBoard = () => {
   const { user } = useSelector((state) => state.user);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#F5F5F5",
-      }}
-    >
+    <div>
       <div className="container justify-content-around">
         <Row
           style={{
@@ -34,22 +31,8 @@ const allPostsBoard = () => {
           }}
         >
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                모든 포스트
-              </p>
-            </div>
+            <Title title={"모든 포스트"} />
+
             <LoadAllPostBoard />
           </Col>
         </Row>

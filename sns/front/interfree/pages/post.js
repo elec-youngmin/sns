@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "react-tabs/style/react-tabs.css";
 
+import Title from "../components/layout/Title";
 import PostBoard from "../components/post/PostBoard";
 import NonePostAlert from "../components/post/NonePostAlert";
 import PreviewProfileModal from "../components/post/PreviewProfileModal";
+
+import { SessionRow } from "../styledComponents/layout/Session";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -42,38 +45,17 @@ const post = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#F5F5F5", marginBottom: "50px" }}>
+    <div style={{ marginBottom: "50px" }}>
       <PreviewProfileModal
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
 
       <div className="container justify-content-center">
-        <Row
-          style={{
-            paddingTop: "95px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <SessionRow>
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                포스트
-              </p>
-            </div>
+            <Title title={"포스트"} />
+
             {posts.length <= 0 && loadPostDone && <NonePostAlert />}
             <InfiniteScroll
               dataLength={posts.length}
@@ -118,7 +100,7 @@ const post = () => {
               ))}
             </InfiniteScroll>
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

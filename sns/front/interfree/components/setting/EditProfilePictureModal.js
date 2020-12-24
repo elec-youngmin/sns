@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from "react";
-import Avatar from "react-avatar";
 
 import { useSelector, useDispatch } from "react-redux";
 import { PROFILE_IMAGE_UPLOAD_REQUEST } from "../../reducers/user";
@@ -66,15 +65,28 @@ const EditProfilePictureModal = (props) => {
                   }}
                 ></img>
               ) : (
-                <Avatar
-                  name={user.nickname}
+                <div
                   style={{
-                    minWidth: "180px",
-                    minHeight: "180px",
-                    maxWidth: "180px",
-                    maxHeight: "180px",
+                    width: "180px",
+                    height: "180px",
+                    backgroundColor: "#DCDCDC",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginRight: "5px",
+                    borderRadius: "50%",
                   }}
-                />
+                >
+                  <p
+                    style={{
+                      fontSize: "70px",
+                      fontWeight: "600",
+                      margin: "0px",
+                    }}
+                  >
+                    {user.nickname[0].toUpperCase()}
+                  </p>
+                </div>
               )}
             </label>
             <input

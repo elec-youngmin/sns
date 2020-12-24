@@ -41,6 +41,10 @@ module.exports = class User extends (
           type: DataTypes.STRING(250),
           allowNull: true,
         },
+        snsId: {
+          type: DataTypes.STRING(30),
+          allowNull: true,
+        },
       },
       {
         indexes: [{ unique: true, fields: ["email"] }],

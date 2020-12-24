@@ -5,12 +5,21 @@ import { useRouter } from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
+import Title from "../components/layout/Title";
 import WritePostModal from "../components/FloatingButton/WritePostModal";
 import AddTimelineModal from "../components/timeline/AddTimelineModal";
 import EditProfilePictureModal from "../components/setting/EditProfilePictureModal";
 import EditProfileSettingModal from "../components/setting/EditProfileSettingModal";
 
-import exampleTimeline from "./exampleTimeline";
+import {
+  SessionDiv,
+  SessionP,
+  SessionTitle,
+  SessionButton,
+  SessionInput,
+  SessionRow,
+} from "../styledComponents/layout/Session";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
@@ -41,7 +50,6 @@ const me = () => {
   const { posts, search } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
-  const [modalShow, setModalShow] = useState(false);
   const [writePostShow, setWritePostShow] = useState(false);
   const [timelineModalShow, setTimelineModalShow] = useState(false);
   const [editProfilePictureShow, setEditProfilePictureShow] = useState(false);
@@ -49,7 +57,7 @@ const me = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <AddTimelineModal
         show={timelineModalShow}
         onHide={() => setTimelineModalShow(false)}
@@ -68,7 +76,7 @@ const me = () => {
       />
 
       <div className="container justify-content-center">
-        <Row
+        <SessionRow
           style={{
             paddingTop: "100px",
             display: "flex",
@@ -78,160 +86,61 @@ const me = () => {
           }}
         >
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                나
-              </p>
-            </div>
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                }}
-              >
+            <Title title={"나"} />
+
+            <SessionDiv>
+              <SessionTitle>
                 <ImProfile />
                 프로필 사진 편집
-              </p>
-              <p style={{ fontWeight: "600" }}>
-                공개되는 프로필 사진을 편집하세요.
-              </p>
-              <Button
+              </SessionTitle>
+              <SessionP>공개되는 프로필 사진을 편집하세요. </SessionP>
+              <SessionButton
                 onClick={() => {
                   setEditProfilePictureShow(true);
                 }}
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
               >
                 프로필 사진 편집하기
-              </Button>
-            </div>
+              </SessionButton>
+            </SessionDiv>
 
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                }}
-              >
+            <SessionDiv>
+              <SessionTitle>
                 <ImProfile />
                 프로필 편집
-              </p>
-              <p style={{ fontWeight: "600" }}>공개되는 프로필을 편집하세요.</p>
-              <Button
+              </SessionTitle>
+              <SessionP>공개되는 프로필을 편집하세요. </SessionP>
+              <SessionButton
                 onClick={() => {
                   setEditProfileSettingShow(true);
                 }}
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
               >
                 프로필 편집하기
-              </Button>
-            </div>
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                  fontSize: "25px",
-                }}
-              >
+              </SessionButton>
+            </SessionDiv>
+
+            <SessionDiv>
+              <SessionTitle>
                 <AiFillEdit />
                 포스트 작성
-              </p>
-              <p
-                style={{
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                }}
-              >
-                포스트를 올려 좋아요를 받아보세요.
-              </p>
-              <input
+              </SessionTitle>
+              <SessionP>포스트를 올려 좋아요를 받아보세요.</SessionP>
+              <SessionInput
                 placeholder="포스트를 작성하세요..."
-                style={{
-                  border: "none",
-                  borderBottom: "3px solid black",
-                  borderRadius: "5px",
-                  width: "80%",
-                  height: "50px",
-                  margin: "20px 0px",
-                }}
                 onClick={(e) => {
                   e.preventDefault();
                   setWritePostShow(true);
                 }}
-              ></input>
-            </div>
+              />
+            </SessionDiv>
 
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-                cursor: "pointer",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                  marginBottom: "5px",
-                }}
-              >
+            <SessionDiv>
+              <SessionTitle>
                 <AiOutlineSearch />
                 친구 찾기
-              </p>
-              <p style={{ fontWeight: "600" }}>
+              </SessionTitle>
+              <SessionP>
                 친구의 이메일을 검색해 친구의 페이지로 이동해 보세요.
-              </p>
+              </SessionP>
               <Typeahead
                 id="basic-typeahead-multiple"
                 filterBy={() => true}
@@ -259,69 +168,34 @@ const me = () => {
                   });
                 }}
               />
-            </div>
+            </SessionDiv>
 
-            {/* 타임라인 div */}
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-                marginBottom: "50px",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                  fontSize: "25px",
-                  width: "100%",
-                }}
-              >
+            <SessionDiv>
+              <SessionTitle>
                 <GiTimeBomb />
                 타임아웃 만들기
-              </p>
+              </SessionTitle>
 
-              <p
-                style={{
-                  marginBottom: "0px",
-                  fontWeight: "600",
-                }}
-              >
-                주제를 정하고 타임라인을 만들어 보세요.
-              </p>
+              <SessionP>주제를 정하고 타임라인을 만들어 보세요.</SessionP>
               <br />
-              <Button
+              <SessionButton
                 onClick={() => {
                   router.push(`${frontUrl}/exampleTimeline/`);
                 }}
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
               >
                 타임라인 예
-              </Button>
+              </SessionButton>
               <br />
-              <Button
+              <SessionButton
                 onClick={() => {
                   setTimelineModalShow(true);
                 }}
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
               >
                 타임라인 추가
-              </Button>
-            </div>
+              </SessionButton>
+            </SessionDiv>
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

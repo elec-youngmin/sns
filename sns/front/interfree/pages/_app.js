@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
-import Head from "next/head";
 import withReduxSaga from "next-redux-saga";
 import wrapper from "../store/configureStore";
-import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 import BottomTabs from "../components/layout/BottomTabs";
@@ -12,21 +10,22 @@ import ScrollButton from "../components/layout/ScrollButton";
 // import FloatingButton from "../components/FloatingButton/FloatingButton";
 import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
-import GlobalStyle from "../components/styledComponent/GlobalStyle";
+import GlobalStyle from "../styledComponents/GlobalStyle";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <GlobalStyle />
       <BottomTabs />
       <VerticalNav />
       <HorizontalNav />
       <ScrollButton />
-      <GlobalStyle />
+      <ActionLoading />
+      <Toast />
 
       {/* <FloatingButton /> */}
       {/* 사용성 저하로 드랍처리 */}
-      <ActionLoading />
-      <Toast />
+
       <Component {...pageProps} />
     </>
   );

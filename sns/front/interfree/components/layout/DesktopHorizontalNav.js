@@ -99,7 +99,7 @@ const DesktopHorizontalNav = () => {
               Router.push(`${frontUrl}/me`);
             }}
           >
-            interfree
+            <a>interfree</a>
           </Styledh1>
         </MenuItem>
         {logInDone ||
@@ -110,8 +110,10 @@ const DesktopHorizontalNav = () => {
                   Router.push(`${frontUrl}/allPostsBoard`);
                 }}
               >
-                <AiFillDribbbleCircle />
-                모든 포스트
+                <a>
+                  <AiFillDribbbleCircle />
+                  모든 포스트
+                </a>
               </MenuItem>
 
               <MenuItem
@@ -119,23 +121,19 @@ const DesktopHorizontalNav = () => {
                   Router.push(`${frontUrl}/me`);
                 }}
               >
-                <FaUserCircle /> 나
+                <a>
+                  <FaUserCircle /> 나
+                </a>
               </MenuItem>
-
-              {/* <MenuItem
-                onClick={() => {
-                  Router.push(`${frontUrl}/ChartPage`);
-                }}
-              >
-                <AiOutlineLineChart /> 차트
-              </MenuItem> */}
 
               <MenuItem
                 onClick={() => {
                   setSearchModalShow(true);
                 }}
               >
-                <AiOutlineSearch /> 검색
+                <a>
+                  <AiOutlineSearch /> 검색
+                </a>
               </MenuItem>
 
               <MenuItem
@@ -145,7 +143,9 @@ const DesktopHorizontalNav = () => {
                   });
                 }}
               >
-                <AiOutlineLogout />
+                <a>
+                  <AiOutlineLogout />
+                </a>
               </MenuItem>
             </>
           ))}

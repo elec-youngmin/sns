@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import Router from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import Title from "../components/layout/Title";
 import HorizontalNav from "../components/layout/HorizontalNav";
-
 import PostBoard from "../components/post/PostBoard";
+
+import { SessionRow } from "../../styledComponents/layout/Session";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
@@ -40,34 +42,12 @@ const bookmark = () => {
     });
   };
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <div className="container justify-content-center">
-        <Row
-          style={{
-            paddingTop: "100px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
+        <SessionRow>
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                북마크
-              </p>
-            </div>
+            <Title title={"북마크"} />
+
             <InfiniteScroll
               dataLength={posts.length}
               next={LoadNextbookmarkPosts}
@@ -111,7 +91,7 @@ const bookmark = () => {
                 ))}
             </InfiniteScroll>
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

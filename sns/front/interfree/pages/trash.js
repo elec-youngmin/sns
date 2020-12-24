@@ -5,8 +5,11 @@ import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import Title from "../components/layout/Title";
 import TrashPostAlert from "../components/trash/TrashPostAlert";
 import TrashPostForm from "../components/trash/TrashPostForm";
+
+import { SessionRow } from "../styledComponents/layout/Session";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -17,34 +20,11 @@ import axios from "axios";
 const trash = () => {
   const { trashPosts } = useSelector((state) => state.post);
   return (
-    <div style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
+    <div>
       <div className="container justify-content-center">
-        <Row
-          style={{
-            paddingTop: "105px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
+        <SessionRow>
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                휴지통
-              </p>
-            </div>
+            <Title title={"휴지통"} />
             <TrashPostAlert />
             {trashPosts.map((element, index) => (
               <TrashPostForm
@@ -58,7 +38,7 @@ const trash = () => {
               />
             ))}
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

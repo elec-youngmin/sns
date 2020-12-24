@@ -7,6 +7,9 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
+  USER_KAKAO_LOGIN_REQUEST,
+  USER_KAKAO_LOGIN_SUCCESS,
+  USER_KAKAO_LOGIN_FAILURE,
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILURE,
@@ -79,6 +82,27 @@ function* login(action) {
     console.error(err);
     yield put({
       type: USER_LOGIN_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function kakaoLoginAPI() {
+  return axios.get("user/kakaoLogin");
+}
+
+function* kakaoLogin(action) {
+  try {
+    const result = yield call(kakaoLoginAPI, action.data);
+    console.log(result);
+    yield put({
+      type: USER_KAKAO_LOGIN_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: USER_KAKAO_LOGIN_FAILURE,
       error: err.response.data,
     });
   }
@@ -323,6 +347,10 @@ function* watchLogin() {
   yield takeLatest(USER_LOGIN_REQUEST, login);
 }
 
+function* watchKakaoLogin() {
+  yield takeLatest(USER_KAKAO_LOGIN_REQUEST, kakaoLogin);
+}
+
 function* watchLogOut() {
   yield takeLatest(USER_LOGOUT_REQUEST, logOut);
 }
@@ -371,6 +399,7 @@ export default function* userSaga() {
   yield all([
     fork(watchSignUp),
     fork(watchLogin),
+    fork(watchKakaoLogin),
     fork(watchLogOut),
     fork(watchLoadUserInfomation),
     fork(watchDestroyUser),
@@ -379,7 +408,6 @@ export default function* userSaga() {
     fork(watchFindPassword),
     fork(watchFindPasswordMyConfirm),
     fork(watchResettingPassword),
-
     fork(watchLoadFollowingUser),
     fork(watchDisabledOneUserAllpost),
     fork(watchActivateOneUserAllpost),

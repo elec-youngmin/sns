@@ -2,8 +2,10 @@ import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
-import UserProfileCard from "../../components/allPost/UserProfileCard";
+
+import { SessionRow } from "../../styledComponents/layout/Session";
 
 import {
   Card,
@@ -39,36 +41,11 @@ const UserPage = () => {
   //   });
   // };
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <div className="container justify-content-center">
-        <Row
-          style={{
-            paddingTop: "100px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
+        <SessionRow>
           <Col md={7}>
-            {/* 여기부터 유저카드 */}
-
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                유저 페이지
-              </p>
-            </div>
+            <Title title={"유저 페이지"} />
             <Container
               style={{
                 border: "1px solid #F0FFFF",
@@ -219,7 +196,7 @@ const UserPage = () => {
               ))}
             </InfiniteScroll>
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

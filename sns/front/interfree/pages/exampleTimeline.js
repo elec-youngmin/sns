@@ -11,7 +11,7 @@ import { Row, Col } from "react-bootstrap";
 
 const ExampleTimeline = () => {
   return (
-    <div style={{ paddingTop: "105px", backgroundColor: "#F5F5F5" }}>
+    <div style={{ paddingTop: "105px" }}>
       <div className="container justify-content-center">
         <Row
           style={{

@@ -121,7 +121,7 @@ const ChartPage = () => {
   return (
     <div>
       <div
-        className="col-md-8 container justify-content-center"
+        className="container justify-content-center"
         style={{ paddingTop: "80px", textAlign: "center" }}
       >
         {/* interfree 전체 일일 포스트 갯수 차트 */}

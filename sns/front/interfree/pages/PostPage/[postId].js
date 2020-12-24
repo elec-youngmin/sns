@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { useRouter } from "next/router";
 
+import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -31,7 +32,7 @@ const PostPage = () => {
   }, [postId]);
 
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <div className="container justify-content-center">
         <Row
           style={{
@@ -43,22 +44,7 @@ const PostPage = () => {
           }}
         >
           <Col md={7}>
-            <div
-              style={{
-                margin: "10px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                선택한 포스트 페이지
-              </p>
-            </div>
+            <Title title={"포스트 페이지"} />
 
             {posts.map((element) => {
               return (
@@ -69,7 +55,7 @@ const PostPage = () => {
                   profileImg={
                     element?.User.ProfileImgSrcs.length > 0
                       ? element?.User.ProfileImgSrcs.src
-                      : "userImage.jpg"
+                      : false
                   }
                   nickname={element?.User.nickname}
                   like={element?.like} //포스트 좋아요 수

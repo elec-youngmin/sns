@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import Router from "next/router";
 
+import Title from "../components/layout/Title";
 import TimelineSubjectDiv from "../components/timeline/TimelineSubjectDiv";
 import AddTimelineContentsModal from "../components/timeline/AddTimelineContentsModal";
+
+import {
+  SessionDiv,
+  SessionP,
+  SessionTitle,
+  SessionButton,
+  SessionRow,
+} from "../styledComponents/layout/Session";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
@@ -22,7 +31,7 @@ const timeline = () => {
   const [timelineModalShow, setTimelineModalShow] = useState(false);
   const { timelineSubjects } = useSelector((state) => state.post);
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <AddTimelineContentsModal
         show={timelineModalShow}
         onHide={() => {
@@ -30,104 +39,35 @@ const timeline = () => {
         }}
       />
       <div className="container justify-content-center">
-        <Row
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingTop: "105px",
-          }}
-        >
+        <SessionRow>
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                타임라인
-              </p>
-            </div>
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  marginBottom: "5px",
-                  fontSize: "25px",
-                  width: "100%",
-                }}
-              >
+            <Title title={"타임라인"} />
+
+            <SessionDiv>
+              <SessionTitle>
                 <GiTimeBomb />
                 타임아웃 만들기
-              </p>
+              </SessionTitle>
 
-              <p
-                style={{
-                  marginBottom: "0px",
-                  fontWeight: "600",
-                }}
-              >
-                주제를 정하고 타임라인을 만들어 보세요.
-              </p>
+              <SessionP>주제를 정하고 타임라인을 만들어 보세요.</SessionP>
               <br />
-              <Button
+              <SessionButton
                 onClick={() => {
                   Router.push(`${frontUrl}/exampleTimeline/`);
                 }}
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
               >
                 타임라인 예
-              </Button>
+              </SessionButton>
               <br />
-              <Button
+              <SessionButton
                 onClick={() => {
                   setTimelineModalShow(true);
                 }}
-                style={{
-                  marginBottom: "20px",
-                  fontWeight: "600",
-                  fontSize: "15px",
-                }}
               >
                 타임라인 추가
-              </Button>
-            </div>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                작성한 타임라인 리스트
-              </p>
-            </div>
+              </SessionButton>
+            </SessionDiv>
+            <Title title={"작성한 타임라인 리스트"} />
 
             {timelineSubjects.map((element) => {
               return (
@@ -139,7 +79,7 @@ const timeline = () => {
               );
             })}
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

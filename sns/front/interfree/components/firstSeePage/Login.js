@@ -8,7 +8,10 @@ import { ErrorMessage } from "@hookform/error-message";
 import SignUp from "../signUp/SignUp";
 
 import { useDispatch, useSelector } from "react-redux";
-import { USER_LOGIN_REQUEST } from "../../reducers/user";
+import {
+  USER_LOGIN_REQUEST,
+  USER_KAKAO_LOGIN_REQUEST,
+} from "../../reducers/user";
 import Loading from "../loading/Loading";
 import { OverlayTrigger, Tooltip, Nav } from "react-bootstrap";
 import { BsQuestion } from "react-icons/bs";
@@ -133,16 +136,9 @@ const Login = () => {
             style={{ width: "100%", marginBottom: "10px" }}
           >
             로그인
-            {logInLoading && <Loading />}
+            {/* {logInLoading && <Loading />} */}
           </button>
-          <button
-            className="btn btn-warning btn-block"
-            type="submit"
-            style={{ width: "100%", marginBottom: "10px" }}
-          >
-            카카오 로그인
-            {logInLoading && <Loading />}
-          </button>
+
           {/* <NotReviseAlert /> */}
           {/* 모바일에서 디자인적인 문제발생으로 주석처리 */}
           <button
@@ -159,6 +155,19 @@ const Login = () => {
           {/* 모바일에서 디자인적인 문제발생으로 주석처리 */}
         </form>
       </div>
+      <button
+        className="btn btn-warning btn-block"
+        type="submit"
+        style={{ width: "100%", marginBottom: "10px" }}
+        onClick={() => {
+          dispatch({
+            type: USER_KAKAO_LOGIN_REQUEST,
+          });
+        }}
+      >
+        카카오 로그인
+        {/* {logInLoading && <Loading />} */}
+      </button>
     </div>
   );
 };

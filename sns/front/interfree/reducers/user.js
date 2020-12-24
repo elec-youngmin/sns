@@ -15,6 +15,9 @@ export const initialState = {
   logInLoading: false,
   logInDone: false,
   logInError: null,
+  kakaoLogInLoading: false,
+  kakaoLogInDone: false,
+  kakaoLogInError: null,
   logOutLoading: false,
   logOutDone: false,
   logOutError: null,
@@ -68,13 +71,13 @@ export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILURE = "USER_LOGIN_FAILURE";
 
-export const LOAD_USER_INFOMATION_REQUEST = "LOAD_USER_INFOMATION_REQUEST";
-export const LOAD_USER_INFOMATION_SUCCESS = "LOAD_USER_INFOMATION_SUCCESS";
-export const LOAD_USER_INFOMATION_FAILURE = "LOAD_USER_INFOMATION_FAILURE";
-
 export const USER_KAKAO_LOGIN_REQUEST = "USER_KAKAO_LOGIN_REQUEST";
 export const USER_KAKAO_LOGIN_SUCCESS = "USER_KAKAO_LOGIN_SUCCESS";
 export const USER_KAKAO_LOGIN_FAILURE = "USER_KAKAO_LOGIN_FAILURE";
+
+export const LOAD_USER_INFOMATION_REQUEST = "LOAD_USER_INFOMATION_REQUEST";
+export const LOAD_USER_INFOMATION_SUCCESS = "LOAD_USER_INFOMATION_SUCCESS";
+export const LOAD_USER_INFOMATION_FAILURE = "LOAD_USER_INFOMATION_FAILURE";
 
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
@@ -151,6 +154,21 @@ const reducer = (state = initialState, action) =>
         draft.logInLoading = true;
         draft.logInError = null;
         draft.logInDone = false;
+        break;
+      case USER_KAKAO_LOGIN_SUCCESS:
+        draft.kakaoLogInLoading = false;
+        draft.user = action.data;
+        draft.kakaoLogInDone = true;
+        break;
+      case USER_KAKAO_LOGIN_FAILURE:
+        draft.kakaoLogInLoading = false;
+        draft.kakaoLogInError = action.error;
+        ToastError("로그인 실패! 다시 시도하세요.");
+        break;
+      case USER_KAKAO_LOGIN_REQUEST:
+        draft.kakaoLogInLoading = true;
+        draft.kakaoLogInError = null;
+        draft.kakaoLogInDone = false;
         break;
       case USER_LOGOUT_SUCCESS:
         draft.logOutLoading = false;

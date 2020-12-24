@@ -2,6 +2,7 @@ import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 
+import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -30,7 +31,7 @@ const searchResult = () => {
     });
   };
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }}>
+    <div>
       <div className="container justify-content-center">
         <Row
           style={{
@@ -42,22 +43,8 @@ const searchResult = () => {
           }}
         >
           <Col md={7}>
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                검색결과
-              </p>
-            </div>
+            <Title title={"검색 결과"} />
+
             {posts.length > 0 &&
               posts.map((element, index) => (
                 <PostBoard
@@ -68,7 +55,7 @@ const searchResult = () => {
                   profileImg={
                     element.User.ProfileImgSrcs.length > 0
                       ? element.User.ProfileImgSrcs[0].src
-                      : "userImage.jpg"
+                      : false
                   }
                   nickname={element.User.nickname}
                   like={element.like} //포스트 좋아요 수

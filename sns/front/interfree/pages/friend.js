@@ -4,10 +4,18 @@ import Router from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
+import Title from "../components/layout/Title";
 import FollowAlert from "../components/follow/FollowAlert";
 import FollowPage from "../components/follow/FollowPage";
-
 import SearchFriendModal from "../components/follow/SearchFriendModal";
+
+import {
+  SessionDiv,
+  SessionP,
+  SessionTitle,
+  SessionButton,
+  SessionRow,
+} from "../styledComponents/layout/Session";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
@@ -40,69 +48,24 @@ const friend = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <div
-      style={{
-        paddingTop: "100px",
-        paddingBottom: "45px",
-        backgroundColor: "#F5F5F5",
-      }}
-    >
+    <div>
       <SearchFriendModal
         show={SearchFriendModalShow}
         onHide={() => setSearchFriendModalShow(false)}
       />
 
       <div className="container justify-content-center">
-        <Row
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
+        <SessionRow>
           <Col md={7}>
-            {followPosts.length === 0 && <FollowAlert />}
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                친구
-              </p>
-            </div>
-
-            <div
-              style={{
-                border: "1px solid #F0FFFF",
-                borderRadius: "20px",
-                boxShadow: "1px 1px 2px 2px #ccc",
-                backgroundColor: "white",
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                  marginBottom: "5px",
-                }}
-              >
+            <Title title={"친구"} />
+            <SessionDiv>
+              <SessionTitle>
                 <AiOutlineSearch />
                 친구 찾기
-              </p>
-              <p style={{ fontWeight: "600" }}>
+              </SessionTitle>
+              <SessionP>
                 친구의 이메일을 검색해 친구의 페이지로 이동해 보세요.
-              </p>
+              </SessionP>
               <Typeahead
                 id="basic-typeahead-multiple"
                 filterBy={() => true}
@@ -130,28 +93,14 @@ const friend = () => {
                   });
                 }}
               />
-            </div>
+            </SessionDiv>
 
-            <div
-              style={{
-                margin: "20px 0px",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  fontWeight: "500",
-                  fontSize: "45px",
-                  margin: "20px 0px",
-                }}
-              >
-                친구 목록
-              </p>
-            </div>
+            <Title title={"친구 목록"} />
+            {followPosts.length === 0 && <FollowAlert />}
 
             <FollowPage />
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

@@ -48,23 +48,28 @@ const VerticalNav = () => {
                 Router.push(`${frontUrl}/post`);
               }}
             >
-              <AiFillEdit />
-              포스트
+              <a>
+                <AiFillEdit />
+                포스트
+              </a>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 Router.push(`${frontUrl}/timeline`);
               }}
             >
-              <GiTimeBomb />
-              타임라인
+              <a>
+                <GiTimeBomb /> 타임라인
+              </a>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 Router.push(`${frontUrl}/friend`);
               }}
             >
-              <GoOrganization /> 친구
+              <a>
+                <GoOrganization /> 친구
+              </a>
             </MenuItem>
 
             <MenuItem
@@ -72,8 +77,10 @@ const VerticalNav = () => {
                 Router.push(`${frontUrl}/bookmark`);
               }}
             >
-              <BsBookmarksFill />
-              북마크
+              <a>
+                <BsBookmarksFill />
+                북마크
+              </a>
             </MenuItem>
 
             <MenuItem
@@ -81,22 +88,28 @@ const VerticalNav = () => {
                 Router.push(`${frontUrl}/trash`);
               }}
             >
-              <BsTrashFill /> 휴지통
+              <a>
+                <BsTrashFill /> 휴지통
+              </a>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 Router.push(`${frontUrl}/activityChart`);
               }}
             >
-              <BsFillBarChartFill /> 활동 차트
+              <a>
+                <BsFillBarChartFill /> 활동 차트
+              </a>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 Router.push(`${frontUrl}/setting`);
               }}
             >
-              <AiFillSetting />
-              설정
+              <a>
+                <AiFillSetting />
+                설정
+              </a>
             </MenuItem>
           </Menu>
         </>
