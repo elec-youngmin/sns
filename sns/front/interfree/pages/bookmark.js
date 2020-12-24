@@ -7,7 +7,7 @@ import Title from "../components/layout/Title";
 import HorizontalNav from "../components/layout/HorizontalNav";
 import PostBoard from "../components/post/PostBoard";
 
-import { SessionRow } from "../../styledComponents/layout/Session";
+import { SessionRow } from "../styledComponents/layout/Session";
 
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
