@@ -14,7 +14,7 @@ import {
   SessionRow,
 } from "../styledComponents/layout/Session";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { LOAD_TIMELINE_SUBJECT_REQUEST } from "../reducers/post";
 

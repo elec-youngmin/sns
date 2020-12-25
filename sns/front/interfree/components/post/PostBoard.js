@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
@@ -12,14 +11,22 @@ import {
   useContextMenu,
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-import Dropdown from "rc-dropdown";
 import "rc-dropdown/assets/index.css";
-import Menu, { Item as MenuItem, Divider } from "rc-menu";
 
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
 import PostReport from "./PostReport";
 import FollowBotton from "../follow/FollowBotton";
+
+import {
+  BoardHeader,
+  BoardBody,
+  BoardFooter,
+  ProfileImg,
+  ProfileImgDiv,
+  IconTitle,
+} from "../../styledComponents/postBoard/Board";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -39,14 +46,9 @@ import {
   AiOutlineEllipsis,
 } from "react-icons/ai";
 
-import {
-  BsPencil,
-  BsTrash,
-  BsBrightnessHigh,
-  BsFillBookmarksFill,
-} from "react-icons/bs";
+import { BsBrightnessHigh, BsFillBookmarksFill } from "react-icons/bs";
 
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";
@@ -71,7 +73,6 @@ const PostBoard = ({
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.user);
-  const { user } = useSelector((state) => state.user);
   const {
     updatePostDone,
     likePostLoading,
@@ -82,9 +83,7 @@ const PostBoard = ({
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
   const [CommentmodalShow, setCommentModalShow] = useState(false);
-  const [userProfileImg, setUserProfileImg] = useState("userImage.jpg");
-  const [replaceText, setReplaceText] = useState("글이 차단됨");
-
+  const replaceText = "글이 차단됨";
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
   useMemo(() => {
     if (updatePostDone) {
@@ -100,12 +99,6 @@ const PostBoard = ({
 
   //유저가 좋아요를 누른 이력이 있는지 확인
 
-  useMemo(() => {
-    if (user.ProfileImgSrcs.length !== 0) {
-      setUserProfileImg(user.ProfileImgSrcs[0].src);
-    }
-  }, [user]);
-  // console.log(follows);
   const MENU_ID = postId;
 
   const { show } = useContextMenu({
@@ -177,42 +170,16 @@ const PostBoard = ({
         }}
       >
         {/* 포스트보드 헤더 시작 */}
-        <div
-          style={{
-            backgroundColor: "white",
-            borderBottom: "1px solid #D3D3D3",
-            padding: "5px",
-            width: "100%",
-          }}
-        >
+        <BoardHeader>
           {profileImg ? (
-            <img
+            <ProfileImg
               src={`${backUrl}/${profileImg}`}
-              style={{
-                width: "65px",
-                height: "65px",
-                marginRight: "5px",
-                cursor: "pointer",
-                borderRadius: "50%",
-              }}
               onClick={() => {
                 router.push(`${frontUrl}/UserPage/${userId}/`);
               }}
             />
           ) : (
-            <div
-              style={{
-                width: "65px",
-                height: "65px",
-                weight: "50px",
-                backgroundColor: "#DCDCDC",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginRight: "5px",
-                borderRadius: "50%",
-                cursor: "pointer",
-              }}
+            <ProfileImgDiv
               onClick={() => {
                 router.push(`${frontUrl}/UserPage/${userId}/`);
               }}
@@ -220,7 +187,7 @@ const PostBoard = ({
               <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
                 {nickname[0].toUpperCase()}
               </p>
-            </div>
+            </ProfileImgDiv>
           )}
 
           <span
@@ -244,9 +211,6 @@ const PostBoard = ({
             style={{
               float: "right",
               height: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               cursor: "pointer",
             }}
             onClick={show}
@@ -267,16 +231,9 @@ const PostBoard = ({
               onlyReadMy
             </p>
           )}
-        </div>
-
+        </BoardHeader>
         {/* 여기부터 포스트보드 바디 시작 */}
-
-        <div
-          style={{
-            minHeight: "240px",
-            backgroundColor: "white",
-            cursor: "pointer",
-          }}
+        <BoardBody
           onClick={() => {
             router.push(`${frontUrl}/PostPage/${postId}/`);
           }}
@@ -326,7 +283,7 @@ const PostBoard = ({
               {post}
             </h4>
           )}
-        </div>
+        </BoardBody>
         <Row
           style={{
             borderTop: "1px solid #D3D3D3",
@@ -345,15 +302,7 @@ const PostBoard = ({
                 cursor: "pointer",
               }}
             />
-            <p
-              style={{
-                fontWeight: "15px",
-                fontWeight: "600",
-                margin: "0px",
-              }}
-            >
-              댓글
-            </p>
+            <IconTitle>댓글</IconTitle>
           </Col>
           <Col style={{ textAlign: "center", padding: "0px" }}>
             {bookmarkId === id ? (
@@ -388,15 +337,7 @@ const PostBoard = ({
                 }}
               />
             )}
-            <p
-              style={{
-                fontWeight: "15px",
-                fontWeight: "600",
-                margin: "0px",
-              }}
-            >
-              북마크
-            </p>
+            <IconTitle>북마크</IconTitle>
           </Col>
           <Col style={{ textAlign: "center", padding: "0px" }}>
             <AiTwotoneAlert
@@ -407,18 +348,9 @@ const PostBoard = ({
                 cursor: "pointer",
               }}
             />
-            <p
-              style={{
-                fontWeight: "15px",
-                fontWeight: "600",
-                margin: "0px",
-              }}
-            >
-              신고
-            </p>
+            <IconTitle>신고</IconTitle>
           </Col>
         </Row>
-
         {/* 해시태그를 추출하는 로직 */}
         {post?.split(/(#[^\s#]+)/g).map((e, index) => {
           if (e.match(/(#[^\s#]+)/)) {
@@ -436,13 +368,9 @@ const PostBoard = ({
           }
         })}
 
-        <div
-          style={{
-            backgroundColor: "white",
-            textAlign: "center",
-            padding: "5px",
-          }}
-        >
+        {/* 여기부터 보드 푸터 시작 */}
+
+        <BoardFooter>
           <BsBrightnessHigh
             style={{
               fontSize: "20px",
@@ -493,7 +421,7 @@ const PostBoard = ({
 
             <span class="badge badge-light">{like}</span>
           </button>
-        </div>
+        </BoardFooter>
       </div>
     </div>
   );

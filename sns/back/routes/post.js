@@ -879,10 +879,10 @@ router.post("/loadFollowsPost", async (req, res, next) => {
   }
 });
 
-router.get("/loadUserPage/:id", async (req, res, next) => {
+router.post("/loadUserPage", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
-      where: { UserId: req.params.id },
+      where: { UserId: req.body.id },
       order: [["id", "DESC"]],
       attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
       include: [
@@ -968,11 +968,10 @@ router.get("/loadUserPageInfo/:id", async (req, res, next) => {
   }
 });
 
-router.get("/loadHashtagPage/:tag", async (req, res, next) => {
+router.post("/loadhashtagPage", async (req, res, next) => {
   try {
-    console.log(req.params.tag, "태그태그태그ㅇㅇ태그태그");
     const hashtagPost = await Hashtag.findAll({
-      where: { tag: req.params.tag },
+      where: { tag: req.body.tag },
       order: [["id", "DESC"]],
       // attributes: { exclude: ["updatedAt", "deletedAt"] },
       include: [

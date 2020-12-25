@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -13,7 +13,6 @@ import {
   SessionDiv,
   SessionP,
   SessionTitle,
-  SessionButton,
   SessionRow,
 } from "../styledComponents/layout/Session";
 
@@ -25,17 +24,15 @@ import {
   LOAD_USERPAGE_REQUEST,
 } from "../reducers/post";
 
-import { BsPlusCircle } from "react-icons/bs";
-import { AiFillEdit, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
 import { frontUrl } from "../config/config";
-import { backUrl } from "../config/config";
 
 // 컴포넌트 시작
 const friend = () => {

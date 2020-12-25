@@ -634,7 +634,7 @@ function* countReport(action) {
 }
 
 function loadUserPageAPI(data) {
-  return axios.get(`post/loadUserPage/${data}`);
+  return axios.post("post/loadUserPage", data);
 }
 
 function* loadUserPage(action) {
@@ -676,7 +676,7 @@ function* loadUserPageInfo(action) {
 }
 
 function loadHashtagPageAPI(data) {
-  return axios.get(`post/loadHashtagPage/${data}`);
+  return axios.post("post/loadhashtagPage", data);
 }
 
 function* loadHashtagPage(action) {

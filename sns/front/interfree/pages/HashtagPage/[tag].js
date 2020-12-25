@@ -36,7 +36,7 @@ const HashtagPage = () => {
         <Col md={7}>
           <Title title={"해시태그 페이지"} />
 
-          {Posts.length > 0 &&
+          {Posts?.length > 0 &&
             Posts.map((element, index) => (
               <PostBoard
                 key={index}
@@ -81,7 +81,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
     context.store.dispatch({
       type: LOAD_HASHTAGPAGE_REQUEST,
-      data: context.params.tag,
+      data: { tag: context.params.tag },
     });
     context.store.dispatch({
       type: LOAD_USER_INFOMATION_REQUEST,

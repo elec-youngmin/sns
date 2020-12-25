@@ -1,8 +1,6 @@
 import React, { useState, useMemo } from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
-import { toast } from "react-toastify";
-
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
@@ -25,7 +23,6 @@ import {
   DESTROY_USER_REQUEST,
   DISABLED_ONEUSER_ALLPOST_REQUEST,
   ACTIVATE_ONEUSER_ALLPOST_REQUEST,
-  FIND_PASSWORD_REQUEST,
 } from "../reducers/user";
 
 import { BiBlock, BiUser } from "react-icons/bi";
@@ -33,7 +30,7 @@ import { ImProfile } from "react-icons/im";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUserSlash } from "react-icons/fa";
 
-import { Tab, Row, Col, Button } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";

@@ -4,12 +4,12 @@ import PostBoard from "./PostBoard";
 
 import { useSelector } from "react-redux";
 
-const PostMap = () => {
+const PagingPost = () => {
   const { posts } = useSelector((state) => state.post);
 
   return (
     <div>
-      {posts?.map((element, index) => (
+      {posts.map((element, index) => (
         <PostBoard
           key={index}
           post={element.contents}
@@ -18,7 +18,7 @@ const PostMap = () => {
           profileImg={
             element.User.ProfileImgSrcs.length > 0
               ? element.User.ProfileImgSrcs[0].src
-              : "userImage.jpg"
+              : false
           }
           nickname={element.User.nickname}
           like={element.like} //포스트 좋아요 수
@@ -30,11 +30,11 @@ const PostMap = () => {
           bookmarkId={
             element.Bookmarks.length > 0 ? element.Bookmarks[0].UserId : false
           }
-          date={element.updatedAt}
+          date={element.createdAt}
         />
       ))}
     </div>
   );
 };
 
-export default PostMap;
+export default PagingPost;

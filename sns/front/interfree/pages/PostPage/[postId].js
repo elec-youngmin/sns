@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import Moment from "react-moment";
 import { useRouter } from "next/router";
 
 import Title from "../../components/layout/Title";
@@ -94,7 +93,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
     context.store.dispatch({
       type: LOAD_POSTPAGE_REQUEST,
-      data: context.params.postId,
+      data: { postId: context.params.postId },
     });
     context.store.dispatch({
       type: LOAD_USER_INFOMATION_REQUEST,

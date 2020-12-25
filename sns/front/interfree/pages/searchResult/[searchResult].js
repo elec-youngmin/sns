@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
-import Router from "next/router";
 
 import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
@@ -15,21 +14,11 @@ import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
 
-// 컴포넌트 시작
-
 const searchResult = () => {
   const { posts } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
-  const LoadNextbookmarkPosts = () => {
-    const lastId = posts[posts.length - 1]?.id;
-    dispatch({
-      type: LOAD_BOOKMARK_REQUEST,
-      data: { lastId, userId: user.id },
-    });
-  };
   return (
     <div>
       <div className="container justify-content-center">

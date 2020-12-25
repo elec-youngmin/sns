@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import Moment from "react-moment";
 import { useRouter } from "next/router";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
+import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
 import TimelineElement from "../../components/timeline/TimelineElement";
-
-// import UserProfileCard from "../../components/allPost/UserProfileCard";
 
 import { useSelector, useDispatch } from "react-redux";
 

@@ -3,7 +3,7 @@ import React from "react";
 import { LOAD_TRASH_REQUEST } from "../reducers/post";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
@@ -11,7 +11,7 @@ import TrashPostForm from "../components/trash/TrashPostForm";
 
 import { SessionRow } from "../styledComponents/layout/Session";
 
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";

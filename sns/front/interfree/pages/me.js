@@ -28,10 +28,9 @@ import {
   SEARCH_FRIEND_REQUEST,
   LOAD_USERPAGE_REQUEST,
 } from "../reducers/post";
-import { Row, Col, Tabs, TabContainer, Button, Nav } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { AiFillEdit, AiOutlineSearch } from "react-icons/ai";
-import { BsPlusCircle } from "react-icons/bs";
 import { GiTimeBomb } from "react-icons/gi";
 import { ImProfile } from "react-icons/im";
 
@@ -44,10 +43,8 @@ import { frontUrl } from "../config/config";
 // 컴포넌트 시작
 const me = () => {
   const router = useRouter();
-  const { user } = useSelector((state) => state.user);
-  const { loadPostDone } = useSelector((state) => state.post);
 
-  const { posts, search } = useSelector((state) => state.post);
+  const { search } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
   const [writePostShow, setWritePostShow] = useState(false);

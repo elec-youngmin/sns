@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "react-tabs/style/react-tabs.css";
@@ -6,6 +6,7 @@ import "react-tabs/style/react-tabs.css";
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
 import PostBoard from "../components/post/PostBoard";
+import PagingPost from "../components/post/PagingPost";
 import WritePostModal from "../components/FloatingButton/WritePostModal";
 
 import {
@@ -21,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { LOAD_POST_REQUEST } from "../reducers/post";
 
-import { Row, Col, Button, Nav } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { AiFillEdit } from "react-icons/ai";
 

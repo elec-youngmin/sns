@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
-import Router from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Title from "../components/layout/Title";
@@ -13,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { LOAD_BOOKMARK_REQUEST } from "../reducers/post";
 
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
@@ -22,13 +21,10 @@ import axios from "axios";
 import { frontUrl } from "../config/config";
 import { backUrl } from "../config/config";
 
-// 컴포넌트 시작
 const bookmark = () => {
   const { posts } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
-  const [modalShow, setModalShow] = useState(false);
 
   const LoadNextbookmarkPosts = () => {
     const lastId = posts[posts.length - 1]?.Bookmarks[0]?.id;

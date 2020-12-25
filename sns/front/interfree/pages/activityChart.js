@@ -8,9 +8,9 @@ import { LOAD_ONEUSER_CHARTDATA_REQUEST } from "../reducers/post";
 
 import { SessionRow } from "../styledComponents/layout/Session";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { Row, Col, Button, Nav } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
