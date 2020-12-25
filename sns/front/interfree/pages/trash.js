@@ -5,8 +5,8 @@ import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
-import TrashPostAlert from "../components/trash/TrashPostAlert";
 import TrashPostForm from "../components/trash/TrashPostForm";
 
 import { SessionRow } from "../styledComponents/layout/Session";
@@ -25,7 +25,14 @@ const trash = () => {
         <SessionRow>
           <Col md={7}>
             <Title title={"휴지통"} />
-            <TrashPostAlert />
+
+            {trashPosts.length === 0 && (
+              <AlertTab
+                title={"휴지통에 포스트가 없어요."}
+                content={"휴지통을 사용하여 쓸모없는 포스트를 관리하세요."}
+              />
+            )}
+
             {trashPosts.map((element, index) => (
               <TrashPostForm
                 key={index}

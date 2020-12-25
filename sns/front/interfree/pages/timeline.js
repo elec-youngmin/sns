@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Router from "next/router";
 
+import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
 import TimelineSubjectDiv from "../components/timeline/TimelineSubjectDiv";
 import AddTimelineContentsModal from "../components/timeline/AddTimelineContentsModal";
@@ -17,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { LOAD_TIMELINE_SUBJECT_REQUEST } from "../reducers/post";
 
-import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { GiTimeBomb } from "react-icons/gi";
 
@@ -68,6 +69,13 @@ const timeline = () => {
               </SessionButton>
             </SessionDiv>
             <Title title={"작성한 타임라인 리스트"} />
+
+            {timelineSubjects.length === 0 && (
+              <AlertTab
+                title={"아직 작성된 타임라인 주제가 없습니다."}
+                content={"첫번째 타임라인을 생성해 보세요."}
+              />
+            )}
 
             {timelineSubjects.map((element) => {
               return (

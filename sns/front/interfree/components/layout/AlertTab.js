@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 import { Alert } from "react-bootstrap";
 
-// 아직 작성한 포스트가 1개도 없다면 나타나는 알림창
+// 각 탭마다 리스트가 1개도 없다면 나타나는 알림창
 
-const NonePostAlert = () => {
+const AlertTab = ({ title, content }) => {
   return (
     <div>
       <Alert
@@ -13,26 +13,30 @@ const NonePostAlert = () => {
         style={{
           textAlign: "center",
           margin: "2px",
+          borderRadius: "15px",
         }}
       >
         <p
           style={{
+            fontSize: "30px",
+            fontWeight: "600",
             margin: "2px",
           }}
         >
-          작성된 포스트가 없습니다.
+          {title}
         </p>
         <p
           style={{
+            fontSize: "16px",
+            fontWeight: "500",
             margin: "1px",
           }}
         >
-          하단 아래의 플러스 버튼을 눌러 음성 또는 게시판으로 포스트를
-          작성해보세요.
+          {content}
         </p>
       </Alert>
     </div>
   );
 };
 
-export default NonePostAlert;
+export default AlertTab;

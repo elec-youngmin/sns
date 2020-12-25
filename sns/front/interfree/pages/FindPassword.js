@@ -6,6 +6,14 @@ import Loading from "../components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { FIND_PASSWORD_REQUEST } from "../reducers/user";
 
+import {
+  SessionDiv,
+  SessionP,
+  SessionTitle,
+  SessionButton,
+  SessionRow,
+} from "../styledComponents/layout/Session";
+
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -28,13 +36,9 @@ const FindPassword = () => {
 
   return (
     <div>
-      <div
-        className="col-md-8 container justify-content-center"
-        style={{ paddingTop: "75px" }}
-      >
-        <Row>
+      <div className=" container justify-content-center">
+        <SessionRow>
           <Col md={10}>
-            {/* <Menu /> */}
             <Form>
               <Form.Group>
                 <Form.Label className="text-center" style={{ width: "100%" }}>
@@ -48,7 +52,7 @@ const FindPassword = () => {
                   }}
                 />
                 <Form.Text className="text-muted">
-                  해당 이메일 주소로 인증메일을 보내겠습니다.
+                  해당 이메일 주소로 임시 비밀번호를 보냅니다.
                 </Form.Text>
               </Form.Group>
 
@@ -72,7 +76,7 @@ const FindPassword = () => {
                 보내기 {findPasswordLoading && <Loading />}
               </Button>
               {findPasswordDone && (
-                <p>해당 이메일 주소로 인증메일을 보냈습니다.</p>
+                <p>해당 이메일 주소로 임시 비밀번호를 보냈습니다.</p>
               )}
               {findPasswordError && (
                 <p>
@@ -82,7 +86,7 @@ const FindPassword = () => {
               )}
             </Form>
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );

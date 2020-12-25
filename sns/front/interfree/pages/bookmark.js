@@ -4,7 +4,7 @@ import Router from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import Title from "../components/layout/Title";
-import HorizontalNav from "../components/layout/HorizontalNav";
+import AlertTab from "../components/layout/AlertTab";
 import PostBoard from "../components/post/PostBoard";
 
 import { SessionRow } from "../styledComponents/layout/Session";
@@ -47,19 +47,23 @@ const bookmark = () => {
         <SessionRow>
           <Col md={7}>
             <Title title={"북마크"} />
-
-            <InfiniteScroll
-              dataLength={posts.length}
-              next={LoadNextbookmarkPosts}
-              hasMore={true}
-              loader={
-                <h6 style={{ textAlign: "center" }}>
-                  {posts.length}개의 포스트가 로드되었습니다.
-                </h6>
-              }
-            >
-              {posts.length > 0 &&
-                posts.map((element, index) => (
+            {posts.length === 0 ? (
+              <AlertTab
+                title={"북마크 한 포스트가 없습니다."}
+                content={"마음에 드는 포스트를 북마크 해보세요."}
+              />
+            ) : (
+              <InfiniteScroll
+                dataLength={posts.length}
+                next={LoadNextbookmarkPosts}
+                hasMore={true}
+                loader={
+                  <h4 style={{ textAlign: "center" }}>
+                    {posts.length}개의 포스트가 로드되었습니다.
+                  </h4>
+                }
+              >
+                {posts.map((element, index) => (
                   <PostBoard
                     key={index}
                     post={element.contents}
@@ -89,7 +93,8 @@ const bookmark = () => {
                     date={element.updatedAt}
                   />
                 ))}
-            </InfiniteScroll>
+              </InfiniteScroll>
+            )}
           </Col>
         </SessionRow>
       </div>

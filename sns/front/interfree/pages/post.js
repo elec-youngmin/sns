@@ -3,12 +3,18 @@ import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import "react-tabs/style/react-tabs.css";
 
+import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
 import PostBoard from "../components/post/PostBoard";
-import NonePostAlert from "../components/post/NonePostAlert";
-import PreviewProfileModal from "../components/post/PreviewProfileModal";
+import WritePostModal from "../components/FloatingButton/WritePostModal";
 
-import { SessionRow } from "../styledComponents/layout/Session";
+import {
+  SessionDiv,
+  SessionP,
+  SessionTitle,
+  SessionInput,
+  SessionRow,
+} from "../styledComponents/layout/Session";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,21 +23,18 @@ import { LOAD_POST_REQUEST } from "../reducers/post";
 
 import { Row, Col, Button, Nav } from "react-bootstrap";
 
+import { AiFillEdit } from "react-icons/ai";
+
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
-import { frontUrl } from "../config/config";
-import { backUrl } from "../config/config";
-
-// 컴포넌트 시작
 const post = () => {
   const { user } = useSelector((state) => state.user);
   const { loadPostDone } = useSelector((state) => state.post);
-
   const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  const [modalShow, setModalShow] = useState(false);
+  const [writePostShow, setWritePostShow] = useState(false);
 
   const LoadNextPosts = () => {
     const lastId = posts[posts.length - 1]?.id;
@@ -46,9 +49,9 @@ const post = () => {
 
   return (
     <div style={{ marginBottom: "50px" }}>
-      <PreviewProfileModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
+      <WritePostModal
+        show={writePostShow}
+        onHide={() => setWritePostShow(false)}
       />
 
       <div className="container justify-content-center">
@@ -56,49 +59,72 @@ const post = () => {
           <Col md={7}>
             <Title title={"포스트"} />
 
-            {posts.length <= 0 && loadPostDone && <NonePostAlert />}
-            <InfiniteScroll
-              dataLength={posts.length}
-              next={LoadNextPosts}
-              hasMore={true}
-              loader={
-                <h6 style={{ textAlign: "center", marginTop: "15px" }}>
-                  {posts.length}개의 포스트가 로드되었습니다.
-                </h6>
-              }
-            >
-              {/* 유저의 모든 포스트 */}
-              {posts.map((element, index) => (
-                <PostBoard
-                  key={index}
-                  post={element.contents}
-                  postId={element.id}
-                  userId={element.UserId}
-                  profileImg={
-                    element.User.ProfileImgSrcs.length > 0
-                      ? element.User.ProfileImgSrcs[0].src
-                      : false
-                  }
-                  nickname={element.User.nickname}
-                  like={element.like} //포스트 좋아요 수
-                  Likes={
-                    element.Likes.length > 0
-                      ? element.Likes[0].LikeUserId
-                      : false
-                  } //포스트 좋아요 했는지 확인
-                  reportCount={element.Reports}
-                  PostImgSrcs={element.PostImgSrcs}
-                  PostVideoSrcs={element.PostVideoSrcs}
-                  onlyReadMy={element.onlyReadMy}
-                  bookmarkId={
-                    element.Bookmarks.length > 0
-                      ? element.Bookmarks[0].UserId
-                      : false
-                  }
-                  date={element.createdAt}
-                />
-              ))}
-            </InfiniteScroll>
+            <SessionDiv>
+              <SessionTitle>
+                <AiFillEdit />
+                포스트 작성
+              </SessionTitle>
+              <SessionP>포스트를 올려 좋아요를 받아보세요.</SessionP>
+              <SessionInput
+                placeholder="포스트를 작성하세요..."
+                onClick={(e) => {
+                  e.preventDefault();
+                  setWritePostShow(true);
+                }}
+              />
+            </SessionDiv>
+
+            <Title title={"작성한 포스트 목록"} />
+
+            {posts.length <= 0 && loadPostDone ? (
+              <AlertTab
+                title={"아직 작성된 포스트가 없어요."}
+                content={"첫번째 포스트를 작성해 보세요."}
+              />
+            ) : (
+              <InfiniteScroll
+                dataLength={posts.length}
+                next={LoadNextPosts}
+                hasMore={true}
+                loader={
+                  <h6 style={{ textAlign: "center", marginTop: "15px" }}>
+                    {posts.length}개의 포스트가 로드되었습니다.
+                  </h6>
+                }
+              >
+                {/* 유저의 모든 포스트 */}
+                {posts.map((element, index) => (
+                  <PostBoard
+                    key={index}
+                    post={element.contents}
+                    postId={element.id}
+                    userId={element.UserId}
+                    profileImg={
+                      element.User.ProfileImgSrcs.length > 0
+                        ? element.User.ProfileImgSrcs[0].src
+                        : false
+                    }
+                    nickname={element.User.nickname}
+                    like={element.like} //포스트 좋아요 수
+                    Likes={
+                      element.Likes.length > 0
+                        ? element.Likes[0].LikeUserId
+                        : false
+                    } //포스트 좋아요 했는지 확인
+                    reportCount={element.Reports}
+                    PostImgSrcs={element.PostImgSrcs}
+                    PostVideoSrcs={element.PostVideoSrcs}
+                    onlyReadMy={element.onlyReadMy}
+                    bookmarkId={
+                      element.Bookmarks.length > 0
+                        ? element.Bookmarks[0].UserId
+                        : false
+                    }
+                    date={element.createdAt}
+                  />
+                ))}
+              </InfiniteScroll>
+            )}
           </Col>
         </SessionRow>
       </div>

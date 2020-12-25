@@ -12,12 +12,13 @@ export const SessionDiv = styled.div`
 `;
 
 export const SessionP = styled.p`
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 18px;
 `;
 
 export const SessionTitle = styled.p`
   font-weight: 600;
-  font-size: 25px;
+  font-size: 28px;
 `;
 
 export const SessionInput = styled.input`

@@ -34,7 +34,7 @@ const EditProfilePictureModal = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            프로필 사진 편집
+            프로필 사진 변경
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -62,6 +62,7 @@ const EditProfilePictureModal = (props) => {
                     minHeight: "180px",
                     maxWidth: "180px",
                     maxHeight: "180px",
+                    cursor: "pointer",
                   }}
                 ></img>
               ) : (
@@ -75,6 +76,7 @@ const EditProfilePictureModal = (props) => {
                     justifyContent: "center",
                     marginRight: "5px",
                     borderRadius: "50%",
+                    cursor: "pointer",
                   }}
                 >
                   <p

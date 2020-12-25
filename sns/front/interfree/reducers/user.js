@@ -266,7 +266,7 @@ const reducer = (state = initialState, action) =>
         draft.findPasswordDone = true;
         draft.findPasswordLoading = false;
         draft.email = action.data;
-        ToastSuccess("메일 요청이 완료되었습니다. 메일함을 확인해보세요.");
+        ToastSuccess("임시 비밀번호를 발급했습니다. 메일함을 확인해 보세요.");
         break;
       case FIND_PASSWORD_REQUEST:
         draft.findPasswordDone = false;

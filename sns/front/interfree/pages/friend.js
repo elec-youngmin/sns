@@ -4,8 +4,8 @@ import Router from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
+import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
-import FollowAlert from "../components/follow/FollowAlert";
 import FollowPage from "../components/follow/FollowPage";
 import SearchFriendModal from "../components/follow/SearchFriendModal";
 
@@ -83,7 +83,7 @@ const friend = () => {
                     type: LOAD_USERPAGE_REQUEST,
                     data: searchText,
                   });
-                  router.push(`${frontUrl}/UserPage/${selected[0]?.id}/`);
+                  Router.push(`${frontUrl}/UserPage/${selected[0]?.id}/`);
                 }}
                 onInputChange={(e) => {
                   setSearchText(e);
@@ -96,7 +96,13 @@ const friend = () => {
             </SessionDiv>
 
             <Title title={"친구 목록"} />
-            {followPosts.length === 0 && <FollowAlert />}
+
+            {followPosts.length === 0 && (
+              <AlertTab
+                title={"친구가 없습니다."}
+                content={"마음에 드는 포스트의 유저를 팔로우 해보세요."}
+              />
+            )}
 
             <FollowPage />
           </Col>

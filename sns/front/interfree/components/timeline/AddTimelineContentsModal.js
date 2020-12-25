@@ -70,7 +70,7 @@ const AddTimelineContentsModal = (props) => {
                 }}
                 rows={1}
                 multiple
-                placeholder="타임아웃의 제목을 입력하세요."
+                placeholder="타임아웃의 제목을 입력"
                 value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
@@ -87,7 +87,7 @@ const AddTimelineContentsModal = (props) => {
                 rows={1}
                 multiple
                 value={content}
-                placeholder="타임아웃의 내용을 입력하세요."
+                placeholder="타임아웃의 내용을 입력"
                 onChange={(e) => {
                   setContent(e.target.value);
                 }}
@@ -103,7 +103,7 @@ const AddTimelineContentsModal = (props) => {
                 rows={1}
                 multiple
                 value={moment}
-                placeholder="시기를 입력하세요. 예) 2018-2020,2018년 5월 28일"
+                placeholder="시기를 입력"
                 onChange={(e) => {
                   setMoment(e.target.value);
                 }}

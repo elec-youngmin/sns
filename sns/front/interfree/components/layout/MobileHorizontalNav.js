@@ -308,7 +308,7 @@ const Menu = () => {
       >
         <Styledspan
           onClick={() => {
-            Router.push(`${frontUrl}/my`);
+            Router.push(`${frontUrl}/me`);
           }}
         >
           interfree

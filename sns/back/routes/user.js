@@ -307,6 +307,45 @@ router.post("/profileImage", upload.array("image"), async (req, res, next) => {
   }
 });
 
+router.post("/loadFollowingUser", async (req, res, next) => {
+  try {
+    const result = await Follow.findAll({
+      where: { followerId: 1 },
+    });
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+router.post("/resettingPassword", async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const result = await bcrypt.compare(
+      req.body.password,
+      req.user.dataValues.password
+    );
+
+    if (!result) {
+      return res.status(500).json("현재 비밀번호가 일치하지 않아요.");
+    }
+
+    const setHashPassowrd = await bcrypt.hash(req.body.rePassword, 12);
+
+    await User.update(
+      { password: setHashPassowrd },
+      { where: { id: req.user.dataValues.id } }
+    );
+
+    res.status(200).json("ok");
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.post("/findPassword", async (req, res, next) => {
   try {
     const result = await User.findOne({ where: { email: req.body.email } });
@@ -323,33 +362,23 @@ router.post("/findPassword", async (req, res, next) => {
       },
     });
 
-    const toekn = jwt.sign(
-      {
-        sub: "sjk5766",
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1m",
-        issuer: "interfree",
-      }
-    );
+    const randomString = Math.random().toString(36).substring(2);
 
+    const encryptionPassword = await bcrypt.hash(randomString, 12);
     await User.update(
-      { tempToken: toekn },
-      {
-        where: {
-          email: req.body.email,
-        },
-      }
+      { password: encryptionPassword },
+      // 사용자가 설정한 패스워드로 재설정
+      { where: { email: req.body.email } }
     );
 
     let mailOptions = {
       from: process.env.MAIL_USER, // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
       to: req.body.email, // 수신 메일 주소
-      subject: "interfree에서 인증메일을 보냈습니다.", // 제목
-      html: `<a href='http://localhost:3000/FindPassword/
-      ${toekn}'>인증하기</a>`,
+      subject: "interfree에서 임시 비밀번호를 보냈습니다.",
+      html: `<h1>임시 비밀번호가 발급되었습니다.</h1> 
+        <h1>임시 비밀번호: ${randomString}</h1>`,
     };
+
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
         console.log(error);
@@ -365,66 +394,34 @@ router.post("/findPassword", async (req, res, next) => {
   }
 });
 
-router.post("/loadFollowingUser", async (req, res, next) => {
-  try {
-    const result = await Follow.findAll({
-      where: { followerId: 1 },
-    });
+// 유저의 이메일에서 요청한 경로
+// router.get("/email/:id", async (req, res, next) => {
+//   try {
+//     const isExist = await User.findOne({
+//       where: { tempToken: req.params.id.trim() },
+//     });
 
-    res.status(200).json(result);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+//     if (isExist) {
+//       console.log("토큰이 일치함");
 
-router.post("/resettingPassword", async (req, res, next) => {
-  console.log(global.user);
-  try {
-    const encryptionPassword = await bcrypt.hash(req.body.password, 12);
-    const result = await User.update(
-      { password: encryptionPassword },
-      // 사용자가 설정한 패스워드로 재설정
-      { where: { email: global.user } }
-    );
-    res.status(200).json("ok");
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
-
-//유저의 이메일에서 요청한 경로
-router.get("/email/:id", async (req, res, next) => {
-  try {
-    const isExist = await User.findOne({
-      where: { tempToken: req.params.id.trim() },
-    });
-
-    (await isExist)
-      ? res.status(200).json("토큰이 일치함 ok")
-      : res.status(500).json("올바른 요청이 아님");
-    // if (isExist) {
-    //   console.log("토큰이 일치함");
-
-    //   await res.status(200).json("토큰이 일치함 ok");
-    // } else {
-    //   console.log("토큰이 일치하지 않음");
-    //   res.status(500).json("올바른 요청이 아님");
-    // }
-    await User.update(
-      { tempToken: null },
-      {
-        where: {
-          tempToken: req.params.id.trim(),
-        },
-      }
-    );
-  } catch (err) {
-    console.error(err);
-    next("에러발생");
-  }
-});
+//       await res.status(200).json("토큰이 일치함 ok");
+//     } else {
+//       console.log("토큰이 일치하지 않음");
+//       res.status(500).json("올바른 요청이 아님");
+//     }
+//     await User.update(
+//       { tempToken: null },
+//       {
+//         where: {
+//           tempToken: req.params.id.trim(),
+//         },
+//       }
+//     );
+//   } catch (err) {
+//     console.error(err);
+//     next("에러발생");
+//   }
+// });
 
 router.get("/disabledOneUserAllpost", async (req, res, next) => {
   try {

@@ -3,8 +3,6 @@ const KakaoStrategy = require("passport-kakao").Strategy;
 
 const User = require("../models/user");
 
-console.log("출력됨.....................");
-
 module.exports = () => {
   passport.use(
     new KakaoStrategy(

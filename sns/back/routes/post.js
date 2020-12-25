@@ -1022,8 +1022,6 @@ router.get("/loadHashtagPage/:tag", async (req, res, next) => {
       ],
     });
 
-    console.log(hashtagPost[0], "해시태그 포스트 출력됨");
-
     res.status(200).json(hashtagPost[0]);
   } catch (err) {
     console.error(err);
@@ -1365,7 +1363,7 @@ router.post("/addTimelineContents", async (req, res, next) => {
 router.get("/loadTimelineSubject", async (req, res, next) => {
   try {
     const TimelineSubject = await TimelineSub.findAll({
-      userId: req.user.dataValues.id,
+      where: { userId: req.user.dataValues.id },
     });
 
     res.status(200).json(TimelineSubject);
