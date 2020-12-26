@@ -1164,6 +1164,7 @@ router.post("/unFollowUser", async (req, res, next) => {
 
 router.get("/loadPostPage/:postId", async (req, res, next) => {
   try {
+    console.log(req.params, "dafasfdfasdfasdfadsf");
     const post = await Post.findAll({
       where: { id: parseInt(req.params.postId) },
       order: [["id", "DESC"]],

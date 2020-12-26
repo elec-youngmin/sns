@@ -32,8 +32,7 @@ import axios from "axios";
 
 const post = () => {
   const { user } = useSelector((state) => state.user);
-  const { loadPostDone } = useSelector((state) => state.post);
-  const { posts } = useSelector((state) => state.post);
+  const { posts, loadPostDone } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const [writePostShow, setWritePostShow] = useState(false);
 
@@ -77,12 +76,7 @@ const post = () => {
 
             <Title title={"작성한 포스트 목록"} />
 
-            {posts.length <= 0 && loadPostDone ? (
-              <AlertTab
-                title={"아직 작성된 포스트가 없어요."}
-                content={"첫번째 포스트를 작성해 보세요."}
-              />
-            ) : (
+            {loadPostDone || posts.length > 0 ? (
               <InfiniteScroll
                 dataLength={posts.length}
                 next={LoadNextPosts}
@@ -93,7 +87,6 @@ const post = () => {
                   </h6>
                 }
               >
-                {/* 유저의 모든 포스트 */}
                 {posts.map((element, index) => (
                   <PostBoard
                     key={index}
@@ -106,12 +99,12 @@ const post = () => {
                         : false
                     }
                     nickname={element.User.nickname}
-                    like={element.like} //포스트 좋아요 수
+                    like={element.like}
                     Likes={
                       element.Likes.length > 0
                         ? element.Likes[0].LikeUserId
                         : false
-                    } //포스트 좋아요 했는지 확인
+                    }
                     reportCount={element.Reports}
                     PostImgSrcs={element.PostImgSrcs}
                     PostVideoSrcs={element.PostVideoSrcs}
@@ -125,6 +118,11 @@ const post = () => {
                   />
                 ))}
               </InfiniteScroll>
+            ) : (
+              <AlertTab
+                title={"아직 작성된 포스트가 없어요."}
+                content={"첫번째 포스트를 작성해 보세요."}
+              />
             )}
           </Col>
         </SessionRow>

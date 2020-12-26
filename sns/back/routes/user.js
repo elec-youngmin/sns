@@ -97,11 +97,19 @@ router.get(
     failureRedirect: "/",
   }),
   (req, res) => {
-    res.redirect("/");
+    res.json("ok");
   }
 );
 
-router.post("/loadUserInfomation", async (req, res, next) => {
+router.get(
+  "/naver/callback",
+  passport.authenticate("naver", {
+    successRedirect: "/",
+    failureRedirect: "/",
+  })
+);
+
+https: router.post("/loadUserInfomation", async (req, res, next) => {
   try {
     // console.log(req.user.dataValues.id);
     const userInfomation = await User.findOne({

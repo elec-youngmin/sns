@@ -296,7 +296,9 @@ const WriteForm = (props) => {
               console.log(visible);
             }}
           >
-            <Button style={{ background: "white", color: "black" }}>
+            <Button
+              style={{ background: "white", color: "black", border: "none" }}
+            >
               {onlyReadMyIcon}
               {onlyReadMyText}
             </Button>

@@ -67,7 +67,7 @@ const Custom404 = () => {
               <Styledh1>interfree</Styledh1>
             </div>
             <div>
-              <Styledh4>현재 페이지가 올바르지 않아요.</Styledh4>
+              <Styledh4>현재 페이지를 찾을 수 없어요.</Styledh4>
               <Styledh4>다시 시도해주세요.</Styledh4>
               <Button onClick={() => router.back()}>뒤로가기</Button>
             </div>

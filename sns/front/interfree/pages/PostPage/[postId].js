@@ -17,18 +17,9 @@ import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const PostPage = () => {
-  const { posts } = useSelector((state) => state.post);
-  const dispatch = useDispatch();
+  const { posts, loadPostPageDone } = useSelector((state) => state.post);
 
   const router = useRouter();
-  const { postId } = router.query; //쿼리에서 post id 추출
-
-  useEffect(() => {
-    dispatch({
-      type: LOAD_POSTPAGE_REQUEST,
-      data: postId,
-    });
-  }, [postId]);
 
   return (
     <div>
@@ -45,37 +36,38 @@ const PostPage = () => {
           <Col md={7}>
             <Title title={"포스트 페이지"} />
 
-            {posts.map((element) => {
-              return (
-                <PostBoard
-                  post={element?.contents}
-                  postId={element?.id}
-                  userId={element?.UserId}
-                  profileImg={
-                    element?.User.ProfileImgSrcs.length > 0
-                      ? element?.User.ProfileImgSrcs.src
-                      : false
-                  }
-                  nickname={element?.User.nickname}
-                  like={element?.like} //포스트 좋아요 수
-                  follows={element.Follows}
-                  Likes={
-                    element?.Likes.length > 0
-                      ? element?.Likes[0].LikeUserId
-                      : false
-                  } //포스트 좋아요 했는지 확인
-                  reportCount={element?.Reports}
-                  PostImgSrcs={element?.PostImgSrcs}
-                  PostVideoSrcs={element?.PostVideoSrcs}
-                  bookmarkId={
-                    element?.Bookmarks.length > 0
-                      ? element?.Bookmarks[0].UserId
-                      : false
-                  }
-                  date={element?.updatedAt}
-                />
-              );
-            })}
+            {loadPostPageDone &&
+              posts.map((element) => {
+                return (
+                  <PostBoard
+                    post={element?.contents}
+                    postId={element?.id}
+                    userId={element?.UserId}
+                    profileImg={
+                      element?.User.ProfileImgSrcs.length > 0
+                        ? element?.User.ProfileImgSrcs.src
+                        : false
+                    }
+                    nickname={element?.User.nickname}
+                    like={element?.like} //포스트 좋아요 수
+                    follows={element.Follows}
+                    Likes={
+                      element?.Likes.length > 0
+                        ? element?.Likes[0].LikeUserId
+                        : false
+                    } //포스트 좋아요 했는지 확인
+                    reportCount={element?.Reports}
+                    PostImgSrcs={element?.PostImgSrcs}
+                    PostVideoSrcs={element?.PostVideoSrcs}
+                    bookmarkId={
+                      element?.Bookmarks.length > 0
+                        ? element?.Bookmarks[0].UserId
+                        : false
+                    }
+                    date={element?.updatedAt}
+                  />
+                );
+              })}
             <Button onClick={() => router.back()}>뒤로가기</Button>
           </Col>
         </Row>
@@ -93,7 +85,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
     context.store.dispatch({
       type: LOAD_POSTPAGE_REQUEST,
-      data: { postId: context.params.postId },
+      data: context.params.postId,
     });
     context.store.dispatch({
       type: LOAD_USER_INFOMATION_REQUEST,

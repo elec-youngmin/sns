@@ -111,14 +111,14 @@ const PostBoard = ({
       <MenuContexify id={MENU_ID}>
         <Item
           onClick={() => {
-            router.push(`${frontUrl}/PostPage/${postId}/`);
+            router.push(`${frontUrl}/postPage/${postId}/`);
           }}
         >
           포스트페이지로 이동
         </Item>
         <Item
           onClick={() => {
-            router.push(`${frontUrl}/UserPage/${userId}/`);
+            router.push(`${frontUrl}/userPage/${userId}/`);
           }}
         >
           유저페이지로 이동
@@ -175,13 +175,13 @@ const PostBoard = ({
             <ProfileImg
               src={`${backUrl}/${profileImg}`}
               onClick={() => {
-                router.push(`${frontUrl}/UserPage/${userId}/`);
+                router.push(`${frontUrl}/userPage/${userId}/`);
               }}
             />
           ) : (
             <ProfileImgDiv
               onClick={() => {
-                router.push(`${frontUrl}/UserPage/${userId}/`);
+                router.push(`${frontUrl}/userPage/${userId}/`);
               }}
             >
               <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
@@ -235,7 +235,7 @@ const PostBoard = ({
         {/* 여기부터 포스트보드 바디 시작 */}
         <BoardBody
           onClick={() => {
-            router.push(`${frontUrl}/PostPage/${postId}/`);
+            router.push(`${frontUrl}/postPage/${postId}/`);
           }}
         >
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}

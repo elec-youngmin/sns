@@ -989,6 +989,7 @@ const reducer = (state = initialState, action) =>
           }
           return element;
         });
+        ToastSuccess("친구 추가 완료!");
         break;
       case FOLLOW_USER_REQUEST:
         draft.followUserDone = false;
@@ -1011,6 +1012,7 @@ const reducer = (state = initialState, action) =>
           }
           return element;
         });
+        ToastSuccess("선택한 포스트의 친구 삭제가 완료되었어요.");
         break;
       case UNFOLLOW_USER_REQUEST:
         draft.unFollowUserDone = false;
