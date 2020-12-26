@@ -89,27 +89,27 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/kakaoLogin", passport.authenticate("kakao"));
+// router.get("/kakaoLogin", passport.authenticate("kakao"));
 
-router.get(
-  "/kakao/callback",
-  passport.authenticate("kakao", {
-    failureRedirect: "/",
-  }),
-  (req, res) => {
-    res.json("ok");
-  }
-);
+// router.get(
+//   "/kakao/callback",
+//   passport.authenticate("kakao", {
+//     failureRedirect: "/",
+//   }),
+//   (req, res) => {
+//     res.json("ok");
+//   }
+// );
 
-router.get(
-  "/naver/callback",
-  passport.authenticate("naver", {
-    successRedirect: "/",
-    failureRedirect: "/",
-  })
-);
+// router.get(
+//   "/naver/callback",
+//   passport.authenticate("naver", {
+//     successRedirect: "/",
+//     failureRedirect: "/",
+//   })
+// );
 
-https: router.post("/loadUserInfomation", async (req, res, next) => {
+router.post("/loadUserInfomation", async (req, res, next) => {
   try {
     // console.log(req.user.dataValues.id);
     const userInfomation = await User.findOne({
