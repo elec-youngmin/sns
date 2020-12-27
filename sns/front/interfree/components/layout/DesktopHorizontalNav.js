@@ -6,7 +6,7 @@ import Menu, { SubMenu, MenuItem, Divider } from "rc-menu";
 import "rc-menu/assets/index.css";
 
 import SearchModal from "./SearchModal";
-import SignUP from "../signUp/SignUP";
+import SignUP from "../join/SignUP";
 import Login from "../firstSeePage/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";

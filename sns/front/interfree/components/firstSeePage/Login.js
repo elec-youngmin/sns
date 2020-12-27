@@ -5,7 +5,7 @@ import Router from "next/router";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-import SignUp from "../signUp/SignUp";
+import SignUp from "../join/SignUP";
 
 import { Button, Modal } from "react-bootstrap";
 
