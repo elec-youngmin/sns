@@ -19,12 +19,20 @@ import PostReport from "./PostReport";
 import FollowBotton from "../follow/FollowBotton";
 
 import {
+  BoardContainer,
   BoardHeader,
   BoardBody,
   BoardFooter,
   ProfileImg,
   ProfileImgDiv,
   IconTitle,
+  NicknameSpan,
+  ProfileNickname,
+  AddMenu,
+  OnlyReadMy,
+  ZoomImg,
+  Video,
+  LikeButton,
 } from "../../styledComponents/postBoard/Board";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -36,7 +44,6 @@ import {
   LOAD_COMMENT_REQUEST,
   DELETE_POST_REQUEST,
   CANCEL_BOOKMARK_REQUEST,
-  LOAD_HASHTAGPAGE_REQUEST,
 } from "../../reducers/post";
 
 import {
@@ -73,6 +80,9 @@ const PostBoard = ({
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.user);
+
+  console.log(id, "id확인");
+
   const {
     updatePostDone,
     likePostLoading,
@@ -161,14 +171,7 @@ const PostBoard = ({
       />
       {/* 여기부터 포스트보드 시작점 */}
 
-      <div
-        style={{
-          border: "5px solid white",
-          borderRadius: "12px",
-          marginBottom: "15px",
-          backgroundColor: "white",
-        }}
-      >
+      <BoardContainer>
         {/* 포스트보드 헤더 시작 */}
         <BoardHeader>
           {profileImg ? (
@@ -184,20 +187,11 @@ const PostBoard = ({
                 router.push(`${frontUrl}/userPage/${userId}/`);
               }}
             >
-              <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
-                {nickname[0].toUpperCase()}
-              </p>
+              <ProfileNickname>{nickname[0].toUpperCase()}</ProfileNickname>
             </ProfileImgDiv>
           )}
 
-          <span
-            style={{
-              fontWeight: "600",
-              fontSize: "17px",
-            }}
-          >
-            {nickname}
-          </span>
+          <NicknameSpan>{nickname}</NicknameSpan>
 
           {/* id: 현재 로그인한 유저, userId: 이 포스트를 작성한 유저,
            id와 userId가 다르면 버튼이 나타나게 함. 본인이 작성한 포스트가 아니면
@@ -207,30 +201,12 @@ const PostBoard = ({
             <FollowBotton userId={userId} follows={follows} postId={postId} />
           )}
 
-          <span
-            style={{
-              float: "right",
-              height: "100%",
-              cursor: "pointer",
-            }}
-            onClick={show}
-          >
+          <AddMenu onClick={show}>
             <AiOutlineEllipsis size={20} />
-          </span>
+          </AddMenu>
 
           <br />
-          {onlyReadMy && (
-            <p
-              style={{
-                color: "#2E86C1",
-                marginLeft: "10px",
-                marginBottom: "4px",
-                textAlign: "center",
-              }}
-            >
-              onlyReadMy
-            </p>
-          )}
+          {onlyReadMy && <OnlyReadMy>onlyReadMy</OnlyReadMy>}
         </BoardHeader>
         {/* 여기부터 포스트보드 바디 시작 */}
         <BoardBody
@@ -242,15 +218,10 @@ const PostBoard = ({
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
             <Zoom>
-              <img
+              <ZoomImg
                 src={`${backUrl}/${PostImgSrcs[0].src}`}
                 alt={PostImgSrcs[0].src}
-                style={{
-                  margin: "10px",
-                  maxWidth: "38vw",
-                  maxHeight: "auto",
-                }}
-              ></img>
+              />
             </Zoom>
           )}
 
@@ -258,17 +229,12 @@ const PostBoard = ({
 
           {PostVideoSrcs?.length > 0 && reportCount < 9 && (
             <>
-              <video
+              <Video
                 id="myVideo"
                 controls
                 alt={`${PostVideoSrcs[0].src}`}
                 src={`${backUrl}/${PostVideoSrcs[0].src}`}
-                style={{
-                  maxWidth: "38vw",
-                  maxHeight: "auto",
-                  margin: "10px",
-                }}
-              ></video>
+              ></Video>
             </>
           )}
 
@@ -325,6 +291,10 @@ const PostBoard = ({
             ) : (
               <BsFillBookmarksFill
                 onClick={() => {
+                  if (id === "guest") {
+                    return alert("로그인 후 이용할 수 있어요.");
+                  }
+
                   dispatch({
                     type: ADD_BOOKMARK_REQUEST,
                     data: { id, postId, dataType },
@@ -341,7 +311,12 @@ const PostBoard = ({
           </Col>
           <Col style={{ textAlign: "center", padding: "0px" }}>
             <AiTwotoneAlert
-              onClick={() => setReportModalShow(true)}
+              onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
+                setReportModalShow(true);
+              }}
               style={{
                 fontSize: "20px",
                 color: "#21B8A5",
@@ -379,20 +354,15 @@ const PostBoard = ({
             }}
           />
           {dateSet}
-          <button
-            type="button"
-            class="btn btn-light"
-            style={{
-              padding: "2px",
-              marginLeft: "12px",
-              backgroundColor: "white",
-            }}
-          >
+          <LikeButton type="button" class="btn btn-light">
             {Likes === id ? (
               <AiFillLike
                 size={25}
                 style={{ color: "blue" }}
                 onClick={() => {
+                  if (id === "guest") {
+                    return alert("로그인 후 이용하실 수 있어요.");
+                  }
                   if (cancelLikePostLoading) {
                     return alert("로딩중에 다시 누를 수 없어요");
                   }
@@ -406,6 +376,9 @@ const PostBoard = ({
               <AiFillLike
                 size={25}
                 onClick={() => {
+                  if (id === "guest") {
+                    return alert("로그인 후 이용하실 수 있어요.");
+                  }
                   if (likePostLoading) {
                     return alert("로딩중에 다시 누를 수 없어요");
                   }
@@ -420,9 +393,9 @@ const PostBoard = ({
             )}
 
             <span class="badge badge-light">{like}</span>
-          </button>
+          </LikeButton>
         </BoardFooter>
-      </div>
+      </BoardContainer>
     </div>
   );
 };

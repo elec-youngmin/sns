@@ -1,73 +1,32 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
+
 import Menu, { SubMenu, MenuItem, Divider } from "rc-menu";
 import "rc-menu/assets/index.css";
 
 import SearchModal from "./SearchModal";
-
+import SignUP from "../signUp/SignUP";
+import Login from "../firstSeePage/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 
-import {
-  AiFillDribbbleCircle,
-  AiOutlineLogout,
-  AiOutlineLineChart,
-  AiOutlineSearch,
-} from "react-icons/ai";
+import { Logo } from "../../styledComponents/layout/HorizontalNav";
 
+import { Button } from "react-bootstrap";
+
+import { AiFillDribbbleCircle, AiOutlineSearch } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-
-// import Styledh1 from "./style/menuStyle";
-import styled from "styled-components";
 
 import { frontUrl } from "../../config/config";
 
-const Styledh1 = styled.h1`
-  @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
-  @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
-  font-family: "Fredoka One", cursive;
-  color: #8a2be2;
-  font-size: 40px;
-  text-align: center;
-  cursor: "pointer";
-  @media (max-width: 768px) {
-    font-size: 35px;
-  }
-  @media (max-width: 430px) {
-    font-size: 30px;
-    .cols {
-      width: 100%;
-      text-align: center;
-      margin-right: 100px;
-      font-size: 300px;
-    }
-  }
-  @media (max-width: 290px) {
-    font-size: 20px;
-  }
-`;
-
-const Styleddiv = styled.div`
-  font-size: 35px;
-  @media (max-width: 768px) {
-    font-size: 30px;
-  }
-  @media (max-width: 430px) {
-    font-size: 25px;
-  }
-  @media (max-width: 290px) {
-    font-size: 15px;
-  }
-`;
-
 const DesktopHorizontalNav = () => {
   const dispatch = useDispatch();
-  const { logInDone, logOutDone, loadUserInfomationDone } = useSelector(
-    (state) => state.user
-  );
-  const { search } = useSelector((state) => state.post);
+  const { logOutDone } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user.user);
   const [searchModalShow, setSearchModalShow] = useState(false);
+  const [signUpModalShow, setSignUpModalShow] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
 
   useMemo(() => {
     if (logOutDone) {
@@ -92,50 +51,70 @@ const DesktopHorizontalNav = () => {
         show={searchModalShow}
         onHide={() => setSearchModalShow(false)}
       />
+
+      <SignUP show={signUpModalShow} onHide={() => setSignUpModalShow(false)} />
+
+      <Login show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+
       <Menu mode="horizontal">
         <MenuItem>
-          <Styledh1
+          <Logo
             onClick={() => {
               Router.push(`${frontUrl}/me`);
             }}
           >
             <a>interfree</a>
-          </Styledh1>
+          </Logo>
         </MenuItem>
-        {logInDone ||
-          (loadUserInfomationDone && !logOutDone && (
+        <>
+          <MenuItem
+            onClick={() => {
+              Router.push(`${frontUrl}/allPostsBoard`);
+            }}
+          >
+            <a>
+              <AiFillDribbbleCircle />
+              모든 포스트
+            </a>
+          </MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              if (id === "guest") {
+                return alert("로그인 후 이용하실 수 있어요.");
+              }
+              Router.push(`${frontUrl}/me`);
+            }}
+          >
+            <a>
+              <FaUserCircle /> 나
+            </a>
+          </MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              setSearchModalShow(true);
+            }}
+          >
+            <a>
+              <AiOutlineSearch /> 검색
+            </a>
+          </MenuItem>
+
+          {id === "guest" ? (
             <>
-              <MenuItem
-                onClick={() => {
-                  Router.push(`${frontUrl}/allPostsBoard`);
-                }}
-              >
-                <a>
-                  <AiFillDribbbleCircle />
-                  모든 포스트
-                </a>
+              <MenuItem>
+                <Button
+                  onClick={() => {
+                    setLoginModalShow(true);
+                  }}
+                >
+                  계정 활동
+                </Button>
               </MenuItem>
-
-              <MenuItem
-                onClick={() => {
-                  Router.push(`${frontUrl}/me`);
-                }}
-              >
-                <a>
-                  <FaUserCircle /> 나
-                </a>
-              </MenuItem>
-
-              <MenuItem
-                onClick={() => {
-                  setSearchModalShow(true);
-                }}
-              >
-                <a>
-                  <AiOutlineSearch /> 검색
-                </a>
-              </MenuItem>
-
+            </>
+          ) : (
+            <>
               <MenuItem
                 onClick={() => {
                   dispatch({
@@ -143,12 +122,11 @@ const DesktopHorizontalNav = () => {
                   });
                 }}
               >
-                <a>
-                  <AiOutlineLogout />
-                </a>
+                <Button>로그아웃</Button>
               </MenuItem>
             </>
-          ))}
+          )}
+        </>
       </Menu>
     </div>
   );

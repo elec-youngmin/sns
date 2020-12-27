@@ -14,11 +14,29 @@ export const SessionDiv = styled.div`
 export const SessionP = styled.p`
   font-weight: 500;
   font-size: 18px;
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+  @media (max-width: 430px) {
+    font-size: 14px;
+  }
+  @media (max-width: 290px) {
+    font-size: 12px;
+  }
 `;
 
 export const SessionTitle = styled.p`
   font-weight: 600;
   font-size: 28px;
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+  @media (max-width: 430px) {
+    font-size: 22px;
+  }
+  @media (max-width: 290px) {
+    font-size: 20px;
+  }
 `;
 
 export const SessionInput = styled.input`

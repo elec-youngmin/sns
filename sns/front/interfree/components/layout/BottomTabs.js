@@ -31,7 +31,8 @@ const ColStyle = {
   margin: "5px 0px",
 };
 const BottomTabs = () => {
-  const { loadUserInfomationDone } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user.user);
+
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [writePostModalShow, setWritePostModalShow] = useState(false);
 
@@ -49,7 +50,7 @@ const BottomTabs = () => {
         show={writePostModalShow}
         onHide={() => setWritePostModalShow(false)}
       />
-      {loadUserInfomationDone && isTabletOrMobileDevice && (
+      {isTabletOrMobileDevice && (
         <>
           <Row
             style={{
@@ -78,6 +79,9 @@ const BottomTabs = () => {
             <Col
               style={ColStyle}
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/me`);
               }}
             >
@@ -87,6 +91,9 @@ const BottomTabs = () => {
             <Col
               style={ColStyle}
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/friend`);
               }}
             >
@@ -96,6 +103,9 @@ const BottomTabs = () => {
             <Col
               style={ColStyle}
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 setWritePostModalShow(true);
               }}
             >

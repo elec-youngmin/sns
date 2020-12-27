@@ -61,6 +61,6 @@ app.use(passport.session());
 app.use("/user", userRouter);
 app.use("/post", postRouter);
 
-app.listen(3050, () => {
+app.listen(80, () => {
   console.log("서버 실행중");
 });

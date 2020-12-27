@@ -4,9 +4,6 @@ import {
   SAVE_POST_REQUEST,
   SAVE_POST_SUCCESS,
   SAVE_POST_FAILURE,
-  SAVE_AUDIO_POST_REQUEST,
-  SAVE_AUDIO_POST_SUCCESS,
-  SAVE_AUDIO_POST_FAILURE,
   LOAD_ALLPOST_REQUEST,
   LOAD_ALLPOST_SUCCESS,
   LOAD_ALLPOST_FAILURE,
@@ -145,27 +142,6 @@ function* savePost(action) {
     console.error(err);
     yield put({
       type: SAVE_POST_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
-function saveAudioPostAPI(data) {
-  return axios.post("post/saveAudioPost", data);
-}
-
-function* saveAudioPost(action) {
-  try {
-    const result = yield call(saveAudioPostAPI, action.data);
-    console.log(result);
-    yield put({
-      type: SAVE_AUDIO_POST_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: SAVE_AUDIO_POST_FAILURE,
       error: err.response.data,
     });
   }
@@ -1015,10 +991,6 @@ function* watchSavePost() {
   yield takeLatest(SAVE_POST_REQUEST, savePost);
 }
 
-function* watchSaveAudioPost() {
-  yield takeLatest(SAVE_AUDIO_POST_REQUEST, saveAudioPost);
-}
-
 function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
 }
@@ -1180,7 +1152,6 @@ function* watchUnFollowUser() {
 export default function* userSaga() {
   yield all([
     fork(watchSavePost),
-    fork(watchSaveAudioPost),
     fork(watchLoadPost),
     fork(watchLoadAllpost),
     fork(watchUpdatePost),

@@ -10,7 +10,9 @@ import { backUrl } from "../../config/config";
 const EditProfilePictureModal = (props) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const profileImg = user?.ProfileImgSrcs[0]?.src;
+  const profileImg = user?.ProfileImgSrcs
+    ? user?.ProfileImgSrcs[0]?.src
+    : false;
 
   const onhandleChange = useCallback((e) => {
     const imageFormData = new FormData();

@@ -5,16 +5,8 @@ const bcrypt = require("bcrypt");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const CronJob = require("cron").CronJob;
 const nodemailer = require("nodemailer");
-const {
-  User,
-  Post,
-  Follow,
-  ProfileImgSrc,
-  sequelize,
-  Sequelize,
-} = require("../models");
+const { User, Post, Follow, ProfileImgSrc, sequelize } = require("../models");
 
 const router = express.Router();
 
@@ -89,25 +81,26 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-// router.get("/kakaoLogin", passport.authenticate("kakao"));
+router.get("/kakaoLogin", passport.authenticate("kakao"));
 
-// router.get(
-//   "/kakao/callback",
-//   passport.authenticate("kakao", {
-//     failureRedirect: "/",
-//   }),
-//   (req, res) => {
-//     res.json("ok");
-//   }
-// );
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao", {
+    failureRedirect: "/kakaoError",
+  }),
+  (req, res) => {
+    res.redirect("http://localhost:3000/allPostsBoard");
+  }
+);
 
-// router.get(
-//   "/naver/callback",
-//   passport.authenticate("naver", {
-//     successRedirect: "/",
-//     failureRedirect: "/",
-//   })
-// );
+router.get("/kakaoError", async (req, res, next) => {
+  try {
+    res.json("에러가 발생했습니다.");
+  } catch (err) {
+    res.json("에러가 발생했습니다.");
+    console.log(err);
+  }
+});
 
 router.post("/loadUserInfomation", async (req, res, next) => {
   try {
@@ -145,6 +138,25 @@ router.post("/loadUserInfomation", async (req, res, next) => {
   } catch (err) {
     console.log(err);
     next(err);
+  }
+});
+
+router.get("/confirmCurrentLogin", async (req, res, next) => {
+  try {
+    if (req.user) {
+      const currentLogin = {
+        id: req.user.dataValues.id,
+      };
+      return res.status(200).json(currentLogin);
+    } else {
+      const currentLogin = {
+        id: "guest",
+      };
+      return res.status(200).json(currentLogin);
+    }
+  } catch (err) {
+    next(err);
+    console.log(err);
   }
 });
 

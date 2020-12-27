@@ -7,7 +7,6 @@ import BottomTabs from "../components/layout/BottomTabs";
 import VerticalNav from "../components/layout/VerticalNav";
 import HorizontalNav from "../components/layout/HorizontalNav";
 import ScrollButton from "../components/layout/ScrollButton";
-// import FloatingButton from "../components/FloatingButton/FloatingButton";
 import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
 import GlobalStyle from "../styledComponents/GlobalStyle";

@@ -8,7 +8,7 @@ import Title from "../components/layout/Title";
 import { useDispatch, useSelector } from "react-redux";
 
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
-import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
+import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../reducers/user";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -19,7 +19,7 @@ import axios from "axios";
 const allPostsBoard = () => {
   const dispatch = useDispatch();
   const { posts, loadAllPostDone } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user.user);
 
   const LoadNextAllPosts = () => {
     const lastId = posts[posts.length - 1]?.id;
@@ -28,7 +28,7 @@ const allPostsBoard = () => {
     }
     dispatch({
       type: LOAD_ALLPOST_REQUEST,
-      data: { lastId, userId: user.id },
+      data: { lastId },
     });
   };
 
@@ -114,9 +114,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
       axios.defaults.headers.Cookie = cookie;
     }
     context.store.dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
+      type: CONFIRM_CURRENT_LOGIN_REQUEST,
     });
-
     context.store.dispatch({
       type: LOAD_ALLPOST_REQUEST,
     });

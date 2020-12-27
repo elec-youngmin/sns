@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button, Row, Col } from "react-bootstrap";
 
 import { LOAD_POSTPAGE_REQUEST } from "../../reducers/post";
-import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
+import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
@@ -88,7 +88,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       data: context.params.postId,
     });
     context.store.dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
+      type: CONFIRM_CURRENT_LOGIN_REQUEST,
     });
 
     context.store.dispatch(END);

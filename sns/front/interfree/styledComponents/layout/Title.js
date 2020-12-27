@@ -6,5 +6,9 @@ export const TitleDiv = styled.div`
 
 export const TitleP = styled.p`
   font-weight: 500;
-  font-size: 45px;
+  font-size: 42px;
+
+  @media (max-width: 430px) {
+    font-size: 30px;
+  }
 `;

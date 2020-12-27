@@ -80,7 +80,7 @@ const friend = () => {
                     type: LOAD_USERPAGE_REQUEST,
                     data: searchText,
                   });
-                  Router.push(`${frontUrl}/UserPage/${selected[0]?.id}/`);
+                  Router.push(`${frontUrl}/userPage/${selected[0]?.id}/`);
                 }}
                 onInputChange={(e) => {
                   setSearchText(e);

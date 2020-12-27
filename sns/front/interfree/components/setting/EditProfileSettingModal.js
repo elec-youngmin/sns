@@ -2,7 +2,7 @@ import React from "react";
 
 import Profile from "./Profile";
 
-import { Table, Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 const EditProfileSettingModal = (props) => {
   return (

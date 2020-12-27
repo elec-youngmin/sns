@@ -44,7 +44,7 @@ const ActionLoading = () => {
   } = useSelector((state) => state.user);
 
   useEffect(() => {
-    router.events.on("routeChangeStart", (url) => {
+    router.events.on("routeChangeStart", () => {
       setRouteLoading(true);
     });
     router.events.on("routeChangeComplete", () => {

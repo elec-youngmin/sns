@@ -16,6 +16,9 @@ import {
   LOAD_USER_INFOMATION_REQUEST,
   LOAD_USER_INFOMATION_SUCCESS,
   LOAD_USER_INFOMATION_FAILURE,
+  CONFIRM_CURRENT_LOGIN_REQUEST,
+  CONFIRM_CURRENT_LOGIN_SUCCESS,
+  CONFIRM_CURRENT_LOGIN_FAILURE,
   DESTROY_USER_REQUEST,
   DESTROY_USER_SUCCESS,
   DESTROY_USER_FAILURE,
@@ -145,6 +148,27 @@ function* loadUserInfomation() {
     console.error(err);
     yield put({
       type: LOAD_USER_INFOMATION_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function confirmCurrentLoginAPI() {
+  return axios.get("user/confirmCurrentLogin");
+}
+
+function* confirmCurrentLogin() {
+  try {
+    const result = yield call(confirmCurrentLoginAPI);
+    console.log(result);
+    yield put({
+      type: CONFIRM_CURRENT_LOGIN_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: CONFIRM_CURRENT_LOGIN_FAILURE,
       error: err.response.data,
     });
   }
@@ -359,6 +383,10 @@ function* watchLoadUserInfomation() {
   yield takeLatest(LOAD_USER_INFOMATION_REQUEST, loadUserInfomation);
 }
 
+function* watchConfirmCurrentLogin() {
+  yield takeLatest(CONFIRM_CURRENT_LOGIN_REQUEST, confirmCurrentLogin);
+}
+
 function* watchDestroyUser() {
   yield takeLatest(DESTROY_USER_REQUEST, destroyUser);
 }
@@ -402,6 +430,7 @@ export default function* userSaga() {
     fork(watchKakaoLogin),
     fork(watchLogOut),
     fork(watchLoadUserInfomation),
+    fork(watchConfirmCurrentLogin),
     fork(watchDestroyUser),
     fork(watchProfileImage),
     fork(watchChangeNickname),

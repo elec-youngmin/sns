@@ -55,24 +55,6 @@ const Styleddiv = styled.div`
   }
 `;
 
-const NotReviseAlert = () => {
-  return (
-    <>
-      <OverlayTrigger
-        overlay={
-          <Tooltip id="tooltip-disabled">
-            이 과정으로 진행되는 회원가입 정보는 interfree 서버에 저장됩니다.
-          </Tooltip>
-        }
-      >
-        <span className="d-inline-block">
-          <BsQuestion />
-        </span>
-      </OverlayTrigger>
-    </>
-  );
-};
-
 const welcomeBoard = () => {
   return (
     <div style={{ paddingTop: "75px" }}>

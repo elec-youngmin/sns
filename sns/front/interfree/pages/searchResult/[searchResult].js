@@ -5,7 +5,7 @@ import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
 
 import { useDispatch, useSelector } from "react-redux";
-import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
+import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 import { SEARCH_RESULT_REQUEST } from "../../reducers/post";
 
 import { Row, Col } from "react-bootstrap";
@@ -15,59 +15,67 @@ import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const searchResult = () => {
-  const { posts } = useSelector((state) => state.post);
+  const { posts, searchResultDone } = useSelector((state) => state.post);
 
   const dispatch = useDispatch();
 
   return (
     <div>
-      <div className="container justify-content-center">
-        <Row
-          style={{
-            paddingTop: "100px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
-          <Col md={7}>
-            <Title title={"검색 결과"} />
+      {searchResultDone && (
+        <>
+          <div className="container justify-content-center">
+            <Row
+              style={{
+                paddingTop: "100px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                margin: "0px auto",
+              }}
+            >
+              <Col md={7}>
+                <Title title={"검색 결과"} />
 
-            {posts.length > 0 &&
-              posts.map((element, index) => (
-                <PostBoard
-                  key={index}
-                  post={element.contents}
-                  postId={element.id}
-                  userId={element.UserId}
-                  profileImg={
-                    element.User.ProfileImgSrcs.length > 0
-                      ? element.User.ProfileImgSrcs[0].src
-                      : false
-                  }
-                  nickname={element.User.nickname}
-                  like={element.like} //포스트 좋아요 수
-                  Likes={
-                    element.Likes.length > 0
-                      ? element.Likes[0].LikeUserId
-                      : false
-                  } //포스트 좋아요 했는지 확인
-                  reportCount={element.Reports}
-                  PostImgSrcs={element.PostImgSrcs}
-                  PostVideoSrcs={element.PostVideoSrcs}
-                  onlyReadMy={element.onlyReadMy}
-                  bookmarkId={
-                    element.Bookmarks.length > 0
-                      ? element.Bookmarks[0].UserId
-                      : false
-                  }
-                  date={element.updatedAt}
-                />
-              ))}
-          </Col>
-        </Row>
-      </div>
+                {posts.length > 0 ? (
+                  posts.map((element, index) => (
+                    <PostBoard
+                      key={index}
+                      post={element.contents}
+                      postId={element.id}
+                      userId={element.UserId}
+                      follows={element?.Follows}
+                      profileImg={
+                        element?.User?.ProfileImgSrcs?.length > 0
+                          ? element?.User?.ProfileImgSrcs[0].src
+                          : false
+                      }
+                      nickname={element?.User.nickname}
+                      like={element?.like} //포스트 좋아요 수
+                      Likes={
+                        element?.Likes.length > 0
+                          ? element?.Likes[0].LikeUserId
+                          : false
+                      } //포스트 좋아요 했는지 확인
+                      reportCount={element?.Reports}
+                      PostImgSrcs={element?.PostImgSrcs}
+                      PostVideoSrcs={element?.PostVideoSrcs}
+                      onlyReadMy={element?.onlyReadMy}
+                      bookmarkId={
+                        element?.Bookmarks.length > 0
+                          ? element?.Bookmarks[0].UserId
+                          : false
+                      }
+                      date={element.updatedAt}
+                    />
+                  ))
+                ) : (
+                  <p style={{ fontSize: "20px" }}>검색 결과가 없습니다.</p>
+                )}
+              </Col>
+            </Row>
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -85,7 +93,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       data: context.params.searchResult,
     });
     context.store.dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
+      type: CONFIRM_CURRENT_LOGIN_REQUEST,
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();

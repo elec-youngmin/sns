@@ -15,9 +15,6 @@ export const initialState = {
   savePostLoading: false,
   savePostDone: false,
   savePostError: null,
-  saveAudioPostLoading: false,
-  saveAudioPostDone: false,
-  saveAudioPostError: null,
   loadAllPostLoading: false,
   loadAllPostDone: false,
   loadAllPostError: null,
@@ -158,10 +155,6 @@ export const initialState = {
 export const SAVE_POST_REQUEST = "SAVE_POST_REQUEST";
 export const SAVE_POST_SUCCESS = "SAVE_POST_SUCCESS";
 export const SAVE_POST_FAILURE = "SAVE_POST_FAILURE";
-
-export const SAVE_AUDIO_POST_REQUEST = "SAVE_ADUTIO_POST_REQUEST";
-export const SAVE_AUDIO_POST_SUCCESS = "SAVE_ADUTIO_POST_SUCCESS";
-export const SAVE_AUDIO_POST_FAILURE = "SAVE_ADUTIO_POST_FAILURE";
 
 export const POST_AUTOSAVE_REQUEST = "POST_AUTOSAVE_REQUEST";
 export const POST_AUTOSAVE_SUCCESS = "POST_AUTOSAVE_SUCCESS";
@@ -360,22 +353,7 @@ const reducer = (state = initialState, action) =>
         draft.postSaveError = action.error;
         ToastError("포스트 저장 실패... 다시시도하세요.");
         break;
-      case SAVE_AUDIO_POST_SUCCESS:
-        draft.saveAudioPostLoading = false;
-        draft.saveAudioPostDone = true;
-        draft.posts = action.data;
-        ToastSuccess("포스트 저장 완료!");
-        break;
-      case SAVE_AUDIO_POST_REQUEST:
-        draft.saveAudioPostLoading = true;
-        draft.saveAudioPostDone = false;
-        draft.saveAudioPostError = false;
-        break;
-      case SAVE_AUDIO_POST_FAILURE:
-        draft.postSaveLoading = false;
-        draft.postSaveError = action.error;
-        ToastError("포스트 저장 실패... 다시시도하세요.");
-        break;
+
       case LOAD_ALLPOST_SUCCESS:
         draft.loadAllPostLoading = false;
         draft.loadAllPostDone = true;

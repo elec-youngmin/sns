@@ -4,6 +4,8 @@ import { useMediaQuery } from "react-responsive";
 import DesktopHorizontalNav from "./DesktopHorizontalNav";
 import MobileHorizontalNav from "./MobileHorizontalNav";
 
+import { useSelector } from "react-redux";
+
 const HorizontalNav = () => {
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 985px)",

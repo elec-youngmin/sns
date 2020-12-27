@@ -19,13 +19,13 @@ import { Row, Col, Nav } from "react-bootstrap";
 import { frontUrl } from "../../config/config";
 
 const VerticalNav = () => {
-  const { loadUserInfomationDone } = useSelector((state) => state.user);
+  const { id } = useSelector((state) => state.user.user);
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 854px)",
   });
   return (
     <>
-      {loadUserInfomationDone && !isTabletOrMobileDevice && (
+      {!isTabletOrMobileDevice && (
         <>
           <Menu
             className="flex-column"
@@ -45,6 +45,9 @@ const VerticalNav = () => {
           >
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/post`);
               }}
             >
@@ -55,6 +58,9 @@ const VerticalNav = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/timeline`);
               }}
             >
@@ -64,6 +70,9 @@ const VerticalNav = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/friend`);
               }}
             >
@@ -74,6 +83,9 @@ const VerticalNav = () => {
 
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/bookmark`);
               }}
             >
@@ -85,6 +97,9 @@ const VerticalNav = () => {
 
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/trash`);
               }}
             >
@@ -94,6 +109,9 @@ const VerticalNav = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/activityChart`);
               }}
             >
@@ -103,6 +121,9 @@ const VerticalNav = () => {
             </MenuItem>
             <MenuItem
               onClick={() => {
+                if (id === "guest") {
+                  return alert("로그인 후 이용하실 수 있어요.");
+                }
                 Router.push(`${frontUrl}/setting`);
               }}
             >

@@ -68,7 +68,7 @@ const timeline = () => {
                 타임라인 추가
               </SessionButton>
             </SessionDiv>
-            <Title title={"작성한 타임라인 리스트"} />
+            <Title title={"타임라인 리스트"} />
 
             {timelineSubjects.length === 0 && (
               <AlertTab

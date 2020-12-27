@@ -14,7 +14,7 @@ module.exports = class User extends (
         },
         password: {
           type: DataTypes.STRING(100),
-          allowNull: false,
+          allowNull: true,
         },
         nickname: {
           type: DataTypes.STRING(30),

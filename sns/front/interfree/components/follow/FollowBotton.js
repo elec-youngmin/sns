@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import Loading from "../loading/Loading";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   FOLLOW_USER_REQUEST,
@@ -26,6 +24,10 @@ const FollowBotton = ({ userId, follows, postId }) => {
           marginLeft: "3px",
         }}
         onClick={() => {
+          if (id === "guest") {
+            return alert("로그인 후 이용하실 수 있어요.");
+          }
+
           if (followUserLoading || unFollowUserLoading) {
             return alert("로딩 중에 누를 수 없어요.");
           }

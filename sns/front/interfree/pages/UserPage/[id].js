@@ -22,8 +22,6 @@ import axios from "axios";
 import { backUrl } from "../../config/config";
 
 const UserPage = () => {
-  const dispatch = useDispatch();
-  const { user, following, logInDone } = useSelector((state) => state.user);
   const {
     posts,
     userPageInfo,
@@ -224,9 +222,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
       type: LOAD_USERPAGE_INFO_REQUEST,
       data: context.params.id,
     });
-    context.store.dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
-    });
+    // context.store.dispatch({
+    //   type: LOAD_USER_INFOMATION_REQUEST,
+    // });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   }

@@ -24,6 +24,9 @@ export const initialState = {
   loadUserInfomationLoading: false,
   loadUserInfomationDone: false,
   loadUserInfomationError: null,
+  confirmCurrentLoginLoading: false,
+  confirmCurrentLoginDone: false,
+  confirmCurrentLoginError: null,
   signUpLoading: false,
   signUpDone: false,
   signUpError: null,
@@ -58,7 +61,9 @@ export const initialState = {
   activateOneuserAllpostLoading: false,
   activateOneuserAllpostDone: false,
   activateOneuserAllpostError: null,
-  user: null,
+  user: {
+    id: "guest",
+  },
   email: null,
   following: [],
 };
@@ -78,6 +83,10 @@ export const USER_KAKAO_LOGIN_FAILURE = "USER_KAKAO_LOGIN_FAILURE";
 export const LOAD_USER_INFOMATION_REQUEST = "LOAD_USER_INFOMATION_REQUEST";
 export const LOAD_USER_INFOMATION_SUCCESS = "LOAD_USER_INFOMATION_SUCCESS";
 export const LOAD_USER_INFOMATION_FAILURE = "LOAD_USER_INFOMATION_FAILURE";
+
+export const CONFIRM_CURRENT_LOGIN_REQUEST = "CONFIRM_CURRENT_LOGIN_REQUEST";
+export const CONFIRM_CURRENT_LOGIN_SUCCESS = "CONFIRM_CURRENT_LOGIN_SUCCESS";
+export const CONFIRM_CURRENT_LOGIN_FAILURE = "CONFIRM_CURRENT_LOGIN_FAILURE";
 
 export const USER_LOGOUT_REQUEST = "USER_LOGOUT_REQUEST";
 export const USER_LOGOUT_SUCCESS = "USER_LOGOUT_SUCCESS";
@@ -144,6 +153,7 @@ const reducer = (state = initialState, action) =>
         draft.logInLoading = false;
         draft.user = action.data;
         draft.logInDone = true;
+        ToastSuccess("로그인 성공!");
         break;
       case USER_LOGIN_FAILURE:
         draft.logInLoading = false;
@@ -174,7 +184,7 @@ const reducer = (state = initialState, action) =>
         draft.logOutLoading = false;
         draft.logOutDone = true;
         draft.logInDone = false;
-        // draft.user = [];
+        ToastSuccess("로그아웃 되었습니다.");
         break;
       case USER_LOGOUT_FAILURE:
         draft.logOutLoading = false;
@@ -199,6 +209,20 @@ const reducer = (state = initialState, action) =>
         draft.loadUserInfomationLoading = true;
         draft.loadUserInfomationError = null;
         draft.loadUserInfomationDone = false;
+        break;
+      case CONFIRM_CURRENT_LOGIN_SUCCESS:
+        draft.confirmCurrentLoginLoading = false;
+        draft.confirmCurrentLoginDone = true;
+        draft.user = action.data;
+        break;
+      case CONFIRM_CURRENT_LOGIN_FAILURE:
+        draft.confirmCurrentLoginLoading = false;
+        draft.confirmCurrentLoginError = action.error;
+        break;
+      case CONFIRM_CURRENT_LOGIN_REQUEST:
+        draft.confirmCurrentLoginLoading = true;
+        draft.confirmCurrentLoginError = null;
+        draft.confirmCurrentLoginDone = false;
         break;
       case USER_SIGNUP_SUCCESS:
         draft.signUpLoading = false;

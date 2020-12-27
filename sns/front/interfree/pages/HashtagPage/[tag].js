@@ -6,7 +6,7 @@ import PostBoard from "../../components/post/PostBoard";
 
 import { useSelector, useDispatch } from "react-redux";
 import { LOAD_HASHTAGPAGE_REQUEST } from "../../reducers/post";
-import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
+import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 
 import { SessionRow } from "../../styledComponents/layout/Session";
 
@@ -84,7 +84,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       data: { tag: context.params.tag },
     });
     context.store.dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
+      type: CONFIRM_CURRENT_LOGIN_REQUEST,
     });
 
     context.store.dispatch(END);

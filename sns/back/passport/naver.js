@@ -7,33 +7,31 @@ module.exports = () => {
     new NaverStrategy(
       {
         clientID: "zTeA5fJdImwk2JM4onQU",
-        clientSecret: "asdfasdf",
+        clientSecret: "Tqh_UCuGzL",
         callbackURL: "user/naver/callback",
       },
-      function (accessToken, refreshToken, profile, done) {
-        User.findOne(
-          {
-            id: profile.id,
-          },
-          function (err, user) {
-            if (!user) {
-              user = new User({
-                name: profile.displayName,
-                email: profile.emails[0].value,
-                username: profile.displayName,
-                provider: "naver",
-                naver: profile._json,
-              });
-              user.save(function (err) {
-                if (err) console.log(err);
-                return done(err, user);
-              });
-            } else {
-              return done(err, user);
-            }
-          }
-        );
-      }
+      () => {}
+      // async (accessToken, refreshToken, profile, done) => {
+      //   console.log("kakao profile", profile);
+      //   try {
+      //     const exUser = await User.findOne({
+      //       where: { snsId: profile.id },
+      //     });
+      //     if (exUser) {
+      //       done(null, exUser);
+      //     } else {
+      //       const newUser = await User.create({
+      //         email: profile.emails[0].value,
+      //         nickname: profile.displayName,
+      //         snsId: profile.id,
+      //       });
+      //       done(null, newUser);
+      //     }
+      //   } catch (error) {
+      //     console.error(error);
+      //     done(error);
+      //   }
+      // }
     )
   );
 };

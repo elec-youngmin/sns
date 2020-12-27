@@ -1,9 +1,18 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
+import { useRouter } from "next/router";
 import { slide as MenuBar } from "react-burger-menu";
 
 import SearchModal from "./SearchModal";
+import Login from "../firstSeePage/Login";
+
+import {
+  MobileContainer,
+  MobileLink,
+  Logo,
+  LogoContainer,
+} from "../../styledComponents/layout/HorizontalNav";
 
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
@@ -12,11 +21,7 @@ import { AiFillSetting, AiFillEdit } from "react-icons/ai";
 import { GoOrganization } from "react-icons/go";
 import { GiTimeBomb } from "react-icons/gi";
 
-import {
-  BsTrashFill,
-  BsBookmarksFill,
-  BsFillBarChartFill,
-} from "react-icons/bs";
+import { BsTrashFill, BsBookmarksFill } from "react-icons/bs";
 
 import {
   AiFillDribbbleCircle,
@@ -26,53 +31,11 @@ import {
 } from "react-icons/ai";
 
 import { FaUserCircle } from "react-icons/fa";
+import { Button, Row, Col } from "react-bootstrap";
 
 import styled from "styled-components";
 
 import { frontUrl } from "../../config/config";
-
-const Styledspan = styled.span`
-  @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
-  @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
-  font-family: "Fredoka One", cursive;
-  color: #8a2be2;
-  font-size: 40px;
-  text-align: center;
-  cursor: "pointer";
-  display: "flex",
-  align-items: "center",
-  justify-content: "center",
-  margin-top:'20px',
-  zindex:"100px",
-  @media (max-width: 768px) {
-    font-size: 35px;
-  }
-  @media (max-width: 430px) {
-    font-size: 33px;
-    .cols {
-      width: 100%;
-      text-align: center;
-      margin-right: 100px;
-      font-size: 300px;
-    }
-  }
-  @media (max-width: 290px) {
-    font-size: 33px;
-  }
-`;
-
-const Styleddiv = styled.div`
-  font-size: 35px;
-  @media (max-width: 768px) {
-    font-size: 30px;
-  }
-  @media (max-width: 430px) {
-    font-size: 25px;
-  }
-  @media (max-width: 290px) {
-    font-size: 10px;
-  }
-`;
 
 const Menu = () => {
   const styles = {
@@ -123,7 +86,13 @@ const Menu = () => {
   const { logInDone, logOutDone, loadUserInfomationDone } = useSelector(
     (state) => state.user
   );
+  const { id } = useSelector((state) => state.user.user);
+  const router = useRouter();
+
   const [searchModalShow, setSearchModalShow] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
+
+  const [menubarShow, setMenubarShow] = useState(false);
 
   useMemo(() => {
     if (logOutDone) {
@@ -131,190 +100,204 @@ const Menu = () => {
     }
   }, [logOutDone]);
 
+  useMemo(() => {
+    router.events.on("routeChangeStart", () => {
+      setMenubarShow(false);
+    });
+    router.events.on("routeChangeComplete", () => {
+      setMenubarShow(false);
+    });
+
+    router.events.on("routeChangeError", () => {
+      setMenubarShow(false);
+    });
+  }, [router]);
+
   return (
-    <div
-      style={{
-        textAlign: "center",
-        fontSize: "23px",
-        color: "#6495ED",
-        backgroundColor: "#f3f5f7",
-        borderBottom: "1px solid #d9d9d9",
-        position: "fixed",
-        top: "0",
-        left: "0",
-        right: "0",
-        zIndex: "100",
-        height: "90px",
-      }}
-    >
+    <MobileContainer>
       <SearchModal
         show={searchModalShow}
         onHide={() => setSearchModalShow(false)}
       />
 
-      <MenuBar styles={styles}>
-        <a
+      <Login show={loginModalShow} onHide={() => setLoginModalShow(false)} />
+
+      <MenuBar styles={styles} isOpen={menubarShow}>
+        <MobileLink
           id="home"
           className="menu-item"
           onClick={() => {
             Router.push(`${frontUrl}/allPostsBoard`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <AiFillDribbbleCircle />
           모든 포스트
-        </a>
+        </MobileLink>
         <br />
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/me`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <FaUserCircle /> 나
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/post`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <AiFillEdit /> 내 포스트
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/timeline`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <GiTimeBomb /> 타임라인
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/friend`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <GoOrganization /> 친구
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/bookmark`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <BsBookmarksFill /> 북마크
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/trash`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <BsTrashFill /> 휴지통
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/activityChart`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <AiOutlineLineChart /> 활동차트
-        </a>
+        </MobileLink>
 
-        <a
+        <MobileLink
           id="about"
           className="menu-item"
           onClick={() => {
+            if (id === "guest") {
+              return alert("로그인 후 이용하실 수 있어요.");
+            }
             Router.push(`${frontUrl}/setting`);
-          }}
-          style={{
-            color: "black",
+            setMenubarShow(true);
           }}
         >
           <AiFillSetting /> 설정
-        </a>
+        </MobileLink>
         <br />
 
-        <a
+        <MobileLink
           className="menu-item--small"
-          style={{
-            color: "black",
-          }}
           onClick={() => {
             setSearchModalShow(true);
+            setMenubarShow(true);
           }}
         >
           <AiOutlineSearch /> 검색
-        </a>
-        <a
-          className="menu-item--small"
-          onClick={() => {
-            dispatch({
-              type: USER_LOGOUT_REQUEST,
-            });
-          }}
-          style={{
-            color: "black",
-          }}
-        >
-          <AiOutlineLogout /> 로그아웃
+        </MobileLink>
+
+        <a>
+          {id === "guest" ? (
+            <>
+              <Button
+                onClick={() => {
+                  setLoginModalShow(true);
+                  setMenubarShow(true);
+                }}
+              >
+                계정 활동
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                className="float-right"
+                onClick={() => {
+                  dispatch({
+                    type: USER_LOGOUT_REQUEST,
+                  });
+                  setMenubarShow(true);
+                }}
+              >
+                로그아웃
+              </Button>
+            </>
+          )}
         </a>
       </MenuBar>
 
-      <div
-        style={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Styledspan
+      <LogoContainer>
+        <Logo
           onClick={() => {
             Router.push(`${frontUrl}/me`);
           }}
         >
           interfree
-        </Styledspan>
-      </div>
-    </div>
+        </Logo>
+      </LogoContainer>
+    </MobileContainer>
   );
 };
 

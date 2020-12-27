@@ -72,6 +72,9 @@ const CommentModal = (props) => {
           <Button
             className="float-right"
             onClick={() => {
+              if (id === "guest") {
+                return alert("로그인 후 이용하실 수 있어요.");
+              }
               dispatch({
                 type: ADD_COMMENT_REQUEST,
                 data: { comment, postOneId, id },

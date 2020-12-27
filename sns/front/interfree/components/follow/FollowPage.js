@@ -5,7 +5,6 @@ import { Row, Col, Container } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
 
-import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";
 
 const FollowPage = () => {
@@ -26,7 +25,7 @@ const FollowPage = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              Router.push(`${frontUrl}/UserPage/${e.followingId}`);
+              Router.push(`${frontUrl}/userPage/${e.followingId}`);
             }}
           >
             <Row
@@ -101,8 +100,12 @@ const FollowPage = () => {
                 팔로우:{e.followingCount}
               </Col>
             </Row>
-            <p style={{ fontSize: "20px" }}>링크:{e.ShareLink}</p>
-            <p style={{ fontSize: "20px" }}>사는 곳:{e.ShareLink}</p>
+            <p style={{ fontSize: "20px" }}>
+              링크:{e.ShareLink ? e.ShareLink : "게재되지 않음"}
+            </p>
+            <p style={{ fontSize: "20px" }}>
+              사는 곳:{e.ShareLink ? e.ShareLink : "게재되지 않음"}
+            </p>
           </Container>
         );
       })}

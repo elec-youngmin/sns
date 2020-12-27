@@ -93,6 +93,7 @@ const post = () => {
                     post={element.contents}
                     postId={element.id}
                     userId={element.UserId}
+                    follows={element.Follows}
                     profileImg={
                       element.User.ProfileImgSrcs.length > 0
                         ? element.User.ProfileImgSrcs[0].src

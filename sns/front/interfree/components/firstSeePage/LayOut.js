@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import HorizontalNav from "../layout/HorizontalNav";
@@ -9,29 +9,14 @@ import BottomTabs from "../layout/BottomTabs";
 import WelcomeBoard from "./WelcomeBoard";
 import { useSelector } from "react-redux";
 
-import { Spinner } from "react-bootstrap";
+import { frontUrl } from "../../config/config";
 
 const LayOut = () => {
-  const { postLoadLoading } = useSelector((state) => state.post);
-
   return (
     <div>
       <BottomTabs />
       <HorizontalNav />
       <WelcomeBoard />
-      {postLoadLoading && (
-        <>
-          <Spinner
-            animation="border"
-            style={{
-              position: "fixed",
-              bottom: "70px",
-              right: "70px",
-              zIndex: "100",
-            }}
-          />
-        </>
-      )}
     </div>
   );
 };

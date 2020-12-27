@@ -24,6 +24,8 @@ const Op = Sequelize.Op;
 const router = express.Router();
 const { QueryTypes, json } = require("sequelize");
 
+const { conformLogin, conformNotLogin } = require("./cofirmLogin");
+
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
@@ -140,63 +142,7 @@ router.post(
   }
 );
 
-router.post("/saveAudioPost", async (req, res, next) => {
-  try {
-    await Post.create({
-      contents: req.body.audioPost,
-      UserId: req.user.dataValues.id,
-      onlyReadMy: true,
-    });
-
-    const posts = await Post.findAll({
-      where: { UserId: req.user.dataValues.id },
-      // limit: 10,
-      order: [["id", "DESC"]],
-      attributes: { exclude: ["updatedAt", "deletedAt"] },
-      include: [
-        {
-          model: User,
-          attributes: ["id", "nickname"],
-          include: [
-            {
-              model: ProfileImgSrc,
-              attributes: ["src"],
-            },
-          ],
-        },
-        {
-          model: Like,
-          attributes: ["id", "LikeUserId", "PostId"],
-          where: { LikeUserId: req.user.dataValues.id },
-          required: false,
-        },
-        {
-          model: PostImgSrc,
-          attributes: ["src"],
-        },
-        {
-          model: PostVideoSrc,
-          attributes: ["src"],
-        },
-        {
-          model: Report,
-        },
-        {
-          model: Bookmark,
-          attributes: ["UserId", "PostId"],
-          where: { UserId: req.user.dataValues.id },
-          required: false,
-        },
-      ],
-    });
-    res.status(200).json(posts);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
-
-router.post("/load", passport.session(), async (req, res, next) => {
+router.post("/load", async (req, res, next) => {
   try {
     let where;
 
@@ -274,7 +220,6 @@ router.post("/allPostLoad", async (req, res, next) => {
         id: { [Op.lt]: req.body.id.lastId },
         onlyReadMy: 0,
       };
-
     const allPost = await Post.findAll({
       where,
       limit: 10,
@@ -294,14 +239,16 @@ router.post("/allPostLoad", async (req, res, next) => {
         },
         {
           model: Follow,
-          where: { followerId: req.user.dataValues.id },
+          where: { followerId: req.user ? req.user.dataValues.id : "guest" },
           required: false,
         },
         {
           model: Like,
           required: false,
           attributes: ["id", "LikeUserId", "PostId"],
-          where: { LikeUserId: req.user.dataValues.id },
+          where: {
+            LikeUserId: req.user ? req.user.dataValues.id : "guest",
+          },
         },
         {
           model: PostImgSrc,
@@ -318,7 +265,9 @@ router.post("/allPostLoad", async (req, res, next) => {
           model: Bookmark,
           required: false,
           attributes: ["UserId", "PostId"],
-          where: { UserId: req.user.dataValues.id },
+          where: {
+            UserId: req.user ? req.user.dataValues.id : "guest",
+          },
         },
       ],
     });
@@ -560,10 +509,10 @@ router.patch("/updateComment", async (req, res, next) => {
   }
 });
 
-router.post("/addBookmark", async (req, res, next) => {
+router.post("/addBookmark", conformLogin, async (req, res, next) => {
   try {
     await Bookmark.create({
-      UserId: req.body.id,
+      UserId: req.user.dataValues.id,
       PostId: req.body.postId,
     });
 
@@ -608,7 +557,7 @@ router.post("/addBookmark", async (req, res, next) => {
         {
           model: Bookmark,
           attributes: ["UserId", "PostId"],
-          where: { UserId: req.body.id },
+          where: { UserId: req.user.dataValues.id },
           require: false,
         },
       ],
@@ -621,11 +570,11 @@ router.post("/addBookmark", async (req, res, next) => {
 });
 
 //id,postId/ id는 userId 북마크를 취소함
-router.post("/cancelBookmark", async (req, res, next) => {
+router.post("/cancelBookmark", conformLogin, async (req, res, next) => {
   try {
     await Bookmark.destroy({
       where: {
-        UserId: req.body.id,
+        UserId: req.user.dataValues.id,
         PostId: req.body.postId,
       },
     });
@@ -637,22 +586,19 @@ router.post("/cancelBookmark", async (req, res, next) => {
   }
 });
 
-router.post("/loadBookmark", async (req, res, next) => {
+router.post("/loadBookmark", conformLogin, async (req, res, next) => {
   try {
     console.log(req.body, "safasadfaffsafas");
     let where;
 
-    if (Object.keys(req.body).length === 0)
-      where = {
-        UserId: req.user.dataValues.id,
-      };
+    // if (Object.keys(req.body).length === 0) where = {};
 
     if (Object.keys(req.body).length != 0)
       where = {
-        UserId: req.user.dataValues.id,
         id: { [Op.lt]: req.body.lastId },
       };
     const result = await Post.findAll({
+      where,
       limit: 10,
       order: [["id", "DESC"]],
       include: [
@@ -674,6 +620,7 @@ router.post("/loadBookmark", async (req, res, next) => {
         {
           model: Like,
           attributes: ["id", "LikeUserId", "PostId"],
+          required: false,
         },
         {
           model: PostImgSrc,
@@ -688,7 +635,7 @@ router.post("/loadBookmark", async (req, res, next) => {
         },
         {
           model: Bookmark,
-          where,
+          where: { UserId: req.user.dataValues.id },
         },
       ],
     });
@@ -712,11 +659,11 @@ router.post("/uploadVideo", upload.single("video"), (req, res, next) => {
   res.json("ok");
 });
 
-router.post("/likePost", async (req, res, next) => {
+router.post("/likePost", conformLogin, async (req, res, next) => {
   try {
     console.log("좋아요 했음", req.body);
     await Like.create({
-      LikeUserId: req.body.userId,
+      LikeUserId: req.user.dataValues.id,
       PostId: req.body.postId,
     });
     await Post.increment({ like: 1 }, { where: { id: req.body.postId } });
@@ -741,7 +688,7 @@ router.post("/likePost", async (req, res, next) => {
         },
         {
           model: Like,
-          where: { LikeUserId: req.body.userId },
+          where: { LikeUserId: req.user.dataValues.id },
           require: false,
         },
         {
@@ -773,11 +720,11 @@ router.post("/likePost", async (req, res, next) => {
   }
 });
 
-router.post("/cancelLikePost", async (req, res, next) => {
+router.post("/cancelLikePost", conformLogin, async (req, res, next) => {
   try {
     await Like.destroy({
       where: {
-        LikeUserId: req.body.userId,
+        LikeUserId: req.user.dataValues.id,
         PostId: req.body.postId,
       },
     });
@@ -835,7 +782,7 @@ router.post("/cancelLikePost", async (req, res, next) => {
 
 //로그인한 유저아이디를 찾고 팔로워들의 포스트를 로드함.
 //req.body.userId
-router.post("/loadFollowsPost", async (req, res, next) => {
+router.post("/loadFollowsPost", conformLogin, async (req, res, next) => {
   try {
     const [FollowUsers, metadata] = await sequelize.query(
       `SELECT * FROM users INNER JOIN follows on follows.followingId=users.id where follows.followerId=${req.user.dataValues.id}`
@@ -879,10 +826,11 @@ router.post("/loadFollowsPost", async (req, res, next) => {
   }
 });
 
-router.post("/loadUserPage", async (req, res, next) => {
+router.post("/loadUserPage", conformLogin, async (req, res, next) => {
   try {
+    console.log(parseInt(req.body.id), "id.............................");
     const posts = await Post.findAll({
-      where: { UserId: req.body.id },
+      where: { UserId: parseInt(req.body.id) },
       order: [["id", "DESC"]],
       attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
       include: [
@@ -899,7 +847,7 @@ router.post("/loadUserPage", async (req, res, next) => {
         },
         {
           model: Follow,
-          where: { followerId: req.user.dataValues.id },
+          where: { followerId: req.user ? req.user.dataValues.id : "guest" },
           required: false,
         },
         {
@@ -990,14 +938,18 @@ router.post("/loadhashtagPage", async (req, res, next) => {
             },
             {
               model: Follow,
-              where: { followerId: req.user.dataValues.id },
+              where: {
+                followerId: req.user ? req.user.dataValues.id : "guest",
+              },
               required: false,
             },
             {
               model: Like,
               required: false,
               attributes: ["id", "LikeUserId", "PostId"],
-              where: { LikeUserId: req.user.dataValues.id },
+              where: {
+                LikeUserId: req.user ? req.user.dataValues.id : "guest",
+              },
             },
             {
               model: PostImgSrc,
@@ -1014,7 +966,7 @@ router.post("/loadhashtagPage", async (req, res, next) => {
               model: Bookmark,
               required: false,
               attributes: ["UserId", "PostId"],
-              where: { UserId: req.user.dataValues.id },
+              where: { UserId: req.user ? req.user.dataValues.id : "guest" },
             },
           ],
         },
@@ -1129,11 +1081,11 @@ router.post("/oneuserLoadChartdata", async (req, res, next) => {
 });
 
 //req.body.followId, req.body.followingId
-router.post("/followUser", async (req, res, next) => {
+router.post("/followUser", conformLogin, async (req, res, next) => {
   try {
     console.log(req.body);
     await Follow.create({
-      followerId: req.body.followerId,
+      followerId: req.user.dataValues.id,
       followingId: req.body.followingId,
     });
 
@@ -1145,12 +1097,12 @@ router.post("/followUser", async (req, res, next) => {
 });
 
 //req.body.followId, req.body.followingId
-router.post("/unFollowUser", async (req, res, next) => {
+router.post("/unFollowUser", conformLogin, async (req, res, next) => {
   try {
     console.log(req.body);
     await Follow.destroy({
       where: {
-        followerId: req.body.followerId,
+        followerId: req.user.dataValues.id,
         followingId: req.body.followingId,
       },
     });
@@ -1183,7 +1135,7 @@ router.get("/loadPostPage/:postId", async (req, res, next) => {
         },
         {
           model: Follow,
-          where: { followerId: req.user.dataValues.id },
+          where: { followerId: req.user ? req.user.dataValues.id : "guest" },
           required: false,
         },
         {
@@ -1266,10 +1218,15 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
           ],
         },
         {
+          model: Follow,
+          where: { followerId: req.user ? req.user.dataValues.id : "guest" },
+          required: false,
+        },
+        {
           model: Like,
           required: false,
           attributes: ["id", "LikeUserId", "PostId"],
-          where: { LikeUserId: req.user.dataValues.id },
+          where: { LikeUserId: req.user ? req.user.dataValues.id : "guest" },
         },
         {
           model: PostImgSrc,
@@ -1286,10 +1243,13 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
           model: Bookmark,
           required: false,
           attributes: ["UserId", "PostId"],
-          where: { UserId: req.user.dataValues.id },
+          where: { UserId: req.user ? req.user.dataValues.id : "guest" },
         },
       ],
     });
+    // if (!posts) {
+    //   return res.status(404).json("검색 결과를 찾을 수 없습니다.");
+    // }
 
     res.status(200).json(posts);
   } catch (err) {
@@ -1298,7 +1258,7 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
   }
 });
 
-router.post("/addTimelineSubject", async (req, res, next) => {
+router.post("/addTimelineSubject", conformLogin, async (req, res, next) => {
   try {
     console.log(req.body);
     const isExist = await TimelineSub.findOne({
@@ -1331,7 +1291,7 @@ router.post("/addTimelineSubject", async (req, res, next) => {
   }
 });
 
-router.post("/addTimelineContents", async (req, res, next) => {
+router.post("/addTimelineContents", conformLogin, async (req, res, next) => {
   try {
     console.log(req.body);
     await TimelineContent.create({
