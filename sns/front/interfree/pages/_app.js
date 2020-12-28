@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
+import Media from "react-media";
 
 import wrapper from "../store/configureStore";
 import "bootstrap/dist/css/bootstrap.css";
@@ -16,6 +17,9 @@ import Toast from "../components/Toast/Toast";
 import { useSelector } from "react-redux";
 
 function MyApp({ Component, pageProps }) {
+  const initialState = {
+    device: "mobile",
+  };
   const { loadAllPostDone } = useSelector((state) => state.post);
   const [renderNav, setRenderNav] = useState(false);
 
@@ -25,7 +29,12 @@ function MyApp({ Component, pageProps }) {
         <title>interfree</title>
       </Head>
       <BottomTabs />
-      <VerticalNav />
+      <Media
+        queries={{ medium: "(min-width: 854px)" }}
+        defaultMatches={{ medium: initialState.device === "mobile" }}
+        render={() => <VerticalNav />}
+      />
+
       <HorizontalNav />
       <ScrollButton />
       <ActionLoading />
