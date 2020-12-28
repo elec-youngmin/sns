@@ -16,6 +16,8 @@ import GlobalStyle from "../styledComponents/GlobalStyle";
 
 function MyApp({ Component, pageProps }) {
   const [renderNav, setRenderNav] = useState(false);
+  const router = useRouter();
+
   useMemo(() => {
     router.events.on("routeChangeComplete", () => {
       setRenderNav(true);
