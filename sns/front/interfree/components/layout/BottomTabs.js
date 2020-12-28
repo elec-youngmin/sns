@@ -59,7 +59,7 @@ const BottomTabs = () => {
               textAlign: "center",
               fontSize: "30px",
               backgroundColor: "white",
-              color: "#5F9EA0",
+              color: "#111",
               position: "fixed",
               bottom: "0px",
               left: "0",

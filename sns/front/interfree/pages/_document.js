@@ -46,7 +46,7 @@ export default class MyDocument extends Document {
           <meta charset="UTF-8" />
           <title>interfree</title>
         </Head>
-        <body>
+        <body >
           <Main />
           <NextScript />
         </body>

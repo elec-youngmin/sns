@@ -14,7 +14,7 @@ import GlobalStyle from "../styledComponents/GlobalStyle";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <BottomTabs />
       <VerticalNav />
       <HorizontalNav />
@@ -22,9 +22,19 @@ function MyApp({ Component, pageProps }) {
       <ActionLoading />
       <Toast />
 
-      {/* <FloatingButton /> */}
-      {/* 사용성 저하로 드랍처리 */}
-
+      <style jsx global>{`
+        body {
+          @import url("https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500&display=swap");
+          font-family: "Hind Vadodara", sans-serif;
+          font-size: 16px;
+          font-weight: 500;
+          background-color: #f5f5f5;
+          // overflow: hidden;
+        }
+        a {
+          cursor: pointer;
+        }
+      `}</style>
       <Component {...pageProps} />
     </>
   );

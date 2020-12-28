@@ -25,7 +25,6 @@ import { BsTrashFill, BsBookmarksFill } from "react-icons/bs";
 
 import {
   AiFillDribbbleCircle,
-  AiOutlineLogout,
   AiOutlineLineChart,
   AiOutlineSearch,
 } from "react-icons/ai";
@@ -123,6 +122,35 @@ const Menu = () => {
       <Login show={loginModalShow} onHide={() => setLoginModalShow(false)} />
 
       <MenuBar styles={styles} isOpen={menubarShow}>
+        <a>
+          {id === "guest" ? (
+            <>
+              <Button
+                onClick={() => {
+                  setLoginModalShow(true);
+                  setMenubarShow(true);
+                }}
+              >
+                계정 활동
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button
+                className="float-right"
+                onClick={() => {
+                  dispatch({
+                    type: USER_LOGOUT_REQUEST,
+                  });
+                  setMenubarShow(true);
+                }}
+              >
+                로그아웃
+              </Button>
+            </>
+          )}
+        </a>
+
         <MobileLink
           id="home"
           className="menu-item"
@@ -257,35 +285,6 @@ const Menu = () => {
         >
           <AiOutlineSearch /> 검색
         </MobileLink>
-
-        <a>
-          {id === "guest" ? (
-            <>
-              <Button
-                onClick={() => {
-                  setLoginModalShow(true);
-                  setMenubarShow(true);
-                }}
-              >
-                계정 활동
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button
-                className="float-right"
-                onClick={() => {
-                  dispatch({
-                    type: USER_LOGOUT_REQUEST,
-                  });
-                  setMenubarShow(true);
-                }}
-              >
-                로그아웃
-              </Button>
-            </>
-          )}
-        </a>
       </MenuBar>
 
       <LogoContainer>
