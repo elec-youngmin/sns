@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
 import Media from "react-media";
 
+import { useMediaSet } from "use-media-set";
+
 import wrapper from "../store/configureStore";
 import "bootstrap/dist/css/bootstrap.css";
 import Head from "next/head";
@@ -20,6 +22,19 @@ function MyApp({ Component, pageProps }) {
   const initialState = {
     device: "mobile",
   };
+  const queries = {
+    mobile: { maxWidth: 854 },
+    desktop: { minWidth: 855 },
+  };
+
+  const Example = (props) => {
+    const mediaStates = useMediaSet(queries, [mobile]);
+
+    if (mediaStates.has("desktop")) {
+      return <VerticalNav {...props} />;
+    }
+  };
+
   const { loadAllPostDone } = useSelector((state) => state.post);
   const [renderNav, setRenderNav] = useState(false);
 
@@ -34,7 +49,7 @@ function MyApp({ Component, pageProps }) {
         defaultMatches={{ medium: initialState.device === "mobile" }}
         render={() => <VerticalNav />}
       />
-
+      {Example}
       <HorizontalNav />
       <ScrollButton />
       <ActionLoading />
