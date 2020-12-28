@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Router from "next/router";
 import { useMediaQuery } from "react-responsive";
 
@@ -31,9 +31,22 @@ const ColStyle = {
 };
 const BottomTabs = () => {
   const { id } = useSelector((state) => state.user.user);
+  const { savePostDone, searchResultDone } = useSelector((state) => state.post);
 
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [writePostModalShow, setWritePostModalShow] = useState(false);
+
+  useMemo(() => {
+    if (savePostDone) {
+      setWritePostModalShow(false);
+    }
+  }, [savePostDone]);
+
+  useMemo(() => {
+    if (searchResultDone) {
+      setSearchModalShow(false);
+    }
+  }, [searchResultDone]);
 
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 854px)",

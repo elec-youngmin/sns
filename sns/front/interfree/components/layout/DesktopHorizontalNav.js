@@ -60,7 +60,7 @@ const DesktopHorizontalNav = () => {
         <MenuItem>
           <Logo
             onClick={() => {
-              Router.push(`${frontUrl}/me`);
+              Router.push(`${frontUrl}/allPostsBoard`);
             }}
           >
             <a>interfree</a>

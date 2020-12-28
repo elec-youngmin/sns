@@ -30,9 +30,7 @@ import {
 } from "react-icons/ai";
 
 import { FaUserCircle } from "react-icons/fa";
-import { Button, Row, Col } from "react-bootstrap";
-
-import styled from "styled-components";
+import { Button } from "react-bootstrap";
 
 import { frontUrl } from "../../config/config";
 
@@ -94,6 +92,12 @@ const Menu = () => {
   const [menubarShow, setMenubarShow] = useState(false);
 
   useMemo(() => {
+    if (logInDone) {
+      setMenubarShow(false);
+    }
+  }, [logInDone]);
+
+  useMemo(() => {
     if (logOutDone) {
       Router.push(`${frontUrl}`);
     }
@@ -150,6 +154,7 @@ const Menu = () => {
             </>
           )}
         </a>
+        <br />
 
         <MobileLink
           id="home"
@@ -176,6 +181,7 @@ const Menu = () => {
         >
           <FaUserCircle /> 나
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -190,6 +196,7 @@ const Menu = () => {
         >
           <AiFillEdit /> 내 포스트
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -204,6 +211,7 @@ const Menu = () => {
         >
           <GiTimeBomb /> 타임라인
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -218,6 +226,7 @@ const Menu = () => {
         >
           <GoOrganization /> 친구
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -232,6 +241,7 @@ const Menu = () => {
         >
           <BsBookmarksFill /> 북마크
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -246,6 +256,7 @@ const Menu = () => {
         >
           <BsTrashFill /> 휴지통
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -260,6 +271,7 @@ const Menu = () => {
         >
           <AiOutlineLineChart /> 활동차트
         </MobileLink>
+        <br />
 
         <MobileLink
           id="about"
@@ -290,7 +302,7 @@ const Menu = () => {
       <LogoContainer>
         <Logo
           onClick={() => {
-            Router.push(`${frontUrl}/me`);
+            Router.push(`${frontUrl}/allPostsBoard`);
           }}
         >
           interfree

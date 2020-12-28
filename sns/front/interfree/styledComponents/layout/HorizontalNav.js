@@ -29,7 +29,7 @@ export const Logo = styled.h1`
 export const LogoContainer = styled.div`
   background: #f3f5f7;
   border-bottom: 1px solid #d9d9d9;
-  height: 100px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -44,7 +44,7 @@ const allPostsBoard = () => {
             margin: "0px auto",
           }}
         >
-          <Col md={10}>
+          <Col md={8}>
             <Title title={"모든 포스트"} />
 
             {loadAllPostDone && (

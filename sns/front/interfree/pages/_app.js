@@ -1,5 +1,7 @@
+import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
+import { useRouter } from "next/router";
 import wrapper from "../store/configureStore";
 import "bootstrap/dist/css/bootstrap.css";
 import Head from "next/head";
@@ -13,19 +15,24 @@ import Toast from "../components/Toast/Toast";
 import GlobalStyle from "../styledComponents/GlobalStyle";
 
 function MyApp({ Component, pageProps }) {
+  const [renderNav, setRenderNav] = useState(false);
+  useMemo(() => {
+    router.events.on("routeChangeComplete", () => {
+      setRenderNav(true);
+    });
+  }, [router]);
+
   return (
     <>
       <Head>
         <title>interfree</title>
       </Head>
-      {/* <GlobalStyle /> */}
       <BottomTabs />
       <VerticalNav />
-      <HorizontalNav />
+      {renderNav && <HorizontalNav />}
       <ScrollButton />
       <ActionLoading />
       <Toast />
-
       <style jsx global>{`
         body {
           @import url("https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500&display=swap");
