@@ -38,7 +38,6 @@ const Login = (props) => {
 
   useMemo(() => {
     if (logInDone) {
-      Router.push(`${frontUrl}/me`);
       props.onHide();
     }
   }, [logInDone]);

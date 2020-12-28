@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
 import wrapper from "../store/configureStore";
 import "bootstrap/dist/css/bootstrap.css";
+import Head from "next/head";
 
 import BottomTabs from "../components/layout/BottomTabs";
 import VerticalNav from "../components/layout/VerticalNav";
@@ -14,6 +15,9 @@ import GlobalStyle from "../styledComponents/GlobalStyle";
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <title>interfree</title>
+      </Head>
       {/* <GlobalStyle /> */}
       <BottomTabs />
       <VerticalNav />
@@ -29,7 +33,7 @@ function MyApp({ Component, pageProps }) {
           font-size: 16px;
           font-weight: 500;
           background-color: #f5f5f5;
-          // overflow: hidden;
+          overflow-x: hidden;
         }
         a {
           cursor: pointer;

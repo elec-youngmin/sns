@@ -55,8 +55,8 @@ export const SessionButton = styled(Button)`
 `;
 
 export const SessionRow = styled(Row)`
-  padding-top: 100px;
-  padding-bottom: 40px;
+  padding-top: 70px;
+  padding-bottom: 60px;
   display: flex;
   align-items: center;
   justify-content: center;

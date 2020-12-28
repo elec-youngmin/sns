@@ -5,7 +5,7 @@ export const Logo = styled.h1`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
   font-family: "Fredoka One", cursive;
-  color: #8a2be2;
+  color: #4169e1;
   font-size: 40px;
   text-align: center;
   cursor: "pointer";
@@ -22,12 +22,14 @@ export const Logo = styled.h1`
     }
   }
   @media (max-width: 290px) {
-    font-size: 20px;
+    font-size: 25px;
   }
 `;
 
 export const LogoContainer = styled.div`
-  height: 100%;
+  background: #f3f5f7;
+  border-bottom: 1px solid #d9d9d9;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,13 +39,13 @@ export const MobileContainer = styled.div`
   text-align: center;
   font-size: 23px;
   color: #6495ed;
-  background-color: #f3f5f7;
+  background: #f3f5f7;
   border-bottom: 1px solid #d9d9d9;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  zindex: 100;
+  z-index: 1000;
   height: 90px;
 `;
 

@@ -74,14 +74,7 @@ const SearchModal = (props) => {
                 }} //사용자가 검색창에 입력하면 발생하는 액션
               />
             </Col>
-            <Col
-              md={2}
-              style={{
-                display: isTabletOrMobileDevice && "flex",
-                alignItems: isTabletOrMobileDevice && "center",
-                justifyContent: isTabletOrMobileDevice && "center",
-              }}
-            >
+            <Col md={2}>
               <Button
                 class="pull-right"
                 style={{
@@ -89,7 +82,7 @@ const SearchModal = (props) => {
                   marginRight: "10px",
                   marginTop: isTabletOrMobileDevice ? "10px" : "0px",
                   marginBottom: "10px",
-                  width: isTabletOrMobileDevice ? "30%" : "100%",
+                  width: "100%",
                 }}
                 onClick={() => {
                   dispatch({

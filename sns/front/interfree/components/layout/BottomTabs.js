@@ -23,7 +23,6 @@ import { AiFillSetting, AiFillEdit } from "react-icons/ai";
 import { frontUrl } from "../../config/config";
 
 const ColStyle = {
-  border: "0.5px solid white",
   cursor: "pointer",
   display: "flex",
   alignItems: "center",

@@ -7,6 +7,7 @@ export const BoardContainer = styled.div`
   border-radius: 12px;
   margin-bottom: 15px;
   background-color: white;
+  overflow-x: hidden;
 `;
 
 export const BoardHeader = styled.div`

@@ -37,9 +37,10 @@ const PostPage = () => {
             <Title title={"포스트 페이지"} />
 
             {loadPostPageDone &&
-              posts.map((element) => {
+              posts.map((element, index) => {
                 return (
                   <PostBoard
+                    key={index}
                     post={element?.contents}
                     postId={element?.id}
                     userId={element?.UserId}

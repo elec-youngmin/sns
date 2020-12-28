@@ -10,7 +10,7 @@ import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 
 import { SessionRow } from "../../styledComponents/layout/Session";
 
-import { Button, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
