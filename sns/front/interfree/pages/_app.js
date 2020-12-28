@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <BottomTabs />
       <VerticalNav />
-      {loadAllPostDone && <HorizontalNav />}
+      <HorizontalNav />
       <ScrollButton />
       <ActionLoading />
       <Toast />

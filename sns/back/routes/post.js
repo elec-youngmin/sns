@@ -609,6 +609,7 @@ router.post("/loadBookmark", conformLogin, async (req, res, next) => {
             {
               model: ProfileImgSrc,
               attributes: ["src"],
+              required: false,
             },
           ],
         },

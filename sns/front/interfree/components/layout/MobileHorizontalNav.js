@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
-import { useRouter } from "next/router";
 import { slide as MenuBar } from "react-burger-menu";
 
 import SearchModal from "./SearchModal";
@@ -62,7 +61,7 @@ const Menu = () => {
     },
     bmMenu: {
       background: "#f3f5f7", // 백그라운드
-      padding: "2.5em 0em 0",
+      padding: "15px 0em 0",
       fontSize: "1.15em",
     },
     bmMorphShape: {
@@ -84,7 +83,6 @@ const Menu = () => {
     (state) => state.user
   );
   const { id } = useSelector((state) => state.user.user);
-  const router = useRouter();
 
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
@@ -104,17 +102,17 @@ const Menu = () => {
   }, [logOutDone]);
 
   useMemo(() => {
-    router.events.on("routeChangeStart", () => {
+    Router.events.on("routeChangeStart", () => {
       setMenubarShow(false);
     });
-    router.events.on("routeChangeComplete", () => {
+    Router.events.on("routeChangeComplete", () => {
       setMenubarShow(false);
     });
 
-    router.events.on("routeChangeError", () => {
+    Router.events.on("routeChangeError", () => {
       setMenubarShow(false);
     });
-  }, [router]);
+  }, [Router]);
 
   return (
     <MobileContainer>

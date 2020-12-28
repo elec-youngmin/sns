@@ -130,18 +130,19 @@ const Login = (props) => {
               >
                 로그인
               </button>
-
-              <button
-                className="btn btn-primary btn-block"
-                type="submit"
-                style={{ width: "100%", marginBottom: "10px" }}
-                onClick={() => {
-                  setModalShow(true);
-                }}
-              >
-                회원가입
-              </button>
             </form>
+
+            <button
+              className="btn btn-primary btn-block"
+              type="submit"
+              style={{ width: "100%", marginBottom: "10px" }}
+              onClick={() => {
+                setModalShow(true);
+              }}
+            >
+              회원가입
+            </button>
+
             <a href="http://localhost:80/user/kakaoLogin">
               <button
                 className="btn btn-warning btn-block"

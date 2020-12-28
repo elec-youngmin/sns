@@ -209,7 +209,7 @@ const PostBoard = ({
         {/* 여기부터 포스트보드 바디 시작 */}
         <BoardBody
           onClick={() => {
-            router.push(`${frontUrl}/postPage/${postId}/`);
+            router.push(`${frontUrl}/postPage/${postId}`);
           }}
         >
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
@@ -239,13 +239,14 @@ const PostBoard = ({
           {reportCount > 9 ? (
             <h6>{replaceText}</h6>
           ) : (
-            <h4
+            <p
               style={{
                 margin: "18px 5px 5px 10px",
+                wordBreak: "break-all",
               }}
             >
               {post}
-            </h4>
+            </p>
           )}
         </BoardBody>
         <Row

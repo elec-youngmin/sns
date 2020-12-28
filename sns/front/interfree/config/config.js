@@ -1,5 +1,9 @@
-// exports.frontUrl = "http://interfree.co.kr";
-// exports.backUrl = "http://api.interfree.co.kr";
+exports.frontUrl =
+  process.env.NODE_ENV === "production"
+    ? "http://interfree.co.kr"
+    : "http://localhost:3000";
 
-exports.backUrl = "http://localhost:80";
-exports.frontUrl = "http://localhost:3000";
+exports.backUrl =
+  process.env.NODE_ENV === "production"
+    ? "http://api.interfree.co.kr"
+    : "http://localhost:80";

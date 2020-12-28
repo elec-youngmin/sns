@@ -11,7 +11,10 @@ import Login from "../firstSeePage/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 
-import { Logo } from "../../styledComponents/layout/HorizontalNav";
+import {
+  DesktopNavContainer,
+  Logo,
+} from "../../styledComponents/layout/HorizontalNav";
 
 import { Button } from "react-bootstrap";
 
@@ -35,18 +38,7 @@ const DesktopHorizontalNav = () => {
   }, [logOutDone]);
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        fontSize: "30px",
-        color: "#6495ED",
-        position: "fixed",
-        top: "0",
-        left: "0",
-        right: "0",
-        zIndex: "100",
-      }}
-    >
+    <DesktopNavContainer>
       <SearchModal
         show={searchModalShow}
         onHide={() => setSearchModalShow(false)}
@@ -128,7 +120,7 @@ const DesktopHorizontalNav = () => {
           )}
         </>
       </Menu>
-    </div>
+    </DesktopNavContainer>
   );
 };
 

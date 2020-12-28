@@ -26,6 +26,17 @@ export const Logo = styled.h1`
   }
 `;
 
+export const DesktopNavContainer = styled.div`
+  textalign: center;
+  fontsize: 30px;
+  color: #6495ed;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  zindex: 100;
+`;
+
 export const LogoContainer = styled.div`
   background: #f3f5f7;
   border-bottom: 1px solid #d9d9d9;

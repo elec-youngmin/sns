@@ -1,5 +1,5 @@
 import React from "react";
-import { useMediaQuery } from "react-responsive";
+import Media from "react-media";
 
 import DesktopHorizontalNav from "./DesktopHorizontalNav";
 import MobileHorizontalNav from "./MobileHorizontalNav";
@@ -7,16 +7,13 @@ import MobileHorizontalNav from "./MobileHorizontalNav";
 import { useSelector } from "react-redux";
 
 const HorizontalNav = () => {
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 985px)",
-  });
   return (
     <div>
-      {isTabletOrMobileDevice ? (
-        <MobileHorizontalNav />
-      ) : (
-        <DesktopHorizontalNav />
-      )}
+      <Media query={{ maxWidth: 985 }}>
+        {(matches) =>
+          matches ? <MobileHorizontalNav /> : <DesktopHorizontalNav />
+        }
+      </Media>
     </div>
   );
 };
