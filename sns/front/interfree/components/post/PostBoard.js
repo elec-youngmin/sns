@@ -81,8 +81,6 @@ const PostBoard = ({
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.user);
 
-  console.log(id, "id확인");
-
   const {
     updatePostDone,
     likePostLoading,

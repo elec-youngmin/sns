@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
-import { useRouter } from "next/router";
+
 import wrapper from "../store/configureStore";
 import "bootstrap/dist/css/bootstrap.css";
 import Head from "next/head";
@@ -12,17 +12,12 @@ import HorizontalNav from "../components/layout/HorizontalNav";
 import ScrollButton from "../components/layout/ScrollButton";
 import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
-import GlobalStyle from "../styledComponents/GlobalStyle";
+
+import { useSelector } from "react-redux";
 
 function MyApp({ Component, pageProps }) {
+  const { loadAllPostDone } = useSelector((state) => state.post);
   const [renderNav, setRenderNav] = useState(false);
-  const router = useRouter();
-
-  useMemo(() => {
-    router.events.on("routeChangeComplete", () => {
-      setRenderNav(true);
-    });
-  }, [router]);
 
   return (
     <>
@@ -31,7 +26,7 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <BottomTabs />
       <VerticalNav />
-      {renderNav && <HorizontalNav />}
+      {loadAllPostDone && <HorizontalNav />}
       <ScrollButton />
       <ActionLoading />
       <Toast />
