@@ -7,13 +7,23 @@ import MobileHorizontalNav from "./MobileHorizontalNav";
 import { useSelector } from "react-redux";
 
 const HorizontalNav = () => {
+  const initialState = {
+    device: "mobile",
+  };
+
   return (
     <div>
-      <Media query={{ maxWidth: 985 }}>
-        {(matches) =>
-          matches ? <MobileHorizontalNav /> : <DesktopHorizontalNav />
-        }
-      </Media>
+      <Media
+        queries={{ medium: "(max-width: 985px)" }}
+        defaultMatches={{ medium: initialState.device === "mobile" }}
+        render={() => <MobileHorizontalNav />}
+      />
+
+      <Media
+        queries={{ medium: "(min-width: 986px)" }}
+        defaultMatches={{ medium: initialState.device === "desktop" }}
+        render={() => <DesktopHorizontalNav />}
+      />
     </div>
   );
 };
