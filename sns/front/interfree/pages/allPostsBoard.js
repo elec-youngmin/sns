@@ -4,6 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import PostBoard from "../components/post/PostBoard";
 import Title from "../components/layout/Title";
+import VerticalNav from "../components/layout/VerticalNav";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -35,6 +36,7 @@ const allPostsBoard = () => {
   return (
     <div>
       <div className="container justify-content-around">
+        <VerticalNav />
         <Row
           style={{
             paddingTop: "100px",

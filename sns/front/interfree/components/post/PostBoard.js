@@ -119,14 +119,14 @@ const PostBoard = ({
       <MenuContexify id={MENU_ID}>
         <Item
           onClick={() => {
-            router.push(`${frontUrl}/postPage/${postId}/`);
+            router.push(`${frontUrl}/post/${postId}/`);
           }}
         >
           포스트페이지로 이동
         </Item>
         <Item
           onClick={() => {
-            router.push(`${frontUrl}/userPage/${userId}/`);
+            router.push(`${frontUrl}/user/${userId}/`);
           }}
         >
           유저페이지로 이동
@@ -176,13 +176,13 @@ const PostBoard = ({
             <ProfileImg
               src={`${backUrl}/${profileImg}`}
               onClick={() => {
-                router.push(`${frontUrl}/userPage/${userId}/`);
+                router.push(`${frontUrl}/user/${userId}/`);
               }}
             />
           ) : (
             <ProfileImgDiv
               onClick={() => {
-                router.push(`${frontUrl}/userPage/${userId}/`);
+                router.push(`${frontUrl}/user/${userId}/`);
               }}
             >
               <ProfileNickname>{nickname[0].toUpperCase()}</ProfileNickname>
