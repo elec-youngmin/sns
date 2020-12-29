@@ -21,4 +21,4 @@
 1.포스트 쓰기,수정,업로드,삭제 2.팔로우,언팔로우  
  3.
 
-<img src="https://user-images.githubusercontent.com/71272034/103275533-bfeae180-4a07-11eb-9982-8c853023e8a5.png" width="90%"></img>
+<img src="https://user-images.githubusercontent.com/71272034/103275533-bfeae180-4a07-11eb-9982-8c853023e8a5.png" width="100%"></img>
