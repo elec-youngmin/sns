@@ -27,23 +27,14 @@ export const Logo = styled.h1`
 `;
 
 export const DesktopNavContainer = styled.div`
-  textalign: center;
-  fontsize: 30px;
+  text-align: center;
+  font-size: 30px;
   color: #6495ed;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   zindex: 100;
-`;
-
-export const LogoContainer = styled.div`
-  background: #f3f5f7;
-  border-bottom: 1px solid #d9d9d9;
-  height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 export const MobileContainer = styled.div`
@@ -57,7 +48,16 @@ export const MobileContainer = styled.div`
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 70px;
+  height: 55px;
+`;
+
+export const LogoContainer = styled.div`
+  background: #f3f5f7;
+  border-bottom: 1px solid #d9d9d9;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const MobileLink = styled.a`
