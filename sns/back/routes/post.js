@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const passport = require("passport");
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
 
 const path = require("path");
 const {
@@ -26,15 +28,18 @@ const { QueryTypes, json } = require("sequelize");
 
 const { conformLogin, conformNotLogin } = require("./cofirmLogin");
 
+AWS.config.update({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_KEY,
+  resion: "ap-northeast-2",
+});
+
 const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, "public/");
-      console.log(req.files);
-    },
-    filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+  storage: multerS3({
+    s3: new AWS.S3(),
+    bucket: "interfree-s3",
+    key(req, file, cb) {
+      cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
     },
   }),
   limits: { fileSize: 200 * 1024 * 1024 }, //500메가까지 업로드 할 수 있음.
@@ -86,12 +91,6 @@ router.post(
         ); //result 값은 [[노드,true],[리액트,true]]
         await postId.addHashtags(result.map((v) => v[0]));
       }
-
-      // if (hashtags) {
-      //   await Hashtag.create({
-      //     tag: hashtags,
-      //   });
-      // }
 
       const post = await Post.findAll({
         where: { UserId: req.body.id },
@@ -354,7 +353,7 @@ router.post("/deletePost", async (req, res, next) => {
 router.get("/loadTrash", async (req, res, next) => {
   try {
     const [trashPosts, metadata] = await sequelize.query(
-      `SELECT postvideosrc.src AS videoSrc, postimgsrc.src AS imgSrc, posts.contents, posts.onlyReadMy, posts.id AS postId, posts.createdAt FROM postvideosrc RIGHT OUTER JOIN postimgsrc on postvideosrc.PostId=postimgsrc.PostId right OUTER JOIN posts on postimgsrc.PostId=posts.Id WHERE (posts.UserId = ${req.user.dataValues.id} AND posts.deletedAt IS NOT NULL)`
+      `SELECT  postVideoSrc.src AS videoSrc, postImgSrc.src AS imgSrc, posts.contents, posts.onlyReadMy, posts.id AS postId, posts.createdAt FROM  postVideoSrc RIGHT OUTER JOIN postImgSrc on  postVideoSrc.PostId=postImgSrc.PostId right OUTER JOIN posts on postImgSrc.PostId=posts.Id WHERE (posts.UserId = ${req.user.dataValues.id} AND posts.deletedAt IS NOT NULL)`
     );
 
     res.status(200).json(trashPosts);
@@ -401,7 +400,7 @@ router.post("/deleteTrashPost", async (req, res, next) => {
 router.post("/restoreAllTrash", async (req, res, next) => {
   try {
     const [restore] = await sequelize.query(
-      `UPDATE posts AS Post SET deletedAt=null WHERE UserId=${req.user.deid} AND deletedAt IS NOT NULL`
+      `UPDATE posts AS Post SET deletedAt=null WHERE UserId=${req.user.dataValues.id} AND deletedAt IS NOT NULL`
     );
 
     res.status(200).json("성공적으로 모두 포스트로 이동함");
@@ -822,7 +821,6 @@ router.post("/loadFollowsPost", conformLogin, async (req, res, next) => {
 
 router.post("/loadUserPage", conformLogin, async (req, res, next) => {
   try {
-    console.log(parseInt(req.body.id), "id.............................");
     const posts = await Post.findAll({
       where: { UserId: parseInt(req.body.id) },
       order: [["id", "DESC"]],
@@ -879,7 +877,7 @@ router.get("/loadUserPageInfo/:id", async (req, res, next) => {
       `SELECT count(id) as postsCount FROM posts where UserId=${req.params.id}`
     );
     const [userInfo, metadata0] = await sequelize.query(
-      `SELECT users.nickname, users.introduce,users.ShareLink,users.where, profileimgsrcs.src FROM profileimgsrcs RIGHT JOIN users ON profileimgsrcs.UserId=users.id WHERE users.id=${req.params.id}`
+      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,  profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${req.params.id}`
     );
 
     const [followCount, metadata1] = await sequelize.query(

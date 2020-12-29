@@ -864,7 +864,7 @@ const reducer = (state = initialState, action) =>
         draft.addTimelineSubjectDone = true;
         draft.addTimelineSubjectLoding = false;
         draft.timelineId = action.data;
-        ToastSuccess(`타임라인 주제 추가에 성공했어요.`);
+        ToastSuccess(`타임라인 주제 추가 성공!`);
         break;
       case ADD_TIMELINE_SUBJECT_REQUEST:
         draft.addTimelineSubjectDone = false;
@@ -879,7 +879,7 @@ const reducer = (state = initialState, action) =>
       case ADD_TIMELINE_CONTENTS_SUCCESS:
         draft.addTimelineContentsDone = true;
         draft.addTimelineContentsLoding = false;
-        ToastSuccess(`타임라인 추가에 성공했어요.`);
+        ToastSuccess(`타임라인 추가에 성공!`);
         break;
       case ADD_TIMELINE_CONTENTS_REQUEST:
         draft.addTimelineContentsDone = false;
@@ -924,7 +924,7 @@ const reducer = (state = initialState, action) =>
         draft.timelineContents = draft.timelineContents.filter(
           (num) => num.id != action.data
         );
-        ToastSuccess(`해당 타임라인 박스가 삭제되었어요.`);
+        ToastSuccess(`해당 타임라인 박스가 삭제 완료!`);
         break;
       case DELETE_TIMELINE_CONTENTS_REQUEST:
         draft.deleteTimelineSubjectDone = false;
@@ -945,7 +945,7 @@ const reducer = (state = initialState, action) =>
           }
           return p;
         });
-        ToastSuccess(`해당 타임라인 박스가 업데이트되었어요.`);
+        ToastSuccess(`해당 타임라인 박스가 업데이트 완료!`);
         break;
       case UPDATE_TIMELINE_CONTENTS_REQUEST:
         draft.updateTimelineContentsDone = false;
@@ -990,7 +990,7 @@ const reducer = (state = initialState, action) =>
           }
           return element;
         });
-        ToastSuccess("선택한 포스트의 친구 삭제가 완료되었어요.");
+        ToastSuccess("선택한 포스트의 친구 삭제 완료!");
         break;
       case UNFOLLOW_USER_REQUEST:
         draft.unFollowUserDone = false;
