@@ -154,7 +154,7 @@ const me = () => {
                           type: LOAD_USERPAGE_REQUEST,
                           data: searchText,
                         });
-                        router.push(`${frontUrl}/userPage/${selected[0]?.id}/`);
+                        router.push(`${frontUrl}/user/${selected[0]?.id}/`);
                       }}
                       onInputChange={(e) => {
                         setSearchText(e);

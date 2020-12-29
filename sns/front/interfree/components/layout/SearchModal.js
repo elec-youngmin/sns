@@ -89,7 +89,7 @@ const SearchModal = (props) => {
                     type: SEARCH_RESULT_REQUEST,
                     data: searchText,
                   });
-                  router.push(`${frontUrl}/searchResult/${searchText}/`);
+                  router.push(`${frontUrl}/search/${searchText}/`);
                   props.onHide();
                 }}
               >

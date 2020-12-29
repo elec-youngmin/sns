@@ -209,7 +209,7 @@ const PostBoard = ({
         {/* 여기부터 포스트보드 바디 시작 */}
         <BoardBody
           onClick={() => {
-            router.push(`${frontUrl}/postPage/${postId}`);
+            router.push(`${frontUrl}/post/${postId}`);
           }}
         >
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}

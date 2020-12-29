@@ -805,12 +805,6 @@ router.post("/loadFollowsPost", conformLogin, async (req, res, next) => {
         `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${e.followingId}`
       );
 
-      if (src.length === 0) {
-        e.src = "userImage.jpg";
-      } else {
-        e.src = src[0].src;
-      }
-
       e.postsCount = postsCount[0].postsCount;
       e.followCount = followCount[0].followCount;
       e.followingCount = followingCount[0].followingCount;
@@ -903,12 +897,6 @@ router.get("/loadUserPageInfo/:id", async (req, res, next) => {
       followingCount: followingCount[0].followingCount,
       userInfo: userInfo[0],
     };
-
-    // posts[0].dataValues.User.dataValues.postsCount = postsCount[0].postsCount;
-    // posts[0].dataValues.User.dataValues.followCount =
-    //   followCount[0].followCount;
-    // posts[0].dataValues.User.dataValues.followingCount =
-    //   followingCount[0].followingCount;
 
     res.status(200).json(userpageInfo);
   } catch (err) {
@@ -1015,10 +1003,6 @@ router.post("/countReport", async (req, res, next) => {
   }
 });
 
-router.use(function (err, req, res, next) {
-  res.status(500).send(err);
-});
-
 router.get("/loadChartdata", async (req, res, next) => {
   try {
     let chartData = {
@@ -1084,13 +1068,17 @@ router.post("/oneuserLoadChartdata", async (req, res, next) => {
 //req.body.followId, req.body.followingId
 router.post("/followUser", conformLogin, async (req, res, next) => {
   try {
-    console.log(req.body);
     await Follow.create({
       followerId: req.user.dataValues.id,
       followingId: req.body.followingId,
     });
 
-    res.status(200).json(req.body.postId);
+    const followInfo = {
+      followerId: req.user.dataValues.id,
+      followingId: req.body.followingId,
+    };
+
+    res.status(200).json(followInfo);
   } catch (err) {
     console.error(err);
     next(err);
@@ -1108,7 +1096,12 @@ router.post("/unFollowUser", conformLogin, async (req, res, next) => {
       },
     });
 
-    res.status(200).json(req.body.postId);
+    const unFollowInfo = {
+      followerId: req.user.dataValues.id,
+      followingId: req.body.followingId,
+    };
+
+    res.status(200).json(unFollowInfo);
   } catch (err) {
     console.error(err);
     next(err);
@@ -1394,6 +1387,10 @@ router.get("/deleteTimelineContents/:id", async (req, res, next) => {
     console.error(err);
     next(err);
   }
+});
+
+router.use(function (err, req, res, next) {
+  res.status(500).send(err);
 });
 
 module.exports = router;

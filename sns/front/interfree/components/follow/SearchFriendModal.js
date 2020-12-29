@@ -88,7 +88,7 @@ const SearchModal = (props) => {
                     type: LOAD_USERPAGE_REQUEST,
                     data: searchText,
                   });
-                  router.push(`${frontUrl}/userPage/${searchText}/`);
+                  router.push(`${frontUrl}/user/${searchText}/`);
                   props.onHide();
                 }}
               >

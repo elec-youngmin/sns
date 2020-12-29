@@ -961,8 +961,8 @@ const reducer = (state = initialState, action) =>
         draft.followUserDone = true;
         draft.followUserLoading = false;
         draft.posts = draft.posts.map((element) => {
-          if (element.id == action.data) {
-            element.Follows[0] = action.data;
+          if (element.User.id == action.data.followingId) {
+            element.Follows[0] = action.data.followingId;
             return element;
           }
           return element;
@@ -984,7 +984,7 @@ const reducer = (state = initialState, action) =>
         draft.unFollowUserLoading = false;
         draft.following = action.data;
         draft.posts = draft.posts.map((element) => {
-          if (element.id == action.data) {
+          if (element.User.id == action.data.followingId) {
             element.Follows.pop();
             return element;
           }
