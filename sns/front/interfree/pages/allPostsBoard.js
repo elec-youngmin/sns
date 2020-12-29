@@ -41,18 +41,10 @@ const allPostsBoard = () => {
     <div>
       <div className="container justify-content-around">
         <Media
-          queries={{
-            small: "(max-width: 854px)",
-            large: "(min-width: 855px)",
-          }}
-        >
-          {(matches) => (
-            <>
-              {matches.small && <></>}
-              {matches.large && <VerticalNav />}
-            </>
-          )}
-        </Media>
+          queries={{ medium: "(min-width: 854px)" }}
+          defaultMatches={{ medium: initialState.device === "mobile" }}
+          render={() => <VerticalNav />}
+        />
 
         <Row
           style={{
