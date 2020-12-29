@@ -41,8 +41,14 @@ const allPostsBoard = () => {
     <div>
       <div className="container justify-content-around">
         <Media
-          queries={{ medium: "(min-width: 854px)" }}
+          queries={{ medium: "(max-width: 985px)" }}
           defaultMatches={{ medium: initialState.device === "mobile" }}
+          render={() => <> </>}
+        />
+
+        <Media
+          queries={{ medium: "(min-width: 854px)" }}
+          defaultMatches={{ medium: initialState.device === "desktop" }}
           render={() => <VerticalNav />}
         />
 
