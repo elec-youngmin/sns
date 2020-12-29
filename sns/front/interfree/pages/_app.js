@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   const Example = (props) => {
-    const mediaStates = useMediaSet(queries, [mobile]);
+    const mediaStates = useMediaSet(queries, [initialState.device]);
 
     if (mediaStates.has("desktop")) {
       return <VerticalNav {...props} />;
@@ -44,12 +44,7 @@ function MyApp({ Component, pageProps }) {
         <title>interfree</title>
       </Head>
       <BottomTabs />
-      <Media
-        queries={{ medium: "(min-width: 854px)" }}
-        defaultMatches={{ medium: initialState.device === "mobile" }}
-        render={() => <VerticalNav />}
-      />
-      {Example}
+      <VerticalNav />
       <HorizontalNav />
       <ScrollButton />
       <ActionLoading />

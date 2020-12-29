@@ -3,6 +3,15 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 module.exports = withBundleAnalyzer({
   compress: true,
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/allPostsBoard",
+        permanent: true,
+      },
+    ];
+  },
   webpack(config, { webpack }) {
     const prod = process.env.NODE_ENV === "production";
     return {

@@ -2,6 +2,8 @@ import React from "react";
 import Router from "next/router";
 import Menu, { SubMenu, MenuItem } from "rc-menu";
 
+import { VerticalDiv } from "../../styledComponents/layout/VerticalNav";
+
 import { useSelector } from "react-redux";
 
 import { AiFillSetting, AiFillEdit } from "react-icons/ai";
@@ -19,7 +21,7 @@ const VerticalNav = () => {
   const { id } = useSelector((state) => state.user.user);
 
   return (
-    <>
+    <VerticalDiv>
       <>
         <Menu
           className="flex-column"
@@ -32,7 +34,6 @@ const VerticalNav = () => {
             position: "fixed",
             top: "88px",
             left: "0",
-            // right: "0",
             zIndex: "100",
             height: "100%",
           }}
@@ -128,7 +129,7 @@ const VerticalNav = () => {
           </MenuItem>
         </Menu>
       </>
-    </>
+    </VerticalDiv>
   );
 };
 

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
@@ -33,18 +32,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
-            rel="stylesheet"
-          />
-
-          <meta name="keyword" content="sns,portfolio" />
-          <meta name="name" content="interfree" />
-          <meta name="Description" content="interfree is sns" />
-          <meta name="author" content="mintZeroCode" />
-          <meta charset="UTF-8" />
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
