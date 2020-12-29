@@ -21,7 +21,7 @@ const VerticalNav = () => {
   const { id } = useSelector((state) => state.user.user);
 
   return (
-    <VerticalDiv>
+    <div>
       <>
         <Menu
           className="flex-column"
@@ -129,7 +129,7 @@ const VerticalNav = () => {
           </MenuItem>
         </Menu>
       </>
-    </VerticalDiv>
+    </div>
   );
 };
 

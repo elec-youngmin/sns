@@ -43,7 +43,6 @@ export default class MyDocument extends Document {
           <meta name="Description" content="interfree is sns" />
           <meta name="author" content="mintZeroCode" />
           <meta charset="UTF-8" />
-          <meta name="viewport" content="width=850, user-scalable=yes" />
         </Head>
         <body>
           <Main />
