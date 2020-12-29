@@ -1,8 +1,15 @@
 import styled from "styled-components";
+import Menu, { SubMenu, MenuItem } from "rc-menu";
 
-export const VerticalDiv = styled.div`
-  display: none;
-  @media (min-width: 854px) {
-    display: inline;
-  }
+export const VerticalDiv = styled(Menu)`
+  text-align: center;
+  padding: 0px;
+  text-align: center;
+  font-size: 30px;
+  color: #6495ed;
+  position: fixed;
+  top: 88px;
+  left: 0;
+  z-index: 100;
+  height: 100%;
 `;

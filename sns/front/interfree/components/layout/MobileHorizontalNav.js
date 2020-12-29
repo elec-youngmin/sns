@@ -40,10 +40,10 @@ const Menu = () => {
       width: "36px",
       height: "30px",
       left: "8px",
-      top: "36px",
+      top: "20px",
     },
     bmBurgerBars: {
-      background: "#373a47",
+      background: "#1E90FF",
     },
     bmBurgerBarsHover: {
       background: "#a90000",

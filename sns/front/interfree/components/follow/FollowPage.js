@@ -25,7 +25,7 @@ const FollowPage = () => {
               cursor: "pointer",
             }}
             onClick={() => {
-              Router.push(`${frontUrl}/userPage/${e.followingId}`);
+              Router.push(`${frontUrl}/user/${e.followingId}`);
             }}
           >
             <Row
@@ -36,11 +36,6 @@ const FollowPage = () => {
                 justifyContent: "center",
               }}
             >
-              {/* <img
-                src={`${backUrl}/${e.src}`}
-                style={{ width: "150px", height: "150px", margin: "0px auto" }}
-              /> */}
-
               <div
                 style={{
                   display: "flex",

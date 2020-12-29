@@ -57,7 +57,7 @@ export const MobileContainer = styled.div`
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 90px;
+  height: 70px;
 `;
 
 export const MobileLink = styled.a`

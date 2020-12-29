@@ -23,21 +23,7 @@ const VerticalNav = () => {
   return (
     <div>
       <>
-        <Menu
-          className="flex-column"
-          style={{
-            textAlign: "center",
-            padding: "0px",
-            textAlign: "center",
-            fontSize: "30px",
-            color: "#6495ED",
-            position: "fixed",
-            top: "88px",
-            left: "0",
-            zIndex: "100",
-            height: "100%",
-          }}
-        >
+        <VerticalDiv>
           <MenuItem
             onClick={() => {
               if (id === "guest") {
@@ -127,7 +113,7 @@ const VerticalNav = () => {
               설정
             </a>
           </MenuItem>
-        </Menu>
+        </VerticalDiv>
       </>
     </div>
   );
