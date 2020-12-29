@@ -1,16 +1,12 @@
 import React, { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
-import Media from "react-media";
-
-import { useMediaSet } from "use-media-set";
 
 import wrapper from "../store/configureStore";
 import "bootstrap/dist/css/bootstrap.css";
 import Head from "next/head";
 
 import BottomTabs from "../components/layout/BottomTabs";
-import VerticalNav from "../components/layout/VerticalNav";
 import HorizontalNav from "../components/layout/HorizontalNav";
 import ScrollButton from "../components/layout/ScrollButton";
 import ActionLoading from "../components/loading/ActionLoading";
@@ -19,22 +15,6 @@ import Toast from "../components/Toast/Toast";
 import { useSelector } from "react-redux";
 
 function MyApp({ Component, pageProps }) {
-  const initialState = {
-    device: "mobile",
-  };
-  const queries = {
-    mobile: { maxWidth: 854 },
-    desktop: { minWidth: 855 },
-  };
-
-  const Example = (props) => {
-    const mediaStates = useMediaSet(queries, [initialState.device]);
-
-    if (mediaStates.has("desktop")) {
-      return <VerticalNav {...props} />;
-    }
-  };
-
   const { loadAllPostDone } = useSelector((state) => state.post);
   const [renderNav, setRenderNav] = useState(false);
 

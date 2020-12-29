@@ -332,7 +332,7 @@ const PostBoard = ({
               <div>
                 <a
                   onClick={() => {
-                    router.push(`${frontUrl}/hashtagPage/${e.slice(1)}/`);
+                    router.push(`${frontUrl}/hashtag/${e.slice(1)}/`);
                   }}
                 >
                   {e}

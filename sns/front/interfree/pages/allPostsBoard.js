@@ -45,7 +45,21 @@ const allPostsBoard = () => {
           defaultMatches={{ medium: initialState.device === "mobile" }}
           render={() => <VerticalNav />}
         /> */}
-        <VerticalNav />
+
+        <Media
+          queries={{
+            small: "(max-width: 854px)",
+            large: "(min-width: 855px)",
+          }}
+        >
+          {(matches) => (
+            <>
+              {matches.small && <></>}
+              {matches.large && <VerticalNav />}
+            </>
+          )}
+        </Media>
+
         <Row
           style={{
             paddingTop: "100px",
