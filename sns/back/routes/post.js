@@ -42,7 +42,7 @@ const upload = multer({
       cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
     },
   }),
-  limits: { fileSize: 200 * 1024 * 1024 }, //500메가까지 업로드 할 수 있음.
+  limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
 });
 
 router.post(
@@ -74,12 +74,6 @@ router.post(
       }
 
       const hashtags = req.body.post.match(/#[^\s#]+/g);
-
-      // if (hashtags) {
-      //   await Hashtag.create({
-      //     tag: hashtags,
-      //   });
-      // }
 
       if (hashtags) {
         const result = await Promise.all(
@@ -648,9 +642,6 @@ router.post("/loadBookmark", conformLogin, async (req, res, next) => {
 });
 
 router.post("/image", upload.single("image"), (req, res, next) => {
-  // if (req.file.size > 1000000) {
-  //   json.status(500).json("용량이 초과했습니다. 10mb 까지 허용합니다.");
-  // }
   res.status(200).json("성공적으로 업로드했습니다.");
 });
 

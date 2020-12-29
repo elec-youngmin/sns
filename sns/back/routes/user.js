@@ -89,7 +89,7 @@ router.get(
     failureRedirect: "/kakaoError",
   }),
   (req, res) => {
-    res.redirect("http://localhost:3000/allPostsBoard");
+    res.redirect("http://interfree.co.kr");
   }
 );
 
