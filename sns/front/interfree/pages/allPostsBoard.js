@@ -55,7 +55,7 @@ const allPostsBoard = () => {
           {(matches) => (
             <>
               {matches.small && <></>}
-              {matches.large && <VerticalNav />}
+              {matches.large && <></>}
             </>
           )}
         </Media>
