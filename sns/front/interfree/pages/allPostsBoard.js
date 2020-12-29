@@ -40,12 +40,12 @@ const allPostsBoard = () => {
   return (
     <div>
       <div className="container justify-content-around">
-        <Media
+        {/* <Media
           queries={{ medium: "(min-width: 854px)" }}
           defaultMatches={{ medium: initialState.device === "mobile" }}
           render={() => <VerticalNav />}
-        />
-
+        /> */}
+        <VerticalNav />
         <Row
           style={{
             paddingTop: "100px",

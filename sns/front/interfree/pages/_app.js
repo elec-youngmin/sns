@@ -44,7 +44,7 @@ function MyApp({ Component, pageProps }) {
         <title>interfree</title>
       </Head>
       <BottomTabs />
-      {/* <VerticalNav /> */}
+
       <HorizontalNav />
       <ScrollButton />
       <ActionLoading />
