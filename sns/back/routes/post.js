@@ -788,11 +788,10 @@ router.post("/loadFollowsPost", conformLogin, async (req, res, next) => {
     const [FollowUsers, metadata] = await sequelize.query(
       `SELECT * FROM users INNER JOIN follows on follows.followingId=users.id where follows.followerId=${req.user.dataValues.id}`
     );
-    // SELECT * FROM profileimgsrcs RIGHT JOIN users on profileimgsrcs.UserId=users.id INNER JOIN follows on follows.followingId=users.id where follows.followerId=2
 
     const FollowUsersMap = FollowUsers.map(async (e) => {
       const [src, metadataz] = await sequelize.query(
-        `SELECT src FROM profileimgsrcs where UserId=${e.followingId}`
+        `SELECT src FROM profileImgSrcs where UserId=${e.followingId}`
       );
 
       const [postsCount, metadata0] = await sequelize.query(
