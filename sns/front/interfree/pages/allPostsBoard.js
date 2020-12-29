@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Media from "react-media";
 
 import PostBoard from "../components/post/PostBoard";
 import Title from "../components/layout/Title";
@@ -18,6 +19,9 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 
 const allPostsBoard = () => {
+  const initialState = {
+    device: "mobile",
+  };
   const dispatch = useDispatch();
   const { posts, loadAllPostDone } = useSelector((state) => state.post);
   const { id } = useSelector((state) => state.user.user);
@@ -36,7 +40,12 @@ const allPostsBoard = () => {
   return (
     <div>
       <div className="container justify-content-around">
-        <VerticalNav />
+        <Media
+          queries={{ medium: "(min-width: 854px)" }}
+          defaultMatches={{ medium: initialState.device === "mobile" }}
+          render={() => <VerticalNav />}
+        />
+
         <Row
           style={{
             paddingTop: "100px",
