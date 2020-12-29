@@ -10,6 +10,5 @@ export const VerticalDiv = styled(Menu)`
   position: fixed;
   top: 88px;
   left: 0;
-  z-index: 100;
   height: 100%;
 `;
