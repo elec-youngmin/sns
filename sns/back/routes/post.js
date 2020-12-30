@@ -867,15 +867,17 @@ router.post("/loadUserPage", conformLogin, async (req, res, next) => {
 
 router.get("/loadUserPageInfo/:id", async (req, res, next) => {
   try {
+    const id = parseInt(req.params.id);
+
     const [postsCount, metadata] = await sequelize.query(
-      `SELECT count(id) as postsCount FROM posts where UserId=${req.params.id}`
+      `SELECT count(id) as postsCount FROM posts where UserId=${id}`
     );
     const [userInfo, metadata0] = await sequelize.query(
-      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,  profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${req.params.id}`
+      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,  profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${id}`
     );
 
     const [followCount, metadata1] = await sequelize.query(
-      `SELECT count(followerId) as followCount FROM follows where followerId=${req.params.id}`
+      `SELECT count(followerId) as followCount FROM follows where followerId=${id}`
     );
 
     const [followingCount, metadata2] = await sequelize.query(
@@ -1185,7 +1187,7 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
     const posts = await Post.findAll({
       where: {
         contents: {
-          [Op.like]: req.params.searchText + "%",
+          [Op.like]: decodeURIComponent(req.params.searchText) + "%",
         },
       },
       // limit: 10,

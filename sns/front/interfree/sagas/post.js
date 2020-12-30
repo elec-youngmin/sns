@@ -757,7 +757,7 @@ function* searchInputText(action) {
 }
 
 function searchResultAPI(data) {
-  return axios.get(`post/searchResult/${data}`);
+  return axios.get(`post/searchResult/${encodeURIComponent(data)}`);
 }
 
 function* searchResult(action) {

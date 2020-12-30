@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import WritePostForm from "../post/WritePostForm";
+
+import { useSelector } from "react-redux";
 
 import { Modal } from "react-bootstrap";
 
 const WritePostModal = (props) => {
+  const { savePostDone } = useSelector((state) => state.post);
+
+  useMemo(() => {
+    if (savePostDone) {
+      props.onHide();
+    }
+  }, [savePostDone]);
   return (
     <div>
       <Modal

@@ -8,7 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 import { SEARCH_RESULT_REQUEST } from "../../reducers/post";
 
-import { Row, Col } from "react-bootstrap";
+import { SessionRow } from "../../styledComponents/layout/Session";
+
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
@@ -24,15 +26,7 @@ const searchResult = () => {
       {searchResultDone && (
         <>
           <div className="container justify-content-center">
-            <Row
-              style={{
-                paddingTop: "100px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "0px auto",
-              }}
-            >
+            <SessionRow>
               <Col md={7}>
                 <Title title={"검색 결과"} />
 
@@ -72,7 +66,7 @@ const searchResult = () => {
                   <p style={{ fontSize: "20px" }}>검색 결과가 없습니다.</p>
                 )}
               </Col>
-            </Row>
+            </SessionRow>
           </div>
         </>
       )}

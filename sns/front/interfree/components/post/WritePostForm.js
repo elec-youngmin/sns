@@ -19,14 +19,7 @@ import {
   SAVE_POST_REQUEST,
 } from "../../reducers/post";
 
-import {
-  Form,
-  Button,
-  OverlayTrigger,
-  Tooltip,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Form, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import {
   BsQuestion,
@@ -65,7 +58,7 @@ const WriteForm = (props) => {
   const [onlyReadMyText, setOnlyReadMyText] = useState("전체공개");
   const [onlyReadMyIcon, setOnlyReadMyIcon] = useState(<BsPeople />);
 
-  const { imageSaveError } = useSelector((state) => state.post);
+  const { imageSaveError, savePostDone } = useSelector((state) => state.post);
 
   useMemo(() => {
     if (imageSaveError) {

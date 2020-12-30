@@ -13,7 +13,7 @@ import {
   LOAD_USERPAGE_REQUEST,
   LOAD_USERPAGE_INFO_REQUEST,
 } from "../../reducers/post";
-import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
+// import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
@@ -25,7 +25,7 @@ const UserPage = () => {
   const {
     posts,
     userPageInfo,
-    loadUserInfomationDone,
+    loadUserPageInfoDone,
     loadUserPageDone,
   } = useSelector((state) => state.post);
 
@@ -43,7 +43,7 @@ const UserPage = () => {
           <Col md={7}>
             <Title title={"유저 페이지"} />
 
-            {loadUserInfomationDone && (
+            {loadUserPageInfoDone && (
               <>
                 <Container
                   style={{
@@ -218,13 +218,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
       type: LOAD_USERPAGE_REQUEST,
       data: { id: context.params.id },
     });
+
     context.store.dispatch({
       type: LOAD_USERPAGE_INFO_REQUEST,
       data: context.params.id,
     });
-    // context.store.dispatch({
-    //   type: LOAD_USER_INFOMATION_REQUEST,
-    // });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   }
