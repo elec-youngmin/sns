@@ -54,6 +54,12 @@ const Login = (props) => {
     }
   }, [signUpDone]);
 
+  useMemo(() => {
+    Router.events.on("routeChangeComplete", () => {
+      props.onHide();
+    });
+  }, [Router]);
+
   return (
     <div>
       <div className="container">

@@ -179,7 +179,7 @@ const me = () => {
                         router.push(`${frontUrl}/exampleTimeline/`);
                       }}
                     >
-                      타임라인 예
+                      이 기능으로 만든 예시
                     </SessionButton>
                     <br />
                     <SessionButton

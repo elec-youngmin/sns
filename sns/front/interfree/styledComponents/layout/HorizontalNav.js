@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.css";
 
-export const Logo = styled.h1`
+export const Logo = styled.a`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
   font-family: "Fredoka One", cursive;
   color: #4169e1;
   font-size: 40px;
-  text-align: center;
-  cursor: "pointer";
+  float: left;
+  // margin-left: 15px;
+  text-decoration: none;
   @media (max-width: 768px) {
     font-size: 35px;
   }
@@ -34,7 +35,10 @@ export const DesktopNavContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  zindex: 100;
+  z-index: 100;
+  border-bottom: 1px solid #d9d9d9;
+  height: 55px;
+  background: #f3f5f7;
 `;
 
 export const MobileContainer = styled.div`

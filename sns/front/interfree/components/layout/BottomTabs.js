@@ -69,7 +69,7 @@ const BottomTabs = () => {
               textAlign: "center",
               padding: "0px",
               textAlign: "center",
-              fontSize: "43px",
+              fontSize: "39px",
               backgroundColor: "#FFFAFA",
               color: "#B0C4DE",
               position: "fixed",

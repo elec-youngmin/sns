@@ -8,7 +8,7 @@ export const VerticalDiv = styled(Menu)`
   font-size: 30px;
   color: #6495ed;
   position: fixed;
-  top: 88px;
+  top: 55px;
   left: 0;
   height: 100%;
 `;

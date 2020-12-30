@@ -4,6 +4,7 @@ import Router from "next/router";
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
 import TimelineSubjectDiv from "../components/timeline/TimelineSubjectDiv";
+import AddTimelineModal from "../components/timeline/AddTimelineModal";
 import AddTimelineContentsModal from "../components/timeline/AddTimelineContentsModal";
 
 import {
@@ -30,13 +31,21 @@ import { frontUrl } from "../config/config";
 
 const timeline = () => {
   const [timelineModalShow, setTimelineModalShow] = useState(false);
+  const [timelineContentsShow, setTimelineContentsShow] = useState(false);
   const { timelineSubjects } = useSelector((state) => state.post);
   return (
     <div>
-      <AddTimelineContentsModal
+      <AddTimelineModal
         show={timelineModalShow}
         onHide={() => {
           setTimelineModalShow(false);
+        }}
+      />
+
+      <AddTimelineContentsModal
+        show={timelineContentsShow}
+        onHide={() => {
+          timelineContentsShow(false);
         }}
       />
       <div className="container justify-content-center">
@@ -57,7 +66,7 @@ const timeline = () => {
                   Router.push(`${frontUrl}/exampleTimeline/`);
                 }}
               >
-                타임라인 예
+                이 기능으로 만든 예시
               </SessionButton>
               <br />
               <SessionButton

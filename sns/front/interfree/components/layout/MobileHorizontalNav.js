@@ -97,7 +97,7 @@ const Menu = () => {
 
   useMemo(() => {
     if (logOutDone) {
-      Router.push(`${frontUrl}`);
+      Router.push(`${frontUrl}/allPostsBoard`);
     }
   }, [logOutDone]);
 

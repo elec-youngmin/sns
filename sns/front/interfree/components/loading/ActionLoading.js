@@ -91,9 +91,9 @@ const ActionLoading = () => {
             animation="border"
             style={{
               position: "fixed",
-              top: "30px",
-              right: "70px",
-              zIndex: "100",
+              top: "12px",
+              right: "100px",
+              zIndex: "1000",
             }}
           />
         </>

@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 
-import Menu, { SubMenu, MenuItem, Divider } from "rc-menu";
 import "rc-menu/assets/index.css";
 
 import SearchModal from "./SearchModal";
@@ -31,11 +30,9 @@ const DesktopHorizontalNav = () => {
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
 
-  console.log(id);
-
   useMemo(() => {
     if (logOutDone) {
-      Router.push(`${frontUrl}`);
+      Router.push(`${frontUrl}/allPostsBoard`);
     }
   }, [logOutDone]);
 
@@ -50,29 +47,37 @@ const DesktopHorizontalNav = () => {
 
       <Login show={loginModalShow} onHide={() => setLoginModalShow(false)} />
 
-      <Menu mode="horizontal">
-        <MenuItem>
-          <Logo
+      <nav style={{ width: "100%", zIndex: "99999" }}>
+        <ul style={{ listStyle: "none" }}>
+          <li
+            style={{ display: "inline" }}
             onClick={() => {
               Router.push(`${frontUrl}/allPostsBoard`);
             }}
           >
-            <a>interfree</a>
-          </Logo>
-        </MenuItem>
-        <>
-          <MenuItem
+            <Logo>interfree</Logo>
+          </li>
+          <li
+            style={{
+              display: "inline",
+              marginRight: "20px",
+              marginLeft: "-80px",
+            }}
             onClick={() => {
               Router.push(`${frontUrl}/allPostsBoard`);
             }}
           >
-            <a>
-              <AiFillDribbbleCircle />
-              모든 포스트
+            <a
+              style={{
+                textDecoration: "none",
+                color: "#666666",
+              }}
+            >
+              <AiFillDribbbleCircle /> 모든포스트
             </a>
-          </MenuItem>
-
-          <MenuItem
+          </li>
+          <li
+            style={{ display: "inline", marginRight: "20px" }}
             onClick={() => {
               if (id === "guest") {
                 return alert("로그인 후 이용하실 수 있어요.");
@@ -80,48 +85,60 @@ const DesktopHorizontalNav = () => {
               Router.push(`${frontUrl}/me`);
             }}
           >
-            <a>
+            <a
+              style={{
+                textDecoration: "none",
+                color: "#666666",
+              }}
+            >
               <FaUserCircle /> 나
             </a>
-          </MenuItem>
-
-          <MenuItem
+          </li>
+          <li
+            style={{ display: "inline" }}
             onClick={() => {
               setSearchModalShow(true);
             }}
           >
-            <a>
+            <a
+              style={{
+                textDecoration: "none",
+                color: "#666666",
+              }}
+            >
               <AiOutlineSearch /> 검색
             </a>
-          </MenuItem>
+          </li>
 
-          {id === "guest" ? (
-            <>
-              <MenuItem>
-                <Button
+          <li style={{ display: "inline", float: "right" }}>
+            {id === "guest" ? (
+              <>
+                <a>
+                  <Button
+                    onClick={() => {
+                      setLoginModalShow(true);
+                    }}
+                  >
+                    계정 활동
+                  </Button>
+                </a>
+              </>
+            ) : (
+              <>
+                <a
                   onClick={() => {
-                    setLoginModalShow(true);
+                    dispatch({
+                      type: USER_LOGOUT_REQUEST,
+                    });
                   }}
                 >
-                  계정 활동
-                </Button>
-              </MenuItem>
-            </>
-          ) : (
-            <>
-              <MenuItem
-                onClick={() => {
-                  dispatch({
-                    type: USER_LOGOUT_REQUEST,
-                  });
-                }}
-              >
-                <Button>로그아웃</Button>
-              </MenuItem>
-            </>
-          )}
-        </>
-      </Menu>
+                  <Button>로그아웃</Button>
+                </a>
+              </>
+            )}
+          </li>
+        </ul>
+      </nav>
     </DesktopNavContainer>
   );
 };

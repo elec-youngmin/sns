@@ -7,6 +7,8 @@ import PostBoard from "../components/post/PostBoard";
 import Title from "../components/layout/Title";
 import VerticalNav from "../components/layout/VerticalNav";
 
+import { SessionRow } from "../styledComponents/layout/Session";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
@@ -52,15 +54,7 @@ const allPostsBoard = () => {
           render={() => <VerticalNav />}
         />
 
-        <Row
-          style={{
-            paddingTop: "100px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
+        <SessionRow>
           <Col md={8}>
             <Title title={"모든 포스트"} />
 
@@ -117,7 +111,7 @@ const allPostsBoard = () => {
               </>
             )}
           </Col>
-        </Row>
+        </SessionRow>
       </div>
     </div>
   );
