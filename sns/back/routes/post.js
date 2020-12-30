@@ -643,7 +643,7 @@ router.post("/loadBookmark", conformLogin, async (req, res, next) => {
   }
 });
 
-router.post("/image", upload.single("image"), (req, res, next) => {
+router.post("/image", upload.array("image"), (req, res, next) => {
   console.log(req.file);
   res.status(200).json("성공적으로 업로드했습니다.");
 });
