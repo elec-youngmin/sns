@@ -38,8 +38,9 @@ const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
     bucket: "interfree-s3",
-    acl: "public-read-write",
+    acl: "public-read",
     key(req, file, cb) {
+      console.log(file);
       cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
     },
   }),
@@ -643,11 +644,12 @@ router.post("/loadBookmark", conformLogin, async (req, res, next) => {
 });
 
 router.post("/image", upload.single("image"), (req, res, next) => {
+  console.log(req.file);
   res.status(200).json("성공적으로 업로드했습니다.");
 });
 
 router.post("/uploadVideo", upload.single("video"), (req, res, next) => {
-  console.log(req.files);
+  console.log(req.file);
   res.json("ok");
 });
 

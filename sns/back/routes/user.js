@@ -255,9 +255,14 @@ router.patch("/changeProfile", async (req, res, next) => {
 });
 
 router.post("/logout", (req, res, next) => {
-  req.logout();
-  req.session.destroy();
-  res.json("로그아웃 성공");
+  try {
+    req.logout();
+    req.session.destroy();
+    res.json("로그아웃 성공");
+  } catch (err) {
+    next(err);
+    console.error(err);
+  }
 });
 
 const upload = multer({

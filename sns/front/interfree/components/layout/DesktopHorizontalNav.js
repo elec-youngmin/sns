@@ -31,6 +31,8 @@ const DesktopHorizontalNav = () => {
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
 
+  console.log(id);
+
   useMemo(() => {
     if (logOutDone) {
       Router.push(`${frontUrl}`);
