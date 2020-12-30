@@ -66,4 +66,6 @@ export const LogoContainer = styled.div`
 
 export const MobileLink = styled.a`
   color: black;
+  font-size: 40px;
+  margin-bottom: 10px;
 `;

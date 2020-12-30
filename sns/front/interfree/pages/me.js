@@ -20,11 +20,20 @@ import {
   SessionRow,
 } from "../styledComponents/layout/Session";
 
+import {
+  CardContainter,
+  CardRow,
+  ProfileImg,
+  ProfileAvata,
+  CountRow,
+  CountCol,
+} from "../styledComponents/profile/ProfileCard";
+
 import { useDispatch, useSelector } from "react-redux";
 
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { SEARCH_FRIEND_REQUEST, LOAD_USERPAGE_REQUEST } from "../reducers/post";
-import { Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 
 import { AiFillEdit, AiOutlineSearch } from "react-icons/ai";
 import { GiTimeBomb } from "react-icons/gi";
@@ -35,13 +44,14 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 
 import { frontUrl } from "../config/config";
+import { backUrl } from "../config/config";
 
 // 컴포넌트 시작
 const me = () => {
   const router = useRouter();
 
   const { search } = useSelector((state) => state.post);
-  const { loadUserInfomationDone } = useSelector((state) => state.user);
+  const { loadUserInfomationDone, user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -83,6 +93,39 @@ const me = () => {
               <SessionRow>
                 <Col md={7}>
                   <Title title={"나"} />
+                  <CardContainter>
+                    <CardRow>
+                      {user?.ProfileImgSrcs[0].src ? (
+                        <ProfileImg
+                          src={`${backUrl}/${user?.ProfileImgSrcs[0].src}`}
+                          onClick={() => {
+                            router.push(`${frontUrl}/UserPage/${userId}/`);
+                          }}
+                        />
+                      ) : (
+                        <ProfileAvata>
+                          <p style={{ fontSize: "25px", fontWeight: "600" }}>
+                            {user.nickname[0].toUpperCase()}
+                          </p>
+                        </ProfileAvata>
+                      )}
+                    </CardRow>
+                    <p style={{ fontSize: "20px" }}>{user.nickname}</p>
+                    <p>{user.introduce}</p>
+                    <CountRow>
+                      <CountCol>포스트:{user.postsCount}</CountCol>
+                      <CountCol>팔로워:{user.followCount}</CountCol>
+                      <CountCol>팔로우:{user.followingCount}</CountCol>
+                    </CountRow>
+                    <p style={{ fontSize: "20px" }}>
+                      링크:
+                      {user.ShareLink ? user.ShareLink : "게재되지 않음"}
+                    </p>
+                    <p style={{ fontSize: "20px" }}>
+                      사는 곳:
+                      {user.ShareLink ? user.ShareLink : "게재되지 않음"}
+                    </p>
+                  </CardContainter>
 
                   <SessionDiv>
                     <SessionTitle>
@@ -98,7 +141,6 @@ const me = () => {
                       프로필 사진 편집하기
                     </SessionButton>
                   </SessionDiv>
-
                   <SessionDiv>
                     <SessionTitle>
                       <ImProfile />
@@ -113,7 +155,6 @@ const me = () => {
                       프로필 편집하기
                     </SessionButton>
                   </SessionDiv>
-
                   <SessionDiv>
                     <SessionTitle>
                       <AiFillEdit />
@@ -128,7 +169,6 @@ const me = () => {
                       }}
                     />
                   </SessionDiv>
-
                   <SessionDiv>
                     <SessionTitle>
                       <AiOutlineSearch />
@@ -165,7 +205,6 @@ const me = () => {
                       }}
                     />
                   </SessionDiv>
-
                   <SessionDiv>
                     <SessionTitle>
                       <GiTimeBomb />

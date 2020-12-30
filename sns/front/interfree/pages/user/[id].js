@@ -13,7 +13,7 @@ import {
   LOAD_USERPAGE_REQUEST,
   LOAD_USERPAGE_INFO_REQUEST,
 } from "../../reducers/post";
-// import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";
+import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
@@ -29,13 +29,6 @@ const UserPage = () => {
     loadUserPageDone,
   } = useSelector((state) => state.post);
 
-  // const LoadNextPosts = () => {
-  //   const lastId = posts[posts.length - 1]?.id;
-  //   dispatch({
-  //     type: LOAD_USERPAGE_REQUEST,
-  //     data: { lastId, userId: user.id },
-  //   });
-  // };
   return (
     <div>
       <div className="container justify-content-center">
@@ -148,7 +141,7 @@ const UserPage = () => {
                       ? userPageInfo?.userInfo.ShareLink
                       : "게재되지 않음"}
                   </p>
-                </Container>{" "}
+                </Container>
               </>
             )}
 
@@ -222,6 +215,10 @@ export const getServerSideProps = wrapper.getServerSideProps(
     context.store.dispatch({
       type: LOAD_USERPAGE_INFO_REQUEST,
       data: context.params.id,
+    });
+
+    context.store.dispatch({
+      type: CONFIRM_CURRENT_LOGIN_REQUEST,
     });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();

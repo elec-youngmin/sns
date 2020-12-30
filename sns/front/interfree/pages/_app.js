@@ -41,9 +41,13 @@ function MyApp({ Component, pageProps }) {
           font-size: 16px;
           font-weight: 500;
           background-color: #f5f5f5;
+          overflow-y: scroll;
         }
         a {
           cursor: pointer;
+        }
+        .modal {
+          overflow: visible;
         }
       `}</style>
       <Component {...pageProps} />
