@@ -15,7 +15,7 @@ const HorizontalNav = () => {
     <div>
       <Media
         queries={{ medium: "(max-width: 985px)" }}
-        defaultMatches={{ medium: initialState.device === "mobile" }}
+        defaultMatches={{ medium: initialState.device === "desktop" }}
         render={() => <MobileHorizontalNav />}
       />
 

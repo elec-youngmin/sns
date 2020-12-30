@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, Row } from "react-bootstrap";
 
 export const BoardContainer = styled.div`
-  border: 5px solid white;
   border-radius: 12px;
   margin-bottom: 15px;
   background-color: white;
