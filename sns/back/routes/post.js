@@ -132,7 +132,7 @@ router.post(
       //   ],
       // });
 
-      res.status(200).json(post);
+      res.status(200).json("ok");
     } catch (err) {
       console.error(err);
       next(err);
