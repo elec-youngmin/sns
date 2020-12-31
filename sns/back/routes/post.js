@@ -41,7 +41,8 @@ const upload = multer({
     bucket: "interfree-s3",
     acl: "public-read",
     key(req, file, cb) {
-      cb(null, `media/${Date.now()}_${path.basename(file.originalname)}`);
+      console.log(file);
+      cb(null, file.originalname);
     },
   }),
   limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
@@ -643,7 +644,7 @@ router.post("/loadBookmark", conformLogin, async (req, res, next) => {
   }
 });
 
-router.post("/image", upload.single("image"), (req, res, next) => {
+router.post("/image", upload.single("img"), (req, res, next) => {
   console.log(req.file);
   res.status(200).json("성공적으로 업로드했습니다.");
 });
