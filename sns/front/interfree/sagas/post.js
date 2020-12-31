@@ -505,7 +505,7 @@ function* imageSave(action) {
 }
 
 function uploadVideoAPI(data) {
-  return axios.post("post/uploadVideo", data);
+  return axios.post("post/uploadVideo", encodeURIComponent(data));
 }
 
 function* uploadVideo(action) {

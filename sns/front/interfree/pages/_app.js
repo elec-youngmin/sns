@@ -14,6 +14,8 @@ import ScrollButton from "../components/layout/ScrollButton";
 import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
 
+import GlobalStyle from "../styledComponents/GlobalStyle";
+
 function MyApp({ Component, pageProps }) {
   const initialState = {
     device: "mobile",
@@ -25,16 +27,17 @@ function MyApp({ Component, pageProps }) {
         <title>interfree</title>
       </Head>
       <BottomTabs />
+      <HorizontalNav />
+      <ScrollButton />
+      <ActionLoading />
+      <Toast />
+      <GlobalStyle />
       <Media
         queries={{ medium: "(min-width: 854px)" }}
         defaultMatches={{ medium: initialState.device === "desktop" }}
         render={() => <VerticalNav />}
       />
-      <HorizontalNav />
-      <ScrollButton />
-      <ActionLoading />
-      <Toast />
-      <style jsx global>{`
+      {/* <style jsx global>{`
         body {
           @import url("https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500&display=swap");
           font-family: "Hind Vadodara", sans-serif;
@@ -46,7 +49,7 @@ function MyApp({ Component, pageProps }) {
         a {
           cursor: pointer;
         }
-      `}</style>
+      `}</style> */}
       <Component {...pageProps} />
     </>
   );

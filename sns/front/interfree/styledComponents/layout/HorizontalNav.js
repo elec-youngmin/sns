@@ -1,26 +1,19 @@
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.css";
 
-export const Logo = styled.a`
+export const Logo = styled.p`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
   font-family: "Fredoka One", cursive;
   color: #4169e1;
   font-size: 40px;
   float: left;
-  // margin-left: 15px;
-  text-decoration: none;
+  cursor: pointer;
   @media (max-width: 768px) {
     font-size: 35px;
   }
   @media (max-width: 430px) {
     font-size: 30px;
-    .cols {
-      width: 100%;
-      text-align: center;
-      margin-right: 100px;
-      font-size: 300px;
-    }
   }
   @media (max-width: 290px) {
     font-size: 25px;

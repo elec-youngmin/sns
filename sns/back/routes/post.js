@@ -55,7 +55,10 @@ router.post(
     { name: "video", maxCount: 1 },
   ]),
   async (req, res, next) => {
-    console.log(decodeURIComponent(req.files.img[0].location), "image output");
+    console.log(
+      decodeURIComponent(req.files.video[0].location),
+      "image output"
+    );
     // console.log(req.files.video[0], "dddddddddddddd");
 
     try {

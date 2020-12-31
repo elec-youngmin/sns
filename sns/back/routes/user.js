@@ -288,8 +288,9 @@ router.post("/logout", (req, res, next) => {
   }
 });
 
-router.post("/profileImage", upload.array("image"), async (req, res, next) => {
+router.post("/profileImage", upload.single("image"), async (req, res, next) => {
   try {
+    console.log(req.file.location, "한글.......................");
     const result = await ProfileImgSrc.findAll({
       where: { UserId: req.user.dataValues.id },
     });
@@ -300,25 +301,25 @@ router.post("/profileImage", upload.array("image"), async (req, res, next) => {
     }
     await ProfileImgSrc.create({
       UserId: req.user.dataValues.id,
-      src: req.files[0].filename,
+      src: req.file.location,
     });
     console.log(
-      req.files[0].filename,
+      req.file.location,
       req.user.dataValues.id,
       "번 유저 파일이 업로드 됨"
     );
-    // const userInfomation = await User.findOne({
-    //   where: { id: req.body.userId },
-    //   attributes: {
-    //     exclude: ["password", "createdAt", "updatedAt"],
-    //   },
-    //   include: [
-    //     {
-    //       model: ProfileImgSrc,
-    //       attributes: ["src"],
-    //     },
-    //   ],
-    // });
+    const userInfomation = await User.findOne({
+      where: { id: req.body.userId },
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+      },
+      include: [
+        {
+          model: ProfileImgSrc,
+          attributes: ["src"],
+        },
+      ],
+    });
 
     // const [postsCount, metadata] = await sequelize.query(
     //   `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
@@ -336,7 +337,7 @@ router.post("/profileImage", upload.array("image"), async (req, res, next) => {
     // userInfomation.dataValues.followCount = followCount[0].followCount;
     // userInfomation.dataValues.followingCount = followingCount[0].followingCount;
 
-    res.json("ok");
+    res.json(userInfomation);
   } catch (err) {
     console.error(err);
   }

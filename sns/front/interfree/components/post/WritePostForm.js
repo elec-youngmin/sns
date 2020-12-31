@@ -161,9 +161,10 @@ const WriteForm = (props) => {
             controls
             autoplay
             style={{
-              maxWidth: "55vw",
+              maxWidth: "40vw",
               maxHeight: "50vw",
               cursor: "pointer",
+              boxSizing: "content-box",
             }}
           ></video>
         )}

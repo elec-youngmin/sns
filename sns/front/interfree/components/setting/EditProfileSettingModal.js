@@ -15,7 +15,7 @@ const EditProfileSettingModal = (props) => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            프로필 설정
+            프로필 변경
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

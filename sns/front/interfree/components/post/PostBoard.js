@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import { useRouter } from "next/router";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
+import ReactPlayer from "react-player";
 import {
   Menu as MenuContexify,
   Item,
@@ -31,7 +32,7 @@ import {
   AddMenu,
   OnlyReadMy,
   ZoomImg,
-  Video,
+  // Video,
   LikeButton,
 } from "../../styledComponents/postBoard/Board";
 
@@ -174,7 +175,7 @@ const PostBoard = ({
         <BoardHeader>
           {profileImg ? (
             <ProfileImg
-              src={`${backUrl}/${profileImg}`}
+              src={profileImg}
               onClick={() => {
                 router.push(`${frontUrl}/user/${userId}/`);
               }}
@@ -207,20 +208,11 @@ const PostBoard = ({
           {onlyReadMy && <OnlyReadMy>onlyReadMy</OnlyReadMy>}
         </BoardHeader>
         {/* 여기부터 포스트보드 바디 시작 */}
-        <BoardBody
-          onClick={() => {
-            router.push(`${frontUrl}/post/${postId}`);
-          }}
-        >
+        <BoardBody>
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
             <Zoom>
-              <img
-                src={
-                  "https://interfree-s3.s3.ap-northeast-2.amazonaws.com/오영민님 010 3149 6729.jpg"
-                }
-              />
               <ZoomImg src={PostImgSrcs[0].src} alt={PostImgSrcs[0].src} />
             </Zoom>
           )}
@@ -229,12 +221,13 @@ const PostBoard = ({
 
           {PostVideoSrcs?.length > 0 && reportCount < 9 && (
             <>
-              <Video
-                id="myVideo"
+              <ReactPlayer
+                url={PostVideoSrcs[0].src}
                 controls
-                alt={`${PostVideoSrcs[0].src}`}
-                src={`${backUrl}/${PostVideoSrcs[0].src}`}
-              ></Video>
+                pip={true}
+                width="100%"
+                height="100%"
+              />
             </>
           )}
 

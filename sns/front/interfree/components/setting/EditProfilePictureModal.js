@@ -1,11 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { PROFILE_IMAGE_UPLOAD_REQUEST } from "../../reducers/user";
 
-import { Row, Col, Table, Button, Modal } from "react-bootstrap";
-
-import { backUrl } from "../../config/config";
+import { Button, Modal } from "react-bootstrap";
 
 const EditProfilePictureModal = (props) => {
   const dispatch = useDispatch();
@@ -56,9 +54,9 @@ const EditProfilePictureModal = (props) => {
               {profileImg ? (
                 <img
                   class="rounded-circle w-50 p-3 mx-auto d-block"
-                  alt={`${profileImg}`}
+                  alt={profileImg}
                   role="button"
-                  src={`${backUrl}/${profileImg}`}
+                  src={profileImg}
                   style={{
                     minWidth: "180px",
                     minHeight: "180px",

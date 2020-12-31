@@ -84,8 +84,8 @@ export const ZoomImg = styled.img`
 `;
 
 export const Video = styled.video`
-  maxwidth: 38vw;
-  maxheight: auto;
+  width: 33vw;
+  height: 38vh;
   margin: 10px;
 `;
 

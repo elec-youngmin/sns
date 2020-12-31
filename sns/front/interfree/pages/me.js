@@ -44,7 +44,6 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 
 import { frontUrl } from "../config/config";
-import { backUrl } from "../config/config";
 
 // 컴포넌트 시작
 const me = () => {
@@ -96,12 +95,7 @@ const me = () => {
                   <CardContainter>
                     <CardRow>
                       {user?.ProfileImgSrcs[0].src ? (
-                        <ProfileImg
-                          src={`${backUrl}/${user?.ProfileImgSrcs[0].src}`}
-                          onClick={() => {
-                            router.push(`${frontUrl}/UserPage/${userId}/`);
-                          }}
-                        />
+                        <ProfileImg src={user?.ProfileImgSrcs[0].src} />
                       ) : (
                         <ProfileAvata>
                           <p style={{ fontSize: "25px", fontWeight: "600" }}>
@@ -138,21 +132,21 @@ const me = () => {
                         setEditProfilePictureShow(true);
                       }}
                     >
-                      프로필 사진 편집하기
+                      프로필 사진 변경하기
                     </SessionButton>
                   </SessionDiv>
                   <SessionDiv>
                     <SessionTitle>
                       <ImProfile />
-                      프로필 편집
+                      프로필 변경
                     </SessionTitle>
-                    <SessionP>공개되는 프로필을 편집하세요. </SessionP>
+                    <SessionP>공개되는 프로필을 변경하세요. </SessionP>
                     <SessionButton
                       onClick={() => {
                         setEditProfileSettingShow(true);
                       }}
                     >
-                      프로필 편집하기
+                      프로필 변경하기
                     </SessionButton>
                   </SessionDiv>
                   <SessionDiv>
