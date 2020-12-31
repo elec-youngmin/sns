@@ -216,10 +216,7 @@ const PostBoard = ({
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
             <Zoom>
-              <ZoomImg
-                src={`${backUrl}/${PostImgSrcs[0].src}`}
-                alt={PostImgSrcs[0].src}
-              />
+              <ZoomImg src={`${PostImgSrcs[0].src}`} alt={PostImgSrcs[0].src} />
             </Zoom>
           )}
 
