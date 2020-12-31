@@ -46,9 +46,6 @@ function MyApp({ Component, pageProps }) {
         a {
           cursor: pointer;
         }
-        .modal {
-          overflow: visible;
-        }
       `}</style>
       <Component {...pageProps} />
     </>

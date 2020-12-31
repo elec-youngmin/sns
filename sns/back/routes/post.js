@@ -3,7 +3,6 @@ const multer = require("multer");
 const passport = require("passport");
 const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
-
 const path = require("path");
 const {
   Post,
@@ -28,20 +27,22 @@ const { QueryTypes, json } = require("sequelize");
 
 const { conformLogin, conformNotLogin } = require("./cofirmLogin");
 
+const s3 = new AWS.S3();
+
 AWS.config.update({
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_KEY,
+  accessKeyId: "AKIAJHNLL6PRXW6I2JWQ",
+  secretAccessKey: "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",
   resion: "ap-northeast-2",
 });
 
 const upload = multer({
   storage: multerS3({
-    s3: new AWS.S3(),
+    s3: s3,
     bucket: "interfree-s3",
     acl: "public-read",
     key(req, file, cb) {
       console.log(file);
-      cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`);
+      cb(null, file.originalname);
     },
   }),
   limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
@@ -643,7 +644,7 @@ router.post("/loadBookmark", conformLogin, async (req, res, next) => {
   }
 });
 
-router.post("/image", upload.array("image"), (req, res, next) => {
+router.post("/image", upload.array("upl", 1), (req, res, next) => {
   console.log(req.file);
   res.status(200).json("성공적으로 업로드했습니다.");
 });
