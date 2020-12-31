@@ -216,7 +216,12 @@ const PostBoard = ({
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
             <Zoom>
-              <ZoomImg src={`${PostImgSrcs[0].src}`} alt={PostImgSrcs[0].src} />
+              <img
+                src={
+                  "https://interfree-s3.s3.ap-northeast-2.amazonaws.com/오영민님 010 3149 6729.jpg"
+                }
+              />
+              <ZoomImg src={PostImgSrcs[0].src} alt={PostImgSrcs[0].src} />
             </Zoom>
           )}
 
