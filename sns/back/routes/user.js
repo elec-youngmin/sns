@@ -27,7 +27,12 @@ const upload = multer({
     acl: "public-read",
     key(req, file, cb) {
       console.log(file);
-      cb(null, file.originalname);
+      cb(
+        null,
+        `profile/${Date.now()}_${path.basename(
+          decodeURIComponent(file.originalname)
+        )}`
+      );
     },
   }),
   limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.

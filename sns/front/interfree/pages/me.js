@@ -94,7 +94,7 @@ const me = () => {
                   <Title title={"나"} />
                   <CardContainter>
                     <CardRow>
-                      {user?.ProfileImgSrcs[0].src ? (
+                      {user?.ProfileImgSrcs.length > 0 ? (
                         <ProfileImg src={user?.ProfileImgSrcs[0].src} />
                       ) : (
                         <ProfileAvata>

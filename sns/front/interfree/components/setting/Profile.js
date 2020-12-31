@@ -10,15 +10,9 @@ import { Col, Button, Form, Row } from "react-bootstrap";
 import styled from "styled-components";
 
 const Profile = () => {
-  const {
-    id,
-    email,
-    nickname,
-    introduce,
-    ShareLink,
-    where,
-    createdAt,
-  } = useSelector((state) => state.user.user);
+  const { id, email, nickname, introduce, ShareLink, where } = useSelector(
+    (state) => state.user.user
+  );
 
   const [nicknameValue, setNicknameValue] = useState(nickname);
   const [introduceValue, setIntroduceValue] = useState(introduce);
@@ -48,7 +42,7 @@ const Profile = () => {
               value={nicknameValue}
               placeholder="닉네임을 입력하세요."
               onChange={(e) => {
-                setNicknameValue("e.target.value");
+                setNicknameValue(e.target.value);
               }}
             />
           </Col>
@@ -88,7 +82,7 @@ const Profile = () => {
               }}
               rows={1}
               multiple
-              value={introduce}
+              value={introduceValue}
               placeholder="소개를 입력하세요."
               onChange={(e) => {
                 setIntroduceValue(e.target.value);
@@ -109,7 +103,7 @@ const Profile = () => {
               }}
               rows={1}
               multiple
-              value={ShareLink}
+              value={shereLinkValue}
               placeholder="공개링크를 입력하세요."
               onChange={(e) => {
                 setShereLinkValue(e.target.value);
@@ -130,7 +124,7 @@ const Profile = () => {
               }}
               rows={1}
               multiple
-              value={where}
+              value={whereValue}
               placeholder="사는 곳을 입력하세요. 예) 서울 중구"
               onChange={(e) => {
                 setWhereValue(e.target.value);

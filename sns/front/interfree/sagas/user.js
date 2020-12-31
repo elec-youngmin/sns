@@ -196,7 +196,7 @@ function* destroyUser(action) {
 }
 
 function profileImageAPI(data) {
-  return axios.post("user/profileImage", data);
+  return axios.post(encodeURI("user/profileImage"), data);
 }
 
 function* profileImage(action) {
