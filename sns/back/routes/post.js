@@ -55,81 +55,83 @@ router.post(
     { name: "video", maxCount: 1 },
   ]),
   async (req, res, next) => {
+    console.log(req.files);
     try {
-      const postId = await Post.create({
-        contents: req.body.post,
-        UserId: req.body.id,
-        onlyReadMy: req.body.onlyReadMy,
-      });
+      // const postId = await Post.create({
+      //   contents: req.body.post,
+      //   UserId: req.body.id,
+      //   onlyReadMy: req.body.onlyReadMy,
+      // });
 
-      if (req.body.img == undefined) {
-        await PostImgSrc.create({
-          src: req.files.img[0].filename,
-          PostId: postId.dataValues.id,
-        });
-      }
+      // if (req.body.img == undefined) {
+      //   await PostImgSrc.create({
+      //     src: req.files.img[0].filename,
+      //     PostId: postId.dataValues.id,
+      //   });
+      // }
 
-      if (req.body.video == undefined) {
-        await PostVideoSrc.create({
-          src: req.files.video[0].filename,
-          PostId: postId.dataValues.id,
-        });
-      }
+      // if (req.body.video == undefined) {
+      //   await PostVideoSrc.create({
+      //     src: req.files.video[0].filename,
+      //     PostId: postId.dataValues.id,
+      //   });
+      // }
 
-      const hashtags = req.body.post.match(/#[^\s#]+/g);
+      // const hashtags = req.body.post.match(/#[^\s#]+/g);
 
-      if (hashtags) {
-        const result = await Promise.all(
-          hashtags.map((tag) =>
-            Hashtag.findOrCreate({
-              where: { tag: tag.slice(1).toLowerCase() },
-            })
-          ) //slice(1)은 해시태그 때기, 글짜만 저장
-        ); //result 값은 [[노드,true],[리액트,true]]
-        await postId.addHashtags(result.map((v) => v[0]));
-      }
+      // if (hashtags) {
+      //   const result = await Promise.all(
+      //     hashtags.map((tag) =>
+      //       Hashtag.findOrCreate({
+      //         where: { tag: tag.slice(1).toLowerCase() },
+      //       })
+      //     ) //slice(1)은 해시태그 때기, 글짜만 저장
+      //   ); //result 값은 [[노드,true],[리액트,true]]
+      //   await postId.addHashtags(result.map((v) => v[0]));
+      // }
 
-      const post = await Post.findAll({
-        where: { UserId: req.body.id },
-        // limit: 10,
-        order: [["id", "DESC"]],
-        attributes: { exclude: ["updatedAt", "deletedAt"] },
-        include: [
-          {
-            model: User,
-            attributes: ["id", "nickname"],
-            include: [
-              {
-                model: ProfileImgSrc,
-                attributes: ["src"],
-              },
-            ],
-          },
-          {
-            model: Like,
-            attributes: ["id", "LikeUserId", "PostId"],
-            where: { LikeUserId: req.body.id },
-            required: false,
-          },
-          {
-            model: PostImgSrc,
-            attributes: ["src"],
-          },
-          {
-            model: PostVideoSrc,
-            attributes: ["src"],
-          },
-          {
-            model: Report,
-          },
-          {
-            model: Bookmark,
-            attributes: ["UserId", "PostId"],
-            where: { UserId: req.body.id },
-            required: false,
-          },
-        ],
-      });
+      // const post = await Post.findAll({
+      //   where: { UserId: req.body.id },
+      //   // limit: 10,
+      //   order: [["id", "DESC"]],
+      //   attributes: { exclude: ["updatedAt", "deletedAt"] },
+      //   include: [
+      //     {
+      //       model: User,
+      //       attributes: ["id", "nickname"],
+      //       include: [
+      //         {
+      //           model: ProfileImgSrc,
+      //           attributes: ["src"],
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       model: Like,
+      //       attributes: ["id", "LikeUserId", "PostId"],
+      //       where: { LikeUserId: req.body.id },
+      //       required: false,
+      //     },
+      //     {
+      //       model: PostImgSrc,
+      //       attributes: ["src"],
+      //     },
+      //     {
+      //       model: PostVideoSrc,
+      //       attributes: ["src"],
+      //     },
+      //     {
+      //       model: Report,
+      //     },
+      //     {
+      //       model: Bookmark,
+      //       attributes: ["UserId", "PostId"],
+      //       where: { UserId: req.body.id },
+      //       required: false,
+      //     },
+      //   ],
+      // });
+
       res.status(200).json(post);
     } catch (err) {
       console.error(err);
