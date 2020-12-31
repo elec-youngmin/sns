@@ -50,7 +50,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: false,
-      domain: process.env.NODE_ENV === "production" && ".nodebird.com",
+      domain: process.env.NODE_ENV === "production" && ".interfree.co.kr",
     },
     // store: new RedisStore({ url: "http://3.35.142.52", logErrors: true }),
   })
