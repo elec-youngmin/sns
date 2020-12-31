@@ -149,7 +149,7 @@ const Login = (props) => {
               회원가입
             </button>
 
-            <a href="http://localhost:80/user/kakaoLogin">
+            <a href="http://interfree.co.kr/user/kakaoLogin">
               <button
                 className="btn btn-warning btn-block"
                 type="submit"

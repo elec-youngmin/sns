@@ -19,7 +19,6 @@ export const BoardHeader = styled.div`
 export const BoardBody = styled.div`
   min-height: 240px;
   background-color: white;
-  cursor: pointer;
 `;
 
 export const BoardFooter = styled.div`
