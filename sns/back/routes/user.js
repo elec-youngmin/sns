@@ -32,7 +32,7 @@ const upload = multer({
   }),
   limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
 });
-
+/////
 router.post("/signUp", async (req, res, next) => {
   const { email, password, nickname } = req.body;
   try {
