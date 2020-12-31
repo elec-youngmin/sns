@@ -291,20 +291,20 @@ router.post("/logout", (req, res, next) => {
 router.post("/profileImage", upload.array("image"), async (req, res, next) => {
   try {
     const result = await ProfileImgSrc.findAll({
-      where: { UserId: req.body.userId },
+      where: { UserId: req.user.dataValues.id },
     });
     if (result) {
       await ProfileImgSrc.destroy({
-        where: { UserId: req.body.userId },
+        where: { UserId: req.user.dataValues.id },
       });
     }
     await ProfileImgSrc.create({
-      UserId: req.body.userId,
+      UserId: req.user.dataValues.id,
       src: req.files[0].filename,
     });
     console.log(
       req.files[0].filename,
-      req.body.userId,
+      req.user.dataValues.id,
       "번 유저 파일이 업로드 됨"
     );
     // const userInfomation = await User.findOne({
