@@ -67,14 +67,14 @@ router.post(
 
       if (req.body.img == undefined) {
         await PostImgSrc.create({
-          src: req.files.img[0].location,
+          src: decodeURIComponent(req.files.img[0].location),
           PostId: postId.dataValues.id,
         });
       }
 
       if (req.body.video == undefined) {
         await PostVideoSrc.create({
-          src: req.files.video[0].location,
+          src: decodeURIComponent(req.files.video[0].location),
           PostId: postId.dataValues.id,
         });
       }
