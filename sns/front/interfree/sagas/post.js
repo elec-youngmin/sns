@@ -484,7 +484,7 @@ function* updateComment(action) {
 }
 
 function imageSaveAPI(data) {
-  return axios.post("post/image", data);
+  return axios.post("post/image", encodeURIComponent(data));
 }
 
 function* imageSave(action) {
