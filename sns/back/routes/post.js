@@ -55,7 +55,7 @@ router.post(
     { name: "video", maxCount: 1 },
   ]),
   async (req, res, next) => {
-    console.log(req.files);
+    console.log(req.files, "dddddddddddddd");
     try {
       // const postId = await Post.create({
       //   contents: req.body.post,
