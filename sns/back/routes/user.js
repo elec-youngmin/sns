@@ -109,7 +109,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-router.get("/kakaoLogin", passport.authenticate("kakao"));
+router.get("/auth/kakaoLogin", passport.authenticate("kakao"));
 
 router.get(
   "/kakao/callback",

@@ -8,7 +8,7 @@ module.exports = () => {
     new KakaoStrategy(
       {
         clientID: "931e2fbebef3a62e84fd83d19f151955",
-        callbackURL: "/user/kakao/callback",
+        callbackURL: "/user/auth/kakao/callback",
       },
       async (accessToken, refreshToken, profile, done) => {
         console.log("kakao profile", profile);
