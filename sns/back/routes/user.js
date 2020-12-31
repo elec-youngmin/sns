@@ -3,12 +3,35 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
+const multerS3 = require("multer-s3");
+const AWS = require("aws-sdk");
 const path = require("path");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const { User, Post, Follow, ProfileImgSrc, sequelize } = require("../models");
 
 const router = express.Router();
+
+const s3 = new AWS.S3();
+
+AWS.config.update({
+  accessKeyId: "AKIAJHNLL6PRXW6I2JWQ",
+  secretAccessKey: "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",
+  resion: "ap-northeast-2",
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: "interfree-s3",
+    acl: "public-read",
+    key(req, file, cb) {
+      console.log(file);
+      cb(null, file.originalname);
+    },
+  }),
+  limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
+});
 
 router.post("/signUp", async (req, res, next) => {
   const { email, password, nickname } = req.body;
@@ -263,19 +286,6 @@ router.post("/logout", (req, res, next) => {
     next(err);
     console.error(err);
   }
-});
-
-const upload = multer({
-  storage: multer.diskStorage({
-    destination(req, file, cb) {
-      cb(null, "public/");
-    },
-    filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
-    },
-  }),
-  limits: { fileSize: 5000 * 1024 * 1024 },
 });
 
 router.post("/profileImage", upload.array("image"), async (req, res, next) => {
