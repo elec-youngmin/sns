@@ -32,7 +32,7 @@ const upload = multer({
   }),
   limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
 });
-/////
+
 router.post("/signUp", async (req, res, next) => {
   const { email, password, nickname } = req.body;
   try {
@@ -307,36 +307,36 @@ router.post("/profileImage", upload.array("image"), async (req, res, next) => {
       req.body.userId,
       "번 유저 파일이 업로드 됨"
     );
-    const userInfomation = await User.findOne({
-      where: { id: req.body.userId },
-      attributes: {
-        exclude: ["password", "createdAt", "updatedAt"],
-      },
-      include: [
-        {
-          model: ProfileImgSrc,
-          attributes: ["src"],
-        },
-      ],
-    });
+    // const userInfomation = await User.findOne({
+    //   where: { id: req.body.userId },
+    //   attributes: {
+    //     exclude: ["password", "createdAt", "updatedAt"],
+    //   },
+    //   include: [
+    //     {
+    //       model: ProfileImgSrc,
+    //       attributes: ["src"],
+    //     },
+    //   ],
+    // });
 
-    const [postsCount, metadata] = await sequelize.query(
-      `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
-    );
+    // const [postsCount, metadata] = await sequelize.query(
+    //   `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
+    // );
 
-    const [followCount, metadata1] = await sequelize.query(
-      `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
-    );
+    // const [followCount, metadata1] = await sequelize.query(
+    //   `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
+    // );
 
-    const [followingCount, metadata2] = await sequelize.query(
-      `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
-    );
+    // const [followingCount, metadata2] = await sequelize.query(
+    //   `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
+    // );
 
-    userInfomation.dataValues.postsCount = postsCount[0].postsCount;
-    userInfomation.dataValues.followCount = followCount[0].followCount;
-    userInfomation.dataValues.followingCount = followingCount[0].followingCount;
+    // userInfomation.dataValues.postsCount = postsCount[0].postsCount;
+    // userInfomation.dataValues.followCount = followCount[0].followCount;
+    // userInfomation.dataValues.followingCount = followingCount[0].followingCount;
 
-    res.json(userInfomation);
+    res.json("ok");
   } catch (err) {
     console.error(err);
   }
