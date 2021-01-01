@@ -3,7 +3,6 @@ const local = require("./local");
 const kakao = require("./kakao");
 
 const { User } = require("../models");
-const naver = require("./naver");
 
 module.exports = () => {
   passport.serializeUser((user, done) => {
