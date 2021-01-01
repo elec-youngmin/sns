@@ -112,7 +112,7 @@ router.post("/login", (req, res, next) => {
 router.get("/auth/kakaoLogin", passport.authenticate("kakao"));
 
 router.get(
-  "/kakao/callback",
+  "auth/kakao/callback",
   passport.authenticate("kakao", {
     failureRedirect: "/kakaoError",
   }),
@@ -125,7 +125,7 @@ router.get("/kakaoError", async (req, res, next) => {
   try {
     res.json("에러가 발생했습니다.");
   } catch (err) {
-    res.json("에러가 발생했습니다.");
+    next(err);
     console.log(err);
   }
 });

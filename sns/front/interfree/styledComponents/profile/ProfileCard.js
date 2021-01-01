@@ -43,7 +43,6 @@ export const CountRow = styled(Row)`
 
 export const CountCol = styled(Col)`
   box-sizing: content-box;
-  border: 3px solid #f5fffa;
   tex-align: center;
   padding: 0px;
 `;

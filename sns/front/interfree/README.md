@@ -4,16 +4,22 @@
 
 웹 신입 개발자로써 역량을 보여드리기 위해 작성하였습니다.
 
+## 웹사이트 유형
+
+sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기능이 있습니다. 상세한 기능은 모든 기능란을 참조 하세요.
+
 ## 주요 기술 스택
 
-프론트엔드: react,next,redux,bootstrap  
- 백엔드:node,express  
- 서버: aws
+프론트엔드: react,next,redux,bootstrap,styled Components
+백엔드:node,express  
+ 데이터베이스:mysql,sequelize  
+ 서버: aws  
+ 스토리지:s3
 
 ## 개발환경
 
 운영체제: window 10  
- 에디터: vsCode  
+ 에디터: VSCode  
  브라우저: chrome
 
 ## 모든 기능
