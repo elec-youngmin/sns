@@ -18,11 +18,6 @@ module.exports = () => {
           if (exUser) {
             done(null, exUser);
           } else {
-            console.log(
-              profile._json.kakao_account.email,
-              profile.displayName,
-              profile.id
-            );
             const newUser = await User.create({
               email: profile._json.kakao_account.email,
               nickname: profile.displayName,

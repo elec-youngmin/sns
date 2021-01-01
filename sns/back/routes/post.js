@@ -63,7 +63,7 @@ router.post(
     try {
       const postId = await Post.create({
         contents: req.body.post,
-        UserId: req.body.id,
+        UserId: req.user.dataValues.id,
         onlyReadMy: req.body.onlyReadMy,
       });
 
@@ -86,7 +86,7 @@ router.post(
       if (hashtags) {
         const result = await Promise.all(
           hashtags.map((tag) =>
-            Hashtag.findOrCreate({
+            Hashtag.findOrCreate({ 
               where: { tag: tag.slice(1).toLowerCase() },
             })
           ) //slice(1)은 해시태그 때기, 글짜만 저장
@@ -95,7 +95,7 @@ router.post(
       }
 
       const post = await Post.findAll({
-        where: { UserId: req.body.id },
+        where: { UserId: req.user.dataValues.id },
         // limit: 10,
         order: [["id", "DESC"]],
         attributes: { exclude: ["updatedAt", "deletedAt"] },
@@ -113,7 +113,7 @@ router.post(
           {
             model: Like,
             attributes: ["id", "LikeUserId", "PostId"],
-            where: { LikeUserId: req.body.id },
+            where: { LikeUserId: req.user.dataValues.id },
             required: false,
           },
           {
@@ -130,13 +130,13 @@ router.post(
           {
             model: Bookmark,
             attributes: ["UserId", "PostId"],
-            where: { UserId: req.body.id },
+            where: { UserId: req.user.dataValues.id },
             required: false,
           },
         ],
       });
 
-      res.status(200).json("ok");
+      res.status(200).json(post);
     } catch (err) {
       console.error(err);
       next(err);
