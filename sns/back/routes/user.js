@@ -112,7 +112,7 @@ router.post("/login", (req, res, next) => {
 router.get("/auth/kakaoLogin", passport.authenticate("kakao"));
 
 router.get(
-  "auth/kakao/callback",
+  "/auth/kakao/callback",
   passport.authenticate("kakao", {
     failureRedirect: "/kakaoError",
   }),
