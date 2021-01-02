@@ -362,7 +362,7 @@ router.post("/findPassword", async (req, res, next) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "mintzerocode@gmail.com", // gmail 계정 아이디를 입력
+        user: process.env.MAIL_USER, // gmail 계정 아이디를 입력
         pass: process.env.MAIL_PASS, // gmail 계정의 비밀번호를 입력
       },
     });
@@ -377,7 +377,7 @@ router.post("/findPassword", async (req, res, next) => {
     );
 
     let mailOptions = {
-      from: process.env.MAIL_USER, // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+      from: process.env.MAIL_USER,
       to: req.body.email, // 수신 메일 주소
       subject: "interfree에서 임시 비밀번호를 보냈습니다.",
       html: `<h1>임시 비밀번호가 발급되었습니다.</h1> 

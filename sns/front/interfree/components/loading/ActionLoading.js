@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { Spinner } from "../../styledComponents/Loading/Loading";
+import { Spin } from "../../styledComponents/Loading/Loading";
 
 import { useSelector } from "react-redux";
 
@@ -89,7 +89,7 @@ const ActionLoading = () => {
         findPasswordLoading ||
         followUserLoading) && (
         <>
-          <Spinner animation="border" />
+          <Spin animation="border" />
         </>
       )}
     </div>
