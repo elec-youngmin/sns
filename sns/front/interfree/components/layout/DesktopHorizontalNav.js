@@ -107,7 +107,8 @@ const DesktopHorizontalNav = () => {
                 textDecoration: "none",
                 color: "#666666",
               }}
-            > 
+            >
+              <AiOutlineSearch /> 검색
             </a>
           </li>
 
