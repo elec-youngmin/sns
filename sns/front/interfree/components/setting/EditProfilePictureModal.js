@@ -1,5 +1,11 @@
 import React, { useCallback } from "react";
 
+import {
+  ProfileImg,
+  ProfileDiv,
+  NicknameP,
+} from "../../styledComponents/setting/EditProfilePictureModal";
+
 import { useSelector, useDispatch } from "react-redux";
 import { PROFILE_IMAGE_UPLOAD_REQUEST } from "../../reducers/user";
 
@@ -53,43 +59,16 @@ const EditProfilePictureModal = (props) => {
               }}
             >
               {profileImg ? (
-                <img
+                <ProfileImg
                   class="rounded-circle w-50 p-3 mx-auto d-block"
                   alt={profileImg}
-                  role="button"
                   src={profileImg}
-                  style={{
-                    minWidth: "180px",
-                    minHeight: "180px",
-                    maxWidth: "180px",
-                    maxHeight: "180px",
-                    cursor: "pointer",
-                  }}
-                ></img>
+                  role="button"
+                ></ProfileImg>
               ) : (
-                <div
-                  style={{
-                    width: "180px",
-                    height: "180px",
-                    backgroundColor: "#DCDCDC",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginRight: "5px",
-                    borderRadius: "50%",
-                    cursor: "pointer",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "70px",
-                      fontWeight: "600",
-                      margin: "0px",
-                    }}
-                  >
-                    {user.nickname[0].toUpperCase()}
-                  </p>
-                </div>
+                <ProfileDiv>
+                  <NicknameP>{user.nickname[0].toUpperCase()}</NicknameP>
+                </ProfileDiv>
               )}
             </label>
 

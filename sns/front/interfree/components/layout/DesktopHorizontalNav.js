@@ -107,12 +107,13 @@ const DesktopHorizontalNav = () => {
                 textDecoration: "none",
                 color: "#666666",
               }}
-            >
-              <AiOutlineSearch /> 검색
+            > 
             </a>
           </li>
 
-          <li style={{ display: "inline", float: "right" }}>
+          <li
+            style={{ display: "inline", float: "right", marginRight: "10px" }}
+          >
             {id === "guest" ? (
               <>
                 <a>

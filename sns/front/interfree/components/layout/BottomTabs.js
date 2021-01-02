@@ -5,9 +5,10 @@ import { useMediaQuery } from "react-responsive";
 import SearchModal from "./SearchModal";
 import WritePostModal from "../post/WritePostModal";
 
+import { TabRow, TabCol } from "../../styledComponents/layout/BottomTabs";
+
 import { useSelector } from "react-redux";
 
-import { Row, Col } from "react-bootstrap";
 import { AiFillDribbbleCircle } from "react-icons/ai";
 import { GoOrganization } from "react-icons/go";
 import { BsSearch } from "react-icons/bs";
@@ -16,13 +17,6 @@ import { AiFillEdit } from "react-icons/ai";
 
 import { frontUrl } from "../../config/config";
 
-const ColStyle = {
-  cursor: "pointer",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  margin: "5px 0px",
-};
 const BottomTabs = () => {
   const { id } = useSelector((state) => state.user.user);
   const { savePostDone, searchResultDone } = useSelector((state) => state.post);
@@ -59,32 +53,16 @@ const BottomTabs = () => {
 
       {isTabletOrMobileDevice && (
         <>
-          <Row
-            style={{
-              textAlign: "center",
-              padding: "0px",
-              textAlign: "center",
-              fontSize: "39px",
-              backgroundColor: "#FFFAFA",
-              color: "#666666",
-              position: "fixed",
-              bottom: "0px",
-              left: "0",
-              right: "0",
-              zIndex: "100",
-            }}
-          >
-            <Col
-              style={ColStyle}
+          <TabRow>
+            <TabCol
               onClick={() => {
                 Router.push(`${frontUrl}/allPostsBoard`);
               }}
             >
               <AiFillDribbbleCircle />
-            </Col>
+            </TabCol>
 
-            <Col
-              style={ColStyle}
+            <TabCol
               onClick={() => {
                 if (id === "guest") {
                   return alert("로그인 후 이용하실 수 있어요.");
@@ -93,10 +71,9 @@ const BottomTabs = () => {
               }}
             >
               <FaUserCircle />
-            </Col>
+            </TabCol>
 
-            <Col
-              style={ColStyle}
+            <TabCol
               onClick={() => {
                 if (id === "guest") {
                   return alert("로그인 후 이용하실 수 있어요.");
@@ -105,10 +82,9 @@ const BottomTabs = () => {
               }}
             >
               <GoOrganization />
-            </Col>
+            </TabCol>
 
-            <Col
-              style={ColStyle}
+            <TabCol
               onClick={() => {
                 if (id === "guest") {
                   return alert("로그인 후 이용하실 수 있어요.");
@@ -117,17 +93,16 @@ const BottomTabs = () => {
               }}
             >
               <AiFillEdit />
-            </Col>
+            </TabCol>
 
-            <Col
-              style={ColStyle}
+            <TabCol
               onClick={() => {
                 setSearchModalShow(true);
               }}
             >
               <BsSearch />
-            </Col>
-          </Row>
+            </TabCol>
+          </TabRow>
         </>
       )}
     </div>

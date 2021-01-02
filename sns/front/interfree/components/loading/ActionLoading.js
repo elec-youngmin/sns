@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { useSelector } from "react-redux";
+import { Spinner } from "../../styledComponents/Loading/Loading";
 
-import { Spinner } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 const ActionLoading = () => {
   const router = useRouter();
   const [routeLoading, setRouteLoading] = useState(false);
+
   const {
     loadAllPostLoading,
     loadPostLoading,
@@ -88,15 +89,7 @@ const ActionLoading = () => {
         findPasswordLoading ||
         followUserLoading) && (
         <>
-          <Spinner
-            animation="border"
-            style={{
-              position: "fixed",
-              top: "12px",
-              right: "100px",
-              zIndex: "1000",
-            }}
-          />
+          <Spinner animation="border" />
         </>
       )}
     </div>

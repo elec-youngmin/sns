@@ -9,6 +9,7 @@ export const Logo = styled.p`
   font-size: 40px;
   float: left;
   cursor: pointer;
+  margin-bottom: 0px;
   @media (max-width: 768px) {
     font-size: 35px;
   }
