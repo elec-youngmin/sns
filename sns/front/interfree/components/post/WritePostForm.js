@@ -8,8 +8,8 @@ import React, {
 import PropTypes from "prop-types";
 import FormData from "form-data";
 import Dropdown from "rc-dropdown";
-import "rc-dropdown/assets/index.css";
 import Menu, { Item as MenuItem, Divider } from "rc-menu";
+import "rc-dropdown/assets/index.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,7 +20,6 @@ import {
 } from "../../reducers/post";
 
 import { Form, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-
 import {
   BsQuestion,
   BsPeople,
@@ -49,6 +48,8 @@ const WritePostAlert = () => {
 };
 
 const WriteForm = (props) => {
+  const dispatch = useDispatch();
+
   const [isPostEmpty, SetIsPostEmpty] = useState(false);
   const [image, SetImage] = useState(""); //프리뷰
   const [img, SetImg] = useState("");
@@ -66,10 +67,7 @@ const WriteForm = (props) => {
     }
   }, [imageSaveError]);
 
-  const dispatch = useDispatch();
-
   const { id } = useSelector((state) => state.user.user);
-  // console.log(posts[0].contents);
   const [post, setPost] = useState();
 
   let iFormData = new FormData(); //이미지
@@ -119,12 +117,12 @@ const WriteForm = (props) => {
     console.log(e.target.value);
   };
 
-  const textarea = useRef();
-
   useEffect(() => {
     textarea.current.focus();
     console.log(textarea.current);
   }, []);
+
+  const textarea = useRef();
 
   return (
     <>
@@ -147,6 +145,7 @@ const WriteForm = (props) => {
             ref={textarea}
           />
         </Form.Group>
+
         {image && !imageSaveError && (
           <img
             className="profile_preview"
@@ -221,6 +220,7 @@ const WriteForm = (props) => {
             style={{ display: "none", margin: "20px", cursor: "pointer" }}
           ></input>
           {/* 여기부터 저장버튼과 드롭다운 버튼 */}
+
           <Button
             type="submit"
             variant="primary"

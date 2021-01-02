@@ -25,9 +25,11 @@ const bookmark = () => {
 
   const LoadNextbookmarkPosts = () => {
     const lastId = posts[posts.length - 1].id;
+
     if (posts.length === 0) {
       return;
     }
+
     dispatch({
       type: LOAD_BOOKMARK_REQUEST,
       data: { lastId },
@@ -69,12 +71,12 @@ const bookmark = () => {
                           : false
                       }
                       nickname={element.User.nickname}
-                      like={element.like} //포스트 좋아요 수
+                      like={element.like}
                       Likes={
                         element.Likes.length > 0
                           ? element.Likes[0].LikeUserId
                           : false
-                      } //포스트 좋아요 했는지 확인
+                      }
                       reportCount={element.Reports}
                       PostImgSrcs={element.PostImgSrcs}
                       PostVideoSrcs={element.PostVideoSrcs}

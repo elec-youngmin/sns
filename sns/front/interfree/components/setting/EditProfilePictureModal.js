@@ -37,6 +37,7 @@ const EditProfilePictureModal = (props) => {
             프로필 사진 변경
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <form
             enctype="multipart/form-data"
@@ -91,6 +92,7 @@ const EditProfilePictureModal = (props) => {
                 </div>
               )}
             </label>
+
             <input
               id="file-input"
               type="file"
@@ -111,6 +113,7 @@ const EditProfilePictureModal = (props) => {
             현재 프로필 사진을 눌러 원하는 프로필 사진으로 변경하세요.
           </p>
         </Modal.Body>
+
         <Modal.Footer class="col-lg-12">
           <Button
             className="btn float-right"

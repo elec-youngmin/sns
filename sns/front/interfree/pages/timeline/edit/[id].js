@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import Moment from "react-moment";
+import React from "react";
 import { useRouter } from "next/router";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
+import PropTypes from "prop-types";
+import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
 import EditTimelineElement from "../../../components/timeline/EditTimelineElement";
@@ -22,10 +18,9 @@ import wrapper from "../../../store/configureStore";
 import axios from "axios";
 
 const timeline = () => {
-  const { timelineContents } = useSelector((state) => state.post);
   const router = useRouter();
-  const dispatch = useDispatch();
-  console.log(timelineContents);
+  const { timelineContents } = useSelector((state) => state.post);
+
   return (
     <div>
       <div
@@ -49,6 +44,7 @@ const timeline = () => {
             );
           })}
         </VerticalTimeline>
+
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>
     </div>

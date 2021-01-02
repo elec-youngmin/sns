@@ -54,6 +54,7 @@ const ActionLoading = () => {
       setRouteLoading(false);
     });
   }, [router]);
+
   return (
     <div>
       {(routeLoading ||

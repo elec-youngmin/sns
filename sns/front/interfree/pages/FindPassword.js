@@ -6,24 +6,10 @@ import Loading from "../components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { FIND_PASSWORD_REQUEST } from "../reducers/user";
 
-import {
-  SessionDiv,
-  SessionP,
-  SessionTitle,
-  SessionButton,
-  SessionRow,
-} from "../styledComponents/layout/Session";
+import { SessionRow } from "../styledComponents/layout/Session";
 
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { Col, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-`;
 
 const FindPassword = () => {
   const [email, setEmail] = useState();

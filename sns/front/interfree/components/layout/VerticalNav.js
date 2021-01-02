@@ -1,6 +1,6 @@
 import React from "react";
 import Router from "next/router";
-import Menu, { SubMenu, MenuItem } from "rc-menu";
+import { MenuItem } from "rc-menu";
 
 import { VerticalDiv } from "../../styledComponents/layout/VerticalNav";
 

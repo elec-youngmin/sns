@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 
 import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Button, Row, Col } from "react-bootstrap";
 
@@ -17,9 +17,9 @@ import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const PostPage = () => {
-  const { posts, loadPostPageDone } = useSelector((state) => state.post);
-
   const router = useRouter();
+
+  const { posts, loadPostPageDone } = useSelector((state) => state.post);
 
   return (
     <div>
@@ -50,13 +50,13 @@ const PostPage = () => {
                         : false
                     }
                     nickname={element?.User.nickname}
-                    like={element?.like} //포스트 좋아요 수
+                    like={element?.like}
                     follows={element.Follows}
                     Likes={
                       element?.Likes.length > 0
                         ? element?.Likes[0].LikeUserId
                         : false
-                    } //포스트 좋아요 했는지 확인
+                    }
                     reportCount={element?.Reports}
                     PostImgSrcs={element?.PostImgSrcs}
                     PostVideoSrcs={element?.PostVideoSrcs}
@@ -69,6 +69,7 @@ const PostPage = () => {
                   />
                 );
               })}
+
             <Button onClick={() => router.back()}>뒤로가기</Button>
           </Col>
         </Row>

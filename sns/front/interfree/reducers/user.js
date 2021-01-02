@@ -64,7 +64,6 @@ export const initialState = {
   user: {
     id: "guest",
   },
-  email: null,
   following: [],
 };
 
@@ -116,7 +115,6 @@ export const FIND_PASSWORD_REQUEST = "FIND_PASSWORD_REQUEST";
 export const FIND_PASSWORD_SUCCESS = "FIND_PASSWORD_SUCCESS";
 export const FIND_PASSWORD_FAILURE = "FIND_PASSWORD_FAILURE";
 
-//프론트 토큰과 백엔드 토큰이 일치하는지 요청을 보냄.
 export const FIND_PASSWORD_MYCONFIRM_REQUEST =
   "FIND_PASSWORD_MYCONFIRM_REQUEST";
 export const FIND_PASSWORD_MYCONFIRM_SUCCESS =
@@ -169,11 +167,11 @@ const reducer = (state = initialState, action) =>
         draft.kakaoLogInLoading = false;
         draft.user = action.data;
         draft.kakaoLogInDone = true;
+        ToastSuccess("로그인 성공!");
         break;
       case USER_KAKAO_LOGIN_FAILURE:
         draft.kakaoLogInLoading = false;
         draft.kakaoLogInError = action.error;
-        ToastError("로그인 실패! 다시 시도하세요.");
         break;
       case USER_KAKAO_LOGIN_REQUEST:
         draft.kakaoLogInLoading = true;
@@ -184,7 +182,7 @@ const reducer = (state = initialState, action) =>
         draft.logOutLoading = false;
         draft.logOutDone = true;
         draft.logInDone = false;
-        ToastSuccess("로그아웃 되었습니다.");
+        ToastSuccess("로그아웃 성공!");
         break;
       case USER_LOGOUT_FAILURE:
         draft.logOutLoading = false;
@@ -263,7 +261,7 @@ const reducer = (state = initialState, action) =>
       case PROFILE_IMAGE_UPLOAD_FAILURE:
         draft.profileImageUploadLoading = false;
         draft.profileImageUploadError = action.error;
-        ToastError("프로필 이미지 변경에 실패했습니다. 다시 시도하세요.");
+        ToastError("프로필 이미지 변경 실패.. 다시 시도하세요.");
         break;
       case PROFILE_IMAGE_UPLOAD_REQUEST:
         draft.profileImageUploadLoading = true;
@@ -279,7 +277,7 @@ const reducer = (state = initialState, action) =>
       case CHANGE_PROFILE_FAILURE:
         draft.changeProfileLoading = false;
         draft.signUpError = action.error;
-        ToastError("작성하신 프로필의 반영이 실패했습니다. 다시 시도하세요.");
+        ToastError("작성한 프로필 반영 실패.. 다시 시도하세요.");
         break;
       case CHANGE_PROFILE_REQUEST:
         draft.changeProfileLoading = true;
@@ -289,8 +287,7 @@ const reducer = (state = initialState, action) =>
       case FIND_PASSWORD_SUCCESS:
         draft.findPasswordDone = true;
         draft.findPasswordLoading = false;
-        draft.email = action.data;
-        ToastSuccess("임시 비밀번호를 발급했습니다. 메일함을 확인해 보세요.");
+        ToastSuccess("임시 비밀번호 발급 성공! 메일함을 확인해 보세요.");
         break;
       case FIND_PASSWORD_REQUEST:
         draft.findPasswordDone = false;
@@ -300,7 +297,7 @@ const reducer = (state = initialState, action) =>
       case FIND_PASSWORD_FAILURE:
         draft.findPasswordLoading = false;
         draft.findPasswordError = action.error;
-        ToastError("메일 요청에 실패했습니다. 다시 시도 하세요.");
+        ToastError("메일 요청 실패.. 다시 시도 하세요.");
         break;
       case FIND_PASSWORD_MYCONFIRM_SUCCESS:
         draft.findPasswordMyConfirmDone = true;
@@ -318,7 +315,7 @@ const reducer = (state = initialState, action) =>
       case RESETTING_PASSWORD_SUCCESS:
         draft.resettingPasswordDone = true;
         draft.resettingPasswordLoading = false;
-        ToastSuccess("패스워드가 재설정 되었어요.");
+        ToastSuccess("패스워드가 재설정 성공!");
         break;
       case RESETTING_PASSWORD_REQUEST:
         draft.resettingPasswordDone = false;
@@ -328,7 +325,7 @@ const reducer = (state = initialState, action) =>
       case RESETTING_PASSWORD_FAILURE:
         draft.resettingPasswordLoading = false;
         draft.resettingPasswordError = action.error;
-        ToastSuccess("패스워드 재설정에 실패했어요. 다시 시도 하세요.");
+        ToastSuccess("패스워드 재설정 실패.. 다시 시도 하세요.");
         break;
       case LOAD_FOLLOWING_USER_SUCCESS:
         draft.loadFollowingUserDone = true;
@@ -358,7 +355,7 @@ const reducer = (state = initialState, action) =>
       case DISABLED_ONEUSER_ALLPOST_FAILURE:
         draft.disabledOneuserAllpostLoding = false;
         draft.disabledOneuserAllpostError = null;
-        ToastError("모든글 비활성화에 실패했습니다. 다시 시도하세요.");
+        ToastError("모든글 비활성화 실패.. 다시 시도하세요.");
         break;
       case ACTIVATE_ONEUSER_ALLPOST_SUCCESS:
         draft.activateOneuserAllpostDone = true;
@@ -374,7 +371,7 @@ const reducer = (state = initialState, action) =>
       case ACTIVATE_ONEUSER_ALLPOST_FAILURE:
         draft.activateOneuserAllpostLoding = false;
         draft.activateOneuserAllpostError = null;
-        ToastError("모든글 활성화에 실패했습니다. 다시 시도하세요.");
+        ToastError("모든글 활성화 실패.. 다시 시도하세요.");
         break;
       default:
         draft;

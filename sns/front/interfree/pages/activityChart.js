@@ -3,7 +3,7 @@ import React from "react";
 import Title from "../components/layout/Title";
 import OneuserChartPage from "../components/chart/OneuserChartPage";
 
-import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
+import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../reducers/user";
 import { LOAD_ONEUSER_CHARTDATA_REQUEST } from "../reducers/post";
 
 import { SessionRow } from "../styledComponents/layout/Session";
@@ -41,7 +41,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 
     context.store.dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
+      type: CONFIRM_CURRENT_LOGIN_REQUEST,
     });
     context.store.dispatch({
       type: LOAD_ONEUSER_CHARTDATA_REQUEST,

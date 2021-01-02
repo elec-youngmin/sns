@@ -1,12 +1,11 @@
 import React, { useState, useMemo } from "react";
-import PropTypes from "prop-types";
 import Router from "next/router";
-
+import PropTypes from "prop-types";
 import "rc-menu/assets/index.css";
 
 import SearchModal from "./SearchModal";
 import SignUP from "./SignUp";
-import Login from "../firstSeePage/Login";
+import Login from "../login/Login";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 
@@ -57,6 +56,7 @@ const DesktopHorizontalNav = () => {
           >
             <Logo>interfree</Logo>
           </li>
+
           <li
             style={{
               display: "inline",
@@ -76,6 +76,7 @@ const DesktopHorizontalNav = () => {
               <AiFillDribbbleCircle /> 모든포스트
             </a>
           </li>
+
           <li
             style={{ display: "inline", marginRight: "20px" }}
             onClick={() => {
@@ -94,6 +95,7 @@ const DesktopHorizontalNav = () => {
               <FaUserCircle /> 나
             </a>
           </li>
+
           <li
             style={{ display: "inline" }}
             onClick={() => {

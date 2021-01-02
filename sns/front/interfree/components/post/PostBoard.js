@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from "react";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
-import { useRouter } from "next/router";
+import ReactPlayer from "react-player";
+
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
-import ReactPlayer from "react-player";
+
 import {
   Menu as MenuContexify,
   Item,
@@ -32,7 +34,6 @@ import {
   AddMenu,
   OnlyReadMy,
   ZoomImg,
-  // Video,
   LikeButton,
 } from "../../styledComponents/postBoard/Board";
 
@@ -53,12 +54,10 @@ import {
   AiTwotoneAlert,
   AiOutlineEllipsis,
 } from "react-icons/ai";
-
 import { BsBrightnessHigh, BsFillBookmarksFill } from "react-icons/bs";
 
 import { Row, Col } from "react-bootstrap";
 
-import { backUrl } from "../../config/config";
 import { frontUrl } from "../../config/config";
 
 const PostBoard = ({
@@ -78,10 +77,9 @@ const PostBoard = ({
   date,
   dataType,
 }) => {
-  const router = useRouter();
   const dispatch = useDispatch();
+  const router = useRouter();
   const { id } = useSelector((state) => state.user.user);
-
   const {
     updatePostDone,
     likePostLoading,
@@ -92,8 +90,10 @@ const PostBoard = ({
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
   const [CommentmodalShow, setCommentModalShow] = useState(false);
+
   const replaceText = "글이 차단됨";
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
+
   useMemo(() => {
     if (updatePostDone) {
       setModalShow(false);
@@ -105,8 +105,6 @@ const PostBoard = ({
       setReportModalShow(false);
     }
   }, [countReportDone]);
-
-  //유저가 좋아요를 누른 이력이 있는지 확인
 
   const MENU_ID = postId;
 
@@ -152,24 +150,27 @@ const PostBoard = ({
         )}
       </MenuContexify>
       {/* 여기까지 클릭메뉴  */}
+
       <RevisePostForm
         show={modalShow}
         onHide={() => setModalShow(false)}
         posts={post}
         postId={postId}
       />
+
       <CommentModal
         postId={postId}
         show={CommentmodalShow}
         onHide={() => setCommentModalShow(false)}
       />
+
       <PostReport
         show={reportModalShow}
         postId={postId}
         onHide={() => setReportModalShow(false)}
       />
-      {/* 여기부터 포스트보드 시작점 */}
 
+      {/* 여기부터 포스트보드 시작점 */}
       <BoardContainer>
         {/* 포스트보드 헤더 시작 */}
         <BoardHeader>
@@ -208,6 +209,7 @@ const PostBoard = ({
           {onlyReadMy && <OnlyReadMy>onlyReadMy</OnlyReadMy>}
         </BoardHeader>
         {/* 여기부터 포스트보드 바디 시작 */}
+
         <BoardBody>
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
@@ -244,6 +246,7 @@ const PostBoard = ({
             </p>
           )}
         </BoardBody>
+
         <Row
           style={{
             borderTop: "1px solid #D3D3D3",
@@ -264,6 +267,7 @@ const PostBoard = ({
             />
             <IconTitle>댓글</IconTitle>
           </Col>
+
           <Col style={{ textAlign: "center", padding: "0px" }}>
             {bookmarkId === id ? (
               <>
@@ -303,6 +307,7 @@ const PostBoard = ({
             )}
             <IconTitle>북마크</IconTitle>
           </Col>
+
           <Col style={{ textAlign: "center", padding: "0px" }}>
             <AiTwotoneAlert
               onClick={() => {
@@ -338,7 +343,6 @@ const PostBoard = ({
         })}
 
         {/* 여기부터 보드 푸터 시작 */}
-
         <BoardFooter>
           <BsBrightnessHigh
             style={{

@@ -6,12 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal, Button, Form } from "react-bootstrap";
 
 const AddTimelineContentsModal = (props) => {
+  const dispatch = useDispatch();
   const { id } = useSelector((state) => state.post.timelineId);
   const { addTimelineSubjectError, addTimelineContentsDone } = useSelector(
     (state) => state.post
   );
-  console.log(props, "아이디 확인");
-  const dispatch = useDispatch();
 
   const [modaltitle, setModalTitle] = useState("타임라인 박스 추가하기");
   const [title, setTitle] = useState("");
@@ -27,14 +26,14 @@ const AddTimelineContentsModal = (props) => {
       setModalTitle("계속 타임라인 박스 추가하기");
     }
   }, [addTimelineContentsDone]);
-  //한 타임라인 박스가 업로드되면 실행
+  //한 타임라인 박스가 업로드되면 폼의 모든 텍스트가 비워짐.
 
   useMemo(() => {
     if (addTimelineSubjectError) {
       alert(addTimelineSubjectError);
     }
   }, [addTimelineSubjectError]);
-  //타임라인 주제가 중복되면 발생
+  //타임라인 주제가 중복되면 에러 발생
 
   useMemo(() => {
     if (id) {
@@ -57,6 +56,7 @@ const AddTimelineContentsModal = (props) => {
             {modaltitle}
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <Form style={{ marginBottom: "50px" }}>
             <Form.Group>
@@ -76,6 +76,7 @@ const AddTimelineContentsModal = (props) => {
                   setTitle(e.target.value);
                 }}
               />
+
               <Form.Control
                 as="input"
                 style={{
@@ -92,6 +93,7 @@ const AddTimelineContentsModal = (props) => {
                   setContent(e.target.value);
                 }}
               />
+
               <Form.Control
                 as="input"
                 style={{
@@ -111,6 +113,7 @@ const AddTimelineContentsModal = (props) => {
             </Form.Group>
           </Form>
         </Modal.Body>
+
         <Modal.Footer>
           <Button
             className="btn float-right"
@@ -119,6 +122,7 @@ const AddTimelineContentsModal = (props) => {
           >
             닫기
           </Button>
+
           <Button
             className="btn float-right"
             onClick={props.onHide}

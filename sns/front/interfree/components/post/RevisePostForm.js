@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import Loading from "../loading/Loading";
+import { useDispatch } from "react-redux";
 
 import { UPDATE_POST_REQUEST } from "../../reducers/post";
 
@@ -11,12 +9,9 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 //props에 posts, postId 포함
 const RevisePostForm = (props) => {
+  const dispatch = useDispatch();
   const { postId, posts } = props;
   const [post, setPost] = useState(posts);
-  const dispatch = useDispatch();
-  const { updateCommentLoading, updateCommentDone } = useSelector(
-    (state) => state.post
-  );
 
   return (
     <Modal
@@ -31,6 +26,7 @@ const RevisePostForm = (props) => {
           포스트 내용 수정
         </Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
         <Form>
           <Form.Group>
@@ -48,8 +44,10 @@ const RevisePostForm = (props) => {
           </Form.Group>
         </Form>
       </Modal.Body>
+
       <Modal.Footer>
         <Button onClick={props.onHide}>닫기</Button>
+
         <Button
           onClick={() => {
             dispatch({

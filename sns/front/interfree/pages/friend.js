@@ -6,7 +6,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
-import FollowPage from "../components/follow/FollowPage";
+import FollowList from "../components/follow/FollowList";
 import SearchFriendModal from "../components/follow/SearchFriendModal";
 
 import {
@@ -101,7 +101,7 @@ const friend = () => {
               />
             )}
 
-            <FollowPage />
+            <FollowList />
           </Col>
         </SessionRow>
       </div>

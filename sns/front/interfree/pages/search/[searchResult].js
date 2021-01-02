@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import Title from "../../components/layout/Title";
@@ -18,8 +18,6 @@ import axios from "axios";
 
 const searchResult = () => {
   const { posts, searchResultDone } = useSelector((state) => state.post);
-
-  const dispatch = useDispatch();
 
   return (
     <div>
@@ -44,12 +42,12 @@ const searchResult = () => {
                           : false
                       }
                       nickname={element?.User.nickname}
-                      like={element?.like} //포스트 좋아요 수
+                      like={element?.like}
                       Likes={
                         element?.Likes.length > 0
                           ? element?.Likes[0].LikeUserId
                           : false
-                      } //포스트 좋아요 했는지 확인
+                      }
                       reportCount={element?.Reports}
                       PostImgSrcs={element?.PostImgSrcs}
                       PostVideoSrcs={element?.PostVideoSrcs}

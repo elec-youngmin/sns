@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { UPDATE_TIMELINE_CONTENTS_REQUEST } from "../../reducers/post";
 
@@ -8,11 +8,11 @@ import { Form, Button, Modal } from "react-bootstrap";
 
 //props=>  id,title,content,date,show,onHide()
 const UpdateTimelineContentModal = (props) => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState(props.title);
   const [content, setContent] = useState(props.content);
   const [date, setDate] = useState(props.date);
 
-  const dispatch = useDispatch();
   return (
     <>
       <Modal
@@ -26,6 +26,7 @@ const UpdateTimelineContentModal = (props) => {
             타임라인 박스 내용 수정
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <Form style={{ marginBottom: "50px" }}>
             <Form.Group>
@@ -46,6 +47,7 @@ const UpdateTimelineContentModal = (props) => {
                   setTitle(e.target.value);
                 }}
               />
+
               <Form.Control
                 as="input"
                 style={{
@@ -62,6 +64,7 @@ const UpdateTimelineContentModal = (props) => {
                   setContent(e.target.value);
                 }}
               />
+
               <Form.Control
                 as="input"
                 style={{
@@ -81,6 +84,7 @@ const UpdateTimelineContentModal = (props) => {
             </Form.Group>
           </Form>
         </Modal.Body>
+
         <Modal.Footer>
           <Button
             className="btn float-right"
@@ -91,6 +95,7 @@ const UpdateTimelineContentModal = (props) => {
           >
             닫기
           </Button>
+
           <Button
             className="btn float-right"
             onClick={() => {

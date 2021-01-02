@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import Router from "next/router";
@@ -7,28 +7,25 @@ import { ErrorMessage } from "@hookform/error-message";
 
 import SignUp from "../layout/SignUp";
 
-import { Button, Modal } from "react-bootstrap";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   USER_LOGIN_REQUEST,
   USER_KAKAO_LOGIN_REQUEST,
 } from "../../reducers/user";
-import { Nav } from "react-bootstrap";
 
-import { frontUrl } from "../../config/config";
+import { Button, Modal, Nav } from "react-bootstrap";
 
 const Login = (props) => {
-  const { register, errors, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const { logInDone, logInError, signUpDone } = useSelector(
+    (state) => state.user
+  );
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [modalShow, setModalShow] = useState(false);
 
-  const { logInDone, logInLoading, logInError, signUpDone } = useSelector(
-    (state) => state.user
-  );
+  const { register, errors, handleSubmit } = useForm();
 
-  const dispatch = useDispatch();
   const onSubmit = () => {
     dispatch({
       type: USER_LOGIN_REQUEST,
@@ -72,6 +69,7 @@ const Login = (props) => {
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">로그인</Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
             <SignUp show={modalShow} onHide={() => setModalShow(false)} />
 
@@ -164,6 +162,7 @@ const Login = (props) => {
               </button>
             </a>
           </Modal.Body>
+
           <Modal.Footer>
             <Button onClick={props.onHide}>닫기</Button>
           </Modal.Footer>

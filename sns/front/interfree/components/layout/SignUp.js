@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
 import SignUpCompletedModal from "./SignUpCompletedModal";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import { USER_SIGNUP_REQUEST } from "../../reducers/user";
 
 import { Button, Modal } from "react-bootstrap";
 
 const SignUp = (props) => {
-  const { register, errors, handleSubmit, watch } = useForm({});
-
   const dispatch = useDispatch();
   const { signUpDone, signUpError } = useSelector((state) => state.user);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [nickname, setNickname] = useState();
+
+  const { register, errors, handleSubmit, watch } = useForm({});
 
   const onSubmit = () => {
     dispatch({
@@ -38,6 +39,7 @@ const SignUp = (props) => {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">회원가입</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <div>
             <div className="container">
@@ -187,6 +189,7 @@ const SignUp = (props) => {
             </div>
           </div>
         </Modal.Body>
+
         <Modal.Footer>
           <Button onClick={props.onHide}>닫기</Button>
         </Modal.Footer>

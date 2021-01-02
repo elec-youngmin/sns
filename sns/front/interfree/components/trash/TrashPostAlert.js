@@ -6,7 +6,7 @@ import TrashconfirmModal from "./TrashconfirmModal";
 import { useDispatch, useSelector } from "react-redux";
 import { RESTORE_ALLTRASH_REQUEST } from "../../reducers/post";
 
-import { Badge, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
 const Styledp = styled.p`
@@ -56,6 +56,7 @@ const TrashPostAlert = () => {
     <div class="text-center" style={{ marginTop: "25px" }}>
       <TrashconfirmModal show={modalShow} onHide={() => setModalShow(false)} />
       <Styledp>휴지통 포스트 수 {trashPosts.length}개</Styledp>
+
       <div style={{ marginBottom: "20px" }}>
         <Button
           variant="primary"
@@ -75,6 +76,7 @@ const TrashPostAlert = () => {
         >
           전부 완전 삭제
         </Button>
+
         <Button
           variant="primary"
           onClick={() => {

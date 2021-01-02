@@ -15,8 +15,8 @@ const router = express.Router();
 const s3 = new AWS.S3();
 
 AWS.config.update({
-  accessKeyId: "AKIAJHNLL6PRXW6I2JWQ",
-  secretAccessKey: "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",
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_KEY,
   resion: "ap-northeast-2",
 });
 
@@ -87,23 +87,6 @@ router.post("/login", (req, res, next) => {
         ],
       });
 
-      const [postsCount, metadata] = await sequelize.query(
-        `SELECT count(id) as postsCount FROM posts where UserId=${user.id}`
-      );
-
-      const [followCount, metadata1] = await sequelize.query(
-        `SELECT count(followerId) as followCount FROM follows where followerId=${user.id}`
-      );
-
-      const [followingCount, metadata2] = await sequelize.query(
-        `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${user.id}`
-      );
-
-      userInformation.dataValues.postsCount = postsCount[0].postsCount;
-      userInformation.dataValues.followCount = followCount[0].followCount;
-      userInformation.dataValues.followingCount =
-        followingCount[0].followingCount;
-
       return res.json(userInformation);
     });
   })(req, res, next);
@@ -132,7 +115,6 @@ router.get("/kakaoError", async (req, res, next) => {
 
 router.post("/loadUserInfomation", async (req, res, next) => {
   try {
-    // console.log(req.user.dataValues.id);
     const userInfomation = await User.findOne({
       where: { id: req.user.dataValues.id },
       attributes: {
@@ -146,15 +128,15 @@ router.post("/loadUserInfomation", async (req, res, next) => {
       ],
     });
 
-    const [postsCount, metadata] = await sequelize.query(
+    const [postsCount, postsCountMetadata] = await sequelize.query(
       `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
     );
 
-    const [followCount, metadata1] = await sequelize.query(
+    const [followCount, followCountMetadata] = await sequelize.query(
       `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
     );
 
-    const [followingCount, metadata2] = await sequelize.query(
+    const [followingCount, followingCountMetadata] = await sequelize.query(
       `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
     );
 
@@ -190,7 +172,6 @@ router.get("/confirmCurrentLogin", async (req, res, next) => {
 
 router.post("/destroyUser", async (req, res, next) => {
   try {
-    console.log(req.user);
     const result = await bcrypt.compare(
       req.body.password,
       req.user.dataValues.password
@@ -225,29 +206,29 @@ router.patch("/changeProfile", async (req, res, next) => {
     if (req.body.nicknameValue) {
       await User.update(
         { nickname: req.body.nicknameValue },
-        { where: { id: req.body.id } }
+        { where: { id: req.user.dataValues.id } }
       );
     }
     if (req.body.introduceValue) {
       await User.update(
         { introduce: req.body.introduceValue },
-        { where: { id: req.body.id } }
+        { where: { id: req.user.dataValues.id } }
       );
     }
     if (req.body.shereLinkValue) {
       await User.update(
         { ShareLink: req.body.shereLinkValue },
-        { where: { id: req.body.id } }
+        { where: { id: req.user.dataValues.id } }
       );
     }
     if (req.body.whereValue) {
       await User.update(
         { where: req.body.whereValue },
-        { where: { id: req.body.id } }
+        { where: { id: req.user.dataValues.id } }
       );
     }
     const userInfomation = await User.findOne({
-      where: { id: req.body.id },
+      where: { id: req.user.dataValues.id },
       attributes: {
         exclude: ["password", "createdAt", "updatedAt"],
       },
@@ -259,15 +240,15 @@ router.patch("/changeProfile", async (req, res, next) => {
       ],
     });
 
-    const [postsCount, metadata] = await sequelize.query(
+    const [postsCount, postsCountMetadata] = await sequelize.query(
       `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
     );
 
-    const [followCount, metadata1] = await sequelize.query(
+    const [followCount, followCountMetadata] = await sequelize.query(
       `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
     );
 
-    const [followingCount, metadata2] = await sequelize.query(
+    const [followingCount, followingCountMetadata] = await sequelize.query(
       `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
     );
 
@@ -295,7 +276,6 @@ router.post("/logout", (req, res, next) => {
 
 router.post("/profileImage", upload.single("image"), async (req, res, next) => {
   try {
-    console.log(req.file.location, "한글.......................");
     const result = await ProfileImgSrc.findAll({
       where: { UserId: req.user.dataValues.id },
     });
@@ -326,40 +306,24 @@ router.post("/profileImage", upload.single("image"), async (req, res, next) => {
       ],
     });
 
-    // const [postsCount, metadata] = await sequelize.query(
-    //   `SELECT count(id) as postsCount FROM posts where UserId=${req.user.dataValues.id}`
-    // );
-
-    // const [followCount, metadata1] = await sequelize.query(
-    //   `SELECT count(followerId) as followCount FROM follows where followerId=${req.user.dataValues.id}`
-    // );
-
-    // const [followingCount, metadata2] = await sequelize.query(
-    //   `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.user.dataValues.id}`
-    // );
-
-    // userInfomation.dataValues.postsCount = postsCount[0].postsCount;
-    // userInfomation.dataValues.followCount = followCount[0].followCount;
-    // userInfomation.dataValues.followingCount = followingCount[0].followingCount;
-
     res.json(userInfomation);
   } catch (err) {
     console.error(err);
   }
 });
 
-router.post("/loadFollowingUser", async (req, res, next) => {
-  try {
-    const result = await Follow.findAll({
-      where: { followerId: 1 },
-    });
+// router.post("/loadFollowingUser", async (req, res, next) => {
+//   try {
+//     const result = await Follow.findAll({
+//       where: { followerId: 1 },
+//     });
 
-    res.status(200).json(result);
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
+//     res.status(200).json(result);
+//   } catch (err) {
+//     console.error(err);
+//     next(err);
+//   }
+// });
 
 router.post("/resettingPassword", async (req, res, next) => {
   console.log(req.body);
@@ -434,35 +398,6 @@ router.post("/findPassword", async (req, res, next) => {
     next(err);
   }
 });
-
-// 유저의 이메일에서 요청한 경로
-// router.get("/email/:id", async (req, res, next) => {
-//   try {
-//     const isExist = await User.findOne({
-//       where: { tempToken: req.params.id.trim() },
-//     });
-
-//     if (isExist) {
-//       console.log("토큰이 일치함");
-
-//       await res.status(200).json("토큰이 일치함 ok");
-//     } else {
-//       console.log("토큰이 일치하지 않음");
-//       res.status(500).json("올바른 요청이 아님");
-//     }
-//     await User.update(
-//       { tempToken: null },
-//       {
-//         where: {
-//           tempToken: req.params.id.trim(),
-//         },
-//       }
-//     );
-//   } catch (err) {
-//     console.error(err);
-//     next("에러발생");
-//   }
-// });
 
 router.get("/disabledOneUserAllpost", async (req, res, next) => {
   try {

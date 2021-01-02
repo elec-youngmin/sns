@@ -3,22 +3,16 @@ import Router from "next/router";
 import { useMediaQuery } from "react-responsive";
 
 import SearchModal from "./SearchModal";
-import WritePostModal from "../FloatingButton/WritePostModal";
-
-import { Row, Col } from "react-bootstrap";
+import WritePostModal from "../post/WritePostModal";
 
 import { useSelector } from "react-redux";
 
-import {
-  AiFillDribbbleCircle,
-  AiOutlineLogout,
-  AiOutlineLineChart,
-} from "react-icons/ai";
+import { Row, Col } from "react-bootstrap";
+import { AiFillDribbbleCircle } from "react-icons/ai";
 import { GoOrganization } from "react-icons/go";
-
 import { BsSearch } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
-import { AiFillSetting, AiFillEdit } from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 
 import { frontUrl } from "../../config/config";
 
@@ -32,7 +26,6 @@ const ColStyle = {
 const BottomTabs = () => {
   const { id } = useSelector((state) => state.user.user);
   const { savePostDone, searchResultDone } = useSelector((state) => state.post);
-
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [writePostModalShow, setWritePostModalShow] = useState(false);
 
@@ -51,6 +44,7 @@ const BottomTabs = () => {
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 854px)",
   });
+
   return (
     <div>
       <SearchModal
@@ -62,6 +56,7 @@ const BottomTabs = () => {
         show={writePostModalShow}
         onHide={() => setWritePostModalShow(false)}
       />
+
       {isTabletOrMobileDevice && (
         <>
           <Row

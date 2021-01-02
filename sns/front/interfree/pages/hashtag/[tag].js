@@ -1,34 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 
 import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
 
 import { useSelector, useDispatch } from "react-redux";
+
 import { LOAD_HASHTAGPAGE_REQUEST } from "../../reducers/post";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 
 import { SessionRow } from "../../styledComponents/layout/Session";
 
-import { Col } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const HashtagPage = () => {
-  const dispatch = useDispatch();
-  const { Posts } = useSelector((state) => state?.post?.posts);
   const router = useRouter();
-
-  const { tag } = router.query;
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: LOAD_HASHTAGPAGE_REQUEST,
-  //     data: tag,
-  //   });
-  // }, [tag]);
+  const { Posts } = useSelector((state) => state?.post?.posts);
 
   return (
     <div className="container justify-content-center">
@@ -49,10 +40,10 @@ const HashtagPage = () => {
                     : false
                 }
                 nickname={element.User.nickname}
-                like={element.like} //포스트 좋아요 수
+                like={element.like}
                 Likes={
                   element.Likes.length > 0 ? element.Likes[0].LikeUserId : false
-                } //포스트 좋아요 했는지 확인
+                }
                 reportCount={element.Reports}
                 PostImgSrcs={element.PostImgSrcs}
                 PostVideoSrcs={element.PostVideoSrcs}
@@ -67,7 +58,7 @@ const HashtagPage = () => {
             ))}
         </Col>
       </SessionRow>
-      {/* <Button onClick={() => router.back()}>뒤로가기</Button> */}
+      <Button onClick={() => router.back()}>뒤로가기</Button>
     </div>
   );
 };

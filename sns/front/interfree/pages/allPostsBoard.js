@@ -26,13 +26,14 @@ const allPostsBoard = () => {
   };
   const dispatch = useDispatch();
   const { posts, loadAllPostDone } = useSelector((state) => state.post);
-  const { id } = useSelector((state) => state.user.user);
 
   const LoadNextAllPosts = () => {
     const lastId = posts[posts.length - 1]?.id;
+
     if (posts.length === 0) {
       return;
     }
+
     dispatch({
       type: LOAD_ALLPOST_REQUEST,
       data: { lastId },

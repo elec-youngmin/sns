@@ -34,6 +34,7 @@ import {
   BsBrightnessHighFill,
   BsChatFill,
 } from "react-icons/bs";
+
 const icons = [
   <BsFillCalendarFill />,
   <BsFillArchiveFill />,
@@ -52,6 +53,7 @@ const icons = [
   <BsBrightnessHighFill />,
   <BsChatFill />,
 ];
+
 const colors = [
   "#8A2BE2",
   "#6495ED",
@@ -70,6 +72,7 @@ const colors = [
   "#4B0082",
   "#FF6347",
 ];
+
 const TimelineElement = ({
   key,
   id,
@@ -79,9 +82,10 @@ const TimelineElement = ({
   TimelineSubId, //타임라인 주제의 id
   TimelineSub, //타임라인 주제 이름
 }) => {
-  const ramdomNum = Math.floor(Math.random() * 15);
   const dispatch = useDispatch();
   const [updateContentShow, setUpdateTimelineContentShow] = useState(false);
+
+  const ramdomNum = Math.floor(Math.random() * 15);
 
   return (
     <>
@@ -114,6 +118,7 @@ const TimelineElement = ({
           >
             수정
           </Button>
+
           <Button
             onClick={() => {
               dispatch({

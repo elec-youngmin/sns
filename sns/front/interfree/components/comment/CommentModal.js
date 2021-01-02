@@ -11,11 +11,11 @@ import { Modal, Button, Form } from "react-bootstrap";
 
 //props.postId,props.onHide
 const CommentModal = (props) => {
+  const dispatch = useDispatch();
+  const { id } = useSelector((state) => state.user.user);
   const { comments, loadCommentLoading } = useSelector((state) => state.post);
   const postOneId = props.postId;
-  const { id } = useSelector((state) => state.user.user);
   const [comment, SetComment] = useState();
-  const dispatch = useDispatch();
 
   return (
     <div>
@@ -28,6 +28,7 @@ const CommentModal = (props) => {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">댓글</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           {loadCommentLoading ? (
             <Loading />
@@ -36,20 +37,20 @@ const CommentModal = (props) => {
           )}
 
           <div style={{ maxheight: "50px", overflow: "auto" }}>
-            {comments.map((i, index) => (
+            {comments.map((element, index) => (
               <CommentBoard
-                // key={comments[index].id}
-
-                id={comments[index].id}
-                comments={comments[index].comment}
-                nickname={comments[index].Post.User.nickname}
-                date={comments[index].createdAt}
-                writeUserId={comments[index].writeUserId}
+                key={index}
+                id={element.id}
+                comments={element.comment}
+                nickname={element.Post.User.nickname}
+                date={element.createdAt}
+                writeUserId={element.writeUserId}
                 postId={props.postId}
               />
             ))}
           </div>
         </Modal.Body>
+
         <Modal.Footer class="col-lg-12">
           <Form.Group>
             <Form.Label style={{ width: "100%" }}></Form.Label>
@@ -68,7 +69,9 @@ const CommentModal = (props) => {
               }}
             />
           </Form.Group>
+
           <Button onClick={props.onHide}>닫기</Button>
+
           <Button
             className="float-right"
             onClick={() => {

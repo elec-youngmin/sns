@@ -18,6 +18,7 @@ const EditProfileSettingModal = (props) => {
             프로필 변경
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <Profile />
         </Modal.Body>

@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { DELETE_ALLTRASH_REQUEST } from "../../reducers/post";
 
 import { Modal, Button } from "react-bootstrap";
@@ -9,7 +10,6 @@ import { Modal, Button } from "react-bootstrap";
 const TrashconfirmModal = (props) => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.user.user);
-  const { deleteAlltrashDone } = useSelector((state) => state.post);
 
   return (
     <div>

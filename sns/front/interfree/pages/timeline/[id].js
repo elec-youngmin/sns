@@ -18,9 +18,9 @@ import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const timeline = () => {
-  const { timelineContents } = useSelector((state) => state.post);
   const router = useRouter();
-  const dispatch = useDispatch();
+
+  const { timelineContents } = useSelector((state) => state.post);
 
   return (
     <div>
@@ -44,6 +44,7 @@ const timeline = () => {
             );
           })}
         </VerticalTimeline>
+
         <Button onClick={() => router.back()}>뒤로가기</Button>
       </div>
     </div>

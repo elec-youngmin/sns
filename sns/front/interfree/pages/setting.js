@@ -18,6 +18,7 @@ import {
 } from "../styledComponents/layout/Session";
 
 import { useSelector, useDispatch } from "react-redux";
+
 import {
   LOAD_USER_INFOMATION_REQUEST,
   DESTROY_USER_REQUEST,
@@ -40,7 +41,7 @@ import { frontUrl } from "../config/config";
 
 const setting = () => {
   const dispatch = useDispatch();
-  const { register, errors, handleSubmit, watch } = useForm({});
+  const { register, errors, handleSubmit } = useForm({});
 
   const [editProfilePictureShow, setEditProfilePictureShow] = useState(false);
   const [editProfileSettingShow, setEditProfileSettingShow] = useState(false);
@@ -74,14 +75,17 @@ const setting = () => {
       }
     }
   }, [resettingPasswordDone]);
+
   return (
     <div>
       {loadUserInfomationDone && (
         <>
+
           <EditProfilePictureModal
             show={editProfilePictureShow}
             onHide={() => setEditProfilePictureShow(false)}
           />
+
           <EditProfileSettingModal
             show={editProfileSettingShow}
             onHide={() => setEditProfileSettingShow(false)}
@@ -91,6 +95,7 @@ const setting = () => {
             show={findPasswordModalshow}
             onHide={() => setFindPasswordModalshow(false)}
           />
+          
           <div className="container justify-content-center">
             <SessionRow>
               <Col md={7}>

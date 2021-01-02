@@ -3,18 +3,18 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { RESETTING_PASSWORD_REQUEST } from "../../reducers/user";
+
 import { Modal, Button } from "react-bootstrap";
 
 const FindPasswordModal = (props) => {
-  const { register, errors, handleSubmit, watch } = useForm({});
-
-  const { resettingPasswordError } = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
+  const { resettingPasswordError } = useSelector((state) => state.user);
   const [password, setPassword] = useState("");
-
   const [rePassword, setRePassword] = useState("");
+
+  const { register, errors, handleSubmit, watch } = useForm({});
 
   useMemo(() => {
     if (resettingPasswordError) {
@@ -35,6 +35,7 @@ const FindPasswordModal = (props) => {
             패스워드 변경
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body
           class="container justify-content-center"
           style={{ margin: "20px" }}
@@ -135,17 +136,6 @@ const FindPasswordModal = (props) => {
             </Button>
           </form>
         </Modal.Body>
-        {/* <Modal.Footer>
-          <Button
-            className="btn float-right"
-            onClick={props.onHide}
-            style={{
-              margin: "15px",
-            }}
-          >
-            닫기
-          </Button>
-        </Modal.Footer> */}
       </Modal>
     </div>
   );

@@ -2,18 +2,18 @@ import React, { useRef, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
 import AddTimelineContentsModal from "./AddTimelineContentsModal";
+
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_TIMELINE_SUBJECT_REQUEST } from "../../reducers/post";
 
 import { Modal, Button, Form } from "react-bootstrap";
 
 const AddTimelineModal = (props) => {
-  const show = props.show;
-  const [timelineSubject, setTimelineSubject] = useState("");
-
-  const [addTimelineContentsShow, setAddTimelineContentsShow] = useState(false);
-
   const dispatch = useDispatch();
+
+  const [timelineSubject, setTimelineSubject] = useState("");
+  const [addTimelineContentsShow, setAddTimelineContentsShow] = useState(false);
+  const show = props.show;
 
   return (
     <div>
@@ -69,6 +69,7 @@ const AddTimelineModal = (props) => {
           >
             닫기
           </Button>
+
           <Button
             onClick={() => {
               if (timelineSubject === "") {

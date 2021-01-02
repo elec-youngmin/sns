@@ -1,17 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { UPDATE_COMMENT_REQUEST } from "../../reducers/post";
-
 import { useDispatch, useSelector } from "react-redux";
+
+import { UPDATE_COMMENT_REQUEST } from "../../reducers/post";
 
 import { Modal, Button } from "react-bootstrap";
 
 const ReviseCommentForm = (props) => {
-  const { comments } = props;
-  const [comment, SetComment] = useState();
   const dispatch = useDispatch();
   const { updatePostLoading } = useSelector((state) => state.post);
+  const { comments } = props;
+  const [comment, SetComment] = useState();
+
   return (
     <div>
       <Modal
@@ -23,6 +24,7 @@ const ReviseCommentForm = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>댓글 수정</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <textarea
             placeholder="여기서 댓글 수정.."
@@ -39,8 +41,10 @@ const ReviseCommentForm = (props) => {
             {comments}
           </textarea>
         </Modal.Body>
+
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={props.onHide}>닫기</Button>
+
           <Button
             onClick={() => {
               dispatch({

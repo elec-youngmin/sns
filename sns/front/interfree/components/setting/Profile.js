@@ -1,15 +1,15 @@
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 
-import Loading from "../loading/Loading";
-
 import { useSelector, useDispatch } from "react-redux";
+
 import { CHANGE_PROFILE_REQUEST } from "../../reducers/user";
+
 import { Col, Button, Form, Row } from "react-bootstrap";
 
-import styled from "styled-components";
-
 const Profile = () => {
+  const dispatch = useDispatch();
+
   const { id, email, nickname, introduce, ShareLink, where } = useSelector(
     (state) => state.user.user
   );
@@ -19,8 +19,6 @@ const Profile = () => {
   const [shereLinkValue, setShereLinkValue] = useState(ShareLink);
   const [whereValue, setWhereValue] = useState(where);
 
-  const dispatch = useDispatch();
-
   return (
     <div>
       <Form style={{ marginBottom: "50px" }}>
@@ -28,6 +26,7 @@ const Profile = () => {
           <Form.Label column sm="2">
             닉네임
           </Form.Label>
+
           <Col sm="10">
             <Form.Control
               as="input"
@@ -46,9 +45,11 @@ const Profile = () => {
               }}
             />
           </Col>
+
           <Form.Label column sm="2">
             이메일
           </Form.Label>
+
           <Col sm="10">
             <Form.Control
               as="input"
@@ -71,6 +72,7 @@ const Profile = () => {
           <Form.Label column sm="2">
             소개
           </Form.Label>
+
           <Col sm="10">
             <Form.Control
               as="input"
@@ -89,9 +91,11 @@ const Profile = () => {
               }}
             />
           </Col>
+
           <Form.Label column sm="2">
             공개 링크
           </Form.Label>
+
           <Col sm="10">
             <Form.Control
               as="input"
@@ -110,11 +114,13 @@ const Profile = () => {
               }}
             />
           </Col>
+
           <Form.Label column sm="2">
             사는 곳
           </Form.Label>
+
           <Col sm="10">
-            <Form.Control
+            <Form.Contol
               as="input"
               style={{
                 resize: "none",

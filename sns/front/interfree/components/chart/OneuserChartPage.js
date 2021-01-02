@@ -6,11 +6,12 @@ import { useSelector } from "react-redux";
 
 const OneuserChartPage = () => {
   const { charts } = useSelector((state) => state.post);
+
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 537px)",
   });
-  // 여기부터 포스트 차트 데이터 가공
 
+  // 여기부터 일일 작성한 포스트 차트 데이터 가공
   let postsdate = [];
   let postsCount = [];
   let postsdata;
@@ -60,6 +61,7 @@ const OneuserChartPage = () => {
 
   return (
     <div>
+      {/* interfree 전체 일일 포스트 갯수 차트 */}
       {isTabletOrMobileDevice && (
         <p
           style={{
@@ -71,8 +73,8 @@ const OneuserChartPage = () => {
           디바이스를 가로로 회전해 보세요.
         </p>
       )}
-      {/* interfree 전체 일일 포스트 갯수 차트 */}
 
+      {/* 일일 좋아요 수 차트  */}
       <div
         style={{
           marginBottom: "50px",
@@ -86,8 +88,6 @@ const OneuserChartPage = () => {
           </>
         )}
       </div>
-
-      {/* 일일 좋아요 수 차트  */}
 
       <div
         style={{

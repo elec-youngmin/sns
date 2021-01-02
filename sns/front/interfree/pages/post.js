@@ -6,8 +6,7 @@ import "react-tabs/style/react-tabs.css";
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
 import PostBoard from "../components/post/PostBoard";
-import PagingPost from "../components/post/PagingPost";
-import WritePostModal from "../components/FloatingButton/WritePostModal";
+import WritePostModal from "../components/post/WritePostModal";
 
 import {
   SessionDiv,

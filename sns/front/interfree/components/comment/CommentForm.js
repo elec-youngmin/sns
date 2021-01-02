@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { ADD_COMMENT_REQUEST } from "../../reducers/post";
@@ -10,6 +10,7 @@ const CommentForm = (postId) => {
     <div>
       <Form.Group>
         <Form.Label style={{ width: "100%" }}></Form.Label>
+
         <Form.Control
           class="col-lg-12"
           as="textarea"
@@ -22,6 +23,7 @@ const CommentForm = (postId) => {
             SetComment(e.target.value);
           }}
         />
+
         <Button
           className="float-right"
           onClick={() => {

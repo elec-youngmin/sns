@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
 import Media from "react-media";

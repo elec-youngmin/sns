@@ -1,10 +1,10 @@
 import React, { useMemo, useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import Router from "next/router";
+import PropTypes from "prop-types";
 import { slide as MenuBar } from "react-burger-menu";
 
 import SearchModal from "./SearchModal";
-import Login from "../firstSeePage/Login";
+import Login from "../login/Login";
 
 import {
   MobileContainer,
@@ -14,12 +14,13 @@ import {
 } from "../../styledComponents/layout/HorizontalNav";
 
 import { useDispatch, useSelector } from "react-redux";
+
 import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 
+import { Button } from "react-bootstrap";
 import { AiFillSetting, AiFillEdit } from "react-icons/ai";
 import { GoOrganization } from "react-icons/go";
 import { GiTimeBomb } from "react-icons/gi";
-
 import { BsTrashFill, BsBookmarksFill } from "react-icons/bs";
 
 import {
@@ -27,9 +28,7 @@ import {
   AiOutlineLineChart,
   AiOutlineSearch,
 } from "react-icons/ai";
-
 import { FaUserCircle } from "react-icons/fa";
-import { Button } from "react-bootstrap";
 
 import { frontUrl } from "../../config/config";
 
@@ -83,10 +82,8 @@ const Menu = () => {
     (state) => state.user
   );
   const { id } = useSelector((state) => state.user.user);
-
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
-
   const [menubarShow, setMenubarShow] = useState(false);
 
   useMemo(() => {
@@ -166,6 +163,7 @@ const Menu = () => {
           모든 포스트
         </MobileLink>
         <br />
+
         <MobileLink
           id="about"
           className="menu-item"

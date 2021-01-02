@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from "react";
-import Moment from "react-moment";
 import PropTypes from "prop-types";
+import Moment from "react-moment";
 
 import ReviseCommentForm from "./ReviseCommentForm";
 
-import { DELETE_COMMENT_REQUEST } from "../../reducers/post";
 import { useDispatch, useSelector } from "react-redux";
+
+import { DELETE_COMMENT_REQUEST } from "../../reducers/post";
 
 import { Alert, Button } from "react-bootstrap";
 
@@ -19,9 +20,9 @@ const CommentBoard = ({
   nickname,
 }) => {
   const dispatch = useDispatch();
-  const [modalShow, setModalShow] = useState(false);
   const { user } = useSelector((state) => state.user);
   const { updateCommentDone } = useSelector((state) => state.post);
+  const [modalShow, setModalShow] = useState(false);
 
   useMemo(() => {
     if (updateCommentDone) {
@@ -63,6 +64,7 @@ const CommentBoard = ({
             >
               삭제
             </Button>
+
             <Button
               variant="secondary"
               className="float-right"

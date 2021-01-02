@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
+import { VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
 import {
@@ -23,6 +20,7 @@ import {
   BsBrightnessHighFill,
   BsChatFill,
 } from "react-icons/bs";
+
 const icons = [
   <BsFillCalendarFill />,
   <BsFillArchiveFill />,
@@ -41,6 +39,7 @@ const icons = [
   <BsBrightnessHighFill />,
   <BsChatFill />,
 ];
+
 const colors = [
   "#8A2BE2",
   "#6495ED",
@@ -59,6 +58,7 @@ const colors = [
   "#4B0082",
   "#FF6347",
 ];
+
 const TimelineElement = ({
   key,
   title,

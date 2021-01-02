@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import WritePostForm from "../post/WritePostForm";
+import WritePostForm from "./WritePostForm";
 
 import { useSelector } from "react-redux";
 
@@ -14,6 +14,7 @@ const WritePostModal = (props) => {
       props.onHide();
     }
   }, [savePostDone]);
+
   return (
     <div>
       <Modal
@@ -27,6 +28,7 @@ const WritePostModal = (props) => {
             포스트 작성
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <WritePostForm modal={true} props={props} />
         </Modal.Body>

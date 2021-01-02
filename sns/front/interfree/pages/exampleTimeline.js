@@ -1,37 +1,23 @@
 import React from "react";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
+import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
 import TimelineElement from "../components/timeline/TimelineElement";
 
-import { Row, Col } from "react-bootstrap";
+import {
+  TimelinetRow,
+  TitleDiv,
+} from "../styledComponents/timeline/ExampleTimeline";
+
+import { Col } from "react-bootstrap";
 
 const ExampleTimeline = () => {
   return (
     <div style={{ paddingTop: "105px" }}>
       <div className="container justify-content-center">
-        <Row
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0px auto",
-          }}
-        >
+        <TimelinetRow>
           <Col md={8}>
-            <div
-              style={{
-                width: "100%",
-                height: "150px",
-                backgroundColor: "#4682B4",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
+            <TitleDiv>
               <h1
                 style={{
                   color: "white",
@@ -39,7 +25,7 @@ const ExampleTimeline = () => {
               >
                 조선사 타임라인
               </h1>
-            </div>
+            </TitleDiv>
 
             <VerticalTimeline animate={false}>
               <TimelineElement
@@ -171,7 +157,7 @@ const ExampleTimeline = () => {
               />
             </VerticalTimeline>
           </Col>
-        </Row>
+        </TimelinetRow>
       </div>
     </div>
   );

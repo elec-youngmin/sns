@@ -1,29 +1,30 @@
-import React, { useState, useMemo } from "react";
-import { Typeahead } from "react-bootstrap-typeahead";
-import "react-bootstrap-typeahead/css/Typeahead.css";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
+import { Typeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   SEARCH_FRIEND_REQUEST,
-  SEARCH_FRIEND_RESULT_REQUEST,
   LOAD_USERPAGE_REQUEST,
 } from "../../reducers/post";
-import { Modal, Button, Row, Col } from "react-bootstrap";
 
+import { Modal, Button, Row, Col } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import { frontUrl } from "../../config/config";
+
 const SearchModal = (props) => {
   const dispatch = useDispatch();
-  const [searchText, setSearchText] = useState("");
-  const { search } = useSelector((state) => state.post);
-  console.log(search);
   const router = useRouter();
+  const { search } = useSelector((state) => state.post);
+  const [searchText, setSearchText] = useState("");
+
   const isTabletOrMobileDevice = useMediaQuery({
     query: "(max-device-width: 768px)",
   });
+
   return (
     <div>
       <Modal
@@ -35,6 +36,7 @@ const SearchModal = (props) => {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">검색</Modal.Title>
         </Modal.Header>
+
         <Modal.Body
           class="container justify-content-center"
           style={{
@@ -74,6 +76,7 @@ const SearchModal = (props) => {
                 }}
               />
             </Col>
+
             <Col md={2}>
               <Button
                 class="pull-right"
@@ -97,6 +100,7 @@ const SearchModal = (props) => {
             </Col>
           </Row>
         </Modal.Body>
+
         <Modal.Footer class="col-lg-12">
           <Button
             className="btn float-right"

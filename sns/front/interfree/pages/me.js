@@ -6,7 +6,8 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 import Title from "../components/layout/Title";
-import WritePostModal from "../components/FloatingButton/WritePostModal";
+import ProfileCard from "../components/profile/ProfileCard";
+import WritePostModal from "../components/post/WritePostModal";
 import AddTimelineModal from "../components/timeline/AddTimelineModal";
 import EditProfilePictureModal from "../components/setting/EditProfilePictureModal";
 import EditProfileSettingModal from "../components/setting/EditProfileSettingModal";
@@ -20,21 +21,12 @@ import {
   SessionRow,
 } from "../styledComponents/layout/Session";
 
-import {
-  CardContainter,
-  CardRow,
-  ProfileImg,
-  ProfileAvata,
-  CountRow,
-  CountCol,
-} from "../styledComponents/profile/ProfileCard";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { SEARCH_FRIEND_REQUEST, LOAD_USERPAGE_REQUEST } from "../reducers/post";
-import { Row, Col, Container } from "react-bootstrap";
 
+import { Row, Col, Container } from "react-bootstrap";
 import { AiFillEdit, AiOutlineSearch } from "react-icons/ai";
 import { GiTimeBomb } from "react-icons/gi";
 import { ImProfile } from "react-icons/im";
@@ -92,34 +84,21 @@ const me = () => {
               <SessionRow>
                 <Col md={7}>
                   <Title title={"나"} />
-                  <CardContainter>
-                    <CardRow>
-                      {user?.ProfileImgSrcs.length > 0 ? (
-                        <ProfileImg src={user?.ProfileImgSrcs[0].src} />
-                      ) : (
-                        <ProfileAvata>
-                          <p style={{ fontSize: "25px", fontWeight: "600" }}>
-                            {user.nickname[0].toUpperCase()}
-                          </p>
-                        </ProfileAvata>
-                      )}
-                    </CardRow>
-                    <p style={{ fontSize: "20px" }}>{user.nickname}</p>
-                    <p>{user.introduce}</p>
-                    <CountRow>
-                      <CountCol>포스트:{user.postsCount}</CountCol>
-                      <CountCol>팔로워:{user.followCount}</CountCol>
-                      <CountCol>팔로우:{user.followingCount}</CountCol>
-                    </CountRow>
-                    <p style={{ fontSize: "20px" }}>
-                      링크:
-                      {user.ShareLink ? user.ShareLink : "게재되지 않음"}
-                    </p>
-                    <p style={{ fontSize: "20px" }}>
-                      사는 곳:
-                      {user.ShareLink ? user.ShareLink : "게재되지 않음"}
-                    </p>
-                  </CardContainter>
+
+                  <ProfileCard
+                    profileImgSrc={
+                      user?.ProfileImgSrcs.length > 0
+                        ? user?.ProfileImgSrcs[0].src
+                        : false
+                    }
+                    nickname={user.nickname}
+                    introduce={user.introduce}
+                    postsCount={user.postsCount}
+                    followCount={user.followCount}
+                    followingCount={user.followingCount}
+                    shareLink={user.ShareLink}
+                    where={user.where}
+                  />
 
                   <SessionDiv>
                     <SessionTitle>
@@ -135,6 +114,7 @@ const me = () => {
                       프로필 사진 변경하기
                     </SessionButton>
                   </SessionDiv>
+
                   <SessionDiv>
                     <SessionTitle>
                       <ImProfile />
@@ -163,6 +143,7 @@ const me = () => {
                       }}
                     />
                   </SessionDiv>
+
                   <SessionDiv>
                     <SessionTitle>
                       <AiOutlineSearch />
@@ -199,6 +180,7 @@ const me = () => {
                       }}
                     />
                   </SessionDiv>
+
                   <SessionDiv>
                     <SessionTitle>
                       <GiTimeBomb />

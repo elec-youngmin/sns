@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
 
@@ -8,13 +8,13 @@ import {
 } from "../../reducers/post";
 import { useSelector, useDispatch } from "react-redux";
 
+import { Card, Dropdown, DropdownButton } from "react-bootstrap";
+
 import {
   AiFillDropboxSquare,
   AiFillCloseCircle,
   AiFillBackward,
 } from "react-icons/ai";
-
-import { Card, Dropdown, DropdownButton } from "react-bootstrap";
 
 import { backUrl } from "../../config/config";
 
@@ -70,6 +70,7 @@ const TrashPostForm = ({
             </Dropdown.Item>
           </DropdownButton>
         </Card.Header>
+
         <Card.Body>
           <Card.Text>
             <h3>{postContents}</h3>
@@ -98,6 +99,7 @@ const TrashPostForm = ({
             )}
           </Card.Text>
         </Card.Body>
+
         <Card.Footer
           style={{
             backgroundColor: "white",

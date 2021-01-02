@@ -48,6 +48,7 @@ const timeline = () => {
           timelineContentsShow(false);
         }}
       />
+
       <div className="container justify-content-center">
         <SessionRow>
           <Col md={7}>
@@ -58,7 +59,6 @@ const timeline = () => {
                 <GiTimeBomb />
                 타임아웃 만들기
               </SessionTitle>
-
               <SessionP>주제를 정하고 타임라인을 만들어 보세요.</SessionP>
               <br />
               <SessionButton
@@ -77,6 +77,7 @@ const timeline = () => {
                 타임라인 추가
               </SessionButton>
             </SessionDiv>
+
             <Title title={"타임라인 리스트"} />
 
             {timelineSubjects.length === 0 && (
