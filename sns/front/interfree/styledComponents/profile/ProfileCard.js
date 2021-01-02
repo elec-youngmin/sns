@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 import { Container, Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const CardContainter = styled(Container)`
   border: 1px solid #f0ffff;

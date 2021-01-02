@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 import { Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const TabRow = styled(Row)`
   text-align: center;

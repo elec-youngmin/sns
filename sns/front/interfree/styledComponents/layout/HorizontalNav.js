@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 
 export const Logo = styled.p`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");

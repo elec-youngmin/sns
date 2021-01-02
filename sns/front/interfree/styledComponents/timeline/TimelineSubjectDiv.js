@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 import { Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const Div = styled.div`
   border: 1px solid #f0ffff;

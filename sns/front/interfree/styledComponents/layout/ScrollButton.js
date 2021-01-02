@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Button, Row } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const TopScrollButton = styled(Button)`
   position: fixed;

@@ -46,12 +46,6 @@ const me = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: LOAD_USER_INFOMATION_REQUEST,
-    });
-  }, []);
-
   const [writePostShow, setWritePostShow] = useState(false);
   const [timelineModalShow, setTimelineModalShow] = useState(false);
   const [editProfilePictureShow, setEditProfilePictureShow] = useState(false);
@@ -129,6 +123,7 @@ const me = () => {
                       프로필 변경하기
                     </SessionButton>
                   </SessionDiv>
+
                   <SessionDiv>
                     <SessionTitle>
                       <AiFillEdit />

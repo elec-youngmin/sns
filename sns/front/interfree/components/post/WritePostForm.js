@@ -150,6 +150,7 @@ const WriteForm = (props) => {
           <img
             className="profile_preview"
             src={image.previewURL}
+            alt={image.previewURL}
             style={{ maxWidth: "30vw", maxHeight: "30vh", corsor: "pointer" }}
           ></img>
         )}

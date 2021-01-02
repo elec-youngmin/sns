@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 import { Button, Row } from "react-bootstrap";
 
 export const BoardContainer = styled.div`

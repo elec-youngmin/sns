@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 import { Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const Spin = styled(Spinner)`
   position: fixed;

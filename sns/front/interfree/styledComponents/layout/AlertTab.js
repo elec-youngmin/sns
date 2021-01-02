@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
 import { Alert } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 
 export const ContainerAlert = styled(Alert)`
   text-align: center;

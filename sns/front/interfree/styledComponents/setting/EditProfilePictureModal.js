@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import "bootstrap/dist/css/bootstrap.css";
-import { Row, Col } from "react-bootstrap";
 
 export const ProfileImg = styled.img`
   min-width: 180px;
