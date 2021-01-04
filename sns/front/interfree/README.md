@@ -44,6 +44,6 @@ sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기�
 2. 사용자 동작 결과 알림과 에러 알림
    사용자가 웹의 기능을 이용하면 그 결과가 성공/ 실패 여부를 알려줍니다. react-toastify 라이브러리로 구현했으며 리덕스의 리듀서 함수에서 성공/ 실패여부에 따라 ToastSuccess, ToastError 함수를 호출합니다.
 
-     <img src=" https://user-images.githubusercontent.com/71272034/103510818-450f4400-4ea9-11eb-81dc-112e0adefe21.JPG" width="500" height="300">
+     <img src="https://user-images.githubusercontent.com/71272034/103510818-450f4400-4ea9-11eb-81dc-112e0adefe21.JPG" width="500" height="300">
 
-      <img src=" https://user-images.githubusercontent.com/71272034/103510899-65d79980-4ea9-11eb-83ae-2c5469f07927.JPG" width="500" height="300">
+      <img src="https://user-images.githubusercontent.com/71272034/103511050-a8997180-4ea9-11eb-8bdd-ee6b6a35df57.JPG" width="500" height="300">
