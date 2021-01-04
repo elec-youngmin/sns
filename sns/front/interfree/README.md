@@ -37,13 +37,15 @@ sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기�
 
 <p align="center">
 <figure class="image">
-  <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" " alt="모바일 화면" width="280" height="550">
+  <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" alt="모바일 화면" width="280" height="550">
   <figcaption>모바일 레이아웃</figcaption>
 </figure>
 </p>
 
-데스크탑 화면
-<img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" width="900" height="500">
+<figure class="image" align="center">
+  <img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" alt="데스크탑 화면" width="280" height="550">
+  <figcaption>데스크탑 레이아웃</figcaption>
+</figure>
 
 2. 웹 사용자와 웹 사이의 상호 소통  
    사용자가 웹의 기능을 이용하면 그 결과를 성공/ 실패 여부를 알려줍니다. react-toastify 라이브러리로 구현했으며 리덕스의 리듀서 함수에서 성공/ 실패여부에 따라 ToastSuccess, ToastError 함수를 호출합니다. 사용자 동작 결과 알림과 에러 알림
