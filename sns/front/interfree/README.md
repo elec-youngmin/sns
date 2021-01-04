@@ -35,9 +35,9 @@ sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기�
    모바일, 데스크탑에 따라 친화된 레이아웃을 제공합니다.
 
    모바일 화면
-   <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" width="550" height="300">
+   <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" width="280" height="550">
 
    데스크탑 화면
-   <img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" width="500" height="500">
+   <img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" width="900" height="500">
 
 2.
