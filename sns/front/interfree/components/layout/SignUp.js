@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -17,6 +17,7 @@ const SignUp = (props) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [nickname, setNickname] = useState();
+  const [signUpModalShow, setSignUpModalShow] = useState(false);
 
   const { register, errors, handleSubmit, watch } = useForm({});
 
@@ -27,9 +28,23 @@ const SignUp = (props) => {
     });
   };
 
+  useMemo(() => {
+    if (signUpDone) {
+      setSignUpModalShow(true);
+    }
+    if (signUpError) {
+      setSignUpModalShow(true);
+    }
+    props.onHide();
+  }, [signUpDone, signUpError]);
+
   const { signUpLoading } = useSelector((state) => state.user);
   return (
     <div>
+      <SignUpCompletedModal
+        show={signUpModalShow}
+        onHide={() => setSignUpModalShow(false)}
+      />
       <Modal
         {...props}
         size="md"
@@ -63,7 +78,7 @@ const SignUp = (props) => {
                       setEmail(e.target.value);
                     }}
                   />
-                  <p>패스워드를 찾거나 변경할 때 이메일 인증이 필요해요.</p>
+                  <p>패스워드를 찾을 때 올바른 이메일 주소가 필요해요.</p>
                   <ErrorMessage
                     className="invalid-feedback"
                     name="email"
@@ -194,9 +209,8 @@ const SignUp = (props) => {
           <Button onClick={props.onHide}>닫기</Button>
         </Modal.Footer>
       </Modal>
-
-      {signUpDone ? <SignUpCompletedModal /> : null}
-      {signUpError ? <SignUpCompletedModal /> : null}
+      {signUpDone && <SignUpCompletedModal />}
+      {signUpError && <SignUpCompletedModal />}
     </div>
   );
 };

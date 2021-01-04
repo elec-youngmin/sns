@@ -6,6 +6,7 @@ export const ProfileImg = styled.img`
   max-width: 180px;
   max-height: 180px;
   cursor: pointer;
+  border-radius: 50%;
 `;
 
 export const ProfileDiv = styled.div`

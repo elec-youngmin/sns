@@ -187,7 +187,7 @@ router.post("/destroyUser", async (req, res, next) => {
       req.logout();
       req.session.destroy();
     } else {
-      res.status(500).json("비밀번호가 일치하지 않습니다.");
+      return res.status(500).json("비밀번호가 일치하지 않습니다.");
     }
     res.status(200).json("회원탈퇴가 완료되었습니다.");
   } catch (err) {
