@@ -43,7 +43,7 @@ sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기�
 </p>
 
 <figure class="image" align="center">
-  <img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" alt="데스크탑 화면" width="280" height="550">
+  <img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" alt="데스크탑 화면" width="900" height="600">
   <figcaption>데스크탑 레이아웃</figcaption>
 </figure>
 
