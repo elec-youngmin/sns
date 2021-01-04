@@ -60,7 +60,6 @@ const EditProfilePictureModal = (props) => {
             >
               {profileImg ? (
                 <ProfileImg
-                  class="rounded-circle w-50 p-3 mx-auto d-block"
                   alt={profileImg}
                   src={profileImg}
                   role="button"
@@ -76,7 +75,7 @@ const EditProfilePictureModal = (props) => {
               id="file-input"
               type="file"
               name="image"
-              accept="image/jpg,impge/png,image/jpeg,image/gif"
+              accept="image/jpg,impge/png,image/jpeg"
               multiple
               style={{ display: "none" }}
               onChange={onhandleChange}
