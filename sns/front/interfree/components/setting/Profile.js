@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -23,11 +23,11 @@ const Profile = () => {
     <div>
       <Form style={{ marginBottom: "50px" }}>
         <Form.Group as={Row}>
-          <Form.Label column sm="2">
+          <Form.Label column sm={2}>
             닉네임
           </Form.Label>
 
-          <Col sm="10">
+          <Col sm={10}>
             <Form.Control
               as="input"
               style={{
@@ -46,11 +46,11 @@ const Profile = () => {
             />
           </Col>
 
-          <Form.Label column sm="2">
+          <Form.Label column sm={2}>
             이메일
           </Form.Label>
 
-          <Col sm="10">
+          <Col sm={10}>
             <Form.Control
               as="input"
               readOnly
@@ -69,7 +69,7 @@ const Profile = () => {
             />
           </Col>
 
-          <Form.Label column sm="2">
+          <Form.Label column sm={2}>
             소개
           </Form.Label>
 
@@ -92,11 +92,11 @@ const Profile = () => {
             />
           </Col>
 
-          <Form.Label column sm="2">
+          <Form.Label column sm={2}>
             공개 링크
           </Form.Label>
 
-          <Col sm="10">
+          <Col sm={10}>
             <Form.Control
               as="input"
               style={{
@@ -120,7 +120,7 @@ const Profile = () => {
           </Form.Label>
 
           <Col sm="10">
-            <Form.Contol
+            <Form.Control
               as="input"
               style={{
                 resize: "none",
