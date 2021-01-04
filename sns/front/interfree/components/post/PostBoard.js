@@ -214,7 +214,11 @@ const PostBoard = ({
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
-            <Zoom>
+            <Zoom
+              wrapStyle={{
+                width: "100%",
+              }}
+            >
               <ZoomImg
                 src={PostImgSrcs[0].src}
                 alt={PostImgSrcs[0].src}
