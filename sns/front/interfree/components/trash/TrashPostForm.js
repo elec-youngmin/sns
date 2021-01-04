@@ -76,7 +76,7 @@ const TrashPostForm = ({
             <h3>{postContents}</h3>
             {PostImgSrcs && (
               <img
-                src={`${backUrl}/${PostImgSrcs}`}
+                src={PostImgSrcs}
                 alt={PostImgSrcs}
                 style={{
                   maxWidth: "40vw",
@@ -88,8 +88,8 @@ const TrashPostForm = ({
             {PostVideoSrcs && (
               <video
                 controls
-                alt={`${PostVideoSrcs}`}
-                src={`${backUrl}/${PostVideoSrcs}`}
+                alt={PostVideoSrcs}
+                src={PostVideoSrcs}
                 style={{
                   maxWidth: "100%",
                   maxHeight: "auto",
