@@ -11,7 +11,7 @@ import { SessionRow } from "../styledComponents/layout/Session";
 import { Col, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 
-const FindPassword = () => {
+const findPassword = () => {
   const [email, setEmail] = useState();
   const dispatch = useDispatch();
   const {
@@ -78,4 +78,4 @@ const FindPassword = () => {
   );
 };
 
-export default FindPassword;
+export default findPassword;

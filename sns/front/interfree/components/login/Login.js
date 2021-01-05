@@ -124,7 +124,7 @@ const Login = (props) => {
                   errors={errors}
                 />
                 <Nav.Item style={{ marginTop: "15px" }}>
-                  <Link href="/FindPassword">패스워드를 잊으셨나요?</Link>
+                  <Link href="/findPassword">패스워드를 잊으셨나요?</Link>
                 </Nav.Item>
               </div>
               <button
