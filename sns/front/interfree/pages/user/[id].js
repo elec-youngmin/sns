@@ -42,9 +42,9 @@ const UserPage = () => {
                 }
                 nickname={userPageInfo.userInfo.nickname}
                 introduce={userPageInfo.userInfo.introduce}
-                postsCount={userPageInfo.userInfo.postsCount}
-                followCount={userPageInfo.userInfo.followCount}
-                followingCount={userPageInfo.userInfo.followingCount}
+                postsCount={userPageInfo.postsCount}
+                followCount={userPageInfo.followCount}
+                followingCount={userPageInfo.followingCount}
                 shareLink={userPageInfo.userInfo.ShareLink}
                 where={userPageInfo.userInfo.where}
               />

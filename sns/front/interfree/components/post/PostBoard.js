@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
@@ -214,19 +214,22 @@ const PostBoard = ({
           {/* 포스트에 이미지가 있고 신고 수가 10 미만이면 이미지가 나타나게함 */}
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
-            <Zoom
-              wrapStyle={{
-                width: "100%",
-              }}
-            >
-              <ZoomImg
-                src={PostImgSrcs[0].src}
-                alt={PostImgSrcs[0].src}
-                wrapStyle={{
-                  width: "100%",
+            <>
+              <div
+                style={{
+                  margin: "15px 0px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-              />
-            </Zoom>
+              >
+                <Zoom>
+                  <picture>
+                    <img alt={PostImgSrcs[0].src} src={PostImgSrcs[0].src} />
+                  </picture>
+                </Zoom>
+              </div>
+            </>
           )}
 
           {/* 포스트에 비디오가 있고 신고 수가 10 미만이면 비디오가 나타나게함 */}

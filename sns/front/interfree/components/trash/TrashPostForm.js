@@ -16,8 +16,6 @@ import {
   AiFillBackward,
 } from "react-icons/ai";
 
-import { backUrl } from "../../config/config";
-
 const TrashPostForm = ({
   postContents,
   postId,

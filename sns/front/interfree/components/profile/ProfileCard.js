@@ -27,7 +27,7 @@ const ProfileCard = ({
             <ProfileImg src={profileImgSrc} />
           ) : (
             <ProfileAvata>
-              <p style={{ fontSize: "25px", fontWeight: "600" }}>
+              <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>
                 {nickname[0].toUpperCase()}
               </p>
             </ProfileAvata>
@@ -38,9 +38,9 @@ const ProfileCard = ({
         <p>{introduce}</p>
 
         <CountRow>
-          <CountCol>포스트:{postsCount}</CountCol>
-          <CountCol>팔로워:{followCount}</CountCol>
-          <CountCol>팔로우:{followingCount}</CountCol>
+          <CountCol>포스트: {postsCount}</CountCol>
+          <CountCol>팔로워: {followCount}</CountCol>
+          <CountCol>팔로우: {followingCount}</CountCol>
         </CountRow>
 
         <p style={{ fontSize: "20px" }}>
