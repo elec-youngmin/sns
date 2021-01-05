@@ -15,6 +15,7 @@ import { Modal, Button, Row, Col } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import { frontUrl } from "../../config/config";
+
 const SearchModal = (props) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -67,7 +68,6 @@ const SearchModal = (props) => {
                   width: "100%",
                 }}
                 onChange={(selected) => {
-                  console.log(selected);
                   setSearchText(selected[0]?.label);
                 }}
                 onInputChange={(e) => {

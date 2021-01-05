@@ -60,8 +60,8 @@ const Menu = () => {
     },
     bmMenu: {
       background: "#f3f5f7", // 백그라운드
-      padding: "15px 0em 0",
-      fontSize: "1.15em",
+      padding: "5px 0em 0",
+      fontSize: "15px",
     },
     bmMorphShape: {
       fill: "#373a47",

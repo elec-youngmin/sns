@@ -63,7 +63,7 @@ router.post(
     try {
       const postId = await Post.create({
         contents: req.body.post,
-        UserId: req.body.id,
+        UserId: req.user.dataValues.id,
         onlyReadMy: req.body.onlyReadMy,
       });
 
@@ -95,7 +95,7 @@ router.post(
       }
 
       const post = await Post.findAll({
-        where: { UserId: req.body.id },
+        where: { UserId: req.user.dataValues.id },
         // limit: 10,
         order: [["id", "DESC"]],
         attributes: { exclude: ["updatedAt", "deletedAt"] },
@@ -113,7 +113,7 @@ router.post(
           {
             model: Like,
             attributes: ["id", "LikeUserId", "PostId"],
-            where: { LikeUserId: req.body.id },
+            where: { LikeUserId: req.user.dataValues.id },
             required: false,
           },
           {
@@ -130,7 +130,7 @@ router.post(
           {
             model: Bookmark,
             attributes: ["UserId", "PostId"],
-            where: { UserId: req.body.id },
+            where: { UserId: req.user.dataValues.id },
             required: false,
           },
         ],
@@ -888,7 +888,7 @@ router.get("/loadUserPageInfo/:id", async (req, res, next) => {
     );
 
     const [followingCount, metadata2] = await sequelize.query(
-      `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.params.id}`
+      `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${id}`
     );
 
     const userpageInfo = {
@@ -1349,6 +1349,7 @@ router.get("/loadTimelineContents/:id", async (req, res, next) => {
 
 router.post("/updateTimelineContents", async (req, res, next) => {
   try {
+    console.log(req.body, "dddddddddddd");
     await TimelineContent.update(
       {
         title: req.body.title,
