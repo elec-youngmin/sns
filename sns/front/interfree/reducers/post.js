@@ -381,7 +381,7 @@ const reducer = (state = initialState, action) =>
         draft.updatePostLoading = false;
         draft.updatePostDone = true;
         draft.posts = action.data;
-        ToastSuccess("포스트 업데이트가 완료!");
+        ToastSuccess("포스트 업데이트 완료!");
         break;
       case UPDATE_POST_REQUEST:
         draft.updatePostLoading = true;
@@ -396,7 +396,7 @@ const reducer = (state = initialState, action) =>
         draft.deletePostLoading = false;
         draft.deletePostDone = true;
         draft.posts = draft.posts.filter((num) => num.id != action.data);
-        ToastSuccess("선택하신 포스트가 휴지통으로 이동되었어요.");
+        ToastSuccess("선택한 포스트 휴지통으로 이동됨");
         break;
       case DELETE_POST_REQUEST:
         draft.deletePostLoading = true;

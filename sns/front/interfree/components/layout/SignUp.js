@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-import SignUpCompletedModal from "./SignUpCompletedModal";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { USER_SIGNUP_REQUEST } from "../../reducers/user";
@@ -28,23 +26,9 @@ const SignUp = (props) => {
     });
   };
 
-  useMemo(() => {
-    if (signUpDone) {
-      setSignUpModalShow(true);
-    }
-    if (signUpError) {
-      setSignUpModalShow(true);
-    }
-    props.onHide();
-  }, [signUpDone, signUpError]);
-
   const { signUpLoading } = useSelector((state) => state.user);
   return (
     <div>
-      <SignUpCompletedModal
-        show={signUpModalShow}
-        onHide={() => setSignUpModalShow(false)}
-      />
       <Modal
         {...props}
         size="md"
@@ -209,8 +193,6 @@ const SignUp = (props) => {
           <Button onClick={props.onHide}>닫기</Button>
         </Modal.Footer>
       </Modal>
-      {signUpDone && <SignUpCompletedModal />}
-      {signUpError && <SignUpCompletedModal />}
     </div>
   );
 };

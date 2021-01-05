@@ -41,6 +41,7 @@ const TrashPostForm = ({
           }}
         >
           {nickname}
+
           <DropdownButton
             variant="light"
             className="float-right"
@@ -73,7 +74,6 @@ const TrashPostForm = ({
 
         <Card.Body>
           <Card.Text>
-            <h3>{postContents}</h3>
             {PostImgSrcs && (
               <img
                 src={PostImgSrcs}
@@ -97,6 +97,7 @@ const TrashPostForm = ({
                 }}
               />
             )}
+            <h2>{postContents}</h2>
           </Card.Text>
         </Card.Body>
 

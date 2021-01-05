@@ -30,8 +30,8 @@ const { conformLogin, conformNotLogin } = require("./cofirmLogin");
 const s3 = new AWS.S3();
 
 AWS.config.update({
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_KEY,
+  accessKeyId: "AKIAJHNLL6PRXW6I2JWQ",
+  secretAccessKey: "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",
   resion: "ap-northeast-2",
 });
 
@@ -63,7 +63,7 @@ router.post(
     try {
       const postId = await Post.create({
         contents: req.body.post,
-        UserId: req.user.dataValues.id,
+        UserId: req.body.id,
         onlyReadMy: req.body.onlyReadMy,
       });
 
@@ -89,13 +89,14 @@ router.post(
             Hashtag.findOrCreate({
               where: { tag: tag.slice(1).toLowerCase() },
             })
-          )
-        );
+          ) //slice(1)은 해시태그 때기, 글짜만 저장
+        ); //result 값은 [[노드,true],[리액트,true]]
         await postId.addHashtags(result.map((v) => v[0]));
       }
 
       const post = await Post.findAll({
-        where: { UserId: req.user.dataValues.id },
+        where: { UserId: req.body.id },
+        // limit: 10,
         order: [["id", "DESC"]],
         attributes: { exclude: ["updatedAt", "deletedAt"] },
         include: [
@@ -112,7 +113,7 @@ router.post(
           {
             model: Like,
             attributes: ["id", "LikeUserId", "PostId"],
-            where: { LikeUserId: req.user.dataValues.id },
+            where: { LikeUserId: req.body.id },
             required: false,
           },
           {
@@ -129,13 +130,13 @@ router.post(
           {
             model: Bookmark,
             attributes: ["UserId", "PostId"],
-            where: { UserId: req.user.dataValues.id },
+            where: { UserId: req.body.id },
             required: false,
           },
         ],
       });
 
-      res.status(200).json(post);
+      res.status(200).json("ok");
     } catch (err) {
       console.error(err);
       next(err);
@@ -308,6 +309,7 @@ router.patch("/updatePost", async (req, res, next) => {
         },
         {
           model: Like,
+          // where: { LikeUserId: req.body.id },
         },
         {
           model: PostImgSrc,
@@ -353,7 +355,7 @@ router.post("/deletePost", async (req, res, next) => {
 
 router.get("/loadTrash", async (req, res, next) => {
   try {
-    const [trashPosts, trashPostsMetadata] = await sequelize.query(
+    const [trashPosts, metadata] = await sequelize.query(
       `SELECT  postVideoSrc.src AS videoSrc, postImgSrc.src AS imgSrc, posts.contents, posts.onlyReadMy, posts.id AS postId, posts.createdAt FROM  postVideoSrc RIGHT OUTER JOIN postImgSrc on  postVideoSrc.PostId=postImgSrc.PostId right OUTER JOIN posts on postImgSrc.PostId=posts.Id WHERE (posts.UserId = ${req.user.dataValues.id} AND posts.deletedAt IS NOT NULL)`
     );
 
@@ -368,7 +370,7 @@ router.post("/deleteAllTrash", async (req, res, next) => {
   try {
     await Post.destroy({
       where: {
-        UserId: req.user.dataValues.id,
+        UserId: req.body.id,
         deletedAt: {
           [Op.ne]: null,
         },
@@ -429,7 +431,7 @@ router.post("/addComment", async (req, res, next) => {
     await Comment.create({
       comment: req.body.comment,
       PostId: req.body.postOneId,
-      writeUserId: req.user.dataValues.id,
+      writeUserId: req.body.id,
     });
 
     const CommentAll = await Comment.findAll({
@@ -535,6 +537,7 @@ router.post("/addBookmark", conformLogin, async (req, res, next) => {
         {
           model: Like,
           attributes: ["id", "LikeUserId", "PostId"],
+          // where: { UserId: req.body.id },
           require: false,
         },
         {
@@ -782,25 +785,25 @@ router.post("/cancelLikePost", conformLogin, async (req, res, next) => {
 //req.body.userId
 router.post("/loadFollowsPost", conformLogin, async (req, res, next) => {
   try {
-    const [FollowUsers, FollowUsersMetadata] = await sequelize.query(
+    const [FollowUsers, metadata] = await sequelize.query(
       `SELECT * FROM users INNER JOIN follows on follows.followingId=users.id where follows.followerId=${req.user.dataValues.id}`
     );
 
     const FollowUsersMap = FollowUsers.map(async (e) => {
-      const [src, Metadata] = await sequelize.query(
+      const [src, metadataz] = await sequelize.query(
         `SELECT src FROM profileImgSrcs where UserId=${e.followingId}`
       );
 
-      const [postsCount, postsCountMetadata] = await sequelize.query(
+      const [postsCount, metadata0] = await sequelize.query(
         `SELECT count(id) AS postsCount FROM posts where UserId=${e.followingId}`
       );
-      const [followCount, followCountMetadata] = await sequelize.query(
+      const [followCount, metadata1] = await sequelize.query(
         `SELECT count(followerId) AS followCount FROM follows where followerId=${e.followingId}`
       );
-      const [followingCount, followingCountMetadata] = await sequelize.query(
+      const [followingCount, metadata2] = await sequelize.query(
         `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${e.followingId}`
       );
-      e.src = src[0].src;
+
       e.postsCount = postsCount[0].postsCount;
       e.followCount = followCount[0].followCount;
       e.followingCount = followingCount[0].followingCount;
@@ -872,18 +875,19 @@ router.post("/loadUserPage", conformLogin, async (req, res, next) => {
 router.get("/loadUserPageInfo/:id", async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-    const [postsCount, postsCountMetadata] = await sequelize.query(
+
+    const [postsCount, metadata] = await sequelize.query(
       `SELECT count(id) as postsCount FROM posts where UserId=${id}`
     );
-    const [userInfo, userInfoMetadata] = await sequelize.query(
-      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${id}`
+    const [userInfo, metadata0] = await sequelize.query(
+      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,  profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${id}`
     );
 
-    const [followCount, followCountMetadata] = await sequelize.query(
+    const [followCount, metadata1] = await sequelize.query(
       `SELECT count(followerId) as followCount FROM follows where followerId=${id}`
     );
 
-    const [followingCount, followingCountMetadata] = await sequelize.query(
+    const [followingCount, metadata2] = await sequelize.query(
       `SELECT count(follows.followingId) AS followingCount FROM follows where follows.followingId=${req.params.id}`
     );
 
@@ -1007,19 +1011,19 @@ router.get("/loadChartdata", async (req, res, next) => {
       likes: {},
       reports: {},
     };
-    const [posts, postsMetadata] = await sequelize.query(
+    const [posts, metadata] = await sequelize.query(
       "SELECT distinct count(id) as count, date(createdAt) as date from posts group by date(createdAt)"
     );
 
-    const [comments, commentsMetadata] = await sequelize.query(
+    const [comments, metadata1] = await sequelize.query(
       "SELECT distinct count(id) as count, date(createdAt) as date from comments group by date(createdAt)"
     );
 
-    const [likes, likesMetadata] = await sequelize.query(
+    const [likes, metadata2] = await sequelize.query(
       "SELECT distinct count(id) as count, date(createdAt) as date from likes group by date(createdAt)"
     );
 
-    const [reports, reportsMetadata] = await sequelize.query(
+    const [reports, metadata3] = await sequelize.query(
       "SELECT distinct count(id) as count, date(createdAt) as date from reports group by date(createdAt)"
     );
 
@@ -1042,12 +1046,12 @@ router.post("/oneuserLoadChartdata", async (req, res, next) => {
       likes: {},
     };
     //일일 포스트 수
-    const [posts, postsMetadata] = await sequelize.query(
+    const [posts, metadata] = await sequelize.query(
       `SELECT distinct count(id) as count, date(createdAt) as date from posts where UserId=${req.user.dataValues.id} group by date(createdAt)`
     );
 
     //일일 좋아요 받은 수
-    const [likes, likesMetadata] = await sequelize.query(
+    const [likes, metadata1] = await sequelize.query(
       `SELECT distinct sum(posts.like) as count, date(createdAt) as date from posts where UserId=${req.user.dataValues.id} group by date(createdAt)`
     );
 

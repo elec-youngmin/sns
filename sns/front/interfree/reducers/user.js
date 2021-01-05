@@ -224,12 +224,13 @@ const reducer = (state = initialState, action) =>
         break;
       case USER_SIGNUP_SUCCESS:
         draft.signUpLoading = false;
-        draft.user = action.data;
         draft.signUpDone = true;
+        ToastSuccess("회원가입 완료!");
         break;
       case USER_SIGNUP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;
+        ToastError(action.error);
         break;
       case USER_SIGNUP_REQUEST:
         draft.signUpLoading = true;
