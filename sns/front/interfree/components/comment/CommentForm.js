@@ -1,3 +1,5 @@
+//댓글 작성 폼
+
 import React from "react";
 import PropTypes from "prop-types";
 

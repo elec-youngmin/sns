@@ -1,3 +1,5 @@
+//사용자가 댓글을 올리면 나타나는 댓글 보드
+
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";

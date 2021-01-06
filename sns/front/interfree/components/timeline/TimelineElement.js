@@ -1,3 +1,5 @@
+//사용자가 작성한 타임라인을 보여주는 타임라인 엘러먼트
+
 import React from "react";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";

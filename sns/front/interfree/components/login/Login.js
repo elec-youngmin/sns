@@ -1,3 +1,5 @@
+//사용자가 계정활동을 누르면 생성되는 로그인 모달
+
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";

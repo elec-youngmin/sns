@@ -1,3 +1,5 @@
+//사용자가 타임라인 내용을 입력할 수 있게 해주는 모달
+
 import React, { useState, useMemo } from "react";
 
 import { ADD_TIMELINE_CONTENTS_REQUEST } from "../../reducers/post";

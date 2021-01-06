@@ -1,3 +1,5 @@
+// 설정페이지에서 생성되는 패스워드 모달
+
 import React, { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";

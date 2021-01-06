@@ -1,3 +1,5 @@
+// 데스크탑에서 생성되는 세로 네비게이션 바
+
 import React from "react";
 import Router from "next/router";
 import { MenuItem } from "rc-menu";

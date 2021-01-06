@@ -1,3 +1,6 @@
+// 각 탭마다 리스트가 1개도 없다면 나타나는 알림창
+// 예를 들어 친구가 없다면 이 탭이 나타남.
+
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -6,8 +9,6 @@ import {
   TitleP,
   ContentP,
 } from "../../styledComponents/layout/AlertTab";
-
-// 각 탭마다 리스트가 1개도 없다면 나타나는 알림창
 
 const AlertTab = ({ title, content }) => {
   return (

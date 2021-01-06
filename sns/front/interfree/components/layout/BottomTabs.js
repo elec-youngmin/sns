@@ -1,3 +1,5 @@
+// 모바일에서만 생성되는 하단 네비게이션
+
 import React, { useState, useMemo } from "react";
 import Router from "next/router";
 import { useMediaQuery } from "react-responsive";

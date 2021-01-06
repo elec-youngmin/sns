@@ -1,3 +1,5 @@
+//타임라인 페이지에서 생성되는 타임라인 주제 박스
+
 import React, { useState } from "react";
 import Router from "next/router";
 import Moment from "react-moment";

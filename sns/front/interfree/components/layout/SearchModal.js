@@ -1,4 +1,6 @@
-import React, { useState, useMemo } from "react";
+// 포스트의 내용을 검색할 수 있는 모달
+
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";
 import { Typeahead } from "react-bootstrap-typeahead";

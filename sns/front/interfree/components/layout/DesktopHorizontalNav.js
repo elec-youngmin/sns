@@ -1,3 +1,5 @@
+// 데스크탑에서만 생성되는 상단 가로 네비게이션 바
+
 import React, { useState, useMemo } from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";

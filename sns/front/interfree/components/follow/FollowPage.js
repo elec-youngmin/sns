@@ -1,3 +1,5 @@
+//더 이상 쓸모 없어진 컴포넌트 이상 없으면 삭제
+
 import React from "react";
 import Router from "next/router";
 

@@ -1,3 +1,5 @@
+//휴지통에 들어있는 포스트를 보여줄 포스트 보드
+
 import React from "react";
 import PropTypes from "prop-types";
 import Moment from "react-moment";

@@ -1,3 +1,5 @@
+//친구 이메일 검색 모달
+
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useMediaQuery } from "react-responsive";

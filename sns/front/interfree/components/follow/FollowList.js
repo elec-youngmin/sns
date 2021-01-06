@@ -1,3 +1,5 @@
+//친구 탭에서 볼 수 있는 친구 리스트 
+
 import React from "react";
 
 import ProfileCard from "../profile/ProfileCard";

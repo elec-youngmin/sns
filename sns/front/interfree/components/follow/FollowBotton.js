@@ -1,3 +1,5 @@
+//포스트보드에서 생성되는 팔로우/ 언팔로우 버튼
+
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 

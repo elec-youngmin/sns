@@ -1,3 +1,5 @@
+//사용자가 포스트를 작성할 수 있는 포스트 모달
+
 import React, { useMemo } from "react";
 
 import WritePostForm from "./WritePostForm";

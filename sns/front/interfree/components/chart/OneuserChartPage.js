@@ -1,3 +1,5 @@
+// 개인 사용자에게 제공 되는 차트
+
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { useMediaQuery } from "react-responsive";

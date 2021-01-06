@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+//포스트를 수정할 수 있는 수정 포스트 모달
+
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { useDispatch } from "react-redux";

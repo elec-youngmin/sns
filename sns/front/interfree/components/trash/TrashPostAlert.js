@@ -1,3 +1,5 @@
+// 휴지통 페이지에서 휴지통 포스트 수, 전부 완전 삭제 버튼, 전부 다시 포스트로 이동 버튼 생성
+
 import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 

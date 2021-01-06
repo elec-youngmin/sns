@@ -1,3 +1,5 @@
+// 사용자의 프로필을 생성함.
+
 import React from "react";
 
 import {

@@ -1,4 +1,6 @@
-import React, { useState, useMemo, useCallback } from "react";
+//사용자가 작성한 포스트를 보여주는 포스트 보드
+
+import React, { useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Moment from "react-moment";

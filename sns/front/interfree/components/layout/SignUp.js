@@ -1,4 +1,6 @@
-import React, { useState, useMemo } from "react";
+//계정활동 버튼을 누르면 생성되는 회원가입 모달
+
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -11,11 +13,9 @@ import { Button, Modal } from "react-bootstrap";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
-  const { signUpDone, signUpError } = useSelector((state) => state.user);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [nickname, setNickname] = useState();
-  const [signUpModalShow, setSignUpModalShow] = useState(false);
 
   const { register, errors, handleSubmit, watch } = useForm({});
 

@@ -1,4 +1,6 @@
-import React, { useMemo, useState, useEffect } from "react";
+// 모바일에서 생성되는 상단 가로 네비게이션 바
+
+import React, { useMemo, useState } from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import { slide as MenuBar } from "react-burger-menu";
