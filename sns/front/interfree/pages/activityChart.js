@@ -1,3 +1,5 @@
+//개인 사용자의 활동 차트 페이지
+
 import React from "react";
 
 import Title from "../components/layout/Title";

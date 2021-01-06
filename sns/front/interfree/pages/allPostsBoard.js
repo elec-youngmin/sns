@@ -1,4 +1,6 @@
-import React, { useMemo, useEffect } from "react";
+//모든 포스트 페이지
+
+import React from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Media from "react-media";
@@ -14,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../reducers/user";
 
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";

@@ -1,3 +1,5 @@
+// 타임라인 엘러먼트를 수정 및 삭제할 수 있는 페이지
+
 import React from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";

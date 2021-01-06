@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import { useRouter } from "next/router";
@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_USER_INFOMATION_REQUEST } from "../reducers/user";
 import { SEARCH_FRIEND_REQUEST, LOAD_USERPAGE_REQUEST } from "../reducers/post";
 
-import { Row, Col, Container } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import { AiFillEdit, AiOutlineSearch } from "react-icons/ai";
 import { GiTimeBomb } from "react-icons/gi";
 import { ImProfile } from "react-icons/im";

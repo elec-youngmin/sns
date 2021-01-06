@@ -1,3 +1,6 @@
+//타임라인 예시 페이지
+//조선사 타임라인
+
 import React from "react";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";

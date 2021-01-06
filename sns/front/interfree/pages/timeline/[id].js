@@ -1,3 +1,5 @@
+//타임라인 페이지
+
 import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
@@ -6,7 +8,7 @@ import "react-vertical-timeline-component/style.min.css";
 
 import TimelineElement from "../../components/timeline/TimelineElement";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { LOAD_TIMELINE_CONTENTS_REQUEST } from "../../reducers/post";
 import { LOAD_USER_INFOMATION_REQUEST } from "../../reducers/user";

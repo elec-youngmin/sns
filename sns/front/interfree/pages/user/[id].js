@@ -1,3 +1,6 @@
+//유저 페이지
+
+
 import React from "react";
 
 import ProfileCard from "../../components/profile/ProfileCard";

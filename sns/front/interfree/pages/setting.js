@@ -80,7 +80,6 @@ const setting = () => {
     <div>
       {loadUserInfomationDone && (
         <>
-
           <EditProfilePictureModal
             show={editProfilePictureShow}
             onHide={() => setEditProfilePictureShow(false)}
@@ -95,7 +94,7 @@ const setting = () => {
             show={findPasswordModalshow}
             onHide={() => setFindPasswordModalshow(false)}
           />
-          
+
           <div className="container justify-content-center">
             <SessionRow>
               <Col md={7}>

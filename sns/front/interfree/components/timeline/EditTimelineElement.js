@@ -1,22 +1,14 @@
-
-
 import React, { useState } from "react";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
+import { VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
 import UpdateTimelineContentModal from "./UpdateTimelineContentModal";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Button } from "react-bootstrap";
 
-import {
-  DELETE_TIMELINE_CONTENTS_REQUEST,
-  UPDATE_TIMELINE_CONTENTS_REQUEST,
-} from "../../reducers/post";
+import { DELETE_TIMELINE_CONTENTS_REQUEST } from "../../reducers/post";
 
 import {
   BsFillCalendarFill,
@@ -36,6 +28,8 @@ import {
   BsBrightnessHighFill,
   BsChatFill,
 } from "react-icons/bs";
+
+
 
 const icons = [
   <BsFillCalendarFill />,

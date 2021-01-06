@@ -1,10 +1,12 @@
+//포스트보드에서 해시태그를 누르면 라우팅되는 해시태그 페이지
+
 import React from "react";
 import { useRouter } from "next/router";
 
 import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { LOAD_HASHTAGPAGE_REQUEST } from "../../reducers/post";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
