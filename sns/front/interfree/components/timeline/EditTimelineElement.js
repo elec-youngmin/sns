@@ -29,8 +29,6 @@ import {
   BsChatFill,
 } from "react-icons/bs";
 
-
-
 const icons = [
   <BsFillCalendarFill />,
   <BsFillArchiveFill />,
