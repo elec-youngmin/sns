@@ -14,7 +14,7 @@ const FileStore = require("session-file-store")(session);
 
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post");
-
+//ex
 dotenv.config();
 const app = express();
 db.sequelize
