@@ -3,6 +3,7 @@
 import React from "react";
 
 import Title from "../components/layout/Title";
+import NeedLoginAlert from "../components/login/NeedLoginAlert";
 import OneuserChartPage from "../components/chart/OneuserChartPage";
 
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../reducers/user";
@@ -20,15 +21,22 @@ import axios from "axios";
 
 const activityChart = () => {
   const { loadOneuserChartdataDone } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.user);
   return (
     <div>
       <div className="container justify-content-center">
-        <SessionRow>
-          <Col md={7}>
-            <Title title={"활동 차트"} />
-            {loadOneuserChartdataDone && <OneuserChartPage />}
-          </Col>
-        </SessionRow>
+        {user.id === "guest" && <NeedLoginAlert />}
+
+        {user.id !== "guest" && (
+          <>
+            <SessionRow>
+              <Col md={7}>
+                <Title title={"활동 차트"} />
+                {loadOneuserChartdataDone && <OneuserChartPage />}
+              </Col>
+            </SessionRow>
+          </>
+        )}
       </div>
     </div>
   );

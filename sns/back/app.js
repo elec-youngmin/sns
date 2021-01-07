@@ -25,6 +25,8 @@ db.sequelize
   .catch(console.error);
 passportConfig();
 
+process.env.NODE_ENV === "production" && app.set("trust proxy", 1);
+
 app.use(morgan("combined"));
 app.use(hpp());
 app.use(helmet({ contentSecurityPolicy: false }));
@@ -45,14 +47,14 @@ app.use(
   session({
     saveUninitialized: false,
     resave: false,
+    proxy: process.env.NODE_ENV === "production" ? true : false,
     secret: "secret",
     store: new FileStore(),
     cookie: {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production" ? true : false,
       domain: process.env.NODE_ENV === "production" && ".interfree.co.kr",
     },
-    // store: new RedisStore({ url: "http://3.35.142.52", logErrors: true }),
   })
 );
 

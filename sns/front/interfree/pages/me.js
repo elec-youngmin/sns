@@ -6,6 +6,7 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 import Title from "../components/layout/Title";
+import NeedLoginAlert from "../components/login/NeedLoginAlert";
 import ProfileCard from "../components/profile/ProfileCard";
 import WritePostModal from "../components/post/WritePostModal";
 import AddTimelineModal from "../components/timeline/AddTimelineModal";
@@ -42,7 +43,7 @@ const me = () => {
   const router = useRouter();
 
   const { search } = useSelector((state) => state.post);
-  const { loadUserInfomationDone, user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -54,7 +55,8 @@ const me = () => {
 
   return (
     <div>
-      {loadUserInfomationDone && (
+      {user.id === "guest" && <NeedLoginAlert />}
+      {user.id !== "guest" && (
         <>
           <AddTimelineModal
             show={timelineModalShow}

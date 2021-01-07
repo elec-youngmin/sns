@@ -4,8 +4,9 @@ import Router from "next/router";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
-import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
+import AlertTab from "../components/layout/AlertTab";
+import NeedLoginAlert from "../components/login/NeedLoginAlert";
 import FollowList from "../components/follow/FollowList";
 import SearchFriendModal from "../components/follow/SearchFriendModal";
 
@@ -50,61 +51,64 @@ const friend = () => {
         show={SearchFriendModalShow}
         onHide={() => setSearchFriendModalShow(false)}
       />
+      {user.id === "guest" ? (
+        <NeedLoginAlert />
+      ) : (
+        <div className="container justify-content-center">
+          <SessionRow>
+            <Col md={7}>
+              <Title title={"친구"} />
+              <SessionDiv>
+                <SessionTitle>
+                  <AiOutlineSearch />
+                  친구 찾기
+                </SessionTitle>
+                <SessionP>
+                  친구의 이메일을 검색해 친구의 페이지로 이동해 보세요.
+                </SessionP>
+                <Typeahead
+                  id="basic-typeahead-multiple"
+                  filterBy={() => true}
+                  options={search}
+                  placeholder="친구의 이메일을 검색..."
+                  style={{
+                    margin: "0px auto",
+                    width: "80%",
+                    marginBottom: "25px",
+                  }}
+                  onChange={(selected) => {
+                    console.log(selected);
+                    setSearchText(selected[0]?.id);
+                    dispatch({
+                      type: LOAD_USERPAGE_REQUEST,
+                      data: searchText,
+                    });
+                    Router.push(`${frontUrl}/user/${selected[0]?.id}/`);
+                  }}
+                  onInputChange={(e) => {
+                    setSearchText(e);
+                    dispatch({
+                      type: SEARCH_FRIEND_REQUEST,
+                      data: { text: e },
+                    });
+                  }}
+                />
+              </SessionDiv>
 
-      <div className="container justify-content-center">
-        <SessionRow>
-          <Col md={7}>
-            <Title title={"친구"} />
-            <SessionDiv>
-              <SessionTitle>
-                <AiOutlineSearch />
-                친구 찾기
-              </SessionTitle>
-              <SessionP>
-                친구의 이메일을 검색해 친구의 페이지로 이동해 보세요.
-              </SessionP>
-              <Typeahead
-                id="basic-typeahead-multiple"
-                filterBy={() => true}
-                options={search}
-                placeholder="친구의 이메일을 검색..."
-                style={{
-                  margin: "0px auto",
-                  width: "80%",
-                  marginBottom: "25px",
-                }}
-                onChange={(selected) => {
-                  console.log(selected);
-                  setSearchText(selected[0]?.id);
-                  dispatch({
-                    type: LOAD_USERPAGE_REQUEST,
-                    data: searchText,
-                  });
-                  Router.push(`${frontUrl}/user/${selected[0]?.id}/`);
-                }}
-                onInputChange={(e) => {
-                  setSearchText(e);
-                  dispatch({
-                    type: SEARCH_FRIEND_REQUEST,
-                    data: { text: e },
-                  });
-                }}
-              />
-            </SessionDiv>
+              <Title title={"친구 목록"} />
 
-            <Title title={"친구 목록"} />
+              {followPosts.length === 0 && (
+                <AlertTab
+                  title={"친구가 없습니다."}
+                  content={"마음에 드는 포스트의 유저를 팔로우 해보세요."}
+                />
+              )}
 
-            {followPosts.length === 0 && (
-              <AlertTab
-                title={"친구가 없습니다."}
-                content={"마음에 드는 포스트의 유저를 팔로우 해보세요."}
-              />
-            )}
-
-            <FollowList />
-          </Col>
-        </SessionRow>
-      </div>
+              <FollowList />
+            </Col>
+          </SessionRow>
+        </div>
+      )}
     </div>
   );
 };

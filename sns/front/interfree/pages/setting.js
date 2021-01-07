@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
 import Title from "../components/layout/Title";
+import NeedLoginAlert from "../components/login/NeedLoginAlert";
 import EditProfilePictureModal from "../components/setting/EditProfilePictureModal";
 import EditProfileSettingModal from "../components/setting/EditProfileSettingModal";
 import FindPasswordModal from "../components/layout/FindPasswordModal";
@@ -78,7 +79,9 @@ const setting = () => {
 
   return (
     <div>
-      {loadUserInfomationDone && (
+      {user.id === "guest" ? (
+        <NeedLoginAlert />
+      ) : (
         <>
           <EditProfilePictureModal
             show={editProfilePictureShow}

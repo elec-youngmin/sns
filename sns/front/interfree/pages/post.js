@@ -5,6 +5,7 @@ import "react-tabs/style/react-tabs.css";
 
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
+import NeedLoginAlert from "../components/login/NeedLoginAlert";
 import PostBoard from "../components/post/PostBoard";
 import WritePostModal from "../components/post/WritePostModal";
 

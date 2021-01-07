@@ -825,7 +825,9 @@ router.post("/loadUserPage", conformLogin, async (req, res, next) => {
     const posts = await Post.findAll({
       where: { UserId: parseInt(req.body.id) },
       order: [["id", "DESC"]],
-      attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt", "deletedAt"],
+      },
       include: [
         {
           model: User,
@@ -1165,7 +1167,7 @@ router.post("/searchInputText", async (req, res, next) => {
   try {
     console.log(req.body.text);
     const [searchText, metadata] = await sequelize.query(
-      `SELECT DISTINCT(posts.contents) AS label FROM posts WHERE contents LIKE '${req.body.text}%'`
+      `SELECT DISTINCT(posts.contents) AS label FROM posts WHERE contents LIKE '%${req.body.text}%'`
     );
 
     res.status(200).json(searchText);
@@ -1194,7 +1196,7 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
     const posts = await Post.findAll({
       where: {
         contents: {
-          [Op.like]: decodeURIComponent(req.params.searchText) + "%",
+          [Op.like]: "%" + decodeURIComponent(req.params.searchText) + "%",
         },
       },
       // limit: 10,

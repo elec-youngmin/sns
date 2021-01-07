@@ -3,6 +3,7 @@ import Router from "next/router";
 
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
+import NeedLoginAlert from "../components/login/NeedLoginAlert";
 import TimelineSubjectDiv from "../components/timeline/TimelineSubjectDiv";
 import AddTimelineModal from "../components/timeline/AddTimelineModal";
 import AddTimelineContentsModal from "../components/timeline/AddTimelineContentsModal";
@@ -33,72 +34,80 @@ const timeline = () => {
   const [timelineModalShow, setTimelineModalShow] = useState(false);
   const [timelineContentsShow, setTimelineContentsShow] = useState(false);
   const { timelineSubjects } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.user);
+
   return (
     <div>
-      <AddTimelineModal
-        show={timelineModalShow}
-        onHide={() => {
-          setTimelineModalShow(false);
-        }}
-      />
+      {user.id === "guest" ? (
+        <NeedLoginAlert />
+      ) : (
+        <>
+          <AddTimelineModal
+            show={timelineModalShow}
+            onHide={() => {
+              setTimelineModalShow(false);
+            }}
+          />
 
-      <AddTimelineContentsModal
-        show={timelineContentsShow}
-        onHide={() => {
-          timelineContentsShow(false);
-        }}
-      />
+          <AddTimelineContentsModal
+            show={timelineContentsShow}
+            onHide={() => {
+              timelineContentsShow(false);
+            }}
+          />
 
-      <div className="container justify-content-center">
-        <SessionRow>
-          <Col md={7}>
-            <Title title={"타임라인"} />
+          <div className="container justify-content-center">
+            <SessionRow>
+              <Col md={7}>
+                <Title title={"타임라인"} />
 
-            <SessionDiv>
-              <SessionTitle>
-                <GiTimeBomb />
-                타임아웃 만들기
-              </SessionTitle>
-              <SessionP>주제를 정하고 타임라인을 만들어 보세요.</SessionP>
-              <br />
-              <SessionButton
-                onClick={() => {
-                  Router.push(`${frontUrl}/exampleTimeline/`);
-                }}
-              >
-                이 기능으로 만든 예시
-              </SessionButton>
-              <br />
-              <SessionButton
-                onClick={() => {
-                  setTimelineModalShow(true);
-                }}
-              >
-                타임라인 추가
-              </SessionButton>
-            </SessionDiv>
+                <SessionDiv>
+                  <SessionTitle>
+                    <GiTimeBomb />
+                    타임아웃 만들기
+                  </SessionTitle>
+                  <SessionP>주제를 정하고 타임라인을 만들어 보세요.</SessionP>
+                  <br />
+                  <SessionButton
+                    onClick={() => {
+                      Router.push(`${frontUrl}/exampleTimeline/`);
+                    }}
+                  >
+                    이 기능으로 만든 예시
+                  </SessionButton>
+                  <br />
+                  <SessionButton
+                    onClick={() => {
+                      setTimelineModalShow(true);
+                    }}
+                  >
+                    타임라인 추가
+                  </SessionButton>
+                </SessionDiv>
 
-            <Title title={"타임라인 리스트"} />
+                <Title title={"타임라인 리스트"} />
 
-            {timelineSubjects.length === 0 && (
-              <AlertTab
-                title={"아직 작성된 타임라인 주제가 없습니다."}
-                content={"첫번째 타임라인을 생성해 보세요."}
-              />
-            )}
+                {timelineSubjects.length === 0 && (
+                  <AlertTab
+                    title={"아직 작성된 타임라인 주제가 없습니다."}
+                    content={"첫번째 타임라인을 생성해 보세요."}
+                  />
+                )}
 
-            {timelineSubjects.map((element) => {
-              return (
-                <TimelineSubjectDiv
-                  id={element.id}
-                  subject={element.subject}
-                  createdAt={element.createdAt}
-                />
-              );
-            })}
-          </Col>
-        </SessionRow>
-      </div>
+                {timelineSubjects.map((element) => {
+                  return (
+                    <TimelineSubjectDiv
+                      id={element.id}
+                      subject={element.subject}
+                      createdAt={element.createdAt}
+                    />
+                  );
+                })}
+              </Col>
+            </SessionRow>
+          </div>
+        </>
+      )}
     </div>
   );
 };
