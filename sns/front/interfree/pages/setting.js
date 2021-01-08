@@ -52,7 +52,7 @@ const setting = () => {
 
   const { loadUserInfomationDone } = useSelector((state) => state.user);
   const { disabled } = useSelector((state) => state.user.user);
-  const { user, destroyUserDone, resettingPasswordDone } = useSelector(
+  const { user, resettingPasswordDone, destroyUserDone } = useSelector(
     (state) => state.user
   );
 
