@@ -1,6 +1,8 @@
 const Sequelize = require("sequelize");
 
-module.exports = class PostImgSrc extends Sequelize.Model {
+module.exports = class PostImgSrc extends (
+  Sequelize.Model
+) {
   static init(sequelize) {
     return super.init(
       {
@@ -21,9 +23,6 @@ module.exports = class PostImgSrc extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.PostImgSrc.belongsTo(db.Post, {
-      as: "firstGuy",
-      foreignKey: "id",
-    });
+    db.PostImgSrc.belongsTo(db.Post);
   }
 };
