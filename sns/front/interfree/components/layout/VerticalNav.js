@@ -28,9 +28,6 @@ const VerticalNav = () => {
         <VerticalDiv>
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/post`);
             }}
           >
@@ -41,9 +38,6 @@ const VerticalNav = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/timeline`);
             }}
           >
@@ -53,9 +47,6 @@ const VerticalNav = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/friend`);
             }}
           >
@@ -66,9 +57,6 @@ const VerticalNav = () => {
 
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/bookmark`);
             }}
           >
@@ -80,9 +68,6 @@ const VerticalNav = () => {
 
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/trash`);
             }}
           >
@@ -92,9 +77,6 @@ const VerticalNav = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/activityChart`);
             }}
           >
@@ -104,9 +86,6 @@ const VerticalNav = () => {
           </MenuItem>
           <MenuItem
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/setting`);
             }}
           >

@@ -23,7 +23,7 @@ const _error = () => {
             <SessionP>서버에러가 발생했습니다.</SessionP>
 
             <SessionP>
-              계속 서버에러가 발생한다면 mintzerocode@gmail.com으로 에러 상황을
+              서버에러가 계속 발생한다면 mintzerocode@gmail.com으로 에러 상황을
               보내주세요.
             </SessionP>
 

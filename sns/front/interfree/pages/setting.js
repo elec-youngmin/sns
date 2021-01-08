@@ -52,9 +52,12 @@ const setting = () => {
 
   const { loadUserInfomationDone } = useSelector((state) => state.user);
   const { disabled } = useSelector((state) => state.user.user);
-  const { user, resettingPasswordDone, destroyUserDone } = useSelector(
-    (state) => state.user
-  );
+  const {
+    user,
+    resettingPasswordDone,
+    destroyUserDone,
+    logInDone,
+  } = useSelector((state) => state.user);
 
   const onSubmit = () => {
     dispatch({
@@ -80,7 +83,7 @@ const setting = () => {
   return (
     <div>
       {user.id === "guest" && <NeedLoginAlert />}
-      {user.id !== "guest" && loadUserInfomationDone && (
+      {(loadUserInfomationDone || logInDone) && user.id !== "guest" && (
         <>
           <EditProfilePictureModal
             show={editProfilePictureShow}

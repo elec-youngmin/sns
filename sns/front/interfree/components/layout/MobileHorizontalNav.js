@@ -95,12 +95,6 @@ const Menu = () => {
   }, [logInDone]);
 
   useMemo(() => {
-    if (logOutDone) {
-      Router.push(`${frontUrl}/allPostsBoard`);
-    }
-  }, [logOutDone]);
-
-  useMemo(() => {
     Router.events.on("routeChangeStart", () => {
       setMenubarShow(false);
     });
@@ -170,9 +164,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/me`);
             setMenubarShow(true);
           }}
@@ -185,9 +176,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/post`);
             setMenubarShow(true);
           }}
@@ -230,9 +218,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/bookmark`);
             setMenubarShow(true);
           }}
@@ -245,9 +230,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/trash`);
             setMenubarShow(true);
           }}
@@ -260,9 +242,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/activityChart`);
             setMenubarShow(true);
           }}
@@ -275,9 +254,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/setting`);
             setMenubarShow(true);
           }}

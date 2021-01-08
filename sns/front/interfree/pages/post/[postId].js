@@ -26,7 +26,7 @@ const PostPage = () => {
       <div className="container justify-content-center">
         <Row
           style={{
-            paddingTop: "100px",
+            paddingTop: "80px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

@@ -22,7 +22,7 @@ const NeedLoginAlert = () => {
       <Login show={loginModalShow} onHide={() => setLoginModalShow(false)} />
 
       <SessionRow>
-        <Col md={7}>
+        <Col md={5}>
           <SessionDiv>
             <SessionTitle>로그인 필요</SessionTitle>
             <SessionP>이 페이지의 내용을 보려면 로그인이 필요합니다. </SessionP>

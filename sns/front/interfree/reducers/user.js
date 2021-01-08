@@ -182,6 +182,8 @@ const reducer = (state = initialState, action) =>
         draft.logOutLoading = false;
         draft.logOutDone = true;
         draft.logInDone = false;
+        draft.user = [];
+        draft.user.id = "guest";
         ToastSuccess("로그아웃 성공!");
         break;
       case USER_LOGOUT_FAILURE:

@@ -66,9 +66,6 @@ const BottomTabs = () => {
 
             <TabCol
               onClick={() => {
-                if (id === "guest") {
-                  return alert("로그인 후 이용하실 수 있어요.");
-                }
                 Router.push(`${frontUrl}/me`);
               }}
             >
@@ -77,9 +74,6 @@ const BottomTabs = () => {
 
             <TabCol
               onClick={() => {
-                if (id === "guest") {
-                  return alert("로그인 후 이용하실 수 있어요.");
-                }
                 Router.push(`${frontUrl}/friend`);
               }}
             >

@@ -1,6 +1,6 @@
 // 데스크탑에서만 생성되는 상단 가로 네비게이션 바
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
 import PropTypes from "prop-types";
 import "rc-menu/assets/index.css";
@@ -30,12 +30,6 @@ const DesktopHorizontalNav = () => {
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
-
-  useMemo(() => {
-    if (logOutDone) {
-      Router.push(`${frontUrl}/allPostsBoard`);
-    }
-  }, [logOutDone]);
 
   return (
     <DesktopNavContainer>
@@ -82,9 +76,6 @@ const DesktopHorizontalNav = () => {
           <li
             style={{ display: "inline", marginRight: "20px" }}
             onClick={() => {
-              if (id === "guest") {
-                return alert("로그인 후 이용하실 수 있어요.");
-              }
               Router.push(`${frontUrl}/me`);
             }}
           >

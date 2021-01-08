@@ -820,7 +820,7 @@ router.post("/loadFollowsPost", conformLogin, async (req, res, next) => {
   }
 });
 
-router.post("/loadUserPage", conformLogin, async (req, res, next) => {
+router.post("/loadUserPage", async (req, res, next) => {
   try {
     const posts = await Post.findAll({
       where: { UserId: parseInt(req.body.id) },

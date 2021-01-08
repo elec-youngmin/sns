@@ -1,7 +1,7 @@
 //유저 페이지
 
-
 import React from "react";
+import { useRouter } from "next/router";
 
 import ProfileCard from "../../components/profile/ProfileCard";
 import Title from "../../components/layout/Title";
@@ -17,13 +17,15 @@ import {
 } from "../../reducers/post";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../../reducers/user";
 
-import { Col } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../../store/configureStore";
 import axios from "axios";
 
 const UserPage = () => {
+  const router = useRouter();
+
   const {
     posts,
     userPageInfo,
@@ -78,7 +80,6 @@ const UserPage = () => {
                     PostImgSrcs={element.PostImgSrcs}
                     PostVideoSrcs={element.PostVideoSrcs}
                     onlyReadMy={element.onlyReadMy}
-                    
                     bookmarkId={
                       element.Bookmarks.length > 0
                         ? element.Bookmarks[0].UserId
@@ -89,6 +90,8 @@ const UserPage = () => {
                 ))}
               </>
             )}
+
+            <Button onClick={() => router.back()}>뒤로가기</Button>
           </Col>
         </SessionRow>
       </div>
