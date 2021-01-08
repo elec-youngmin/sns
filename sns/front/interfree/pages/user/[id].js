@@ -78,6 +78,7 @@ const UserPage = () => {
                     PostImgSrcs={element.PostImgSrcs}
                     PostVideoSrcs={element.PostVideoSrcs}
                     onlyReadMy={element.onlyReadMy}
+                    
                     bookmarkId={
                       element.Bookmarks.length > 0
                         ? element.Bookmarks[0].UserId

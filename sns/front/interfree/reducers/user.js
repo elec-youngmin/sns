@@ -240,7 +240,6 @@ const reducer = (state = initialState, action) =>
       case DESTROY_USER_SUCCESS:
         draft.destroyUserLoading = false;
         draft.destroyUserDone = true;
-        draft.destroyUserError = null;
         ToastSuccess("회원탈퇴가 완료되었어요.");
         break;
       case DESTROY_USER_FAILURE:

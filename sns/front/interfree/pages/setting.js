@@ -79,9 +79,8 @@ const setting = () => {
 
   return (
     <div>
-      {user.id === "guest" && loadUserInfomationDone ? (
-        <NeedLoginAlert />
-      ) : (
+      {user.id === "guest" && <NeedLoginAlert />}
+      {user.id !== "guest" && loadUserInfomationDone && (
         <>
           <EditProfilePictureModal
             show={editProfilePictureShow}

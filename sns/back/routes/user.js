@@ -182,7 +182,7 @@ router.post("/destroyUser", async (req, res, next) => {
         force: true,
       });
       await User.destroy({
-        where: { email: req.user.dataValues.email },
+        where: { id: req.user.dataValues.id },
       });
       req.logout();
       req.session.destroy();
