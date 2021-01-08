@@ -43,7 +43,7 @@ const me = () => {
   const router = useRouter();
 
   const { search } = useSelector((state) => state.post);
-  const { user } = useSelector((state) => state.user);
+  const { user, loadUserInfomationDone } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ const me = () => {
   return (
     <div>
       {user.id === "guest" && <NeedLoginAlert />}
-      {user.id !== "guest" && (
+      {user.id !== "guest" && loadUserInfomationDone && (
         <>
           <AddTimelineModal
             show={timelineModalShow}

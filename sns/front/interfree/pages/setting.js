@@ -79,7 +79,7 @@ const setting = () => {
 
   return (
     <div>
-      {user.id === "guest" ? (
+      {user.id === "guest" && loadUserInfomationDone ? (
         <NeedLoginAlert />
       ) : (
         <>
@@ -181,6 +181,9 @@ const setting = () => {
                     <FaUserSlash />
                     회원탈퇴
                   </SessionTitle>
+                  <SessionP>
+                    카카오 계정으로 가입하신 경우, 이기능을 사용하지 마세요.
+                  </SessionP>
                   <SessionP>
                     비밀번호가 일치하면 회원탈퇴가 완료됩니다.
                   </SessionP>

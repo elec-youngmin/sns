@@ -87,7 +87,7 @@ router.post("/login", (req, res, next) => {
         ],
       });
 
-      return res.json(userInformation);
+      return res.status(200).json(userInformation);
     });
   })(req, res, next);
 });

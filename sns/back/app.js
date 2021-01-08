@@ -33,7 +33,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(
   cors({
-    origin: ["http://interfree.co.kr", "http://localhost:3000"],
+    origin: ["https://interfree.co.kr", "http://localhost:3000"],
     credentials: true,
   })
 );

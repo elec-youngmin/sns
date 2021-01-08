@@ -219,7 +219,7 @@ const PostBoard = ({
             <>
               <div
                 style={{
-                  margin: "15px 0px",
+                  paddingTop: "10px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -227,7 +227,14 @@ const PostBoard = ({
               >
                 <Zoom>
                   <picture>
-                    <img alt={PostImgSrcs[0].src} src={PostImgSrcs[0].src} />
+                    <img
+                      alt={PostImgSrcs[0].src}
+                      src={PostImgSrcs[0].src}
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                      }}
+                    />
                   </picture>
                 </Zoom>
               </div>
