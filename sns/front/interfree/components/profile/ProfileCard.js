@@ -26,7 +26,7 @@ const ProfileCard = ({
       <CardContainter>
         <CardRow>
           {profileImgSrc ? (
-            <ProfileImg src={profileImgSrc} />
+            <ProfileImg src={profileImgSrc} alt={profileImgSrc} />
           ) : (
             <ProfileAvata>
               <p style={{ fontSize: "25px", fontWeight: "600", margin: "0px" }}>

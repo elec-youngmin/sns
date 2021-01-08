@@ -179,6 +179,7 @@ const PostBoard = ({
           {profileImg ? (
             <ProfileImg
               src={profileImg}
+              alt={profileImg}
               onClick={() => {
                 router.push(`${frontUrl}/user/${userId}/`);
               }}

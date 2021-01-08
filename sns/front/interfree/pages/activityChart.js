@@ -24,9 +24,8 @@ const activityChart = () => {
   const { user } = useSelector((state) => state.user);
   return (
     <div>
+      {user.id === "guest" && <NeedLoginAlert />}
       <div className="container justify-content-center">
-        {user.id === "guest" && <NeedLoginAlert />}
-
         {user.id !== "guest" && (
           <>
             <SessionRow>
