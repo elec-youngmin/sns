@@ -75,15 +75,24 @@ const TrashPostForm = ({
         <Card.Body>
           <Card.Text>
             {PostImgSrcs && (
-              <img
-                src={PostImgSrcs}
-                alt={PostImgSrcs}
+              <div
                 style={{
-                  maxWidth: "40vw",
-                  maxHeight: "auto",
-                  marginBottom: "20px",
+                  paddingTop: "10px",
+                  marginBottom: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-              />
+              >
+                <img
+                  src={PostImgSrcs}
+                  alt={PostImgSrcs}
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                  }}
+                />
+              </div>
             )}
             {PostVideoSrcs && (
               <video

@@ -89,6 +89,8 @@ const PostBoard = ({
     countReportDone,
   } = useSelector((state) => state.post);
 
+  console.log(post, typeof post);
+
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
   const [CommentmodalShow, setCommentModalShow] = useState(false);
@@ -265,7 +267,7 @@ const PostBoard = ({
                 wordBreak: "break-all",
               }}
             >
-              {post}
+              {post?.replace(/(#[^s#]+)/g, "")}
             </p>
           )}
         </BoardBody>
