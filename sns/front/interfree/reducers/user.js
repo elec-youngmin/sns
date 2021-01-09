@@ -156,7 +156,7 @@ const reducer = (state = initialState, action) =>
       case USER_LOGIN_FAILURE:
         draft.logInLoading = false;
         draft.logInError = action.error;
-        ToastError("로그인 실패! 다시 시도하세요.");
+        ToastError(action.error);
         break;
       case USER_LOGIN_REQUEST:
         draft.logInLoading = true;

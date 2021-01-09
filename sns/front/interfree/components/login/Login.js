@@ -19,9 +19,7 @@ import { Button, Modal, Nav } from "react-bootstrap";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const { logInDone, logInError, signUpDone } = useSelector(
-    (state) => state.user
-  );
+  const { logInDone, signUpDone } = useSelector((state) => state.user);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [modalShow, setModalShow] = useState(false);
@@ -40,12 +38,6 @@ const Login = (props) => {
       props.onHide();
     }
   }, [logInDone]);
-
-  useMemo(() => {
-    if (logInError) {
-      alert(logInError);
-    }
-  }, [logInError]);
 
   useMemo(() => {
     if (signUpDone) {

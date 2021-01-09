@@ -95,6 +95,12 @@ const Menu = () => {
   }, [logInDone]);
 
   useMemo(() => {
+    if (logOutDone) {
+      setMenubarShow(false);
+    }
+  }, [logOutDone]);
+
+  useMemo(() => {
     Router.events.on("routeChangeStart", () => {
       setMenubarShow(false);
     });
@@ -188,9 +194,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/timeline`);
             setMenubarShow(true);
           }}
@@ -203,9 +206,6 @@ const Menu = () => {
           id="about"
           className="menu-item"
           onClick={() => {
-            if (id === "guest") {
-              return alert("로그인 후 이용하실 수 있어요.");
-            }
             Router.push(`${frontUrl}/friend`);
             setMenubarShow(true);
           }}
@@ -281,6 +281,7 @@ const Menu = () => {
         >
           interfree
         </Logo>
+        <p style={{ fontSize: "13px" }}>BETA </p>
       </LogoContainer>
     </MobileContainer>
   );
