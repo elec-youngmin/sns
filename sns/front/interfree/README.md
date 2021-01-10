@@ -2,7 +2,7 @@
 
 ## 링크
 
-http://interfree.co.kr
+https://interfree.co.kr
 
 ## 포트폴리오 작성 목적
 
@@ -10,11 +10,11 @@ http://interfree.co.kr
 
 ## 웹사이트 유형
 
-sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기능이 있습니다. 상세한 기능은 모든 기능란을 참조 하시기 바랍니다.
+sns
 
 ## 주요 기술 스택
 
-프론트엔드: react,next,redux,bootstrap,styled Components
+프론트엔드: react,next,redux,bootstrap,styled Components  
 백엔드:node,express  
  데이터베이스:mysql,sequelize  
  서버: aws  
@@ -39,15 +39,15 @@ sns을 지향하고 있으며, 팔로우, 언팔로우 같은 친구 관리 기�
     854px 기준으로 854px 이하이면 모바일 레이아웃으로, 855px 이상이면 데스크탑 레이아웃 변경하여 레이아웃을 제공합니다.
    예를 들어 모바일 경우 하단 네비게이션이 생기고, 상단 네비게이션도 모바일에 맞게 바뀝니다. 데스크탑 경우 모바일에서 제공하는 하단 네비게이션이 생략 되고, 상단 네비게이션 메뉴도 데스크탑에 맞게 변경되며, 왼쪽 공백에 새로운 세로 메뉴바가 생성됩니다.
 
-<p align="center">
+<p>
 <figure class="image">
   <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" alt="모바일 화면" width="280" height="550">
   <figcaption>모바일 레이아웃</figcaption>
 </figure>
 </p>
 
-<figure class="image" align="center">
-  <img src="https://user-images.githubusercontent.com/71272034/103508673-ca442a00-4ea4-11eb-891d-4f7854bd7da4.JPG" alt="데스크탑 화면" width="900" height="600">
+<figure class="image">
+  <img src="https://user-images.githubusercontent.com/71272034/104113742-d7976380-533f-11eb-93d1-e5ba264264b4.JPG" alt="데스크탑 화면" width="900" height="600">
   <figcaption>데스크탑 레이아웃</figcaption>
 </figure>
 
