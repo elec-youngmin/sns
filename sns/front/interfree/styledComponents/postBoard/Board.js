@@ -1,12 +1,7 @@
 import styled from "styled-components";
-import { Button, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.css";
-import {
-  AiFillMessage,
-  AiFillLike,
-  AiTwotoneAlert,
-  AiOutlineEllipsis,
-} from "react-icons/ai";
+import { Row, Col } from "react-bootstrap";
+// import "bootstrap/dist/css/bootstrap.css";
+import { AiFillMessage, AiTwotoneAlert } from "react-icons/ai";
 import { BsBrightnessHigh, BsFillBookmarksFill } from "react-icons/bs";
 
 export const BoardContainer = styled.div`
@@ -133,6 +128,12 @@ export const IconAiFillMessage = styled(AiFillMessage)`
 export const IconBsFillBookmarksFill = styled(BsFillBookmarksFill)`
   font-size: 20px;
   color: #21b8a5;
+  cursor: pointer;
+`;
+
+export const IconActBsFillBookmarksFill = styled(BsFillBookmarksFill)`
+  font-size: 20px;
+  color: blue;
   cursor: pointer;
 `;
 

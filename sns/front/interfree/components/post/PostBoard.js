@@ -43,6 +43,7 @@ import {
   IconCol,
   IconAiFillMessage,
   IconBsFillBookmarksFill,
+  IconActBsFillBookmarksFill,
   IconAiTwotoneAlert,
   IconBsBrightnessHigh,
 } from "../../styledComponents/postBoard/Board";
@@ -266,11 +267,11 @@ const PostBoard = ({
           <IconCol>
             {bookmarkId === id ? (
               <>
-                <IconBsFillBookmarksFill
+                <IconActBsFillBookmarksFill
                   onClick={() => {
                     dispatch({
                       type: CANCEL_BOOKMARK_REQUEST,
-                      data: { id, postId, dataType },
+                      data: { id, postId },
                       //id: userId
                     });
                   }}
@@ -285,7 +286,7 @@ const PostBoard = ({
 
                   dispatch({
                     type: ADD_BOOKMARK_REQUEST,
-                    data: { id, postId, dataType },
+                    data: { postId },
                   });
                 }}
               />
