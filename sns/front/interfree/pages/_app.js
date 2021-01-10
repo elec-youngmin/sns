@@ -4,7 +4,6 @@ import withReduxSaga from "next-redux-saga";
 import Media from "react-media";
 
 import wrapper from "../store/configureStore";
-import "bootstrap/dist/css/bootstrap.css";
 import Head from "next/head";
 
 import BottomTabs from "../components/layout/BottomTabs";
@@ -35,11 +34,11 @@ function MyApp({ Component, pageProps }) {
       <Toast />
 
       <Media query="(min-width: 854px)" render={() => <VerticalNav />} />
-      // <Media
+      {/* // <Media
       //   queries={{ medium: "(min-width: 854px)" }}
       //   defaultMatches={{ medium: initialState.device === "desktop" }}
       //   render={() => <VerticalNav />}
-      // />
+      // /> */}
       <style jsx global>{`
         body {
           @import url("https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500&display=swap");
