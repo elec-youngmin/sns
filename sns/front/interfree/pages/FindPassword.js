@@ -11,7 +11,6 @@ import { FIND_PASSWORD_REQUEST } from "../reducers/user";
 import { SessionRow } from "../styledComponents/layout/Session";
 
 import { Col, Form, Button } from "react-bootstrap";
-import styled from "styled-components";
 
 const findPassword = () => {
   const [email, setEmail] = useState();

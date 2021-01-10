@@ -34,11 +34,12 @@ function MyApp({ Component, pageProps }) {
       <ActionLoading />
       <Toast />
 
-      <Media
-        queries={{ medium: "(min-width: 854px)" }}
-        defaultMatches={{ medium: initialState.device === "desktop" }}
-        render={() => <VerticalNav />}
-      />
+      <Media query="(min-width: 854px)" render={() => <VerticalNav />} />
+      // <Media
+      //   queries={{ medium: "(min-width: 854px)" }}
+      //   defaultMatches={{ medium: initialState.device === "desktop" }}
+      //   render={() => <VerticalNav />}
+      // />
       <style jsx global>{`
         body {
           @import url("https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500&display=swap");
