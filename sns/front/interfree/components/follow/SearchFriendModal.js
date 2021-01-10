@@ -60,6 +60,7 @@ const SearchModal = (props) => {
                 filterBy={() => true}
                 options={search}
                 placeholder="친구의 이메일을 검색..."
+                emptyLabel={"일치하는 메일이 여기에 표시됩니다."}
                 style={{
                   display: "inline-block",
                   marginRight: "10px",

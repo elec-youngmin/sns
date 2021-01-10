@@ -63,6 +63,7 @@ const SearchModal = (props) => {
                 id="basic-typeahead-multiple"
                 filterBy={() => true}
                 options={search}
+                emptyLabel={"일치하는 결과가 여기에 표시됩니다."}
                 placeholder="검색할 포스트 내용을 검색..."
                 style={{
                   display: "inline-block",
