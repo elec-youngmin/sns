@@ -3,7 +3,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Media from "react-media";
 
 import PostBoard from "../components/post/PostBoard";
 import Title from "../components/layout/Title";
@@ -13,8 +12,6 @@ import {
   SessionDiv,
   SessionP,
   SessionTitle,
-  SessionButton,
-  SessionInput,
   SessionRow,
 } from "../styledComponents/layout/Session";
 
@@ -52,18 +49,6 @@ const allPostsBoard = () => {
   return (
     <div>
       <div className="container justify-content-around">
-        <Media
-          queries={{ medium: "(max-width: 985px)" }}
-          defaultMatches={{ medium: initialState.device === "desktop" }}
-          render={() => <> </>}
-        />
-
-        <Media
-          queries={{ medium: "(min-width: 854px)" }}
-          defaultMatches={{ medium: initialState.device === "desktop" }}
-          render={() => <VerticalNav />}
-        />
-
         <SessionRow>
           <Col md={8}>
             <Title title={"모든 포스트"} />

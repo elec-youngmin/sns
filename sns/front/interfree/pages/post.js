@@ -32,7 +32,7 @@ import axios from "axios";
 
 const post = () => {
   const { user } = useSelector((state) => state.user);
-  const { posts, loadPostDone } = useSelector((state) => state.post);
+  const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   const [writePostShow, setWritePostShow] = useState(false);
 

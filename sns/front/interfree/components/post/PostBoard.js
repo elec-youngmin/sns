@@ -16,7 +16,7 @@ import {
   useContextMenu,
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-import "rc-dropdown/assets/index.css";
+// import "rc-dropdown/assets/index.css";
 
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
@@ -35,7 +35,6 @@ import {
   ProfileNickname,
   AddMenu,
   OnlyReadMy,
-  ZoomImg,
   LikeButton,
 } from "../../styledComponents/postBoard/Board";
 
@@ -88,8 +87,6 @@ const PostBoard = ({
     cancelLikePostLoading,
     countReportDone,
   } = useSelector((state) => state.post);
-
-  console.log(post, typeof post);
 
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
