@@ -23,6 +23,10 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>interfree</title>
+        <meta charset="utf-8" />
+        <meta name="description" content="sns 포트폴리오" />
+        <meta name="keywords" content="interfree, sns" />
+        <meta name="author" content="mintzerocode" />
       </Head>
       <BottomTabs />
       <HorizontalNav />
