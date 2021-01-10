@@ -59,8 +59,8 @@ const SearchModal = (props) => {
                 id="basic-typeahead-multiple"
                 filterBy={() => true}
                 options={search}
+                emptyLabel={"일치하는 결과가 여기에 표시됩니다."}
                 placeholder="친구의 이메일을 검색..."
-                emptyLabel={"일치하는 계정이 여기에 표시됩니다."}
                 style={{
                   display: "inline-block",
                   marginRight: "10px",
