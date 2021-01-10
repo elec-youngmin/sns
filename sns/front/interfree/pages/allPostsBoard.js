@@ -6,7 +6,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import PostBoard from "../components/post/PostBoard";
 import Title from "../components/layout/Title";
-import VerticalNav from "../components/layout/VerticalNav";
 
 import {
   SessionDiv,
@@ -27,9 +26,6 @@ import wrapper from "../store/configureStore";
 import axios from "axios";
 
 const allPostsBoard = () => {
-  const initialState = {
-    device: "mobile",
-  };
   const dispatch = useDispatch();
   const { posts, loadAllPostDone } = useSelector((state) => state.post);
 
