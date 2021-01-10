@@ -36,6 +36,15 @@ import {
   AddMenu,
   OnlyReadMy,
   LikeButton,
+  ImgContainter,
+  ZoomImg,
+  TextPostContent,
+  IconRow,
+  IconCol,
+  IconAiFillMessage,
+  IconBsFillBookmarksFill,
+  IconAiTwotoneAlert,
+  IconBsBrightnessHigh,
 } from "../../styledComponents/postBoard/Board";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -49,15 +58,7 @@ import {
   CANCEL_BOOKMARK_REQUEST,
 } from "../../reducers/post";
 
-import {
-  AiFillMessage,
-  AiFillLike,
-  AiTwotoneAlert,
-  AiOutlineEllipsis,
-} from "react-icons/ai";
-import { BsBrightnessHigh, BsFillBookmarksFill } from "react-icons/bs";
-
-import { Row, Col } from "react-bootstrap";
+import { AiFillLike, AiOutlineEllipsis } from "react-icons/ai";
 
 import { frontUrl } from "../../config/config";
 
@@ -217,27 +218,16 @@ const PostBoard = ({
 
           {PostImgSrcs?.length > 0 && reportCount < 9 && (
             <>
-              <div
-                style={{
-                  paddingTop: "10px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+              <ImgContainter>
                 <Zoom>
                   <picture>
-                    <img
+                    <ZoomImg
                       alt={PostImgSrcs[0].src}
                       src={PostImgSrcs[0].src}
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                      }}
                     />
                   </picture>
                 </Zoom>
-              </div>
+              </ImgContainter>
             </>
           )}
 
@@ -258,42 +248,25 @@ const PostBoard = ({
           {reportCount > 9 ? (
             <h6>{replaceText}</h6>
           ) : (
-            <p
-              style={{
-                margin: "18px 5px 5px 10px",
-                wordBreak: "break-all",
-              }}
-            >
-              {post?.replace(/(#[^s#]+)/g, "")}
-            </p>
+            <TextPostContent>{post?.replace(/(#[^s#]+)/g, "")}</TextPostContent>
           )}
         </BoardBody>
 
-        <Row
-          style={{
-            borderTop: "1px solid #D3D3D3",
-            borderBottom: "1px solid #D3D3D3",
-          }}
-        >
-          <Col style={{ textAlign: "center", padding: "0px" }}>
-            <AiFillMessage
+        <IconRow>
+          <IconCol>
+            <IconAiFillMessage
               onClick={() => {
                 setCommentModalShow(true);
                 dispatch({ type: LOAD_COMMENT_REQUEST, data: { postId } });
               }}
-              style={{
-                fontSize: "20px",
-                color: "#21B8A5",
-                cursor: "pointer",
-              }}
             />
             <IconTitle>댓글</IconTitle>
-          </Col>
+          </IconCol>
 
-          <Col style={{ textAlign: "center", padding: "0px" }}>
+          <IconCol>
             {bookmarkId === id ? (
               <>
-                <BsFillBookmarksFill
+                <IconBsFillBookmarksFill
                   onClick={() => {
                     dispatch({
                       type: CANCEL_BOOKMARK_REQUEST,
@@ -301,15 +274,10 @@ const PostBoard = ({
                       //id: userId
                     });
                   }}
-                  style={{
-                    fontSize: "20px",
-                    color: "blue",
-                    cursor: "pointer",
-                  }}
                 />
               </>
             ) : (
-              <BsFillBookmarksFill
+              <IconBsFillBookmarksFill
                 onClick={() => {
                   if (id === "guest") {
                     return alert("로그인 후 이용할 수 있어요.");
@@ -320,33 +288,24 @@ const PostBoard = ({
                     data: { id, postId, dataType },
                   });
                 }}
-                style={{
-                  fontSize: "20px",
-                  color: "21B8A5",
-                  cursor: "pointer",
-                }}
               />
             )}
             <IconTitle>북마크</IconTitle>
-          </Col>
+          </IconCol>
 
-          <Col style={{ textAlign: "center", padding: "0px" }}>
-            <AiTwotoneAlert
+          <IconCol>
+            <IconAiTwotoneAlert
               onClick={() => {
                 if (id === "guest") {
                   return alert("로그인 후 이용하실 수 있어요.");
                 }
                 setReportModalShow(true);
               }}
-              style={{
-                fontSize: "20px",
-                color: "#21B8A5",
-                cursor: "pointer",
-              }}
             />
             <IconTitle>신고</IconTitle>
-          </Col>
-        </Row>
+          </IconCol>
+        </IconRow>
+
         {/* 해시태그를 추출하는 로직 */}
         {post?.split(/(#[^\s#]+)/g).map((e, index) => {
           if (e.match(/(#[^\s#]+)/)) {
@@ -366,13 +325,7 @@ const PostBoard = ({
 
         {/* 여기부터 보드 푸터 시작 */}
         <BoardFooter>
-          <BsBrightnessHigh
-            style={{
-              fontSize: "20px",
-              color: "#21B8A5",
-              marginRight: "12px",
-            }}
-          />
+          <IconBsBrightnessHigh />
           {dateSet}
           <LikeButton type="button" class="btn btn-light">
             {Likes === id ? (

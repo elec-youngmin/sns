@@ -14,7 +14,7 @@ const FileStore = require("session-file-store")(session);
 
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post");
-//ex
+
 dotenv.config();
 const app = express();
 db.sequelize
@@ -42,13 +42,13 @@ app.use("/", express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser("secret"));
+app.use(cookieParser(process.env.SECRET));
 app.use(
   session({
     saveUninitialized: false,
     resave: false,
     proxy: process.env.NODE_ENV === "production" ? true : false,
-    secret: "secret",
+    secret: process.env.SECRET,
     store: new FileStore(),
     cookie: {
       httpOnly: true,
@@ -64,6 +64,6 @@ app.use(passport.session());
 app.use("/user", userRouter);
 app.use("/post", postRouter);
 
-app.listen(80, () => {
+app.listen(process.env.NODE_ENV === "production" ? 3060 : 80, () => {
   console.log("서버 실행중");
 });

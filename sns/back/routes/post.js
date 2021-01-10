@@ -1,6 +1,5 @@
 const express = require("express");
 const multer = require("multer");
-const passport = require("passport");
 const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
 const path = require("path");
@@ -23,9 +22,9 @@ const {
 } = require("../models");
 const Op = Sequelize.Op;
 const router = express.Router();
-const { QueryTypes, json } = require("sequelize");
+const { QueryTypes } = require("sequelize");
 
-const { conformLogin, conformNotLogin } = require("./cofirmLogin");
+const { conformLogin } = require("./cofirmLogin");
 
 const s3 = new AWS.S3();
 
@@ -89,8 +88,8 @@ router.post(
             Hashtag.findOrCreate({
               where: { tag: tag.slice(1).toLowerCase() },
             })
-          ) //slice(1)은 해시태그 때기, 글짜만 저장
-        ); //result 값은 [[노드,true],[리액트,true]]
+          )
+        );
         await postId.addHashtags(result.map((v) => v[0]));
       }
 
@@ -341,11 +340,7 @@ router.post("/deletePost", async (req, res, next) => {
         id: req.body.postId,
       },
     });
-    const result = await Post.findOne({
-      where: {
-        id: req.body.postId,
-      },
-    });
+
     res.status(200).json(req.body.postId);
   } catch (err) {
     console.error(err);
@@ -370,7 +365,7 @@ router.post("/deleteAllTrash", async (req, res, next) => {
   try {
     await Post.destroy({
       where: {
-        UserId: req.body.id,
+        UserId: req.user.dataValues.id,
         deletedAt: {
           [Op.ne]: null,
         },
@@ -475,7 +470,7 @@ router.post("/loadComment", async (req, res, next) => {
 //삭제를 요청한 유저 ID를 comment 테이블의 writeUserId로 조회해서 일치하면 삭제
 router.post("/deleteComment", async (req, res, next) => {
   try {
-    const CommentAll = await Comment.destroy({
+    await Comment.destroy({
       where: { id: req.body.CommentId },
     });
 
@@ -518,7 +513,6 @@ router.post("/addBookmark", conformLogin, async (req, res, next) => {
       PostId: req.body.postId,
     });
 
-    // UserId: req.body.id,
     const OnePost = await Post.findAll({
       where: { id: req.body.postId },
       order: [["id", "DESC"]],
@@ -1243,9 +1237,6 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
         },
       ],
     });
-    // if (!posts) {
-    //   return res.status(404).json("검색 결과를 찾을 수 없습니다.");
-    // }
 
     res.status(200).json(posts);
   } catch (err) {

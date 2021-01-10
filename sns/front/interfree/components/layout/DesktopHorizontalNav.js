@@ -25,7 +25,6 @@ import { frontUrl } from "../../config/config";
 
 const DesktopHorizontalNav = () => {
   const dispatch = useDispatch();
-  const { logOutDone } = useSelector((state) => state.user);
   const { id } = useSelector((state) => state.user.user);
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);

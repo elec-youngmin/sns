@@ -1,5 +1,13 @@
 import styled from "styled-components";
-import { Button, Row } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import {
+  AiFillMessage,
+  AiFillLike,
+  AiTwotoneAlert,
+  AiOutlineEllipsis,
+} from "react-icons/ai";
+import { BsBrightnessHigh, BsFillBookmarksFill } from "react-icons/bs";
 
 export const BoardContainer = styled.div`
   border-radius: 12px;
@@ -75,12 +83,6 @@ export const OnlyReadMy = styled.p`
   text-align: center;
 `;
 
-export const ZoomImg = styled.img`
-  margin: 10px;
-  max-width: 38vw;
-  max-height: auto;
-`;
-
 export const Video = styled.video`
   width: 33vw;
   height: 38vh;
@@ -93,4 +95,55 @@ export const LikeButton = styled.button`
   border: none;
   border-color: none;
   background-color: white;
+`;
+
+export const ImgContainter = styled.div`
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ZoomImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+`;
+
+export const TextPostContent = styled.p`
+  margin: 18px 5px 5px 10px;
+  word-break: break-all;
+`;
+
+export const IconRow = styled(Row)`
+  border-top: 1px solid #d3d3d3;
+  border-bottom: 1px solid #d3d3d3;
+`;
+
+export const IconCol = styled(Col)`
+  text-align: center;
+  padding: 0px;
+`;
+
+export const IconAiFillMessage = styled(AiFillMessage)`
+  font-size: 20px;
+  color: #21b8a5;
+  cursor: pointer;
+`;
+
+export const IconBsFillBookmarksFill = styled(BsFillBookmarksFill)`
+  font-size: 20px;
+  color: #21b8a5;
+  cursor: pointer;
+`;
+
+export const IconAiTwotoneAlert = styled(AiTwotoneAlert)`
+  font-size: 20px;
+  color: #21b8a5;
+  cursor: pointer;
+`;
+
+export const IconBsBrightnessHigh = styled(BsBrightnessHigh)`
+  font-size: 20px;
+  color: #21b8a5;
+  margin-right: 12px;
 `;
