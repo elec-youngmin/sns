@@ -1167,7 +1167,7 @@ router.post("/searchInputText", async (req, res, next) => {
   try {
     console.log(req.body.text);
     const [searchText, metadata] = await sequelize.query(
-      `SELECT DISTINCT(posts.contents) AS label FROM posts WHERE contents LIKE '%${req.body.text}%'`
+      `SELECT DISTINCT(posts.contents) AS label FROM posts WHERE deletedAt IS NULL AND contents LIKE '%${req.body.text}%'`
     );
 
     res.status(200).json(searchText);
