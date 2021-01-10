@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import withReduxSaga from "next-redux-saga";
 import Media from "react-media";
 
@@ -14,6 +13,10 @@ import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
 
 function MyApp({ Component, pageProps }) {
+  const initialState = {
+    device: "mobile",
+  };
+
   return (
     <>
       <Head>
@@ -28,7 +31,13 @@ function MyApp({ Component, pageProps }) {
       <ScrollButton />
       <ActionLoading />
       <Toast />
-      <Media query="(min-width: 854px)" render={() => <VerticalNav />} />
+
+      <Media
+        queries={{ medium: "(min-width: 854px)" }}
+        defaultMatches={{ medium: initialState.device === "desktop" }}
+        render={() => <VerticalNav />}
+      />
+
       <style jsx global>{`
         body {
           @import url("https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500&display=swap");

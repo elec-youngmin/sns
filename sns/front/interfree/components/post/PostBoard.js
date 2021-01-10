@@ -16,7 +16,6 @@ import {
   useContextMenu,
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
-// import "rc-dropdown/assets/index.css";
 
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
