@@ -50,10 +50,7 @@ const DesktopHorizontalNav = () => {
               Router.push(`${frontUrl}/allPostsBoard`);
             }}
           >
-            <Logo>
-              interfree{" "}
-              <span style={{ fontSize: "20px", fontWeight: "400" }}>BETA</span>
-            </Logo>
+            <Logo>interfree</Logo>
           </li>
 
           <li

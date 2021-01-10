@@ -95,7 +95,7 @@ const post = () => {
 
                 <Title title={"작성한 포스트 목록"} />
 
-                {loadPostDone && posts.length > 0 ? (
+                {posts.length > 0 ? (
                   <InfiniteScroll
                     dataLength={posts.length}
                     next={LoadNextPosts}
