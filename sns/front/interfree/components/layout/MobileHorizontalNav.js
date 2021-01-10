@@ -2,7 +2,6 @@
 
 import React, { useMemo, useState } from "react";
 import Router from "next/router";
-import PropTypes from "prop-types";
 import { slide as MenuBar } from "react-burger-menu";
 
 import SearchModal from "./SearchModal";
@@ -80,9 +79,7 @@ const Menu = () => {
     },
   };
   const dispatch = useDispatch();
-  const { logInDone, logOutDone, loadUserInfomationDone } = useSelector(
-    (state) => state.user
-  );
+  const { logInDone, logOutDone } = useSelector((state) => state.user);
   const { id } = useSelector((state) => state.user.user);
   const [searchModalShow, setSearchModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);

@@ -46,7 +46,7 @@ const DesktopHorizontalNav = () => {
           <li
             style={{ display: "inline" }}
             onClick={() => {
-              Router.push(`${frontUrl}/allPostsBoard`);
+              Router.push(`/allPostsBoard`);
             }}
           >
             <Logo>interfree</Logo>
