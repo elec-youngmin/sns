@@ -2,7 +2,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 module.exports = withBundleAnalyzer({
-  basePath: "interfree.co.kr",
+  basePath: "/http://interfree.co.kr",
   compress: true,
   async redirects() {
     return [
