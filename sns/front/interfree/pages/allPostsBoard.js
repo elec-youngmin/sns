@@ -2,7 +2,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { useRouter } from "next/router";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import PostBoard from "../components/post/PostBoard";
@@ -20,17 +19,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../reducers/user";
 
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";
 import axios from "axios";
 
-import { frontUrl } from "../config/config";
-
 const allPostsBoard = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const { posts, loadAllPostDone } = useSelector((state) => state.post);
 
   const LoadNextAllPosts = () => {
@@ -53,39 +49,6 @@ const allPostsBoard = () => {
           <Col md={8}>
             <Title title={"모든 포스트"} />
 
-            <Row
-              style={{
-                fontSize: "18px",
-                fontWeight: "600",
-                textAlign: "center",
-                marginBottom: "10px",
-              }}
-            >
-              <Col
-                style={{
-                  backgroundColor: "#ADD8E6",
-                  marginRight: "5px",
-                  borderBottom: "3px solid #4682B4",
-                  cursor: "pointer",
-                  borderRadius: "10px",
-                }}
-              >
-                최신
-              </Col>
-              <Col
-                style={{
-                  backgroundColor: "#ADD8E6",
-                  marginRight: "5px",
-                  cursor: "pointer",
-                  borderRadius: "10px",
-                }}
-                onClick={() => {
-                  router.push(`${frontUrl}/allPicturePostsBoard/`);
-                }}
-              >
-                사진
-              </Col>
-            </Row>
             {/* <SessionDiv>
               <SessionTitle>Beta 버전 사용중</SessionTitle>
               <SessionP>
