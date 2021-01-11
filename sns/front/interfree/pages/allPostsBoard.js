@@ -63,19 +63,21 @@ const allPostsBoard = () => {
             >
               <Col
                 style={{
-                  backgroundColor: "#DCDCDC",
+                  backgroundColor: "#ADD8E6",
                   marginRight: "5px",
                   borderBottom: "3px solid #4682B4",
                   cursor: "pointer",
+                  borderRadius: "10px",
                 }}
               >
                 최신
               </Col>
               <Col
                 style={{
-                  backgroundColor: "#DCDCDC",
+                  backgroundColor: "#ADD8E6",
                   marginRight: "5px",
                   cursor: "pointer",
+                  borderRadius: "10px",
                 }}
                 onClick={() => {
                   router.push(`${frontUrl}/allPicturePostsBoard/`);

@@ -48,8 +48,6 @@ const allPicturePostsBoard = () => {
     });
   };
 
-  console.log(posts[0].PostImgSrcs[0].src);
-
   return (
     <div>
       <div className="container justify-content-around">
@@ -66,19 +64,21 @@ const allPicturePostsBoard = () => {
             >
               <Col
                 style={{
-                  backgroundColor: "#DCDCDC",
+                  backgroundColor: "#ADD8E6",
+                  borderRadius: "10px",
                   marginRight: "5px",
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  router.push(`${frontUrl}/allPicturePostsBoard/`);
+                  router.push(`${frontUrl}/allPostsBoard/`);
                 }}
               >
                 최신
               </Col>
               <Col
                 style={{
-                  backgroundColor: "#DCDCDC",
+                  backgroundColor: "#ADD8E6",
+                  borderRadius: "10px",
                   marginRight: "5px",
                   borderBottom: "3px solid #4682B4",
                   cursor: "pointer",
@@ -102,7 +102,7 @@ const allPicturePostsBoard = () => {
                     <PicturePostBox
                       key={index}
                       postId={element.id}
-                      img={element.PostImgSrcs[0].src}
+                      img={element?.PostImgSrcs[0].src}
                     />
                   );
                 })}
