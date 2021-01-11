@@ -18,12 +18,6 @@ export const initialState = {
   loadAllPostLoading: false,
   loadAllPostDone: false,
   loadAllPostError: null,
-  loadAllPicturePostLoading: false,
-  loadAllPicturePostDone: false,
-  loadAllPicturePostError: null,
-  loadAllVideoPostLoading: false,
-  loadAllVideoPostDone: false,
-  loadAllVideoPostError: null,
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: false,
@@ -367,36 +361,6 @@ const reducer = (state = initialState, action) =>
         draft.loadAllPostLoading = false;
         draft.loadAllPostError = action.data;
         ToastError("모든 포스트 로드 실패.. 다시 시도 하세요.");
-        break;
-      case LOAD_ALL_PICTUREPOST_SUCCESS:
-        draft.loadAllPicturePostLoading = false;
-        draft.loadAllPicturePostDone = true;
-        draft.posts = draft.posts.concat(action.data);
-        break;
-      case LOAD_ALL_PICTUREPOST_REQUEST:
-        draft.loadAllPicturePostLoading = true;
-        draft.loadAllPicturePostDone = true;
-        draft.loadAllPicturePostError = null;
-        break;
-      case LOAD_ALL_PICTUREPOST_FAILURE:
-        draft.loadAllPicturePostLoading = false;
-        draft.loadAllPicturePostError = action.data;
-        ToastError("사진 포스트 로드 실패.. 다시 시도 하세요.");
-        break;
-      case LOAD_ALL_VIDEOPOST_SUCCESS:
-        draft.loadAllVideoPostLoading = false;
-        draft.loadAllVideoPostDone = true;
-        draft.posts = draft.posts.concat(action.data);
-        break;
-      case LOAD_ALL_VIDEOPOST_REQUEST:
-        draft.loadAllVideoPostLoading = true;
-        draft.loadAllVideoPostDone = true;
-        draft.loadAllVideoPostError = null;
-        break;
-      case LOAD_ALL_VIDEOPOST_FAILURE:
-        draft.loadAllVideoPostLoading = false;
-        draft.loadAllVideoPostError = action.data;
-        ToastError("비디오 포스트 로드 실패.. 다시 시도 하세요.");
         break;
       case LOAD_POST_SUCCESS:
         draft.loadPostLoading = false;
