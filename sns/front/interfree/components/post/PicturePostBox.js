@@ -12,13 +12,13 @@ const PicturePostBox = ({ postId, img }) => {
   const router = useRouter();
 
   return (
-    <BoxContainter
+    <div
       onClick={() => {
         router.push(`${frontUrl}/post/${postId}/`);
       }}
     >
       <Img src={img} alt={img} />
-    </BoxContainter>
+    </div>
   );
 };
 

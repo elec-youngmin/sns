@@ -89,10 +89,10 @@ const allPicturePostsBoard = () => {
 
           <div
             style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexWrap: "wrap",
+              display: "grid",
+              gridTemplateColumns: "280px 280px 280px",
+              gridTemplateRows: "280px 280px 280px",
+              gap: "3px",
               padding: "0px",
               width: "100%",
             }}
