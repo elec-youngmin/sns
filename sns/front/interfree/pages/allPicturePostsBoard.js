@@ -33,7 +33,7 @@ const allPicturePostsBoard = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { posts, loadAllPostDone } = useSelector((state) => state.post);
+  const { posts, loadAllPicturePostDone } = useSelector((state) => state.post);
 
   const LoadNextAllPosts = () => {
     const lastId = posts[posts.length - 1]?.id;
@@ -96,15 +96,16 @@ const allPicturePostsBoard = () => {
                 flexWrap: "wrap",
               }}
             >
-              {posts.map((element, index) => {
-                return (
-                  <PicturePostBox
-                    key={index}
-                    postId={element.id}
-                    img={element.PostImgSrcs[0].src}
-                  />
-                );
-              })}
+              {loadAllPicturePostDone &&
+                posts.map((element, index) => {
+                  return (
+                    <PicturePostBox
+                      key={index}
+                      postId={element.id}
+                      img={element.PostImgSrcs[0].src}
+                    />
+                  );
+                })}
             </div>
           </Col>
         </SessionRow>
