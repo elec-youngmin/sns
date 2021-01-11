@@ -50,66 +50,66 @@ const allPicturePostsBoard = () => {
 
   return (
     <div>
-      <div className="container justify-content-around">
-        <SessionRow>
-          <Col md={8}>
-            <Title title={"사진 포스트"} />
-            <Row
+      <SessionRow>
+        <Col md={8} style={{ padding: "0px" }}>
+          <Title title={"사진 포스트"} />
+          <Row
+            style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              textAlign: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <Col
               style={{
-                fontSize: "18px",
-                fontWeight: "600",
-                textAlign: "center",
-                marginBottom: "10px",
+                backgroundColor: "#ADD8E6",
+                borderRadius: "10px",
+                marginRight: "5px",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                router.push(`${frontUrl}/allPostsBoard/`);
               }}
             >
-              <Col
-                style={{
-                  backgroundColor: "#ADD8E6",
-                  borderRadius: "10px",
-                  marginRight: "5px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  router.push(`${frontUrl}/allPostsBoard/`);
-                }}
-              >
-                최신
-              </Col>
-              <Col
-                style={{
-                  backgroundColor: "#ADD8E6",
-                  borderRadius: "10px",
-                  marginRight: "5px",
-                  borderBottom: "3px solid #4682B4",
-                  cursor: "pointer",
-                }}
-              >
-                사진
-              </Col>
-            </Row>
+              최신
+            </Col>
+            <Col
+              style={{
+                backgroundColor: "#ADD8E6",
+                borderRadius: "10px",
+                marginRight: "5px",
+                borderBottom: "3px solid #4682B4",
+                cursor: "pointer",
+              }}
+            >
+              사진
+            </Col>
+          </Row>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              {loadAllPicturePostDone &&
-                posts.map((element, index) => {
-                  return (
-                    <PicturePostBox
-                      key={index}
-                      postId={element.id}
-                      img={element?.PostImgSrcs[0].src}
-                    />
-                  );
-                })}
-            </div>
-          </Col>
-        </SessionRow>
-      </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexWrap: "wrap",
+              padding: "0px",
+              width: "100%",
+            }}
+          >
+            {loadAllPicturePostDone &&
+              posts.map((element, index) => {
+                return (
+                  <PicturePostBox
+                    key={index}
+                    postId={element.id}
+                    img={element?.PostImgSrcs[0].src}
+                  />
+                );
+              })}
+          </div>
+        </Col>
+      </SessionRow>
     </div>
   );
 };
