@@ -18,6 +18,12 @@ export const initialState = {
   loadAllPostLoading: false,
   loadAllPostDone: false,
   loadAllPostError: null,
+  loadAllPicturePostLoading: false,
+  loadAllPicturePostDone: false,
+  loadAllPicturePostError: null,
+  loadAllVideoPostLoading: false,
+  loadAllVideoPostDone: false,
+  loadAllVideoPostError: null,
   loadPostLoading: false,
   loadPostDone: false,
   loadPostError: false,
@@ -136,7 +142,7 @@ export const initialState = {
   unFollowUserDone: false,
   unFollowUserError: null,
   reports: [],
-  posts: [], //로그인한 유저의 포스트들
+  posts: [],
   userPageInfo: [],
   trashPosts: [],
   followPosts: [],
@@ -158,7 +164,15 @@ export const LOAD_ALLPOST_REQUEST = "LOAD_ALLPOST_REQUEST";
 export const LOAD_ALLPOST_SUCCESS = "LOAD_ALLPOST_SUCCESS";
 export const LOAD_ALLPOST_FAILURE = "LOAD_ALLPOST_FAILURE";
 
-export const LOAD_POST_REQUEST = "LOAD_POST_REQUEST";
+export const LOAD_ALL_PICTUREPOST_REQUEST = "LOAD_ALL_PICTUREPOST_REQUEST";
+export const LOAD_ALL_PICTUREPOST_SUCCESS = "LOAD_ALL_PICTUREPOST_SUCCESS";
+export const LOAD_ALL_PICTUREPOST_FAILURE = "LOAD_ALL_PICTUREPOST_FAILURE";
+
+export const LOAD_ALL_VIDEOPOST_REQUEST = "LOAD_ALL_VIDEOPOST_REQUEST";
+export const LOAD_ALL_VIDEOPOST_SUCCESS = "LOAD_ALL_VIDEOPOST_SUCCESS";
+export const LOAD_ALL_VIDEOPOST_FAILURE = "LOAD_ALL_VIDEOPOST_FAILURE";
+
+export const LOAD_POST_REQUEST = "LOAD_POST_REQUEST"; //개인 포스트 로드
 export const LOAD_POST_SUCCESS = "LOAD_POST_SUCCESS";
 export const LOAD_POST_FAILURE = "LOAD_POST_FAILURE";
 
@@ -266,14 +280,6 @@ export const LOAD_POSTPAGE_REQUEST = "LOAD_POSTPAGE_REQUEST";
 export const LOAD_POSTPAGE_SUCCESS = "LOAD_POSTPAGE_SUCCESS";
 export const LOAD_POSTPAGE_FAILURE = "LOAD_POSTPAGE_FAILURE";
 
-export const LOAD_IMAGEPOST_REQUEST = "LOAD_IMAGEPOST_REQUEST";
-export const LOAD_IMAGEPOST_SUCCESS = "LOAD_IMAGEPOST_SUCCESS";
-export const LOAD_IMAGEPOST_FAILURE = "LOAD_IMAGEPOST_FAILURE";
-
-export const LOAD_VIDEOPOST_REQUEST = "LOAD_VIDEOPOST_REQUEST";
-export const LOAD_VIDEOPOST_SUCCESS = "LOAD_VIDEOPOST_SUCCESS";
-export const LOAD_VIDEOPOST_FAILURE = "LOAD_VIDEOPOST_FAILURE";
-
 export const SEARCH_INPUT_TEXT_REQUEST = "SEARCH_INPUT_TEXT_REQUEST";
 export const SEARCH_INPUT_TEXT_SUCCESS = "SEARCH_INPUT_TEXT_SUCCESS";
 export const SEARCH_INPUT_TEXT_FAILURE = "SEARCH_INPUT_TEXT_FAILURE";
@@ -361,6 +367,36 @@ const reducer = (state = initialState, action) =>
         draft.loadAllPostLoading = false;
         draft.loadAllPostError = action.data;
         ToastError("모든 포스트 로드 실패.. 다시 시도 하세요.");
+        break;
+      case LOAD_ALL_PICTUREPOST_SUCCESS:
+        draft.loadAllPicturePostLoading = false;
+        draft.loadAllPicturePostDone = true;
+        draft.posts = draft.posts.concat(action.data);
+        break;
+      case LOAD_ALL_PICTUREPOST_REQUEST:
+        draft.loadAllPicturePostLoading = true;
+        draft.loadAllPicturePostDone = true;
+        draft.loadAllPicturePostError = null;
+        break;
+      case LOAD_ALL_PICTUREPOST_FAILURE:
+        draft.loadAllPicturePostLoading = false;
+        draft.loadAllPicturePostError = action.data;
+        ToastError("사진 포스트 로드 실패.. 다시 시도 하세요.");
+        break;
+      case LOAD_ALL_VIDEOPOST_SUCCESS:
+        draft.loadAllVideoPostLoading = false;
+        draft.loadAllVideoPostDone = true;
+        draft.posts = draft.posts.concat(action.data);
+        break;
+      case LOAD_ALL_VIDEOPOST_REQUEST:
+        draft.loadAllVideoPostLoading = true;
+        draft.loadAllVideoPostDone = true;
+        draft.loadAllVideoPostError = null;
+        break;
+      case LOAD_ALL_VIDEOPOST_FAILURE:
+        draft.loadAllVideoPostLoading = false;
+        draft.loadAllVideoPostError = action.data;
+        ToastError("비디오 포스트 로드 실패.. 다시 시도 하세요.");
         break;
       case LOAD_POST_SUCCESS:
         draft.loadPostLoading = false;

@@ -7,6 +7,12 @@ import {
   LOAD_ALLPOST_REQUEST,
   LOAD_ALLPOST_SUCCESS,
   LOAD_ALLPOST_FAILURE,
+  LOAD_ALL_PICTUREPOST_REQUEST,
+  LOAD_ALL_PICTUREPOST_SUCCESS,
+  LOAD_ALL_PICTUREPOST_FAILURE,
+  LOAD_ALL_VIDEOPOST_REQUEST,
+  LOAD_ALL_VIDEOPOST_SUCCESS,
+  LOAD_ALL_VIDEOPOST_FAILURE,
   LOAD_POST_REQUEST,
   LOAD_POST_SUCCESS,
   LOAD_POST_FAILURE,
@@ -184,6 +190,47 @@ function* loadAllpost(action) {
     console.error(err);
     yield put({
       type: LOAD_ALLPOST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function loadAllPicturePostAPI(data) {
+  return axios.post("post/allPicturePostLoad", data);
+}
+
+function* loadAllPicturePost(action) {
+  try {
+    const result = yield call(loadAllPicturePostAPI, action.data);
+    console.log(result);
+    yield put({
+      type: LOAD_ALL_PICTUREPOST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_ALL_PICTUREPOST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+function loadAllVideoPostAPI(data) {
+  return axios.post("post/allVideoPostLoad", data);
+}
+
+function* loadAllVideoPost(action) {
+  try {
+    const result = yield call(loadAllVideoPostAPI, action.data);
+    console.log(result);
+    yield put({
+      type: LOAD_ALL_VIDEOPOST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_ALL_VIDEOPOST_FAILURE,
       error: err.response.data,
     });
   }
@@ -999,6 +1046,14 @@ function* watchLoadAllpost() {
   yield takeLatest(LOAD_ALLPOST_REQUEST, loadAllpost);
 }
 
+function* watchLoadPicturePost() {
+  yield takeLatest(LOAD_ALL_PICTUREPOST_REQUEST, loadAllPicturePost);
+}
+
+function* watchLoadVideoPost() {
+  yield takeLatest(LOAD_ALL_VIDEOPOST_REQUEST, loadAllVideoPost);
+}
+
 function* watchUpdatePost() {
   yield takeLatest(UPDATE_POST_REQUEST, updatePost);
 }
@@ -1154,6 +1209,8 @@ export default function* userSaga() {
     fork(watchSavePost),
     fork(watchLoadPost),
     fork(watchLoadAllpost),
+    fork(watchLoadPicturePost),
+    fork(watchLoadVideoPost),
     fork(watchUpdatePost),
     fork(watchDeletePost),
     fork(watchLoadTrash),
