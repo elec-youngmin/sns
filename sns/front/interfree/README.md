@@ -43,17 +43,19 @@ sns
     854px 기준으로 854px 이하이면 모바일 레이아웃으로, 855px 이상이면 데스크탑 레이아웃 변경하여 레이아웃을 제공합니다.
    예를 들어 모바일 경우 하단 네비게이션이 생기고, 상단 네비게이션도 모바일에 맞게 바뀝니다. 데스크탑 경우 모바일에서 제공하는 하단 네비게이션이 생략 되고, 상단 네비게이션 메뉴도 데스크탑에 맞게 변경되며, 왼쪽 공백에 새로운 세로 메뉴바가 생성됩니다.
 
-<p>
+<center>
 <figure class="image">
   <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" alt="모바일 화면" width="280" height="550">
   <figcaption>모바일 레이아웃</figcaption>
 </figure>
-</p>
+</center>
 
+<center>
 <figure class="image">
   <img src="https://user-images.githubusercontent.com/71272034/104113742-d7976380-533f-11eb-93d1-e5ba264264b4.JPG" alt="데스크탑 화면" width="900" height="600">
   <figcaption>데스크탑 레이아웃</figcaption>
 </figure>
+</center>
 
 2. 사용자 동작 결과 알림과 에러 알림
    사용자가 웹의 기능을 이용하면 그 결과를 성공/ 실패 여부를 알려줍니다. react-toastify 라이브러리로 구현했으며 리덕스의 리듀서 함수에서 성공/ 실패여부에 따라 ToastSuccess, ToastError 함수를 호출합니다.
@@ -92,9 +94,9 @@ passport를 사용하여 로그인/회원가입 처리
 next.js의 동적라우팅 사용하여 유저,포스트,검색,해시태그  
 페이지 구현
 next.js의 ssr 사용  
-redux와 redux-saga를 사용하여 데이터 상태 처리   
+redux와 redux-saga를 사용하여 데이터 상태 처리  
 chart.js를 사용하여 개인 사용자 차트 구현  
-react-toastfy를 사용하여 사용자 알림 구현  
+react-toastfy를 사용하여 사용자 알림 구현
 
 ## 결과
 

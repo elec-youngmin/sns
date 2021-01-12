@@ -247,7 +247,9 @@ const PostBoard = ({
           {reportCount > 9 ? (
             <h6>{replaceText}</h6>
           ) : (
-            <TextPostContent>{post?.replace(/(#[^s#]+)/g, "")}</TextPostContent>
+            <TextPostContent>
+              {post?.replace(/(#[^\s#]+)/g, "")}
+            </TextPostContent>
           )}
         </BoardBody>
 
