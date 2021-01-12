@@ -55,9 +55,13 @@ sns
 2. 사용자 동작 결과 알림과 에러 알림
    사용자가 웹의 기능을 이용하면 그 결과를 성공/ 실패 여부를 알려줍니다. react-toastify 라이브러리로 구현했으며 리덕스의 리듀서 함수에서 성공/ 실패여부에 따라 ToastSuccess, ToastError 함수를 호출합니다.
 
-     <img src="https://user-images.githubusercontent.com/71272034/103510818-450f4400-4ea9-11eb-81dc-112e0adefe21.JPG" width="170" height="80">
+<p align="center">
+     <img src="https://user-images.githubusercontent.com/71272034/103510818-450f4400-4ea9-11eb-81dc-112e0adefe21.JPG" width="200" height="80">
+</p>
 
-      <img src="https://user-images.githubusercontent.com/71272034/103511050-a8997180-4ea9-11eb-8bdd-ee6b6a35df57.JPG" width="170" height="80">
+<p align="center">
+      <img src="https://user-images.githubusercontent.com/71272034/103511050-a8997180-4ea9-11eb-8bdd-ee6b6a35df57.JPG" width="200" height="80">
+</p>
 
 3. 포스트 관리 기능  
    개인 사용자 별로 포스트를 관리할 수 있는 기능을 제공합니다. 개인 사용자가 작성한 포스트가 대부분 마음에 든다면 팔로우 하여 친구의 글을 정기적으로 볼 수 있습니다. 개별 포스트가 마음에 든다면 친구 추가가 아닌 포스트를 북마크하여 포스트를 북마크 탭에서 나중에 다시 볼 수 있습니다.
