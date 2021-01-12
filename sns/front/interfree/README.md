@@ -43,16 +43,18 @@ sns
     854px 기준으로 854px 이하이면 모바일 레이아웃으로, 855px 이상이면 데스크탑 레이아웃 변경하여 레이아웃을 제공합니다.
    예를 들어 모바일 경우 하단 네비게이션이 생기고, 상단 네비게이션도 모바일에 맞게 바뀝니다. 데스크탑 경우 모바일에서 제공하는 하단 네비게이션이 생략 되고, 상단 네비게이션 메뉴도 데스크탑에 맞게 변경되며, 왼쪽 공백에 새로운 세로 메뉴바가 생성됩니다.
 
-<center>
+<p align="center">
 <figure class="image">
   <img src="https://user-images.githubusercontent.com/71272034/103508346-2bb7c900-4ea4-11eb-9b0f-021dfdbd3e7e.jpg" alt="모바일 화면" width="280" height="550">
   <figcaption>모바일 레이아웃</figcaption>
 </figure>
-</center>
+</p>
 
 <p align="center">
+<figure class="image">
   <img src="https://user-images.githubusercontent.com/71272034/104113742-d7976380-533f-11eb-93d1-e5ba264264b4.JPG" alt="데스크탑 화면" width="900" height="600">
   <figcaption>데스크탑 레이아웃</figcaption>
+</figure>
 </p>
 
 2. 사용자 동작 결과 알림과 에러 알림
