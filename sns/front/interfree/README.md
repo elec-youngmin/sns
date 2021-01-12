@@ -50,12 +50,10 @@ sns
 </figure>
 </center>
 
-<center>
-<figure class="image">
+<p align="center">
   <img src="https://user-images.githubusercontent.com/71272034/104113742-d7976380-533f-11eb-93d1-e5ba264264b4.JPG" alt="데스크탑 화면" width="900" height="600">
   <figcaption>데스크탑 레이아웃</figcaption>
-</figure>
-</center>
+</p>
 
 2. 사용자 동작 결과 알림과 에러 알림
    사용자가 웹의 기능을 이용하면 그 결과를 성공/ 실패 여부를 알려줍니다. react-toastify 라이브러리로 구현했으며 리덕스의 리듀서 함수에서 성공/ 실패여부에 따라 ToastSuccess, ToastError 함수를 호출합니다.
