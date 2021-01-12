@@ -58,9 +58,9 @@ const HashtagPage = () => {
                 date={element.createdAt}
               />
             ))}
+          <Button onClick={() => router.back()}>뒤로가기</Button> 
         </Col>
       </SessionRow>
-      <Button onClick={() => router.back()}>뒤로가기</Button>
     </div>
   );
 };

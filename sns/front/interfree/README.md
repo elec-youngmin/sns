@@ -77,8 +77,8 @@ sns
 
 | 요청 문자열                            | 동작                                          |
 | -------------------------------------- | --------------------------------------------- |
-| https://interfree.co.kr/post/23        | 23번 포스트 페이지로 라우팅                   |
-| https://interfree.co.kr/user/3         | 3번 유저의 페이지로 라우팅                    |
+| https://interfree.co.kr/post/50        | 23번 포스트 페이지로 라우팅                   |
+| https://interfree.co.kr/user/2         | 3번 유저의 페이지로 라우팅                    |
 | https://interfree.co.kr/hashtag/댕댕이 | 댕댕이 해시태그를 가진 포스트를 라우팅        |
 | https://interfree.co.kr/search/댕댕이  | 댕댕이 포스트를 검색해 댕댕이 포스트를 라우팅 |
 
@@ -87,15 +87,16 @@ sns
 
 ## 사용한 기술들
 
-aws의 ec2 우분투 서버와 s3스트리지 사용  
-multer를 사용해 파일 업로드  
-passport를 사용하여 로그인/회원가입 처리  
 next.js의 동적라우팅 사용하여 유저,포스트,검색,해시태그  
 페이지 구현
 next.js의 ssr 사용  
 redux와 redux-saga를 사용하여 데이터 상태 처리  
 chart.js를 사용하여 개인 사용자 차트 구현  
 react-toastfy를 사용하여 사용자 알림 구현
+aws의 ec2 우분투 서버와 s3스트리지 사용  
+multer를 사용해 파일 업로드  
+passport를 사용하여 로그인/회원가입 처리
+nginx를 사용하여 https 적용
 
 ## 결과
 
