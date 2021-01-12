@@ -59,7 +59,7 @@ const FollowBotton = ({ userId, follows, postId }) => {
         }}
         onClick={onSubmit}
       >
-        {follows.length > 0 ? "언팔로우" : "팔로우"}
+        {follows?.length > 0 ? "언팔로우" : "팔로우"}
       </Button>
     </>
   );
