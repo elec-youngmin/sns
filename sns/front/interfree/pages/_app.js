@@ -3,7 +3,6 @@ import withReduxSaga from "next-redux-saga";
 import Media from "react-media";
 import wrapper from "../store/configureStore";
 import Head from "next/head";
-import { isIE } from "react-device-detect";
 
 import BottomTabs from "../components/layout/BottomTabs";
 import HorizontalNav from "../components/layout/HorizontalNav";
@@ -17,21 +16,13 @@ function MyApp({ Component, pageProps }) {
     device: "mobile",
   };
 
-  const browserHandler = {
-    chrome: () => <h1>Chrome is fantastic!</h1>,
-    googlebot: () => <div>Hi GoogleBot!</div>,
-  };
-
-  if (isIE) {
-    return (
-      <div>
-        <h1>Hi there. You’re using an outdated browser</h1>
-        <p>
-          For a safer and faster user experience use a modern browser like
-          Chrome, Firefox, Safari, Opera, or Edge.
-        </p>
-      </div>
-    );
+  const agent = navigator.userAgent.toLowerCase();
+  if (
+    (navigator.appName == "Netscape" &&
+      navigator.userAgent.search("Trident") != -1) ||
+    agent.indexOf("msie") != -1
+  ) {
+    return <h1>ie에서 지원하지 않습니다. </h1>;
   }
 
   return (
