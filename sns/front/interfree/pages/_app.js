@@ -16,15 +16,6 @@ function MyApp({ Component, pageProps }) {
     device: "mobile",
   };
 
-  const agent = navigator.userAgent.toLowerCase();
-  if (
-    (navigator.appName == "Netscape" &&
-      navigator.userAgent.search("Trident") != -1) ||
-    agent.indexOf("msie") != -1
-  ) {
-    return <h1>ie에서 지원하지 않습니다. </h1>;
-  }
-
   return (
     <>
       <Head>
