@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
-import "react-tabs/style/react-tabs.css";
 
 import AlertTab from "../components/layout/AlertTab";
 import Title from "../components/layout/Title";
