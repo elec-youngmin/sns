@@ -33,10 +33,12 @@ function MyApp({ Component, pageProps }) {
       <ActionLoading />
       <Toast />
 
-      {isIE &&
-        alert(
-          "이 브라우저에서는 지원하지 않습니다. 크롬 브라우저 사용을 권장합니다."
-        )}
+      {isIE && (
+        <h1>
+          "이 브라우저에서는 지원하지 않습니다. 크롬 브라우저 사용을
+          권장합니다."
+        </h1>
+      )}
       <Media
         queries={{ medium: "(min-width: 854px)" }}
         defaultMatches={{ medium: initialState.device === "desktop" }}
