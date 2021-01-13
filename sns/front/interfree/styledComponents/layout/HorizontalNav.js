@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Logo = styled.p`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
+  font-family: "Fredoka One";
   color: #4169e1;
   font-size: 40px;
   float: left;
@@ -60,4 +61,28 @@ export const MobileLink = styled.a`
   color: black;
   font-size: 40px;
   margin-bottom: 10px;
+`;
+
+export const AllPostLink = styled.li`
+  display: inline;
+  margin-right: 20px;
+  margin-left: -80px;
+  &:hover {
+    border-bottom: 3px solid #6495ed;
+  }
+`;
+
+export const MeLink = styled.li`
+  display: inline;
+  margin-right: 20px;
+  &:hover {
+    border-bottom: 3px solid #6495ed;
+  }
+`;
+
+export const SearchLink = styled.li`
+  display: inline;
+  &:hover {
+    border-bottom: 3px solid #6495ed;
+  }
 `;

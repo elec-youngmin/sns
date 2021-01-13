@@ -13,6 +13,9 @@ import { USER_LOGOUT_REQUEST } from "../../reducers/user";
 import {
   DesktopNavContainer,
   Logo,
+  AllPostLink,
+  MeLink,
+  SearchLink,
 } from "../../styledComponents/layout/HorizontalNav";
 
 import { Button } from "react-bootstrap";
@@ -51,12 +54,7 @@ const DesktopHorizontalNav = () => {
             <Logo>interfree</Logo>
           </li>
 
-          <li
-            style={{
-              display: "inline",
-              marginRight: "20px",
-              marginLeft: "-80px",
-            }}
+          <AllPostLink
             onClick={() => {
               Router.push(`${frontUrl}/allPostsBoard`);
             }}
@@ -69,10 +67,9 @@ const DesktopHorizontalNav = () => {
             >
               <AiFillDribbbleCircle /> 모든포스트
             </a>
-          </li>
+          </AllPostLink>
 
-          <li
-            style={{ display: "inline", marginRight: "20px" }}
+          <MeLink
             onClick={() => {
               Router.push(`${frontUrl}/me`);
             }}
@@ -85,9 +82,9 @@ const DesktopHorizontalNav = () => {
             >
               <FaUserCircle /> 나
             </a>
-          </li>
+          </MeLink>
 
-          <li
+          <SearchLink
             style={{ display: "inline" }}
             onClick={() => {
               setSearchModalShow(true);
@@ -101,7 +98,7 @@ const DesktopHorizontalNav = () => {
             >
               <AiOutlineSearch /> 검색
             </a>
-          </li>
+          </SearchLink>
 
           <li
             style={{ display: "inline", float: "right", marginRight: "10px" }}
