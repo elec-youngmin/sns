@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Logo = styled.p`
   @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nanum+Gothic&display=swap");
-  font-family: "Fredoka One";
+  font-family: "Fredoka One", cursive;
   color: #4169e1;
   font-size: 40px;
   float: left;

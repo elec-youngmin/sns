@@ -12,6 +12,7 @@ export const TitleP = styled.p`
   font-size: 30px;
   font-weight: 600;
   margin: 2px;
+
   @media (max-width: 768px) {
     font-size: 25px;
   }
