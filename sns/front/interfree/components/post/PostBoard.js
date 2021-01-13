@@ -310,7 +310,7 @@ const PostBoard = ({
         {post?.split(/(#[^\s#]+)/g).map((e, index) => {
           if (e.match(/(#[^\s#]+)/)) {
             return (
-              <div>
+              <div style={{ marginLeft: "6px" }}>
                 <a
                   onClick={() => {
                     router.push(`${frontUrl}/hashtag/${e.slice(1)}/`);
