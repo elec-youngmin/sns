@@ -212,7 +212,6 @@ router.post("/load", async (req, res, next) => {
 router.post("/allPostLoad", async (req, res, next) => {
   try {
     let where;
-    console.log(req.body);
     if (Object.keys(req.body).length === 0)
       where = {
         onlyReadMy: 0,
@@ -392,7 +391,7 @@ router.post("/deleteTrashPost", async (req, res, next) => {
     //삭제가 성공하면 다시 postId를 보내 삭제를 성공했다고 알림
     res.status(200).json(req.body.postId);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 });
@@ -586,7 +585,6 @@ router.post("/cancelBookmark", conformLogin, async (req, res, next) => {
 
 router.post("/loadBookmark", conformLogin, async (req, res, next) => {
   try {
-    console.log(req.body, "safasadfaffsafas");
     let where;
 
     // if (Object.keys(req.body).length === 0) where = {};
@@ -658,7 +656,6 @@ router.post("/uploadVideo", upload.single("video"), (req, res, next) => {
 
 router.post("/likePost", conformLogin, async (req, res, next) => {
   try {
-    console.log("좋아요 했음", req.body);
     await Like.create({
       LikeUserId: req.user.dataValues.id,
       PostId: req.body.postId,
@@ -707,8 +704,6 @@ router.post("/likePost", conformLogin, async (req, res, next) => {
         },
       ],
     });
-
-    console.log(result);
 
     res.status(200).json(result);
   } catch (err) {
@@ -767,8 +762,6 @@ router.post("/cancelLikePost", conformLogin, async (req, res, next) => {
         },
       ],
     });
-
-    console.log(result);
 
     res.status(200).json(result);
   } catch (err) {
@@ -1086,7 +1079,6 @@ router.post("/followUser", conformLogin, async (req, res, next) => {
 //req.body.followId, req.body.followingId
 router.post("/unFollowUser", conformLogin, async (req, res, next) => {
   try {
-    console.log(req.body);
     await Follow.destroy({
       where: {
         followerId: req.user.dataValues.id,
@@ -1108,7 +1100,6 @@ router.post("/unFollowUser", conformLogin, async (req, res, next) => {
 
 router.get("/loadPostPage/:postId", async (req, res, next) => {
   try {
-    console.log(req.params, "dafasfdfasdfasdfadsf");
     const post = await Post.findAll({
       where: { id: parseInt(req.params.postId) },
       order: [["id", "DESC"]],
@@ -1161,7 +1152,6 @@ router.get("/loadPostPage/:postId", async (req, res, next) => {
 
 router.post("/searchInputText", async (req, res, next) => {
   try {
-    console.log(req.body.text);
     const [searchText, metadata] = await sequelize.query(
       `SELECT DISTINCT(posts.contents) AS label FROM posts WHERE deletedAt IS NULL AND contents LIKE '%${req.body.text}%'`
     );
@@ -1175,7 +1165,6 @@ router.post("/searchInputText", async (req, res, next) => {
 
 router.post("/searchFriend", async (req, res, next) => {
   try {
-    console.log(req.body.text);
     const [searchFriend, metadata] = await sequelize.query(
       `SELECT users.email AS label, users.id FROM users WHERE users.email LIKE '${req.body.text}%'`
     );
@@ -1249,7 +1238,6 @@ router.get("/searchResult/:searchText", async (req, res, next) => {
 
 router.post("/addTimelineSubject", conformLogin, async (req, res, next) => {
   try {
-    console.log(req.body);
     const isExist = await TimelineSub.findOne({
       where: {
         subject: req.body.timelineSubject,
@@ -1282,7 +1270,6 @@ router.post("/addTimelineSubject", conformLogin, async (req, res, next) => {
 
 router.post("/addTimelineContents", conformLogin, async (req, res, next) => {
   try {
-    console.log(req.body);
     await TimelineContent.create({
       title: req.body.title,
       content: req.body.content,
@@ -1344,7 +1331,6 @@ router.get("/loadTimelineContents/:id", async (req, res, next) => {
 
 router.post("/updateTimelineContents", async (req, res, next) => {
   try {
-    console.log(req.body, "dddddddddddd");
     await TimelineContent.update(
       {
         title: req.body.title,

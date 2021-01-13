@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Menu, { SubMenu, MenuItem } from "rc-menu";
+import Menu from "rc-menu";
 
 export const VerticalDiv = styled(Menu)`
   text-align: center;

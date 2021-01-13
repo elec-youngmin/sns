@@ -109,7 +109,7 @@ router.get("/kakaoError", async (req, res, next) => {
     res.json("에러가 발생했습니다.");
   } catch (err) {
     next(err);
-    console.log(err);
+    console.error(err);
   }
 });
 
@@ -146,7 +146,7 @@ router.post("/loadUserInfomation", async (req, res, next) => {
 
     return res.json(userInfomation);
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 });
@@ -166,7 +166,7 @@ router.get("/confirmCurrentLogin", async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
+    console.error(err);
   }
 });
 
@@ -191,7 +191,7 @@ router.post("/destroyUser", async (req, res, next) => {
     }
     res.status(200).json("회원탈퇴가 완료되었습니다.");
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 });
@@ -312,21 +312,7 @@ router.post("/profileImage", upload.single("image"), async (req, res, next) => {
   }
 });
 
-// router.post("/loadFollowingUser", async (req, res, next) => {
-//   try {
-//     const result = await Follow.findAll({
-//       where: { followerId: 1 },
-//     });
-
-//     res.status(200).json(result);
-//   } catch (err) {
-//     console.error(err);
-//     next(err);
-//   }
-// });
-
 router.post("/resettingPassword", async (req, res, next) => {
-  console.log(req.body);
   try {
     const result = await bcrypt.compare(
       req.body.password,
@@ -362,8 +348,8 @@ router.post("/findPassword", async (req, res, next) => {
     let transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.MAIL_USER, // gmail 계정 아이디를 입력
-        pass: process.env.MAIL_PASS, // gmail 계정의 비밀번호를 입력
+        user: process.env.MAIL_USER, // gmail 계정 아이디
+        pass: process.env.MAIL_PASS, // gmail 계정 비밀번호
       },
     });
 
@@ -386,7 +372,7 @@ router.post("/findPassword", async (req, res, next) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json("에러발생");
       } else {
         console.log("Email sent: " + info.response);
@@ -411,7 +397,7 @@ router.get("/disabledOneUserAllpost", async (req, res, next) => {
     );
     res.status(200).json("모든 글이 비활성화 됨");
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 });
@@ -428,7 +414,7 @@ router.get("/activateOneUserAllpost", async (req, res, next) => {
     );
     res.status(200).json("모든 글이 다시 활성화 됨");
   } catch (err) {
-    console.log(err);
+    console.error(err);
     next(err);
   }
 });
