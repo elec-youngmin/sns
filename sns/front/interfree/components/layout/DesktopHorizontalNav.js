@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Router from "next/router";
-import PropTypes from "prop-types";
 import "rc-menu/assets/index.css";
 
 import SearchModal from "./SearchModal";

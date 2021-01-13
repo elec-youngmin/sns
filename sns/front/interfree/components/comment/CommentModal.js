@@ -1,7 +1,6 @@
 //포스트에서 댓글을 클릭하면 나타나는 댓글 창
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
 import CommentBoard from "./CommentBoard";
@@ -96,10 +95,6 @@ const CommentModal = (props) => {
       </Modal>
     </div>
   );
-};
-
-CommentModal.propTypes = {
-  props: PropTypes.object,
 };
 
 export default CommentModal;

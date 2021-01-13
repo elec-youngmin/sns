@@ -1,7 +1,6 @@
 //사용자가 댓글을 올리면 나타나는 댓글 보드
 
 import React, { useState, useMemo } from "react";
-import PropTypes from "prop-types";
 import Moment from "react-moment";
 
 import ReviseCommentForm from "./ReviseCommentForm";
@@ -83,16 +82,6 @@ const CommentBoard = ({
       </Alert>
     </div>
   );
-};
-
-CommentBoard.propTypes = {
-  // id, comments, date, writeUserId, postId, nickname
-  id: PropTypes.number, //유저 id
-  comments: PropTypes.string,
-  date: PropTypes.string,
-  writeUserId: PropTypes.number, //해당 포스트를 작성한 id
-  postId: PropTypes.number,
-  nickname: PropTypes.string,
 };
 
 export default CommentBoard;

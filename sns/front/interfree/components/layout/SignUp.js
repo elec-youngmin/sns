@@ -1,7 +1,6 @@
 //계정활동 버튼을 누르면 생성되는 회원가입 모달
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 

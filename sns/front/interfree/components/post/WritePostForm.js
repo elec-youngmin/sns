@@ -7,7 +7,6 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import PropTypes from "prop-types";
 import FormData from "form-data";
 import Dropdown from "rc-dropdown";
 import Menu, { Item as MenuItem, Divider } from "rc-menu";
@@ -49,7 +48,7 @@ const WritePostAlert = () => {
   );
 };
 
-const WriteForm = (props) => {
+const WriteForm = () => {
   const dispatch = useDispatch();
 
   const [isPostEmpty, SetIsPostEmpty] = useState(false);

@@ -1,7 +1,6 @@
 //이메일을 입력하면 해당 이메일 주소로 임시 비밀번호를 발급하는 페이지
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import Loading from "../components/loading/Loading";
 

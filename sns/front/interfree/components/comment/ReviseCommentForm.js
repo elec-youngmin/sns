@@ -1,7 +1,6 @@
 //댓글 수정 창
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -62,10 +61,6 @@ const ReviseCommentForm = (props) => {
       </Modal>
     </div>
   );
-};
-
-ReviseCommentForm.propTypes = {
-  props: PropTypes.object,
 };
 
 export default ReviseCommentForm;

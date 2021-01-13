@@ -1,7 +1,6 @@
 //사용자의 프로필을 변경/생성 할 수 있게 해주는 폼
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import { useSelector, useDispatch } from "react-redux";
 

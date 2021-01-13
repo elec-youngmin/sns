@@ -1,7 +1,6 @@
 // 포스트보드에서 신고 버튼을 누르면 생성되는 신고 모달
 
 import React, { useState, useMemo } from "react";
-import PropTypes from "prop-types";
 
 import { useDispatch } from "react-redux";
 

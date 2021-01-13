@@ -1,7 +1,6 @@
 //사용자가 계정활동을 누르면 생성되는 로그인 모달
 
 import React, { useState, useMemo } from "react";
-import PropTypes from "prop-types";
 import Link from "next/link";
 import Router from "next/router";
 import { useForm } from "react-hook-form";
@@ -164,10 +163,6 @@ const Login = (props) => {
       </div>
     </div>
   );
-};
-
-Login.propTypes = {
-  props: PropTypes.object,
 };
 
 export default Login;

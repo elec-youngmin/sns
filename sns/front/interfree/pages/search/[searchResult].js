@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import Title from "../../components/layout/Title";
 import PostBoard from "../../components/post/PostBoard";

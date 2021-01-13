@@ -1,8 +1,7 @@
 //사용자가 작성한 포스트를 보여주는 포스트 보드
 
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import { useRouter } from "next/router";
-import PropTypes from "prop-types";
 import Moment from "react-moment";
 import ReactPlayer from "react-player";
 import Zoom from "react-medium-image-zoom";

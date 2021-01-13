@@ -1,7 +1,6 @@
 // 휴지통에 들어있는 포스트를 전부삭제 할지 여부 확인
 
 import React from "react";
-import PropTypes from "prop-types";
 
 import { useDispatch, useSelector } from "react-redux";
 

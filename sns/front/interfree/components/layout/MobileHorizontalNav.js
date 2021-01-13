@@ -278,7 +278,6 @@ const Menu = () => {
         >
           interfree
         </Logo>
-        <p style={{ fontSize: "13px" }}>BETA </p>
       </LogoContainer>
     </MobileContainer>
   );

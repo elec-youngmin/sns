@@ -1,7 +1,6 @@
 // 더 이상 쓸모 없어진 컴포넌트, 운영에 이상이 없으면 삭제
 
 import { useState, useMemo } from "react";
-import PropTypes from "prop-types";
 
 import { useSelector } from "react-redux";
 

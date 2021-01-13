@@ -55,7 +55,7 @@ const UserPage = () => {
               />
             )}
 
-            {loadUserPageDone && (
+            {loadUserPageDone ? (
               <>
                 {posts.map((element, index) => (
                   <PostBoard
@@ -89,6 +89,8 @@ const UserPage = () => {
                   />
                 ))}
               </>
+            ) : (
+              <h3>게재된 포스트가 없습니다.</h3>
             )}
 
             <Button onClick={() => router.back()}>뒤로가기</Button>

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 
 import Title from "../../components/layout/Title";

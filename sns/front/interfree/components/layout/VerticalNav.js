@@ -20,8 +20,6 @@ import { GiTimeBomb } from "react-icons/gi";
 import { frontUrl } from "../../config/config";
 
 const VerticalNav = () => {
-  const { id } = useSelector((state) => state.user.user);
-
   return (
     <div>
       <>

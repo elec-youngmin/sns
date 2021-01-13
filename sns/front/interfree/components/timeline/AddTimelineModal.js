@@ -1,7 +1,6 @@
 //사용자가 타임라인 주제를 추가할 수 있게 해주는 모달
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import AddTimelineContentsModal from "./AddTimelineContentsModal";
 

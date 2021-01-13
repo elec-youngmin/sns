@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from "react";
 import Router from "next/router";
-import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 

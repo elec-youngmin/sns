@@ -1,13 +1,12 @@
 //댓글 작성 폼
 
 import React from "react";
-import PropTypes from "prop-types";
 
 import { ADD_COMMENT_REQUEST } from "../../reducers/post";
 
 import { Form, Button } from "react-bootstrap";
 
-const CommentForm = (postId) => {
+const CommentForm = () => {
   return (
     <div>
       <Form.Group>

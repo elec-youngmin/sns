@@ -1,7 +1,6 @@
 //모든 포스트 페이지
 
 import React from "react";
-import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import PostBoard from "../components/post/PostBoard";

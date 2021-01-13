@@ -2,7 +2,6 @@
 // 예를 들어 친구가 없다면 이 탭이 나타남.
 
 import React from "react";
-import PropTypes from "prop-types";
 
 import {
   ContainerAlert,
