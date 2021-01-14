@@ -99,7 +99,7 @@ router.post(
         where: { UserId: req.user.dataValues.id },
         // limit: 10,
         order: [["id", "DESC"]],
-        attributes: { exclude: ["updatedAt", "deletedAt"] },
+        attributes: { exclude: ["updatedAt", "deletedAt", "password"] },
         include: [
           {
             model: User,
@@ -868,10 +868,10 @@ router.get("/loadUserPageInfo/:id", async (req, res, next) => {
     const id = parseInt(req.params.id);
 
     const [postsCount, metadata] = await sequelize.query(
-      `SELECT count(id) as postsCount FROM posts where UserId=${id}`
+      `SELECT count(id) as postsCount FROM posts where UserId=${id} AND deletedAt IS NULL AND onlyReadMy=false`
     );
     const [userInfo, metadata0] = await sequelize.query(
-      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,  profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${id}`
+      `SELECT users.nickname, users.introduce,users.ShareLink,users.where,profileImgSrcs.src FROM  profileImgSrcs RIGHT JOIN users ON  profileImgSrcs.UserId=users.id WHERE users.id=${id}`
     );
 
     const [followCount, metadata1] = await sequelize.query(
