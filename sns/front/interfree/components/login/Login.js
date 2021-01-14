@@ -19,8 +19,8 @@ import { Button, Modal, Nav } from "react-bootstrap";
 const Login = (props) => {
   const dispatch = useDispatch();
   const { logInDone, signUpDone } = useSelector((state) => state.user);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState("test@test.com");
   const [modalShow, setModalShow] = useState(false);
 
   const { register, errors, handleSubmit } = useForm();
@@ -134,8 +134,6 @@ const Login = (props) => {
               type="submit"
               style={{ width: "100%", marginBottom: "10px" }}
               onClick={() => {
-                setEmail("test@test.com");
-                setPassword("test@test.com");
                 dispatch({
                   type: USER_LOGIN_REQUEST,
                   data: { email, password },
