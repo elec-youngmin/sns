@@ -288,13 +288,9 @@ router.patch("/updatePost", async (req, res, next) => {
         where: { id: req.body.postId },
       }
     );
-    const userId = await Post.findOne({
-      attributes: ["UserId"],
-      where: { id: req.body.postId },
-    });
 
     const post = await Post.findAll({
-      where: { UserId: userId.dataValues.UserId },
+      where: { id: req.body.postId },
       order: [["id", "DESC"]],
       include: [
         {

@@ -380,7 +380,12 @@ const reducer = (state = initialState, action) =>
       case UPDATE_POST_SUCCESS:
         draft.updatePostLoading = false;
         draft.updatePostDone = true;
-        draft.posts = action.data;
+        draft.posts = draft.posts.map((p) => {
+          if (p.id == action.data[0].id) {
+            return action.data[0];
+          }
+          return p;
+        });
         ToastSuccess("포스트 업데이트 완료!");
         break;
       case UPDATE_POST_REQUEST:
