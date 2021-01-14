@@ -1,14 +1,13 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
 const AWS = require("aws-sdk");
 const path = require("path");
-const fs = require("fs");
 const nodemailer = require("nodemailer");
-const { User, Post, Follow, ProfileImgSrc, sequelize } = require("../models");
+const { User, Post, ProfileImgSrc, sequelize } = require("../models");
+const { conformLogin, conformNotLogin } = require("./cofirmLogin");
 
 const router = express.Router();
 
@@ -38,7 +37,7 @@ const upload = multer({
   limits: { fileSize: 2000 * 1024 * 1024 }, //200메가까지 업로드 할 수 있음.
 });
 
-router.post("/signUp", async (req, res, next) => {
+router.post("/signUp", conformNotLogin, async (req, res, next) => {
   const { email, password, nickname } = req.body;
   try {
     const existsEmail = await User.findOne({ where: { email } });
@@ -170,7 +169,7 @@ router.get("/confirmCurrentLogin", async (req, res, next) => {
   }
 });
 
-router.post("/destroyUser", async (req, res, next) => {
+router.post("/destroyUser", conformLogin, async (req, res, next) => {
   try {
     const result = await bcrypt.compare(
       req.body.password,
@@ -201,7 +200,7 @@ router.post("/destroyUser", async (req, res, next) => {
 // introduceValue,
 // shereLinkValue,
 // whereValue,
-router.patch("/changeProfile", async (req, res, next) => {
+router.patch("/changeProfile", conformLogin, async (req, res, next) => {
   try {
     if (req.body.nicknameValue) {
       await User.update(
@@ -274,45 +273,50 @@ router.post("/logout", (req, res, next) => {
   }
 });
 
-router.post("/profileImage", upload.single("image"), async (req, res, next) => {
-  try {
-    const result = await ProfileImgSrc.findAll({
-      where: { UserId: req.user.dataValues.id },
-    });
-    if (result) {
-      await ProfileImgSrc.destroy({
+router.post(
+  "/profileImage",
+  conformLogin,
+  upload.single("image"),
+  async (req, res, next) => {
+    try {
+      const result = await ProfileImgSrc.findAll({
         where: { UserId: req.user.dataValues.id },
       });
-    }
-    await ProfileImgSrc.create({
-      UserId: req.user.dataValues.id,
-      src: req.file.location,
-    });
-    console.log(
-      req.file.location,
-      req.user.dataValues.id,
-      "번 유저 파일이 업로드 됨"
-    );
-    const userInfomation = await User.findOne({
-      where: { id: req.body.userId },
-      attributes: {
-        exclude: ["password", "createdAt", "updatedAt"],
-      },
-      include: [
-        {
-          model: ProfileImgSrc,
-          attributes: ["src"],
+      if (result) {
+        await ProfileImgSrc.destroy({
+          where: { UserId: req.user.dataValues.id },
+        });
+      }
+      await ProfileImgSrc.create({
+        UserId: req.user.dataValues.id,
+        src: req.file.location,
+      });
+      console.log(
+        req.file.location,
+        req.user.dataValues.id,
+        "번 유저 파일이 업로드 됨"
+      );
+      const userInfomation = await User.findOne({
+        where: { id: req.body.userId },
+        attributes: {
+          exclude: ["password", "createdAt", "updatedAt"],
         },
-      ],
-    });
+        include: [
+          {
+            model: ProfileImgSrc,
+            attributes: ["src"],
+          },
+        ],
+      });
 
-    res.json(userInfomation);
-  } catch (err) {
-    console.error(err);
+      res.json(userInfomation);
+    } catch (err) {
+      console.error(err);
+    }
   }
-});
+);
 
-router.post("/resettingPassword", async (req, res, next) => {
+router.post("/resettingPassword", conformLogin, async (req, res, next) => {
   try {
     const result = await bcrypt.compare(
       req.body.password,
@@ -385,7 +389,7 @@ router.post("/findPassword", async (req, res, next) => {
   }
 });
 
-router.get("/disabledOneUserAllpost", async (req, res, next) => {
+router.get("/disabledOneUserAllpost", conformLogin, async (req, res, next) => {
   try {
     await User.update(
       { disabled: true },
@@ -402,7 +406,7 @@ router.get("/disabledOneUserAllpost", async (req, res, next) => {
   }
 });
 
-router.get("/activateOneUserAllpost", async (req, res, next) => {
+router.get("/activateOneUserAllpost", conformLogin, async (req, res, next) => {
   try {
     await User.update(
       { disabled: false },
