@@ -2,9 +2,11 @@
 
 import React from "react";
 import Router from "next/router";
-import { MenuItem } from "rc-menu";
 
-import { VerticalDiv } from "../../styledComponents/layout/VerticalNav";
+import {
+  VerticalDiv,
+  MenuItem,
+} from "../../styledComponents/layout/VerticalNav";
 
 import { useSelector } from "react-redux";
 
