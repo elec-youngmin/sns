@@ -134,20 +134,6 @@ const Login = (props) => {
               type="submit"
               style={{ width: "100%", marginBottom: "10px" }}
               onClick={() => {
-                dispatch({
-                  type: USER_LOGIN_REQUEST,
-                  data: { email, password },
-                });
-              }}
-            >
-              테스트 계정으로 자동 로그인
-            </button>
-
-            <button
-              className="btn btn-primary btn-block"
-              type="submit"
-              style={{ width: "100%", marginBottom: "10px" }}
-              onClick={() => {
                 setModalShow(true);
               }}
             >

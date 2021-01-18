@@ -11,8 +11,6 @@
     "@babel/plugin-proposal-decorators": "^7.12.1",
     "@hookform/error-message": "0.0.4",
     "@next/bundle-analyzer": "^10.0.2",
-    "@react-md/sheet": "^2.4.2",
-    "@zeit/next-sass": "^1.0.1",
     "axios": "^0.20.0",
     "babel-plugin-styled-components": "^1.11.1",
     "bootstrap": "^4.5.3",
