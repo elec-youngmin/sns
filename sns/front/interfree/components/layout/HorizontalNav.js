@@ -6,6 +6,7 @@ import Media from "react-media";
 
 import DesktopHorizontalNav from "./DesktopHorizontalNav";
 import MobileHorizontalNav from "./MobileHorizontalNav";
+import SliderMenu from "./SliderMenu";
 
 const HorizontalNav = () => {
   const initialState = {

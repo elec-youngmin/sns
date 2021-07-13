@@ -7,6 +7,9 @@ import ReactPlayer from "react-player";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
+import { Container } from "../../styledComponents/layout/SliderMenu";
+
+
 import {
   Menu as MenuContexify,
   Item,
@@ -115,27 +118,34 @@ const PostBoard = ({
   return (
     <div>
       {/* 여기부터 클릭메뉴  */}
-      <MenuContexify id={MENU_ID}>
-        <Item
+      <Container>
+        <div
+
           onClick={() => {
             router.push(`${frontUrl}/post/${postId}/`);
           }}
         >
           포스트페이지로 이동
-        </Item>
-        <Item
+        </div
+        >
+        <div
+
           onClick={() => {
             router.push(`${frontUrl}/user/${userId}/`);
           }}
         >
           유저페이지로 이동
-        </Item>
+        </div
+        >
 
         {id === userId && (
           <>
             <Separator />
-            <Item onClick={() => setModalShow(true)}>수정</Item>
-            <Item
+            <div
+              onClick={() => setModalShow(true)}>수정</div
+            >
+            <div
+
               onClick={() => {
                 dispatch({
                   type: DELETE_POST_REQUEST,
@@ -144,11 +154,12 @@ const PostBoard = ({
               }}
             >
               휴지통으로 이동
-            </Item>
+            </div
+            >
             <Separator />
           </>
         )}
-      </MenuContexify>
+      </Container>
       {/* 여기까지 클릭메뉴  */}
 
       <RevisePostForm
@@ -183,14 +194,14 @@ const PostBoard = ({
               }}
             />
           ) : (
-            <ProfileImgDiv
-              onClick={() => {
-                router.push(`${frontUrl}/user/${userId}/`);
-              }}
-            >
-              <ProfileNickname>{nickname[0].toUpperCase()}</ProfileNickname>
-            </ProfileImgDiv>
-          )}
+              <ProfileImgDiv
+                onClick={() => {
+                  router.push(`${frontUrl}/user/${userId}/`);
+                }}
+              >
+                <ProfileNickname>{nickname[0].toUpperCase()}</ProfileNickname>
+              </ProfileImgDiv>
+            )}
 
           <NicknameSpan>{nickname}</NicknameSpan>
 
@@ -246,10 +257,10 @@ const PostBoard = ({
           {reportCount > 9 ? (
             <h6>{replaceText}</h6>
           ) : (
-            <TextPostContent>
-              {post?.replace(/(#[^\s#]+)/g, "")}
-            </TextPostContent>
-          )}
+              <TextPostContent>
+                {post?.replace(/(#[^\s#]+)/g, "")}
+              </TextPostContent>
+            )}
         </BoardBody>
 
         <IconRow>
@@ -277,19 +288,19 @@ const PostBoard = ({
                 />
               </>
             ) : (
-              <IconBsFillBookmarksFill
-                onClick={() => {
-                  if (id === "guest") {
-                    return alert("로그인 후 이용할 수 있어요.");
-                  }
+                <IconBsFillBookmarksFill
+                  onClick={() => {
+                    if (id === "guest") {
+                      return alert("로그인 후 이용할 수 있어요.");
+                    }
 
-                  dispatch({
-                    type: ADD_BOOKMARK_REQUEST,
-                    data: { postId },
-                  });
-                }}
-              />
-            )}
+                    dispatch({
+                      type: ADD_BOOKMARK_REQUEST,
+                      data: { postId },
+                    });
+                  }}
+                />
+              )}
             <IconTitle>북마크</IconTitle>
           </IconCol>
 
@@ -346,24 +357,24 @@ const PostBoard = ({
                 }}
               />
             ) : (
-              <AiFillLike
-                size={25}
-                onClick={() => {
-                  if (id === "guest") {
-                    return alert("로그인 후 이용하실 수 있어요.");
-                  }
-                  if (likePostLoading) {
-                    return alert("로딩중에 다시 누를 수 없어요");
-                  }
-                  dispatch({
-                    type: LIKE_POST_REQUEST,
-                    data: { userId: id, postId },
-                  });
-                }}
+                <AiFillLike
+                  size={25}
+                  onClick={() => {
+                    if (id === "guest") {
+                      return alert("로그인 후 이용하실 수 있어요.");
+                    }
+                    if (likePostLoading) {
+                      return alert("로딩중에 다시 누를 수 없어요");
+                    }
+                    dispatch({
+                      type: LIKE_POST_REQUEST,
+                      data: { userId: id, postId },
+                    });
+                  }}
 
                 // 좋아요 다시 클릭하면 좋아요 취소
-              />
-            )}
+                />
+              )}
 
             <span class="badge badge-light">{like}</span>
           </LikeButton>

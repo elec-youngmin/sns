@@ -7,7 +7,11 @@ import { useMediaQuery } from "react-responsive";
 import SearchModal from "./SearchModal";
 import WritePostModal from "../post/WritePostModal";
 
-import { TabRow, TabCol } from "../../styledComponents/layout/BottomTabs";
+import {
+  Container,
+  TabMenu,
+  TabRow,
+} from "../../styledComponents/layout/BottomTabs";
 
 import { useSelector } from "react-redux";
 
@@ -55,32 +59,41 @@ const BottomTabs = () => {
 
       {isTabletOrMobileDevice && (
         <>
-          <TabRow>
-            <TabCol
+          <Container>
+            <TabMenu
               onClick={() => {
                 Router.push(`${frontUrl}/allPostsBoard`);
               }}
             >
-              <AiFillDribbbleCircle />
-            </TabCol>
+              <TabRow>
+                <AiFillDribbbleCircle />
+              </TabRow>
+              <TabRow>모든 글</TabRow>
+            </TabMenu>
 
-            <TabCol
+            <TabMenu
               onClick={() => {
                 Router.push(`${frontUrl}/me`);
               }}
             >
-              <FaUserCircle />
-            </TabCol>
+              <TabRow>
+                <FaUserCircle />
+              </TabRow>
+              <TabRow>나</TabRow>
+            </TabMenu>
 
-            <TabCol
+            <TabMenu
               onClick={() => {
                 Router.push(`${frontUrl}/friend`);
               }}
             >
-              <GoOrganization />
-            </TabCol>
+              <TabRow>
+                <GoOrganization />
+              </TabRow>
+              <TabRow>친구</TabRow>
+            </TabMenu>
 
-            <TabCol
+            <TabMenu
               onClick={() => {
                 if (id === "guest") {
                   return alert("로그인 후 이용하실 수 있어요.");
@@ -88,17 +101,23 @@ const BottomTabs = () => {
                 setWritePostModalShow(true);
               }}
             >
-              <AiFillEdit />
-            </TabCol>
+              <TabRow>
+                <AiFillEdit />
+              </TabRow>
+              <TabRow>글쓰기</TabRow>
+            </TabMenu>
 
-            <TabCol
+            <TabMenu
               onClick={() => {
                 setSearchModalShow(true);
               }}
             >
-              <BsSearch />
-            </TabCol>
-          </TabRow>
+              <TabRow>
+                <BsSearch />
+              </TabRow>
+              <TabRow>검색</TabRow>
+            </TabMenu>
+          </Container>
         </>
       )}
     </div>

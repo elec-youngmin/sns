@@ -1,9 +1,10 @@
 // 모바일에서 생성되는 상단 가로 네비게이션 바
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import Router from "next/router";
 import { slide as MenuBar } from "react-burger-menu";
 
+import SliderMenu from "./SliderMenu";
 import SearchModal from "./SearchModal";
 import Login from "../login/Login";
 
@@ -110,6 +111,9 @@ const Menu = () => {
     });
   }, [Router]);
 
+  const [showDiv, setShowDiv] = useState(false);
+  const inputEl = useRef();
+
   return (
     <MobileContainer>
       <SearchModal
@@ -119,7 +123,22 @@ const Menu = () => {
 
       <Login show={loginModalShow} onHide={() => setLoginModalShow(false)} />
 
-      <MenuBar styles={styles} isOpen={menubarShow}>
+      <div
+        onClick={() => {
+          setShowDiv(!showDiv);
+          console.log(inputEl.current);
+        }}
+      >
+        test
+      </div>
+
+      {showDiv && (
+        <>
+          <SliderMenu showDiv={showDiv} ref={inputEl} styles={styles} />
+        </>
+      )}
+
+      {/* <MenuBar styles={styles} isOpen={menubarShow}>
         <a>
           {id === "guest" ? (
             <>
@@ -268,7 +287,7 @@ const Menu = () => {
         >
           <AiOutlineSearch /> 검색
         </MobileLink>
-      </MenuBar>
+      </MenuBar> */}
 
       <LogoContainer>
         <Logo
