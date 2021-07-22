@@ -13,7 +13,6 @@ import {
   Logo,
   LogoContainer,
   Div,
-  MobileSearch,
   MobileUserButton
 } from "../../styledComponents/layout/HorizontalNav";
 

@@ -1,20 +1,16 @@
 import React from "react";
 import withReduxSaga from "next-redux-saga";
-import Media from "react-media";
 import wrapper from "../store/configureStore";
 import Head from "next/head";
 
 import BottomTabs from "../components/layout/BottomTabs";
 import HorizontalNav from "../components/layout/HorizontalNav";
-import VerticalNav from "../components/layout/VerticalNav";
-import ScrollButton from "../components/layout/ScrollButton";
+// import ScrollButton from "../components/layout/ScrollButton";
 import ActionLoading from "../components/loading/ActionLoading";
 import Toast from "../components/Toast/Toast";
 
 function MyApp({ Component, pageProps }) {
-  const initialState = {
-    device: "mobile",
-  };
+
 
   return (
     <>
@@ -28,7 +24,7 @@ function MyApp({ Component, pageProps }) {
 
       <HorizontalNav />
       <BottomTabs />
-      <ScrollButton />
+      {/* <ScrollButton /> */}
       <ActionLoading />
       <Toast />
 
