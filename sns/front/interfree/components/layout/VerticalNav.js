@@ -8,7 +8,6 @@ import {
   MenuItem,
 } from "../../styledComponents/layout/VerticalNav";
 
-import { useSelector } from "react-redux";
 
 import { AiFillSetting, AiFillEdit } from "react-icons/ai";
 import { GoOrganization } from "react-icons/go";
@@ -23,80 +22,80 @@ import { frontUrl } from "../../config/config";
 
 const VerticalNav = () => {
   return (
-    <div>
-      <>
-        <VerticalDiv>
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/post`);
-            }}
-          >
-            <a>
-              <AiFillEdit />
+
+    <>
+      <VerticalDiv>
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/post`);
+          }}
+        >
+          <a>
+            <AiFillEdit />
               포스트
             </a>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/timeline`);
-            }}
-          >
-            <a>
-              <GiTimeBomb /> 타임라인
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/timeline`);
+          }}
+        >
+          <a>
+            <GiTimeBomb /> 타임라인
             </a>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/friend`);
-            }}
-          >
-            <a>
-              <GoOrganization /> 친구
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/friend`);
+          }}
+        >
+          <a>
+            <GoOrganization /> 친구
             </a>
-          </MenuItem>
+        </MenuItem>
 
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/bookmark`);
-            }}
-          >
-            <a>
-              <BsBookmarksFill />
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/bookmark`);
+          }}
+        >
+          <a>
+            <BsBookmarksFill />
               북마크
             </a>
-          </MenuItem>
+        </MenuItem>
 
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/trash`);
-            }}
-          >
-            <a>
-              <BsTrashFill /> 휴지통
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/trash`);
+          }}
+        >
+          <a>
+            <BsTrashFill /> 휴지통
             </a>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/activityChart`);
-            }}
-          >
-            <a>
-              <BsFillBarChartFill /> 활동 차트
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/activityChart`);
+          }}
+        >
+          <a>
+            <BsFillBarChartFill /> 활동 차트
             </a>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              Router.push(`${frontUrl}/setting`);
-            }}
-          >
-            <a>
-              <AiFillSetting />
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            Router.push(`${frontUrl}/setting`);
+          }}
+        >
+          <a>
+            <AiFillSetting />
               설정
             </a>
-          </MenuItem>
-        </VerticalDiv>
-      </>
-    </div>
+        </MenuItem>
+      </VerticalDiv>
+    </>
+
   );
 };
 

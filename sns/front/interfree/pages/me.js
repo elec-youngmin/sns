@@ -82,20 +82,7 @@ const me = () => {
                 <Col md={7}>
                   <Title title={"나"} />
 
-                  <SessionDiv>
-                    <SessionTitle>Beta 버전 사용중</SessionTitle>
-                    <SessionP>
-                      Beta버전은 포트폴리오 제출용, 찾지 못한 에러를 피드백 받기
-                      위한 버전입니다.
-                    </SessionP>
-                    <SessionP>
-                      글 작성을 자유롭게 하되, Beta 기간이 끝나면 Beta 기간내
-                      작성된 모든 글과 가입된 계정이 삭제될 예정입니다.
-                    </SessionP>
-                    <SessionP>
-                      에러 피드백 메일 보내기 mintzerocode@gmail.com
-                    </SessionP>
-                  </SessionDiv>
+
 
                   <ProfileCard
                     profileImgSrc={

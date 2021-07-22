@@ -6,7 +6,7 @@ export const Logo = styled.p`
   font-family: "Fredoka One", cursive;
   color: #4169e1;
   font-size: 40px;
-  float: left;
+
   cursor: pointer;
   margin-bottom: 0px;
   
@@ -36,32 +36,53 @@ export const DesktopNavContainer = styled.div`
 `;
 
 export const MobileContainer = styled.div`
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: repeat(1, auto);
   text-align: center;
-  font-size: 23px;
+  // font-size: 23px;
   color: #6495ed;
   background: #f3f5f7;
   border-bottom: 1px solid #d9d9d9;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  width:100%;
+  // top: 0;
+  // left: 0;
+  // right: 0;
   z-index: 1000;
   height: 55px;
 `;
 
 export const LogoContainer = styled.div`
-  background: #f3f5f7;
-  border-bottom: 1px solid #d9d9d9;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  grid-column: 3/ 5;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
 `;
 
 export const MobileLink = styled.a`
   color: black;
   font-size: 40px;
   margin-bottom: 10px;
+`;
+
+export const MobileSliderButton = styled.button`
+  color: black;
+  font-size: 20px;
+  margin-bottom: 10px;
+  float:left;
+  grid-column: 1 / 5;
+  border:0px;
+`;
+
+export const MobileUserButton = styled.button`
+  color: black;
+  font-size: 20px;
+  margin-bottom: 10px;
+  float:right;
+  border:0px;
+  grid-column: 1 / 5;
 `;
 
 export const AllPostLink = styled.li`
@@ -86,4 +107,26 @@ export const SearchLink = styled.li`
   &:hover {
     border-bottom: 3px solid #6495ed;
   }
+`;
+
+export const SearchInput = styled.input`
+  border:none;
+ 
+`;
+
+
+
+export const Div = styled.div`
+  border: 1px solid black;
+  height:100%;
+  display:flex;
+  align-items: center;
+  justify-content:center;
+`;
+
+export const MobileSearch = styled.input`
+display:inline;
+ width:100%;
+
+  // text-align: left; 
 `;

@@ -51,7 +51,7 @@ const Login = (props) => {
   }, [Router]);
 
   return (
-    <div>
+    <>
       <div className="container">
         <Modal
           {...props}
@@ -99,7 +99,7 @@ const Login = (props) => {
                   placeholder="패스워드 입력"
                   className={`form-control ${
                     errors.password ? "is-invalid" : ""
-                  }`}
+                    }`}
                   ref={register({
                     required: "패스워드를 입력하세요.",
                     validate: (value) =>
@@ -161,7 +161,7 @@ const Login = (props) => {
           </Modal.Footer>
         </Modal>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -25,16 +25,12 @@ function MyApp({ Component, pageProps }) {
         <meta name="keywords" content="interfree, sns" />
         <meta name="author" content="mintzerocode" />
       </Head>
-      <BottomTabs />
+
       <HorizontalNav />
+      <BottomTabs />
       <ScrollButton />
       <ActionLoading />
       <Toast />
-      <Media
-        queries={{ medium: "(min-width: 854px)" }}
-        defaultMatches={{ medium: initialState.device === "desktop" }}
-        render={() => <VerticalNav />}
-      />
 
       <style jsx global>{`
         body {
@@ -44,6 +40,7 @@ function MyApp({ Component, pageProps }) {
           font-weight: 500;
           background-color: #f5f5f5;
           overflow-y: scroll;
+          margin:0 auto;
         }
         a {
           cursor: pointer;

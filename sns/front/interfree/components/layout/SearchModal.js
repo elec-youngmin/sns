@@ -29,7 +29,7 @@ const SearchModal = (props) => {
   });
 
   return (
-    <div>
+    <>
       <Modal
         {...props}
         size="lg"
@@ -114,7 +114,7 @@ const SearchModal = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 };
 

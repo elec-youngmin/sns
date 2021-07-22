@@ -7,7 +7,6 @@ import ReactPlayer from "react-player";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 
-import { Container } from "../../styledComponents/layout/SliderMenu";
 
 
 import {
@@ -18,6 +17,7 @@ import {
 } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
 
+import PostMenu from './PostMenu';
 import RevisePostForm from "./RevisePostForm";
 import CommentModal from "../comment/CommentModal";
 import PostReport from "./PostReport";
@@ -55,7 +55,6 @@ import {
   CANCEL_LIKE_POST_REQUEST,
   ADD_BOOKMARK_REQUEST,
   LOAD_COMMENT_REQUEST,
-  DELETE_POST_REQUEST,
   CANCEL_BOOKMARK_REQUEST,
 } from "../../reducers/post";
 
@@ -93,6 +92,7 @@ const PostBoard = ({
   const [modalShow, setModalShow] = useState(false);
   const [reportModalShow, setReportModalShow] = useState(false);
   const [CommentmodalShow, setCommentModalShow] = useState(false);
+  const [show, setMenuShow] = useState(false);
 
   const replaceText = "글이 차단됨";
   const dateSet = <Moment format="YYYY/MM/DD">{date}</Moment>;
@@ -111,56 +111,13 @@ const PostBoard = ({
 
   const MENU_ID = postId;
 
-  const { show } = useContextMenu({
-    id: MENU_ID,
-  });
+  // const { show } = useContextMenu({
+  //   id: MENU_ID,
+  // });
 
   return (
     <div>
-      {/* 여기부터 클릭메뉴  */}
-      <Container>
-        <div
-
-          onClick={() => {
-            router.push(`${frontUrl}/post/${postId}/`);
-          }}
-        >
-          포스트페이지로 이동
-        </div
-        >
-        <div
-
-          onClick={() => {
-            router.push(`${frontUrl}/user/${userId}/`);
-          }}
-        >
-          유저페이지로 이동
-        </div
-        >
-
-        {id === userId && (
-          <>
-            <Separator />
-            <div
-              onClick={() => setModalShow(true)}>수정</div
-            >
-            <div
-
-              onClick={() => {
-                dispatch({
-                  type: DELETE_POST_REQUEST,
-                  data: { postId },
-                });
-              }}
-            >
-              휴지통으로 이동
-            </div
-            >
-            <Separator />
-          </>
-        )}
-      </Container>
-      {/* 여기까지 클릭메뉴  */}
+      {show && <PostMenu id={id} postId={postId} userId={userId} />}
 
       <RevisePostForm
         show={modalShow}
@@ -213,7 +170,9 @@ const PostBoard = ({
             <FollowBotton userId={userId} follows={follows} postId={postId} />
           )}
 
-          <AddMenu onClick={show}>
+          <AddMenu onClick={() => {
+            setMenuShow(!show);
+          }}>
             <AiOutlineEllipsis size={20} />
           </AddMenu>
 

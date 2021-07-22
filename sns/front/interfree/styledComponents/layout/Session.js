@@ -26,6 +26,7 @@ export const SessionP = styled.p`
 `;
 
 export const SessionTitle = styled.p`
+
   font-weight: 600;
   font-size: 28px;
   @media (max-width: 768px) {
@@ -54,6 +55,7 @@ export const SessionButton = styled(Button)`
   font-size: 15px;
 `;
 
+
 export const SessionRow = styled(Row)`
   padding-top: 65px;
   padding-bottom: 60px;
@@ -61,4 +63,23 @@ export const SessionRow = styled(Row)`
   align-items: center;
   justify-content: center;
   margin: 0px auto;
+`;
+
+
+export const SessionGrid = styled.div`
+display: grid;
+// grid-template-columns: repeat(3, 1fr);
+grid-template-columns: 240px 580px 240px;
+
+@media (max-width: 985px) {
+  display:inline-block;
+ }
+
+
+`;
+
+export const Div = styled.div`
+// border:10px solid black;
+text-align: center;
+
 `;

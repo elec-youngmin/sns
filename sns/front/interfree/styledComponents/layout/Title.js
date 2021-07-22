@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 export const TitleDiv = styled.div`
+  position:fixed;
+  top:60px;
+  margin-right:100px;
   text-align: center;
+  @media (max-width: 985px) {
+    display:none;
+    
+   }
+  
 `;
 
 export const TitleP = styled.p`
