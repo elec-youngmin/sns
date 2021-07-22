@@ -9,13 +9,7 @@ import "react-medium-image-zoom/dist/styles.css";
 
 
 
-import {
-  Menu as MenuContexify,
-  Item,
-  Separator,
-  useContextMenu,
-} from "react-contexify";
-import "react-contexify/dist/ReactContexify.css";
+
 
 import PostMenu from './PostMenu';
 import RevisePostForm from "./RevisePostForm";
@@ -109,11 +103,6 @@ const PostBoard = ({
     }
   }, [countReportDone]);
 
-  const MENU_ID = postId;
-
-  // const { show } = useContextMenu({
-  //   id: MENU_ID,
-  // });
 
   return (
     <div>

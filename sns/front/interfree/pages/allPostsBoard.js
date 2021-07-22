@@ -8,10 +8,7 @@ import Title from "../components/layout/Title";
 import VerticalNav from "../components/layout/VerticalNav";
 
 import {
-  SessionDiv,
-  SessionP,
-  SessionTitle,
-  SessionRow,
+
   SessionGrid,
   Div,
 } from "../styledComponents/layout/Session";
@@ -21,7 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { LOAD_ALLPOST_REQUEST } from "../reducers/post";
 import { CONFIRM_CURRENT_LOGIN_REQUEST } from "../reducers/user";
 
-import { Col } from "react-bootstrap";
 
 import { END } from "redux-saga";
 import wrapper from "../store/configureStore";

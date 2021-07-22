@@ -8,7 +8,6 @@ import React, {
   useRef,
 } from "react";
 import FormData from "form-data";
-import Dropdown from "rc-dropdown";
 import Menu, { Item as MenuItem, Divider } from "rc-menu";
 import "rc-dropdown/assets/index.css";
 
